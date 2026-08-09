@@ -1,0 +1,1 @@
+Add a new page for "disclaimer", and add same information(if possible in a better way) as in "https://fitness.sebhulse.com/disclaimer.html"
