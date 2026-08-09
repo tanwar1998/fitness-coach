@@ -223,7 +223,7 @@ export function AiCoachSidebar({
 
         <div className="border-t border-border p-4">
           <p className="text-xs text-muted-foreground">
-            Conversations are saved privately in your browser.
+            Conversations are saved on the server.
           </p>
         </div>
       </aside>

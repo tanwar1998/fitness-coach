@@ -2,11 +2,15 @@
 
 import { useEffect, useRef } from "react";
 import { AiCoachInput } from "@/components/ai-coach/AiCoachInput";
-import type { ChatMessage, ChatSession } from "@/lib/ai-coach";
+import type { AiProviderInfo, ChatMessage, ChatSession } from "@/lib/ai-coach";
 
 interface AiCoachChatProps {
   session: ChatSession | null;
   isThinking: boolean;
+  error?: string | null;
+  providers?: AiProviderInfo[];
+  providerId?: string;
+  onProviderChange?: (id: string) => void;
   onSend: (content: string) => void;
   onNew: () => void;
   onToggleSidebar: () => void;
@@ -133,6 +137,10 @@ function MessageBubble({ message }: { message: ChatMessage }) {
 export function AiCoachChat({
   session,
   isThinking,
+  error = null,
+  providers = [],
+  providerId = "",
+  onProviderChange,
   onSend,
   onNew,
   onToggleSidebar,
@@ -226,8 +234,20 @@ export function AiCoachChat({
         </div>
       )}
 
+      {error && (
+        <div className="shrink-0 border-b border-danger/20 bg-danger/10 px-4 py-2.5 text-center text-sm text-danger sm:px-6">
+          {error}
+        </div>
+      )}
+
       <div className="shrink-0 border-t border-border px-4 py-4 sm:px-6">
-        <AiCoachInput onSend={onSend} disabled={isThinking} />
+        <AiCoachInput
+          onSend={onSend}
+          disabled={isThinking}
+          providers={providers}
+          providerId={providerId}
+          onProviderChange={onProviderChange}
+        />
       </div>
     </div>
   );
