@@ -8,6 +8,8 @@ import { useTheme } from "@/components/ThemeProvider";
 const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/pages/exercise", label: "Exercises" },
+  { href: "/pages/videos", label: "Videos" },
+  { href: "/pages/nutrition", label: "Nutrition" },
   { href: "/pages/progress", label: "Progress" },
   { href: "/pages/ai-coach", label: "AI Coach" },
 ];
