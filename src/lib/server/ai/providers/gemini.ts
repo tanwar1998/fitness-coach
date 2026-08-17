@@ -6,7 +6,7 @@ import {
 } from "../types";
 
 const API_KEY = process.env.GOOGLE_GEMINI_KEY;
-const MODEL = process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
+const MODEL = process.env.GEMINI_MODEL ?? "gemini-3.5-flash";
 
 const GENERATION_CONFIG = {
   temperature: 0.7,
