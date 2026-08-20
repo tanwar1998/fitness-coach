@@ -192,7 +192,7 @@ export function AiCoachChat({
             <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-primary/10 text-primary">
               <SparkleIcon size={30} />
             </div>
-            <h1 className="mt-6 text-2xl font-bold tracking-tight sm:text-3xl">
+            <h1 className="mt-6 font-display text-2xl font-bold tracking-tight sm:text-4xl">
               How can I help you train today?
             </h1>
             <p className="mt-2 text-sm text-muted-foreground">

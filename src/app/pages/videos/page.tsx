@@ -149,7 +149,7 @@ function VideoCard({
       </div>
 
       <div className="p-3">
-        <h3 className="truncate font-semibold">{name}</h3>
+        <h3 className="truncate font-display font-semibold">{name}</h3>
         <div className="mt-1 flex items-center gap-2">
           {category && (
             <Badge variant="primary" className="text-xs">
@@ -202,7 +202,7 @@ function VideoDetail({
       <div className="p-6 sm:p-8">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-bold">{name}</h2>
+            <h2 className="font-display text-2xl font-bold">{name}</h2>
             <div className="mt-2 flex flex-wrap gap-2">
               {category && <Badge variant="primary">{category}</Badge>}
               <Badge variant="secondary">{video.width}×{video.height}</Badge>
@@ -380,16 +380,27 @@ export default function VideosPage() {
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-      <div className="text-center">
-        <Badge variant="primary" className="mb-4">
-          Exercise Videos
-        </Badge>
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-          Video Library
-        </h1>
-        <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-          Watch exercise demonstrations with detailed form guides and technique tips.
-        </p>
+      <div className="relative overflow-hidden rounded-3xl border border-border bg-card px-6 py-12 text-center sm:px-12 sm:py-16">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-20 -top-24 h-64 w-64 rounded-full bg-primary/20 blur-[80px]"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-24 -right-16 h-64 w-64 rounded-full bg-lime/15 blur-[80px]"
+        />
+        <div className="relative">
+          <Badge variant="primary" className="mb-4">
+            Exercise Videos
+          </Badge>
+          <h1 className="font-display text-4xl font-bold tracking-tight sm:text-6xl">
+            Video Library
+          </h1>
+          <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
+            Watch exercise demonstrations with detailed form guides and
+            technique tips.
+          </p>
+        </div>
       </div>
 
       <div className="mx-auto mt-10 max-w-3xl rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
@@ -415,7 +426,7 @@ export default function VideosPage() {
       <div className="mt-10 grid gap-6 lg:grid-cols-5">
         <div className="lg:col-span-2">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold">Videos</h2>
+            <h2 className="font-display text-lg font-bold">Videos</h2>
             <span className="text-sm text-muted-foreground">
               {filteredVideos.length.toLocaleString()} total
             </span>
@@ -445,7 +456,7 @@ export default function VideosPage() {
         </div>
 
         <div className="lg:col-span-3">
-          <h2 className="text-lg font-semibold">Player</h2>
+          <h2 className="font-display text-lg font-bold">Player</h2>
           <div className="mt-4">
             {selectedVideo ? (
               <VideoDetail

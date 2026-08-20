@@ -145,7 +145,7 @@ function IngredientDetail({ ingredient }: { ingredient: Ingredient }) {
     <div className="rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold">{ingredient.name}</h2>
+          <h2 className="font-display text-2xl font-bold">{ingredient.name}</h2>
           {ingredient.brand && (
             <p className="mt-1 text-sm text-muted-foreground">by {ingredient.brand}</p>
           )}
@@ -365,10 +365,10 @@ export default function NutritionPage() {
         <Badge variant="primary" className="mb-4">
           Nutrition Explorer
         </Badge>
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+        <h1 className="font-display text-4xl font-bold tracking-tight sm:text-6xl">
           Nutrition Lookup
         </h1>
-        <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
+        <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
           Search thousands of ingredients to view detailed nutritional information.
           All values are per 100g serving.
         </p>
@@ -423,7 +423,7 @@ export default function NutritionPage() {
       <div className="mt-10 grid gap-6 lg:grid-cols-5">
         <div className="lg:col-span-2">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold">Ingredients</h2>
+            <h2 className="font-display text-lg font-bold">Ingredients</h2>
             <span className="text-sm text-muted-foreground">
               {ingredients.length.toLocaleString()} loaded
             </span>
@@ -447,7 +447,7 @@ export default function NutritionPage() {
         </div>
 
         <div className="lg:col-span-3">
-          <h2 className="text-lg font-semibold">Details</h2>
+          <h2 className="font-display text-lg font-bold">Details</h2>
           <div className="mt-4">
             {selectedIngredient ? (
               <IngredientDetail ingredient={selectedIngredient} />

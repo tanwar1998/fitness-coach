@@ -52,10 +52,10 @@ export default function ProgressPage() {
         <Badge variant="primary" className="mb-4">
           Goal Tracker
         </Badge>
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+        <h1 className="font-display text-4xl font-bold tracking-tight sm:text-6xl">
           Track Your Progress
         </h1>
-        <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
+        <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
           Set a goal and we&apos;ll show you how far you have to go. Update it
           as you train.
         </p>
@@ -135,7 +135,7 @@ export default function ProgressPage() {
 
       {goal && (
         <section className="mt-10 rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
-          <h2 className="text-xl font-semibold">{goal.name}</h2>
+          <h2 className="font-display text-xl font-bold">{goal.name}</h2>
           <div className="mt-4 grid grid-cols-3 gap-4 text-center">
             <div className="rounded-xl bg-muted p-4">
               <p className="text-2xl font-bold text-primary">{goal.current}</p>

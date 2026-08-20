@@ -3,40 +3,44 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #faf9ff;
-  --foreground: #191431;
+  --background: #f5f3fb;
+  --foreground: #171231;
   --card: #ffffff;
-  --card-foreground: #191431;
-  --primary: #6c4bca;
+  --card-foreground: #171231;
+  --primary: #5b35c9;
   --primary-foreground: #ffffff;
   --secondary: #ece7fb;
   --secondary-foreground: #4a3596;
-  --muted: #f2f0fa;
-  --muted-foreground: #6d6590;
-  --accent: #e7e0fa;
-  --accent-foreground: #3d2f7e;
-  --border: #e5e1f1;
-  --input: #d9d3ee;
-  --ring: #6c4bca;
+  --muted: #efeaf8;
+  --muted-foreground: #5f5678;
+  --accent: #e3d8fb;
+  --accent-foreground: #34176e;
+  --lime: #a7e22c;
+  --lime-foreground: #1d2406;
+  --border: #ddd6ef;
+  --input: #cfc6ec;
+  --ring: #5b35c9;
   --success: #16a34a;
   --danger: #dc2626;
 }
 
 .dark {
-  --background: #0d0a18;
-  --foreground: #ece9f7;
-  --card: #171230;
-  --card-foreground: #ece9f7;
+  --background: #0b0816;
+  --foreground: #efeaff;
+  --card: #16102b;
+  --card-foreground: #efeaff;
   --primary: #9a83ea;
-  --primary-foreground: #171230;
-  --secondary: #2c2152;
-  --secondary-foreground: #cdbff5;
-  --muted: #1d1736;
-  --muted-foreground: #9a91b5;
-  --accent: #251b48;
-  --accent-foreground: #d8cdf6;
-  --border: #2d2450;
-  --input: #3b2f6a;
+  --primary-foreground: #171231;
+  --secondary: #2a1f4d;
+  --secondary-foreground: #d6c9f7;
+  --muted: #1c1633;
+  --muted-foreground: #a197b8;
+  --accent: #241a42;
+  --accent-foreground: #d9cdf8;
+  --lime: #b6e63c;
+  --lime-foreground: #141b05;
+  --border: #2b2148;
+  --input: #3a2d63;
   --ring: #9a83ea;
   --success: #4ade80;
   --danger: #f87171;
@@ -55,6 +59,8 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-lime: var(--lime);
+  --color-lime-foreground: var(--lime-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -62,10 +68,62 @@
   --color-danger: var(--danger);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display);
+  --animate-rise: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-pulse-live: pulse-live 2.4s ease-in-out infinite;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--primary) 25%, transparent);
+}
+
+*:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--primary) 45%, transparent) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--primary) 45%, transparent);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-live {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
 }

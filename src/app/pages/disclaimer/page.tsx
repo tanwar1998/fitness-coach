@@ -138,8 +138,8 @@ export default function DisclaimerPage() {
         <Badge variant="outline" className="mb-4">
           Legal
         </Badge>
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Disclaimer</h1>
-        <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
+        <h1 className="font-display text-4xl font-bold tracking-tight sm:text-6xl">Disclaimer</h1>
+        <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
           Please read this carefully before using FitCoach. The points below
           describe how our content should be used.
         </p>
@@ -171,7 +171,7 @@ export default function DisclaimerPage() {
                 <Icon />
               </span>
               <div>
-                <h2 className="font-semibold">{clause.title}</h2>
+                <h2 className="font-display font-semibold">{clause.title}</h2>
                 <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
                   {clause.body}
                 </p>

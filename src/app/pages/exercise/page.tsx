@@ -234,7 +234,7 @@ function ExerciseDetail({ exercise }: { exercise: ExerciseInfo }) {
       <div className="p-6 sm:p-8">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-bold">{name}</h2>
+            <h2 className="font-display text-2xl font-bold">{name}</h2>
             <div className="mt-2 flex flex-wrap gap-2">
               <Badge variant="primary">{exercise.category.name}</Badge>
               {exercise.equipment.map((eq) => (
@@ -475,10 +475,10 @@ export default function ExercisePage() {
         <Badge variant="primary" className="mb-4">
           Exercise Library
         </Badge>
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+        <h1 className="font-display text-4xl font-bold tracking-tight sm:text-6xl">
           Browse Exercises
         </h1>
-        <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
+        <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
           Explore hundreds of exercises with detailed instructions, muscle targets, and equipment requirements.
         </p>
       </div>
@@ -563,7 +563,7 @@ export default function ExercisePage() {
       <div className="mt-10 grid gap-6 lg:grid-cols-5">
         <div className="lg:col-span-2">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold">Exercises</h2>
+            <h2 className="font-display text-lg font-bold">Exercises</h2>
             <span className="text-sm text-muted-foreground">
               {exercises.length.toLocaleString()} loaded
             </span>
@@ -592,7 +592,7 @@ export default function ExercisePage() {
         </div>
 
         <div className="lg:col-span-3">
-          <h2 className="text-lg font-semibold">Details</h2>
+          <h2 className="font-display text-lg font-bold">Details</h2>
           <div className="mt-4">
             {selectedExercise ? (
               <ExerciseDetail exercise={selectedExercise} />
