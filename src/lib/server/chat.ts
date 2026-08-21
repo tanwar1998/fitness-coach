@@ -15,6 +15,7 @@ export interface ChatMessage {
 export interface ChatSession {
   id: string;
   title: string;
+  deviceId: string;
   messages: ChatMessage[];
   createdAt: number;
   updatedAt: number;
@@ -23,6 +24,7 @@ export interface ChatSession {
 interface SessionRow {
   id: string;
   title: string;
+  device_id: string;
   created_at: Date;
   updated_at: Date;
 }
@@ -51,6 +53,7 @@ function toChatSession(row: SessionRow, messages: ChatMessage[]): ChatSession {
   return {
     id: row.id,
     title: row.title,
+    deviceId: row.device_id,
     messages,
     createdAt: new Date(row.created_at).getTime(),
     updatedAt: new Date(row.updated_at).getTime(),
@@ -80,7 +83,7 @@ async function getMessages(sessionId: string): Promise<ChatMessage[]> {
 
 async function getSession(sessionId: string): Promise<ChatSession | null> {
   const sessionRows = await query<SessionRow>(
-    `SELECT id, title, created_at, updated_at
+    `SELECT id, title, device_id, created_at, updated_at
        FROM chat_sessions
       WHERE id = $1`,
     [sessionId],
@@ -90,11 +93,13 @@ async function getSession(sessionId: string): Promise<ChatSession | null> {
   return toChatSession(session, await getMessages(sessionId));
 }
 
-export async function listSessions(): Promise<ChatSession[]> {
+export async function listSessions(deviceId: string): Promise<ChatSession[]> {
   const sessionRows = await query<SessionRow>(
-    `SELECT id, title, created_at, updated_at
+    `SELECT id, title, device_id, created_at, updated_at
        FROM chat_sessions
+      WHERE device_id = $1
       ORDER BY updated_at DESC, created_at DESC`,
+    [deviceId],
   );
 
   const sessions: ChatSession[] = [];
@@ -104,21 +109,24 @@ export async function listSessions(): Promise<ChatSession[]> {
   return sessions;
 }
 
-export async function createSession(): Promise<ChatSession> {
+export async function createSession(deviceId: string): Promise<ChatSession> {
   const id = createId();
   const rows = await query<SessionRow>(
-    `INSERT INTO chat_sessions (id, title)
-     VALUES ($1, 'New chat')
-     RETURNING id, title, created_at, updated_at`,
-    [id],
+    `INSERT INTO chat_sessions (id, title, device_id)
+     VALUES ($1, 'New chat', $2)
+     RETURNING id, title, device_id, created_at, updated_at`,
+    [id, deviceId],
   );
   return toChatSession(rows[0], []);
 }
 
-export async function deleteSession(sessionId: string): Promise<boolean> {
+export async function deleteSession(
+  sessionId: string,
+  deviceId: string,
+): Promise<boolean> {
   const rows = await query<{ id: string }>(
-    `DELETE FROM chat_sessions WHERE id = $1 RETURNING id`,
-    [sessionId],
+    `DELETE FROM chat_sessions WHERE id = $1 AND device_id = $2 RETURNING id`,
+    [sessionId, deviceId],
   );
   return rows.length > 0;
 }
@@ -126,10 +134,11 @@ export async function deleteSession(sessionId: string): Promise<boolean> {
 export async function sendMessage(
   sessionId: string,
   content: string,
-  providerId?: string,
+  providerId: string | undefined,
+  deviceId: string,
 ): Promise<ChatSession> {
   const session = await getSession(sessionId);
-  if (!session) {
+  if (!session || session.deviceId !== deviceId) {
     throw new Error(`Chat session "${sessionId}" not found.`);
   }
 

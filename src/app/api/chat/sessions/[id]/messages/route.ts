@@ -1,11 +1,13 @@
 import { AiProviderError } from "@/lib/server/ai";
 import { sendMessage } from "@/lib/server/chat";
+import { resolveDeviceId } from "@/lib/server/device";
 
 export async function POST(
   request: Request,
   context: RouteContext<"/api/chat/sessions/[id]/messages">,
 ) {
   const { id } = await context.params;
+  const device = resolveDeviceId(request);
 
   let body: unknown;
   try {
@@ -39,7 +41,7 @@ export async function POST(
       : undefined;
 
   try {
-    const session = await sendMessage(id, content, provider);
+    const session = await sendMessage(id, content, provider, device.deviceId);
     return Response.json({ session });
   } catch (error) {
     if (error instanceof AiProviderError) {

@@ -29,6 +29,11 @@ CREATE TABLE IF NOT EXISTS chat_messages (
 
 CREATE INDEX IF NOT EXISTS idx_chat_messages_session
   ON chat_messages(session_id, created_at);
+
+ALTER TABLE chat_sessions ADD COLUMN IF NOT EXISTS device_id TEXT NOT NULL DEFAULT '';
+
+CREATE INDEX IF NOT EXISTS idx_chat_sessions_device
+  ON chat_sessions(device_id, updated_at DESC);
 `;
 
 let schemaReady: Promise<void> | null = null;

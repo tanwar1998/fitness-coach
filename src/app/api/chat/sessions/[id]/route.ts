@@ -1,11 +1,13 @@
 import { deleteSession } from "@/lib/server/chat";
+import { resolveDeviceId } from "@/lib/server/device";
 
 export async function DELETE(
-  _request: Request,
+  request: Request,
   context: RouteContext<"/api/chat/sessions/[id]">,
 ) {
   const { id } = await context.params;
-  const deleted = await deleteSession(id);
+  const device = resolveDeviceId(request);
+  const deleted = await deleteSession(id, device.deviceId);
   if (!deleted) {
     return Response.json({ error: "Chat session not found." }, { status: 404 });
   }
