@@ -1,4 +1,4 @@
-export type AiProviderId = "gemini" | "grok";
+export type AiProviderId = "gemini" | "grok" | "deepseek";
 
 export interface AiMessage {
   role: "user" | "assistant";

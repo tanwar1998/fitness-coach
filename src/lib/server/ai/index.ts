@@ -1,10 +1,12 @@
 import { AiProviderError, type AiProvider, type AiProviderId } from "./types";
 import { geminiProvider } from "./providers/gemini";
 import { grokProvider } from "./providers/grok";
+import { deepseekProvider } from "./providers/deepseek";
 
 const providers: Record<AiProviderId, AiProvider> = {
   gemini: geminiProvider,
   grok: grokProvider,
+  deepseek: deepseekProvider,
 };
 
 export type { AiProvider, AiProviderId } from "./types";
@@ -47,7 +49,13 @@ export function resolveProvider(requested?: string): AiProvider {
 
   if (!provider.isConfigured()) {
     throw new AiProviderError(
-      `AI provider "${provider.id}" is not configured. Add its API key to your environment (e.g. ${provider.id === "gemini" ? "GOOGLE_GEMINI_KEY" : "GROK_API_KEY"}).`,
+      `AI provider "${provider.id}" is not configured. Add its API key to your environment (e.g. ${
+        provider.id === "gemini"
+          ? "GOOGLE_GEMINI_KEY"
+          : provider.id === "grok"
+            ? "GROK_API_KEY"
+            : "DEEPSEEK_API_KEY"
+      }).`,
     );
   }
 
