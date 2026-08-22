@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { Badge } from "@/components/Badge";
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
+import { MuscleDiagram } from "@/components/MuscleDiagram";
 
 interface Muscle {
   id: number;
@@ -63,6 +64,51 @@ interface ApiResponse {
   results: ExerciseInfo[];
 }
 
+interface LocalExerciseImage {
+  image_id: number;
+  file: string;
+  exercise_id: number;
+  name: string;
+  type: string;
+}
+
+const PLACEHOLDER_CATEGORIES = new Set([
+  "abs",
+  "arms",
+  "back",
+  "calves",
+  "cardio",
+  "chest",
+  "legs",
+  "shoulders",
+]);
+
+let localImageMapPromise: Promise<Map<number, string>> | null = null;
+
+function loadLocalImageMap(): Promise<Map<number, string>> {
+  if (!localImageMapPromise) {
+    localImageMapPromise = fetch("/exercise/images.json")
+      .then((res) => res.json())
+      .then((entries: LocalExerciseImage[]) => {
+        const map = new Map<number, string>();
+        for (const entry of entries) {
+          if (!map.has(entry.exercise_id)) {
+            map.set(entry.exercise_id, `/exercise/${entry.file}`);
+          }
+        }
+        return map;
+      })
+      .catch(() => new Map<number, string>());
+  }
+  return localImageMapPromise;
+}
+
+function getPlaceholderImage(exercise: ExerciseInfo): string {
+  const slug = exercise.category.name.toLowerCase();
+  const file = PLACEHOLDER_CATEGORIES.has(slug) ? slug : "generic";
+  return `/exercise/placeholders/${file}.svg`;
+}
+
 function stripHtml(html: string): string {
   return html
     .replace(/<[^>]*>/g, "")
@@ -97,14 +143,21 @@ function getExerciseAliases(exercise: ExerciseInfo): string[] {
   return en.aliases.map((a) => a.alias);
 }
 
-function getExerciseImage(exercise: ExerciseInfo): string | null {
+function getExerciseImage(
+  exercise: ExerciseInfo,
+  localImages: Map<number, string>,
+): string | null {
   const main = exercise.images.find((img) => img.is_main);
   if (main) return main.thumbnails?.medium || main.image;
   if (exercise.images.length > 0) {
     const first = exercise.images[0];
     return first.thumbnails?.medium || first.image;
   }
-  return null;
+  return localImages.get(exercise.id) ?? null;
+}
+
+function hasMuscleData(exercise: ExerciseInfo): boolean {
+  return exercise.muscles.length > 0 || exercise.muscles_secondary.length > 0;
 }
 
 function getMainMuscleNames(exercise: ExerciseInfo): string[] {
@@ -134,13 +187,15 @@ function ExerciseCard({
   exercise,
   isSelected,
   onSelect,
+  localImages,
 }: {
   exercise: ExerciseInfo;
   isSelected: boolean;
   onSelect: () => void;
+  localImages: Map<number, string>;
 }) {
   const name = getExerciseName(exercise);
-  const imageUrl = getExerciseImage(exercise);
+  const imageUrl = getExerciseImage(exercise, localImages);
   const mainMuscles = getMainMuscleNames(exercise);
   const equipment = exercise.equipment.map((e) => e.name);
 
@@ -172,20 +227,33 @@ function ExerciseCard({
             {exercise.category.name}
           </div>
         </div>
+      ) : hasMuscleData(exercise) ? (
+        <div className="relative aspect-[4/3] w-full overflow-hidden bg-secondary">
+          <MuscleDiagram
+            muscles={exercise.muscles}
+            musclesSecondary={exercise.muscles_secondary}
+          />
+        </div>
       ) : (
-        <div className="flex h-32 items-center justify-center bg-secondary">
-          <span className="text-sm text-muted-foreground">No image</span>
+        <div className="relative aspect-[4/3] w-full overflow-hidden bg-secondary">
+          <Image
+            src={getPlaceholderImage(exercise)}
+            alt={name}
+            fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover"
+            unoptimized
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+          <div className="absolute bottom-3 left-3 right-3">
+            <h3 className="truncate text-sm font-bold text-white drop-shadow-md">{name}</h3>
+          </div>
+          <div className="absolute left-3 top-3 rounded-full bg-background/85 px-2.5 py-1 text-xs font-semibold backdrop-blur">
+            {exercise.category.name}
+          </div>
         </div>
       )}
       <div className="p-3">
-        {imageUrl ? null : (
-          <div className="flex items-center gap-2">
-            <h3 className="truncate font-semibold">{name}</h3>
-            <Badge variant="primary" className="shrink-0">
-              {exercise.category.name}
-            </Badge>
-          </div>
-        )}
         {mainMuscles.length > 0 && (
           <div className="mt-2 flex flex-wrap gap-1">
             {mainMuscles.map((m) => (
@@ -208,17 +276,23 @@ function ExerciseCard({
   );
 }
 
-function ExerciseDetail({ exercise }: { exercise: ExerciseInfo }) {
+function ExerciseDetail({
+  exercise,
+  localImages,
+}: {
+  exercise: ExerciseInfo;
+  localImages: Map<number, string>;
+}) {
   const name = getExerciseName(exercise);
   const description = getExerciseDescription(exercise);
   const aliases = getExerciseAliases(exercise);
-  const imageUrl = getExerciseImage(exercise);
+  const imageUrl = getExerciseImage(exercise, localImages);
   const mainMuscles = exercise.muscles;
   const secondaryMuscles = exercise.muscles_secondary;
 
   return (
     <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-      {imageUrl && (
+      {imageUrl ? (
         <div className="relative aspect-[16/9] w-full overflow-hidden bg-secondary">
           <Image
             src={imageUrl}
@@ -226,6 +300,24 @@ function ExerciseDetail({ exercise }: { exercise: ExerciseInfo }) {
             fill
             sizes="(min-width: 1024px) 50vw, 100vw"
             className="object-contain"
+            unoptimized
+          />
+        </div>
+      ) : hasMuscleData(exercise) ? (
+        <div className="aspect-[16/9] w-full overflow-hidden bg-secondary">
+          <MuscleDiagram
+            muscles={exercise.muscles}
+            musclesSecondary={exercise.muscles_secondary}
+          />
+        </div>
+      ) : (
+        <div className="relative aspect-[16/9] w-full overflow-hidden bg-secondary">
+          <Image
+            src={getPlaceholderImage(exercise)}
+            alt={name}
+            fill
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className="object-cover"
             unoptimized
           />
         </div>
@@ -359,6 +451,17 @@ export default function ExercisePage() {
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [selectedEquipment, setSelectedEquipment] = useState<number | null>(null);
   const [selectedMuscle, setSelectedMuscle] = useState<number | null>(null);
+  const [localImages, setLocalImages] = useState<Map<number, string>>(new Map());
+
+  useEffect(() => {
+    let cancelled = false;
+    loadLocalImageMap().then((map) => {
+      if (!cancelled) setLocalImages(map);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const observerRef = useRef<HTMLDivElement | null>(null);
 
@@ -577,6 +680,7 @@ export default function ExercisePage() {
                     exercise={exercise}
                     isSelected={selectedExercise?.id === exercise.id}
                     onSelect={() => setSelectedExercise(exercise)}
+                    localImages={localImages}
                   />
                 ))}
             <div ref={observerRef} className="h-4" />
@@ -595,7 +699,7 @@ export default function ExercisePage() {
           <h2 className="font-display text-lg font-bold">Details</h2>
           <div className="mt-4">
             {selectedExercise ? (
-              <ExerciseDetail exercise={selectedExercise} />
+              <ExerciseDetail exercise={selectedExercise} localImages={localImages} />
             ) : (
               <div className="flex min-h-[300px] items-center justify-center rounded-2xl border border-dashed border-border bg-card">
                 <p className="text-center text-muted-foreground">
