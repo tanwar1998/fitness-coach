@@ -8,7 +8,7 @@ A fitness web app built with Next.js. It includes an exercise library, a workout
 | --- | --- | --- |
 | Home | `/` | Landing page |
 | Exercise Library | `/pages/exercise` | Searchable/filterable exercise browser (category, equipment, muscle) with infinite scroll |
-| Workout Generator | `/pages/exercise` (generator, see `page_old.tsx`) | Builds timed workouts from local exercise pools by duration, type, target area, and intensity |
+| Workout Generator | `/pages/exercise` (generator) | Builds timed workouts from local exercise pools by duration, type, target area, and intensity |
 | Videos | `/pages/videos` | Exercise video explorer |
 | AI Coach | `/pages/ai-coach` | Chat with a fitness-focused LLM assistant; sessions are stored server-side per device |
 | Nutrition / Progress / Disclaimer | `/pages/nutrition`, `/pages/progress`, `/pages/disclaimer` | Static/info pages |
