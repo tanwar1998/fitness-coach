@@ -1,11 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { Badge } from "@/components/Badge";
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { MuscleDiagram } from "@/components/MuscleDiagram";
+import categoryData from "@/lib/wger-exercisecategory.json";
+import equipmentData from "@/lib/wger-equipment.json";
+import muscleData from "@/lib/wger-muscle.json";
 
 interface Muscle {
   id: number;
@@ -41,7 +44,7 @@ interface Translation {
   description: string;
   language: number;
   aliases: { alias: string }[];
-  notes: string[];
+  notes: { id: number; uuid: string; translation: number; comment: string }[];
 }
 
 interface ExerciseInfo {
@@ -55,13 +58,6 @@ interface ExerciseInfo {
   translations: Translation[];
   variation_group: string | null;
   author_history: string[];
-}
-
-interface ApiResponse {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: ExerciseInfo[];
 }
 
 interface LocalExerciseImage {
@@ -82,6 +78,12 @@ const PLACEHOLDER_CATEGORIES = new Set([
   "legs",
   "shoulders",
 ]);
+
+const PAGE_SIZE = 20;
+
+const CATEGORIES: Category[] = categoryData.results;
+const EQUIPMENT_LIST: Equipment[] = equipmentData.results;
+const MUSCLES: Muscle[] = muscleData.results;
 
 let localImageMapPromise: Promise<Map<number, string>> | null = null;
 
@@ -437,16 +439,10 @@ function SkeletonCard() {
 export default function ExercisePage() {
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
-  const [exercises, setExercises] = useState<ExerciseInfo[]>([]);
+  const [allExercises, setAllExercises] = useState<ExerciseInfo[]>([]);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [selectedExercise, setSelectedExercise] = useState<ExerciseInfo | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [nextUrl, setNextUrl] = useState<string | null>(null);
-  const [loadingMore, setLoadingMore] = useState(false);
   const [initialLoadComplete, setInitialLoadComplete] = useState(false);
-
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [equipmentList, setEquipmentList] = useState<Equipment[]>([]);
-  const [muscles, setMuscles] = useState<Muscle[]>([]);
 
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [selectedEquipment, setSelectedEquipment] = useState<number | null>(null);
@@ -455,9 +451,14 @@ export default function ExercisePage() {
 
   useEffect(() => {
     let cancelled = false;
-    loadLocalImageMap().then((map) => {
-      if (!cancelled) setLocalImages(map);
-    });
+    Promise.all([import("@/lib/wger-exerciseinfo.json"), loadLocalImageMap()]).then(
+      ([exerciseInfoModule, imageMap]) => {
+        if (cancelled) return;
+        setAllExercises(exerciseInfoModule.default.results);
+        setLocalImages(imageMap);
+        setInitialLoadComplete(true);
+      },
+    );
     return () => {
       cancelled = true;
     };
@@ -468,105 +469,75 @@ export default function ExercisePage() {
   const loading = !initialLoadComplete;
 
   useEffect(() => {
-    async function loadFilters() {
-      try {
-        const [catRes, eqRes, musRes] = await Promise.all([
-          fetch("https://wger.de/api/v2/exercisecategory/?limit=50&format=json"),
-          fetch("https://wger.de/api/v2/equipment/?limit=50&format=json"),
-          fetch("https://wger.de/api/v2/muscle/?limit=50&format=json"),
-        ]);
-        const [catData, eqData, musData] = await Promise.all([
-          catRes.json(),
-          eqRes.json(),
-          musRes.json(),
-        ]);
-        setCategories(catData.results);
-        setEquipmentList(eqData.results);
-        setMuscles(musData.results);
-      } catch {
-        // Filters are optional — exercise list still works without them
-      }
-    }
-    loadFilters();
-  }, []);
-
-  const fetchMore = useCallback(
-    async (url: string) => {
-      setLoadingMore(true);
-      try {
-        const res = await fetch(url);
-        if (!res.ok) throw new Error(`API error: ${res.status}`);
-        const data: ApiResponse = await res.json();
-        setExercises((prev) => [...prev, ...data.results]);
-        setNextUrl(data.next);
-        setError(null);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to fetch exercises");
-      } finally {
-        setLoadingMore(false);
-      }
-    },
-    [],
-  );
-
-  useEffect(() => {
-    const timer = setTimeout(() => setDebouncedQuery(query), 400);
+    const timer = setTimeout(() => {
+      setDebouncedQuery(query);
+      setVisibleCount(PAGE_SIZE);
+    }, 400);
     return () => clearTimeout(timer);
   }, [query]);
 
-  useEffect(() => {
-    const baseUrl = "https://wger.de/api/v2/exerciseinfo/?language=2&limit=20&format=json";
-    const params = new URLSearchParams();
-    if (debouncedQuery) params.set("search", debouncedQuery);
-    if (selectedCategory) params.set("category", String(selectedCategory));
-    if (selectedEquipment) params.set("equipment", String(selectedEquipment));
-    if (selectedMuscle) params.set("muscles", String(selectedMuscle));
+  const toggleCategory = (id: number) => {
+    setSelectedCategory((prev) => (prev === id ? null : id));
+    setVisibleCount(PAGE_SIZE);
+  };
 
-    const url = `${baseUrl}&${params.toString()}`;
-    let cancelled = false;
+  const toggleEquipment = (id: number) => {
+    setSelectedEquipment((prev) => (prev === id ? null : id));
+    setVisibleCount(PAGE_SIZE);
+  };
 
-    async function load() {
-      const res = await fetch(url);
-      if (cancelled) return;
-      if (!res.ok) throw new Error(`API error: ${res.status}`);
-      const data: ApiResponse = await res.json();
-      if (cancelled) return;
-      setExercises(data.results);
-      setNextUrl(data.next);
-      setError(null);
-      setInitialLoadComplete(true);
+  const toggleMuscle = (id: number) => {
+    setSelectedMuscle((prev) => (prev === id ? null : id));
+    setVisibleCount(PAGE_SIZE);
+  };
+
+  const filteredExercises = useMemo(() => {
+    const q = debouncedQuery.trim().toLowerCase();
+    if (!q && selectedCategory === null && selectedEquipment === null && selectedMuscle === null) {
+      return allExercises;
     }
-
-    load().catch((err) => {
-      if (!cancelled) {
-        setError(err instanceof Error ? err.message : "Failed to fetch exercises");
+    return allExercises.filter((exercise) => {
+      if (selectedCategory !== null && exercise.category.id !== selectedCategory) return false;
+      if (selectedEquipment !== null && !exercise.equipment.some((eq) => eq.id === selectedEquipment)) {
+        return false;
       }
+      if (selectedMuscle !== null && !exercise.muscles.some((m) => m.id === selectedMuscle)) {
+        return false;
+      }
+      if (!q) return true;
+      const en = getEnglishTranslation(exercise.translations);
+      if (!en) return false;
+      if (en.name.toLowerCase().includes(q)) return true;
+      return en.aliases.some((a) => a.alias.toLowerCase().includes(q));
     });
+  }, [allExercises, debouncedQuery, selectedCategory, selectedEquipment, selectedMuscle]);
 
-    return () => {
-      cancelled = true;
-    };
-  }, [debouncedQuery, selectedCategory, selectedEquipment, selectedMuscle]);
+  const exercises = useMemo(
+    () => filteredExercises.slice(0, visibleCount),
+    [filteredExercises, visibleCount],
+  );
+  const hasMore = visibleCount < filteredExercises.length;
 
   useEffect(() => {
     if (!observerRef.current) return;
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && nextUrl && !loadingMore) {
-          fetchMore(nextUrl);
+        if (entries[0].isIntersecting && hasMore) {
+          setVisibleCount((prev) => Math.min(prev + PAGE_SIZE, filteredExercises.length));
         }
       },
       { threshold: 0.1 },
     );
     observer.observe(observerRef.current);
     return () => observer.disconnect();
-  }, [nextUrl, loadingMore, fetchMore]);
+  }, [hasMore, filteredExercises.length]);
 
   const clearFilters = () => {
     setSelectedCategory(null);
     setSelectedEquipment(null);
     setSelectedMuscle(null);
     setQuery("");
+    setVisibleCount(PAGE_SIZE);
   };
 
   const hasActiveFilters =
@@ -597,14 +568,12 @@ export default function ExercisePage() {
         <div className="mt-5">
           <p className="mb-2 text-sm font-medium text-foreground">Category</p>
           <div className="flex flex-wrap gap-2">
-            {categories.map((cat) => (
+            {CATEGORIES.map((cat) => (
               <Button
                 key={cat.id}
                 size="sm"
                 variant={selectedCategory === cat.id ? "primary" : "outline"}
-                onClick={() =>
-                  setSelectedCategory((prev) => (prev === cat.id ? null : cat.id))
-                }
+                onClick={() => toggleCategory(cat.id)}
               >
                 {cat.name}
               </Button>
@@ -615,14 +584,12 @@ export default function ExercisePage() {
         <div className="mt-4">
           <p className="mb-2 text-sm font-medium text-foreground">Equipment</p>
           <div className="flex flex-wrap gap-2">
-            {equipmentList.map((eq) => (
+            {EQUIPMENT_LIST.map((eq) => (
               <Button
                 key={eq.id}
                 size="sm"
                 variant={selectedEquipment === eq.id ? "primary" : "outline"}
-                onClick={() =>
-                  setSelectedEquipment((prev) => (prev === eq.id ? null : eq.id))
-                }
+                onClick={() => toggleEquipment(eq.id)}
               >
                 {eq.name}
               </Button>
@@ -633,14 +600,12 @@ export default function ExercisePage() {
         <div className="mt-4">
           <p className="mb-2 text-sm font-medium text-foreground">Muscle</p>
           <div className="flex flex-wrap gap-2">
-            {muscles.map((mus) => (
+            {MUSCLES.map((mus) => (
               <Button
                 key={mus.id}
                 size="sm"
                 variant={selectedMuscle === mus.id ? "primary" : "outline"}
-                onClick={() =>
-                  setSelectedMuscle((prev) => (prev === mus.id ? null : mus.id))
-                }
+                onClick={() => toggleMuscle(mus.id)}
               >
                 {mus.name_en || mus.name}
               </Button>
@@ -657,18 +622,12 @@ export default function ExercisePage() {
         )}
       </div>
 
-      {error && (
-        <div className="mx-auto mt-6 max-w-4xl rounded-xl border border-danger/30 bg-danger/10 px-5 py-4 text-center text-sm text-danger">
-          {error}
-        </div>
-      )}
-
       <div className="mt-10 grid gap-6 lg:grid-cols-5">
         <div className="lg:col-span-2">
           <div className="flex items-center justify-between">
             <h2 className="font-display text-lg font-bold">Exercises</h2>
             <span className="text-sm text-muted-foreground">
-              {exercises.length.toLocaleString()} loaded
+              {filteredExercises.length.toLocaleString()} found
             </span>
           </div>
           <div className="mt-4 max-h-[70vh] space-y-3 overflow-y-auto pr-1">
@@ -684,9 +643,6 @@ export default function ExercisePage() {
                   />
                 ))}
             <div ref={observerRef} className="h-4" />
-            {loadingMore && (
-              <div className="py-4 text-center text-sm text-muted-foreground">Loading more...</div>
-            )}
             {!loading && exercises.length === 0 && (
               <div className="flex min-h-[200px] items-center justify-center rounded-2xl border border-dashed border-border">
                 <p className="text-center text-muted-foreground">No exercises found</p>

@@ -4332,5 +4332,406 @@
     "exercise_id": 1302,
     "name": "JM Press",
     "type": "Arms"
+  },
+  {
+    "image_id": null,
+    "file": "Helms Row.jpg",
+    "exercise_id": 1303,
+    "name": "Helms Row",
+    "type": "Back"
+  },
+  {
+    "image_id": null,
+    "file": "Meadows Row.jpeg",
+    "exercise_id": 1304,
+    "name": "Meadows Row",
+    "type": "Back"
+  },
+  {
+    "image_id": null,
+    "file": "Front Plank.jpeg",
+    "exercise_id": 1307,
+    "name": "Front Plank",
+    "type": "Abs"
+  },
+  {
+    "image_id": null,
+    "file": "Bodyweight Squat HD.jpeg",
+    "exercise_id": 1312,
+    "name": "Bodyweight Squat HD",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Jumping Jack HD.jpeg",
+    "exercise_id": 1314,
+    "name": "Jumping Jack HD",
+    "type": "Cardio"
+  },
+  {
+    "image_id": null,
+    "file": "High Knee Skips HD.jpeg",
+    "exercise_id": 1318,
+    "name": "High Knee Skips HD",
+    "type": "Cardio"
+  },
+  {
+    "image_id": null,
+    "file": "Bench Dips On Floor HD.jpeg",
+    "exercise_id": 1320,
+    "name": "Bench Dips On Floor HD",
+    "type": "Arms"
+  },
+  {
+    "image_id": null,
+    "file": "Bodyweight lunge HD.jpeg",
+    "exercise_id": 1324,
+    "name": "Bodyweight lunge HD",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Double Kettlebell Clean and Press.jpeg",
+    "exercise_id": 1360,
+    "name": "Double Kettlebell Clean and Press",
+    "type": "Arms"
+  },
+  {
+    "image_id": null,
+    "file": "Double Kettlebell Front Squat.jpeg",
+    "exercise_id": 1361,
+    "name": "Double Kettlebell Front Squat",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Dumbbell Split Squat.jpeg",
+    "exercise_id": 1366,
+    "name": "Dumbbell Split Squat",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Dumbbell Deadlift.jpeg",
+    "exercise_id": 1370,
+    "name": "Dumbbell Deadlift",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Triceps Dips (Assisted).jpeg",
+    "exercise_id": 1372,
+    "name": "Triceps Dips (Assisted)",
+    "type": "Arms"
+  },
+  {
+    "image_id": null,
+    "file": "box jumps.jpeg",
+    "exercise_id": 1373,
+    "name": "box jumps",
+    "type": "Cardio"
+  },
+  {
+    "image_id": null,
+    "file": "Rotary Torso Machine.jpeg",
+    "exercise_id": 1374,
+    "name": "Rotary Torso Machine",
+    "type": "Abs"
+  },
+  {
+    "image_id": null,
+    "file": "Recumbent Bike.jpeg",
+    "exercise_id": 1376,
+    "name": "Recumbent Bike",
+    "type": "Cardio"
+  },
+  {
+    "image_id": null,
+    "file": "Band pull-aparts.jpeg",
+    "exercise_id": 1380,
+    "name": "Band pull-aparts",
+    "type": "Back"
+  },
+  {
+    "image_id": null,
+    "file": "Upper Back.jpeg",
+    "exercise_id": 1381,
+    "name": "Upper Back",
+    "type": "Back"
+  },
+  {
+    "image_id": null,
+    "file": "Pullover Machine.jpeg",
+    "exercise_id": 1384,
+    "name": "Pullover Machine",
+    "type": "Back"
+  }
+
+  ,
+  {
+    "image_id": null,
+    "file": "Single Leg RDL.jpeg",
+    "exercise_id": 1388,
+    "name": "Single Leg RDL",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Toe Touch.jpeg",
+    "exercise_id": 1390,
+    "name": "Toe Touch",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Elephant Walks.jpeg",
+    "exercise_id": 1391,
+    "name": "Elephant Walks",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Single Leg Hamstring Stretch.jpeg",
+    "exercise_id": 1393,
+    "name": "Single Leg Hamstring Stretch",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Sit & Reach.jpeg",
+    "exercise_id": 1394,
+    "name": "Sit & Reach",
+    "type": "Back"
+  },
+  {
+    "image_id": null,
+    "file": "Crossbody Leg Swings.jpeg",
+    "exercise_id": 1395,
+    "name": "Crossbody Leg Swings",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Standing Pancake.jpeg",
+    "exercise_id": 1396,
+    "name": "Standing Pancake",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Standing Pancake Good Morning.jpeg",
+    "exercise_id": 1397,
+    "name": "Standing Pancake Good Morning",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Hamstring Chokes.jpeg",
+    "exercise_id": 1398,
+    "name": "Hamstring Chokes",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Roll Down.jpeg",
+    "exercise_id": 1399,
+    "name": "Roll Down",
+    "type": "Back"
+  },
+  {
+    "image_id": null,
+    "file": "Crossbody Hamstring Stretch.jpeg",
+    "exercise_id": 1400,
+    "name": "Crossbody Hamstring Stretch",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Plank-to-Elbow Extension.jpeg",
+    "exercise_id": 1406,
+    "name": "Plank-to-Elbow Extension",
+    "type": "Abs"
+  },
+  {
+    "image_id": null,
+    "file": "Cossack squat.jpeg",
+    "exercise_id": 1407,
+    "name": "Cossack squat",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Wall-sit.jpeg",
+    "exercise_id": 1408,
+    "name": "Wall-sit",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Dragon-flag.jpeg",
+    "exercise_id": 1409,
+    "name": "Dragon-flag",
+    "type": "Abs"
+  },
+  {
+    "image_id": null,
+    "file": "Plank with Alternating Leg Lift.jpeg",
+    "exercise_id": 1410,
+    "name": "Plank with Alternating Leg Lift",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Heel Touches.jpeg",
+    "exercise_id": 1411,
+    "name": "Heel Touches",
+    "type": "Abs"
+  },
+  {
+    "image_id": null,
+    "file": "bicycle crunches.jpeg",
+    "exercise_id": 1412,
+    "name": "bicycle crunches",
+    "type": "Abs"
+  },
+  {
+    "image_id": null,
+    "file": "Hack Squats.jpeg",
+    "exercise_id": 1414,
+    "name": "Hack Squats",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Dumbbell Crunches.jpeg",
+    "exercise_id": 1415,
+    "name": "Dumbbell Crunches",
+    "type": "Abs"
+  },
+  {
+    "image_id": null,
+    "file": "Biceps Curl Machine.jpeg",
+    "exercise_id": 1424,
+    "name": "Biceps Curl Machine",
+    "type": "Arms"
+  },
+  {
+    "image_id": null,
+    "file": "Toe Taps.jpeg",
+    "exercise_id": 1425,
+    "name": "Toe Taps",
+    "type": "Abs"
+  },
+  {
+    "image_id": null,
+    "file": "Standing Side Crunches.jpeg",
+    "exercise_id": 1426,
+    "name": "Standing Side Crunches",
+    "type": "Abs"
+  },
+  {
+    "image_id": null,
+    "file": "Dumbbell Shoulder Rotations.jpeg",
+    "exercise_id": 1429,
+    "name": "Dumbbell Shoulder Rotations",
+    "type": "Shoulders"
+  },
+  {
+    "image_id": null,
+    "file": "Plate Pinch Hold.jpeg",
+    "exercise_id": 1430,
+    "name": "Plate Pinch Hold",
+    "type": "Arms"
+  },
+  {
+    "image_id": null,
+    "file": "Reverse Wood Chops.jpeg",
+    "exercise_id": 1433,
+    "name": "Reverse Wood Chops",
+    "type": "Back"
+  },
+  {
+    "image_id": null,
+    "file": "Lat Pull DB.jpeg",
+    "exercise_id": 1434,
+    "name": "Lat Pull DB",
+    "type": "Back"
+  },
+  {
+    "image_id": null,
+    "file": "Scapula Pulls.jpeg",
+    "exercise_id": 1435,
+    "name": "Scapula Pulls",
+    "type": "Back"
+  },
+  {
+    "image_id": null,
+    "file": "Pin Bench Press BB.jpeg",
+    "exercise_id": 1436,
+    "name": "Pin Bench Press BB",
+    "type": "Chest"
+  },
+  {
+    "image_id": null,
+    "file": "Pin Squat.jpeg",
+    "exercise_id": 1437,
+    "name": "Pin Squat",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Clean.jpeg",
+    "exercise_id": 1438,
+    "name": "Clean",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Pin OHP.jpeg",
+    "exercise_id": 1439,
+    "name": "Pin OHP",
+    "type": "Shoulders"
+  },
+  {
+    "image_id": null,
+    "file": "Push OHP.jpeg",
+    "exercise_id": 1440,
+    "name": "Push OHP",
+    "type": "Shoulders"
+  },
+  {
+    "image_id": null,
+    "file": "Incline OHP DB.jpeg",
+    "exercise_id": 1441,
+    "name": "Incline OHP DB",
+    "type": "Shoulders"
+  },
+  {
+    "image_id": null,
+    "file": "Kreis Press DB.jpeg",
+    "exercise_id": 1442,
+    "name": "Kreis Press DB",
+    "type": "Shoulders"
+  },
+  {
+    "image_id": null,
+    "file": "Shoulder Raise Side and Front DB.jpeg",
+    "exercise_id": 1443,
+    "name": "Shoulder Raise Side and Front DB",
+    "type": "Shoulders"
+  },
+  {
+    "image_id": null,
+    "file": "Jerk OL.jpeg",
+    "exercise_id": 1445,
+    "name": "Jerk OL",
+    "type": "Shoulders"
+  },
+  {
+    "image_id": null,
+    "file": "Clean and Jerk OL.jpeg",
+    "exercise_id": 1446,
+    "name": "Clean and Jerk OL",
+    "type": "Shoulders"
   }
 ]
