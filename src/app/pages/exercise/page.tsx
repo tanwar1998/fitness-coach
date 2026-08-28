@@ -44,7 +44,6 @@ interface Translation {
   description: string;
   language: number;
   aliases: { alias: string }[];
-  notes: { id: number; uuid: string; translation: number; comment: string }[];
 }
 
 interface ExerciseInfo {
