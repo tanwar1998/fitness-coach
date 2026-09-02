@@ -6238,5 +6238,447 @@
     "exercise_id": 1928,
     "name": "Seated V-Grip Row",
     "type": "Back"
+  },
+  {
+    "image_id": null,
+    "file": "Assisted Pull-Up.jpeg",
+    "exercise_id": 1929,
+    "name": "Assisted Pull-Up",
+    "type": "Back"
+  },
+  {
+    "image_id": null,
+    "file": "Dumbbell Curl.jpeg",
+    "exercise_id": 1931,
+    "name": "Dumbbell Curl",
+    "type": "Arms"
+  },
+  {
+    "image_id": null,
+    "file": "Abdominal Crunch.jpeg",
+    "exercise_id": 1933,
+    "name": "Abdominal Crunch",
+    "type": "Abs"
+  },
+  {
+    "image_id": null,
+    "file": "Belt Squat.jpeg",
+    "exercise_id": 1935,
+    "name": "Belt Squat",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Cable Rear-Delt Fly (single arm).jpeg",
+    "exercise_id": 1936,
+    "name": "Cable Rear-Delt Fly (single arm)",
+    "type": "Shoulders"
+  },
+  {
+    "image_id": null,
+    "file": "Cat-Cow.jpeg",
+    "exercise_id": 1938,
+    "name": "Cat-Cow",
+    "type": "Back"
+  },
+  {
+    "image_id": null,
+    "file": "Neck CARs.jpeg",
+    "exercise_id": 1939,
+    "name": "Neck CARs",
+    "type": "Shoulders"
+  },
+  {
+    "image_id": null,
+    "file": "Diaphragmatic Breathing.jpeg",
+    "exercise_id": 1940,
+    "name": "Diaphragmatic Breathing",
+    "type": "Cardio"
+  },
+  {
+    "image_id": null,
+    "file": "1 Leg Box Squat.jpeg",
+    "exercise_id": 1948,
+    "name": "1 Leg Box Squat",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Limber 11.jpeg",
+    "exercise_id": 1949,
+    "name": "Limber 11",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Foam Roll IT Band.jpeg",
+    "exercise_id": 1950,
+    "name": "Foam Roll IT Band",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "SMR Glutes (lax ball).jpeg",
+    "exercise_id": 1952,
+    "name": "SMR Glutes (lax ball)",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Bent-knee Iron Cross.jpeg",
+    "exercise_id": 1953,
+    "name": "Bent-knee Iron Cross",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Roll-overs into V-sits.jpeg",
+    "exercise_id": 1954,
+    "name": "Roll-overs into V-sits",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Fire Hydrant Circles.jpeg",
+    "exercise_id": 1956,
+    "name": "Fire Hydrant Circles",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Seated Piriformis Stretch.jpeg",
+    "exercise_id": 1959,
+    "name": "Seated Piriformis Stretch",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Rear-foot-elevated Hip Flexor Stretch.jpeg",
+    "exercise_id": 1960,
+    "name": "Rear-foot-elevated Hip Flexor Stretch",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Wide Push-Up.jpeg",
+    "exercise_id": 1964,
+    "name": "Wide Push-Up",
+    "type": "Chest"
+  },
+  {
+    "image_id": null,
+    "file": "Kneeling Thoracic Rotation.jpeg",
+    "exercise_id": 1966,
+    "name": "1/2 Kneeling Thoracic Rotation",
+    "type": "Abs"
+  },
+  {
+    "image_id": null,
+    "file": "lento avanti seduto.jpeg",
+    "exercise_id": 1967,
+    "name": "lento avanti seduto",
+    "type": "Back"
+  },
+  {
+    "image_id": null,
+    "file": "One Arm Triceps Extensions on Cable.jpeg",
+    "exercise_id": 1969,
+    "name": "Single-arm cable pushdown",
+    "type": "Arms"
+  },
+  {
+    "image_id": null,
+    "file": "Curl with kettlebell two hands.jpeg",
+    "exercise_id": 1970,
+    "name": "Kettlebell sumo high pull",
+    "type": "Back"
+  },
+  {
+    "image_id": null,
+    "file": "Wide-grip Pulldown.jpeg",
+    "exercise_id": 1972,
+    "name": "Single-Arm Lat Pulldown",
+    "type": "Back"
+  },
+  {
+    "image_id": null,
+    "file": "Hip Airplane.jpeg",
+    "exercise_id": 2447,
+    "name": "Hip Airplane",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Reverse Clamshell.jpeg",
+    "exercise_id": 2448,
+    "name": "Reverse Clamshell",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Clamshell to Reverse Clamshell.jpeg",
+    "exercise_id": 2449,
+    "name": "Clamshell to Reverse Clamshell",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "YTW Raises.jpeg",
+    "exercise_id": 2454,
+    "name": "YTW Raises",
+    "type": "Shoulders"
+  },
+  {
+    "image_id": null,
+    "file": "Glute-Ham Raise.jpeg",
+    "exercise_id": 2478,
+    "name": "Glute-Ham Raise",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Swimming 50m sprints.jpeg",
+    "exercise_id": 2480,
+    "name": "Easy Continuous Swim (Freestyle)",
+    "type": "Cardio"
+  },
+  {
+    "image_id": null,
+    "file": "Kick with Board.jpeg",
+    "exercise_id": 2481,
+    "name": "Kick with Board",
+    "type": "Cardio"
+  },
+  {
+    "image_id": null,
+    "file": "Bobbing Exhale Drill.jpeg",
+    "exercise_id": 2482,
+    "name": "Bobbing Exhale Drill",
+    "type": "Cardio"
+  },
+  {
+    "image_id": null,
+    "file": "Wall-Hold Rotation.jpeg",
+    "exercise_id": 2483,
+    "name": "Wall-Hold Rotation",
+    "type": "Cardio"
+  },
+  {
+    "image_id": null,
+    "file": "Side-Kick Breathing (Kickboard).jpeg",
+    "exercise_id": 2484,
+    "name": "Side-Kick Breathing (Kickboard)",
+    "type": "Cardio"
+  },
+  {
+    "image_id": null,
+    "file": "Stroke-and-Roll Drill.jpeg",
+    "exercise_id": 2485,
+    "name": "Stroke-and-Roll Drill",
+    "type": "Cardio"
+  },
+  {
+    "image_id": null,
+    "file": "Recovery Bobbing.jpeg",
+    "exercise_id": 2486,
+    "name": "Recovery Bobbing",
+    "type": "Cardio"
+  },
+  {
+    "image_id": null,
+    "file": "Cool-Down Swim.jpeg",
+    "exercise_id": 2487,
+    "name": "Cool-Down Swim",
+    "type": "Cardio"
+  },
+  {
+    "image_id": null,
+    "file": "Posterior Pelvic Tilt.jpeg",
+    "exercise_id": 2488,
+    "name": "Posterior Pelvic Tilt",
+    "type": "Abs"
+  },
+  {
+    "image_id": null,
+    "file": "Low row.jpeg",
+    "exercise_id": 2489,
+    "name": "Low row",
+    "type": "Back"
+  },
+  {
+    "image_id": null,
+    "file": "Pulley (low, with triangle).jpeg",
+    "exercise_id": 2490,
+    "name": "Pulley (low, with triangle)",
+    "type": "Back"
+  },
+  {
+    "image_id": null,
+    "file": "Abductors.jpeg",
+    "exercise_id": 2491,
+    "name": "Abductors",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Adductor Side Plank.jpeg",
+    "exercise_id": 2493,
+    "name": "Adductor Side Plank",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Wall Push-ups (Vasco L1).jpeg",
+    "exercise_id": 2496,
+    "name": "Wall Push-ups (Vasco L1)",
+    "type": "Chest"
+  },
+  {
+    "image_id": null,
+    "file": "DB Floor Press (5kg Single Arm).jpeg",
+    "exercise_id": 2497,
+    "name": "DB Floor Press (5kg Single Arm)",
+    "type": "Chest"
+  },
+  {
+    "image_id": null,
+    "file": "Pike Push-ups (Vasco L1).jpeg",
+    "exercise_id": 2498,
+    "name": "Pike Push-ups (Vasco L1)",
+    "type": "Shoulders"
+  },
+  {
+    "image_id": null,
+    "file": "Incline Push-ups (Vasco L2).jpeg",
+    "exercise_id": 2499,
+    "name": "Incline Push-ups (Vasco L2)",
+    "type": "Chest"
+  },
+  {
+    "image_id": null,
+    "file": "Table Bodyweight Rows (Vasco L1).jpeg",
+    "exercise_id": 2501,
+    "name": "Table Bodyweight Rows (Vasco L1)",
+    "type": "Back"
+  },
+  {
+    "image_id": null,
+    "file": "DB Single-Arm Row (5kg).jpeg",
+    "exercise_id": 2502,
+    "name": "DB Single-Arm Row (5kg)",
+    "type": "Back"
+  },
+  {
+    "image_id": null,
+    "file": "Face Pulls (Bodyweight Doorframe Towel).jpeg",
+    "exercise_id": 2503,
+    "name": "Face Pulls (Bodyweight Doorframe/Towel)",
+    "type": "Back"
+  },
+  {
+    "image_id": null,
+    "file": "DB Hammer Curls (5kg).jpeg",
+    "exercise_id": 2504,
+    "name": "DB Hammer Curls (5kg)",
+    "type": "Arms"
+  },
+  {
+    "image_id": null,
+    "file": "Dead Bug (Core L1).jpeg",
+    "exercise_id": 2505,
+    "name": "Dead Bug (Core L1)",
+    "type": "Abs"
+  },
+  {
+    "image_id": null,
+    "file": "Forearm Plank (Core L1).jpeg",
+    "exercise_id": 2507,
+    "name": "Forearm Plank (Core L1)",
+    "type": "Abs"
+  },
+  {
+    "image_id": null,
+    "file": "Bird Dog (Core L1).jpeg",
+    "exercise_id": 2508,
+    "name": "Bird Dog (Core L1)",
+    "type": "Abs"
+  },
+  {
+    "image_id": null,
+    "file": "Side plank right.jpeg",
+    "exercise_id": 2509,
+    "name": "Side Plank (Core L1)",
+    "type": "Abs"
+  },
+  {
+    "image_id": null,
+    "file": "Hollow Body Hold (Core L1).jpeg",
+    "exercise_id": 2510,
+    "name": "Hollow Body Hold (Core L1)",
+    "type": "Cardio"
+  },
+  {
+    "image_id": null,
+    "file": "Cable Tri Extension - Internal Rotation.jpeg",
+    "exercise_id": 2522,
+    "name": "Tricep Pull-Down",
+    "type": "Arms"
+  },
+  {
+    "image_id": null,
+    "file": "Serratus Wall Slide Stretch.jpeg",
+    "exercise_id": 2523,
+    "name": "Serratus Wall Slide Stretch",
+    "type": "Shoulders"
+  },
+  {
+    "image_id": null,
+    "file": "Straddle Stance Good Morning.jpeg",
+    "exercise_id": 2524,
+    "name": "Straddle Stance Good Morning",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Couch Stretch.jpeg",
+    "exercise_id": 2525,
+    "name": "Couch Stretch",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Long Lunge Pulse Stretch.jpeg",
+    "exercise_id": 2526,
+    "name": "Long Lunge Pulse Stretch",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Front Split Stretch.jpeg",
+    "exercise_id": 2527,
+    "name": "Front Split Stretch",
+    "type": "Legs"
+  },
+  {
+    "image_id": null,
+    "file": "Squat Sky Reach Stretch.jpeg",
+    "exercise_id": 2528,
+    "name": "Squat Sky Reach Stretch",
+    "type": "Chest"
+  },
+  {
+    "image_id": null,
+    "file": "elbow lever.jpeg",
+    "exercise_id": 2531,
+    "name": "elbow lever",
+    "type": "Abs"
+  },
+  {
+    "image_id": null,
+    "file": "Planche Lean Hold.jpeg",
+    "exercise_id": 2532,
+    "name": "Planche Lean Hold",
+    "type": "Shoulders"
   }
+
 ]
