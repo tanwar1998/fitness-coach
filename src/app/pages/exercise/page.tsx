@@ -410,11 +410,11 @@ function ExerciseDetail({
           </div>
         )}
 
-        {exercise.author_history.length > 0 && (
+        {/* {exercise.author_history.length > 0 && (
           <p className="mt-6 text-xs text-muted-foreground">
             Contributed by: {exercise.author_history.join(", ")}
           </p>
-        )}
+        )} */}
       </div>
     </div>
   );
@@ -545,9 +545,9 @@ export default function ExercisePage() {
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
       <div className="text-center">
-        <Badge variant="primary" className="mb-4">
+        {/* <Badge variant="primary" className="mb-4">
           Exercise Library
-        </Badge>
+        </Badge> */}
         <h1 className="font-display text-4xl font-bold tracking-tight sm:text-6xl">
           Browse Exercises
         </h1>

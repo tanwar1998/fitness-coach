@@ -1,10 +1,11 @@
-type BadgeVariant = "primary" | "secondary" | "outline" | "success";
+type BadgeVariant = "primary" | "secondary" | "outline" | "success" | "danger";
 
 const variantMap: Record<BadgeVariant, string> = {
   primary: "bg-primary/10 text-primary",
   secondary: "bg-secondary text-secondary-foreground",
   outline: "border border-border text-muted-foreground",
   success: "bg-success/10 text-success",
+  danger: "bg-danger/10 text-danger",
 };
 
 interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {

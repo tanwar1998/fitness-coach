@@ -184,11 +184,11 @@ function VideoDetail({ video }: { video: VideoItem }) {
           </div>
         )}
 
-        {video.authorHistory.length > 0 && (
+        {/* {video.authorHistory.length > 0 && (
           <p className="mt-6 text-xs text-muted-foreground">
             Contributed by: {video.authorHistory.join(", ")}
           </p>
-        )}
+        )} */}
       </div>
     </div>
   );

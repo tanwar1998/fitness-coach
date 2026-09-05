@@ -362,9 +362,9 @@ export default function NutritionPage() {
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
       <div className="text-center">
-        <Badge variant="primary" className="mb-4">
+        {/* <Badge variant="primary" className="mb-4">
           Nutrition Explorer
-        </Badge>
+        </Badge> */}
         <h1 className="font-display text-4xl font-bold tracking-tight sm:text-6xl">
           Nutrition Lookup
         </h1>
