@@ -61,11 +61,7 @@ export interface VideosResult {
   error: string | null;
 }
 
-export async function getVideos(): Promise<VideosResult> {
-  "use cache";
-  cacheLife("days");
-  cacheTag("wger");
-
+async function fetchVideosFromWger(): Promise<VideosResult> {
   const errors: string[] = [];
   let videoData: WgerListResponse<WgerVideo> | null = null;
   let exerciseData: WgerListResponse<WgerExerciseInfo> | null = null;
@@ -75,7 +71,13 @@ export async function getVideos(): Promise<VideosResult> {
       "/video/?limit=100&format=json",
     );
   } catch (err) {
-    errors.push(err instanceof Error ? err.message : "Failed to load videos");
+    const cause =
+      err instanceof Error && err.cause instanceof Error ? err.cause : undefined;
+    errors.push(
+      err instanceof Error
+        ? `${err.message}${cause ? ` [${cause.name}: ${cause.message}]` : ""}`
+        : "Failed to load videos",
+    );
   }
 
   try {
@@ -83,8 +85,12 @@ export async function getVideos(): Promise<VideosResult> {
       "/exerciseinfo/?language=2&limit=1000&format=json",
     );
   } catch (err) {
+    const cause =
+      err instanceof Error && err.cause instanceof Error ? err.cause : undefined;
     errors.push(
-      err instanceof Error ? err.message : "Failed to load exercise info",
+      err instanceof Error
+        ? `${err.message}${cause ? ` [${cause.name}: ${cause.message}]` : ""}`
+        : "Failed to load exercise info",
     );
   }
 
@@ -122,4 +128,19 @@ export async function getVideos(): Promise<VideosResult> {
   });
 
   return { videos, error: errors.length > 0 ? errors.join("; ") : null };
+}
+
+export async function getVideos(): Promise<VideosResult> {
+  "use cache";
+  cacheLife("days");
+  cacheTag("wger");
+
+  const result = await fetchVideosFromWger();
+  if (result.videos.length === 0 && result.error) {
+    // Throw so a failed fetch is never cached — "use cache" only stores
+    // successful results. An uncached failure is retried live on the next
+    // request instead of being served for the whole cache lifetime.
+    throw new Error(result.error);
+  }
+  return result;
 }

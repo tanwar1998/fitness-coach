@@ -71,7 +71,7 @@ export default function Home() {
             </h1>
             <p className="mt-6 max-w-md text-lg text-muted-foreground">
               Tell us how much time you have and what you want to work on.
-              FitCoach builds a workout that fits your goals and level — no
+              FitPulse builds a workout that fits your goals and level — no
               guesswork required.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">

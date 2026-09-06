@@ -118,7 +118,7 @@ export function AiCoachInput({
         </div>
       </div>
       <p className="mt-2 text-center text-xs text-muted-foreground">
-        FitCoach AI can make mistakes. Treat its advice as a starting point, not medical guidance.
+        FitPulse AI can make mistakes. Treat its advice as a starting point, not medical guidance.
       </p>
     </div>
   );

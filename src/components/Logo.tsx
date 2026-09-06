@@ -22,7 +22,7 @@ export function Logo() {
           <path d="M14 21l7-7" />
         </svg>
       </span>
-      <span className="text-lg font-bold tracking-tight">FitCoach</span>
+      <span className="text-lg font-bold tracking-tight">FitPulse</span>
     </span>
   );
 }

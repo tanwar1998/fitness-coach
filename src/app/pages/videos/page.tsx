@@ -1,9 +1,16 @@
 import { Badge } from "@/components/Badge";
 import VideosExplorer from "@/components/videos/VideosExplorer";
 import { getVideos } from "@/lib/server/videos";
+import type { VideoItem } from "@/lib/videos";
 
 export default async function VideosPage() {
-  const { videos, error } = await getVideos();
+  let videos: VideoItem[] = [];
+  let error: string | null = null;
+  try {
+    ({ videos, error } = await getVideos());
+  } catch (err) {
+    error = err instanceof Error ? err.message : "Failed to load videos";
+  }
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
@@ -17,9 +24,6 @@ export default async function VideosPage() {
           className="pointer-events-none absolute -bottom-24 -right-16 h-64 w-64 rounded-full bg-lime/15 blur-[80px]"
         />
         <div className="relative">
-          <Badge variant="primary" className="mb-4">
-            Exercise Videos
-          </Badge>
           <h1 className="font-display text-4xl font-bold tracking-tight sm:text-6xl">
             Video Library
           </h1>

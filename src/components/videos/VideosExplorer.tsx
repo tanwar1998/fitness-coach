@@ -143,7 +143,7 @@ function VideoDetail({ video }: { video: VideoItem }) {
             </p>
             <p className="mt-1 text-lg font-bold">{formatDuration(video.duration)}</p>
           </div>
-          <div className="rounded-xl bg-muted/50 p-4">
+          {/* <div className="rounded-xl bg-muted/50 p-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Resolution
             </p>
@@ -162,7 +162,7 @@ function VideoDetail({ video }: { video: VideoItem }) {
               File Size
             </p>
             <p className="mt-1 text-lg font-bold">{formatSize(video.size)}</p>
-          </div>
+          </div> */}
         </div>
 
         {video.muscles.length > 0 && (

@@ -140,7 +140,7 @@ export default function DisclaimerPage() {
         </Badge>
         <h1 className="font-display text-4xl font-bold tracking-tight sm:text-6xl">Disclaimer</h1>
         <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
-          Please read this carefully before using FitCoach. The points below
+          Please read this carefully before using FitPulse. The points below
           describe how our content should be used.
         </p>
       </div>
@@ -182,7 +182,7 @@ export default function DisclaimerPage() {
       </div>
 
       <p className="mt-8 text-center text-xs text-muted-foreground">
-        We = FitCoach and any other contributors to this project
+        We = FitPulse and any other contributors to this project
       </p>
     </div>
   );

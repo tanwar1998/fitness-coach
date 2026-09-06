@@ -9,6 +9,7 @@ import { useTheme } from "@/components/ThemeProvider";
 const NAV_LINKS = [
   { href: "/", label: "Home", icon: HomeIcon },
   { href: "/pages/exercise", label: "Exercises", icon: DumbbellIcon },
+  { href: "/pages/generate-workout", label: "Generate Workout", icon: WandIcon },
   { href: "/pages/videos", label: "Videos", icon: PlayIcon },
   { href: "/pages/nutrition", label: "Nutrition", icon: AppleIcon },
   { href: "/pages/progress", label: "Progress", icon: ChartIcon },
@@ -83,6 +84,27 @@ function DumbbellIcon({ className }: IconProps) {
       <path d="m21.5 21.5-1.4-1.4" />
       <path d="M2.5 2.5 3.9 3.9" />
       <path d="M6.404 12.768a2 2 0 1 1-2.829-2.829l1.768-1.767a2 2 0 1 1-2.828-2.829l2.828-2.828a2 2 0 1 1 2.829 2.829l1.767-1.768a2 2 0 1 1 2.829 2.829z" />
+    </svg>
+  );
+}
+
+function WandIcon({ className }: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="m15 4 4.5 4.5L7.5 20.5 3 16 15 4Z" />
+      <path d="M15 4 19.5 8.5" />
+      <path d="m8.5 13.5 2 2" />
+      <path d="M21 5V3" />
+      <path d="M22 4h-2" />
     </svg>
   );
 }
@@ -417,7 +439,7 @@ export function Sidebar() {
       >
         <Link
           href="/"
-          aria-label="FitCoach home"
+          aria-label="FitPulse home"
           className={`flex h-16 shrink-0 items-center border-b border-border ${
             collapsed ? "justify-center" : "px-5"
           }`}
@@ -441,7 +463,7 @@ export function Sidebar() {
 
       {/* Mobile: top bar + slide-in drawer */}
       <div className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-border bg-background/80 px-4 backdrop-blur md:hidden">
-        <Link href="/" aria-label="FitCoach home" onClick={() => setMobileOpen(false)}>
+        <Link href="/" aria-label="FitPulse home" onClick={() => setMobileOpen(false)}>
           <Logo />
         </Link>
         <button
@@ -465,7 +487,7 @@ export function Sidebar() {
           />
           <aside className="absolute inset-y-0 left-0 flex w-64 flex-col border-r border-border bg-background shadow-xl">
             <div className="flex h-16 shrink-0 items-center justify-between border-b border-border px-4">
-              <Link href="/" aria-label="FitCoach home" onClick={() => setMobileOpen(false)}>
+              <Link href="/" aria-label="FitPulse home" onClick={() => setMobileOpen(false)}>
                 <Logo />
               </Link>
               <button

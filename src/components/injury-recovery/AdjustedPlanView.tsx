@@ -101,7 +101,7 @@ export function AdjustedPlanView({
             Based on your current reports and readiness, your plan looks good as-is.
           </p>
         ) : (
-          <ul className="mt-4 flex flex-col gap-2.5">
+          <ul className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
             {adjusted.actions.map((action, idx) => {
               const key = dismissKey(action);
               const original = EXERCISE_MAP[action.exerciseId];
@@ -112,7 +112,7 @@ export function AdjustedPlanView({
               return (
                 <li
                   key={`${idx}-${action.reasonType}`}
-                  className={`rounded-xl border p-3 transition-opacity ${
+                  className={`flex h-full flex-col rounded-xl border p-3 transition-opacity ${
                     dismissed[key]
                       ? "border-border opacity-50"
                       : "border-border bg-muted/30"
@@ -146,7 +146,7 @@ export function AdjustedPlanView({
                   <p className="mt-1.5 text-xs text-muted-foreground">
                     {action.reasonDetail}
                   </p>
-                  <div className="mt-2 flex gap-2">
+                  <div className="mt-auto flex flex-wrap gap-2 pt-2">
                     <Button
                       size="sm"
                       variant="ghost"

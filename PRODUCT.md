@@ -11,7 +11,7 @@ Self-guided fitness beginners: people who want a quick, guided way to generate w
 
 ## Product Purpose
 
-FitCoach is an all-in-one, free fitness tool. It lets a user generate a personalized workout, browse a library of exercises with video demonstrations, track progress against goals, and consult an AI coach about workouts, nutrition, and recovery — in one place, no login or trainer required.
+FitPulse is an all-in-one, free fitness tool. It lets a user generate a personalized workout, browse a library of exercises with video demonstrations, track progress against goals, and consult an AI coach about workouts, nutrition, and recovery — in one place, no login or trainer required.
 
 ## Positioning
 
@@ -33,7 +33,7 @@ Used on desktop and mobile web. Core flows: generate a workout (exercise page), 
 
 ## Brand Commitments
 
-- Name: FitCoach. Logo: a star/spark glyph in a rounded primary square.
+- Name: FitPulse. Logo: a star/spark glyph in a rounded primary square.
 - Keep the violet-based identity, dark/light mode, and all current routes and pages.
 - Restyle only — do not change functionality, copy meaning, or data source.
 

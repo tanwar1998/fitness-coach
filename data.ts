@@ -1,5 +1,5 @@
 // ============================================================
-// FitCoach — Injury/Recovery-Aware Plan Adjustments
+// FitPulse — Injury/Recovery-Aware Plan Adjustments
 // TypeScript Data Schema
 // ============================================================
 

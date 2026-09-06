@@ -13,7 +13,14 @@ import { InjuryReportForm } from "@/components/injury-recovery/InjuryReportForm"
 import { InjuryList } from "@/components/injury-recovery/InjuryList";
 import { DailyCheckIn as DailyCheckInCard } from "@/components/injury-recovery/DailyCheckIn";
 import { AdjustedPlanView } from "@/components/injury-recovery/AdjustedPlanView";
-import { computeReadinessScore } from "@/lib/injury-recovery";
+import {
+  BODY_REGION_LABELS,
+  computeReadinessScore,
+  INJURY_SEVERITY_LABELS,
+  INJURY_STATUS_LABELS,
+  INJURY_TYPE_LABELS,
+  MOVEMENT_PATTERN_LABELS,
+} from "@/lib/injury-recovery";
 
 export default function InjuryRecoveryPage() {
   const [injuries, setInjuries] = useState<InjuryReport[]>([]);
@@ -24,6 +31,7 @@ export default function InjuryRecoveryPage() {
   const [showCheckIn, setShowCheckIn] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [readinessScore, setReadinessScore] = useState<number | null>(null);
+  const [selectedInjuryId, setSelectedInjuryId] = useState<string | null>(null);
 
   useEffect(() => {
     const load = async () => {
@@ -46,6 +54,23 @@ export default function InjuryRecoveryPage() {
     };
     load();
   }, []);
+
+  const selectedInjury =
+    injuries.find((i) => i.id === selectedInjuryId) ?? null;
+
+  useEffect(() => {
+    if (!selectedInjury) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedInjuryId(null);
+    };
+    window.addEventListener("keydown", onKey);
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [selectedInjury]);
 
   const activeInjuries = injuries.filter((i) => i.status !== "cleared");
   const hasInjuries = injuries.length > 0;
@@ -142,9 +167,6 @@ export default function InjuryRecoveryPage() {
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
       <div className="text-center">
-        <Badge variant="primary" className="mb-4">
-          Injury & Recovery
-        </Badge>
         <h1 className="font-display text-4xl font-bold tracking-tight sm:text-6xl">
           Train Smarter, Recover Better
         </h1>
@@ -194,10 +216,8 @@ export default function InjuryRecoveryPage() {
         </div>
       )}
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-5">
-        {/* LEFT COLUMN — Reporting & check-in */}
-        <div className="flex flex-col gap-6 lg:col-span-3">
-          {/* Quick report entry point — always accessible */}
+      <div className="mt-8 grid gap-6 lg:grid-cols-2">
+        {/* Quick report entry point — always accessible */}
           <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
             <div className="flex items-center justify-between">
               <h2 className="font-display text-lg font-bold">
@@ -275,33 +295,34 @@ export default function InjuryRecoveryPage() {
               </div>
             )}
           </section>
-        </div>
-
-        {/* RIGHT COLUMN — Your injuries */}
-        <section className="self-start rounded-2xl border border-border bg-card p-5 shadow-sm lg:col-span-2">
-          <div className="flex items-center justify-between">
-            <h2 className="font-display text-lg font-bold">Your injuries</h2>
-            {hasInjuries && (
-              <Badge variant="secondary">{injuries.length} total</Badge>
-            )}
-          </div>
-          <div className="mt-4">
-            {loadingInjuries ? (
-              <div className="flex animate-pulse flex-col gap-3">
-                {[1, 2].map((i) => (
-                  <div key={i} className="h-20 rounded-xl bg-muted" />
-                ))}
-              </div>
-            ) : (
-              <InjuryList
-                injuries={injuries}
-                onUpdateStatus={handleUpdateStatus}
-                onDelete={handleDeleteInjury}
-              />
-            )}
-          </div>
-        </section>
       </div>
+
+      {/* YOUR INJURIES */}
+      <section className="mt-8 rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-display text-lg font-bold">Your injuries</h2>
+          {hasInjuries && (
+            <Badge variant="secondary">{injuries.length} total</Badge>
+          )}
+        </div>
+        <div className="mt-4">
+          {loadingInjuries ? (
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+              {[1, 2, 3, 4].map((i) => (
+                <div
+                  key={i}
+                  className="h-32 animate-pulse rounded-2xl bg-muted"
+                />
+              ))}
+            </div>
+          ) : (
+            <InjuryList
+              injuries={injuries}
+              onSelect={(injury) => setSelectedInjuryId(injury.id)}
+            />
+          )}
+        </div>
+      </section>
 
       {/* PLAN ADJUSTMENTS */}
       <section className="mt-10">
@@ -325,6 +346,44 @@ export default function InjuryRecoveryPage() {
           )}
         </div>
       </section>
+
+      {/* Slide-in injury detail */}
+      <div
+        className={`fixed inset-0 z-50 bg-black/50 backdrop-blur-sm transition-opacity duration-300 ${
+          selectedInjury ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+        onClick={() => setSelectedInjuryId(null)}
+        aria-hidden="true"
+      />
+      <aside
+        role="dialog"
+        aria-modal="true"
+        aria-label="Injury details"
+        className={`fixed inset-y-0 right-0 z-50 flex w-full max-w-xl flex-col bg-card shadow-2xl transition-transform duration-300 ease-out ${
+          selectedInjury ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex items-center justify-between border-b border-border px-5 py-4 sm:px-6">
+          <h2 className="font-display text-lg font-bold">Injury Details</h2>
+          <button
+            type="button"
+            onClick={() => setSelectedInjuryId(null)}
+            aria-label="Close details"
+            className="grid h-9 w-9 cursor-pointer place-items-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          >
+            <CloseIcon />
+          </button>
+        </div>
+        <div className="flex-1 overflow-y-auto">
+          {selectedInjury && (
+            <InjuryDetail
+              injury={selectedInjury}
+              onUpdateStatus={handleUpdateStatus}
+              onDelete={handleDeleteInjury}
+            />
+          )}
+        </div>
+      </aside>
     </div>
   );
 }
@@ -353,6 +412,187 @@ function StatCard({
       <p className={`mt-0.5 text-lg font-semibold ${STAT_TONES[tone]}`}>
         {value}
       </p>
+    </div>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M18 6 6 18" />
+      <path d="m6 6 12 12" />
+    </svg>
+  );
+}
+
+function injuryStatusVariant(status: InjuryStatus) {
+  switch (status) {
+    case "active":
+      return "danger" as const;
+    case "healing":
+      return "primary" as const;
+    case "cleared":
+      return "success" as const;
+  }
+}
+
+function injurySeverityColor(severity: InjuryReport["severity"]) {
+  switch (severity) {
+    case "severe":
+      return "text-danger";
+    case "moderate":
+      return "text-primary";
+    default:
+      return "text-muted-foreground";
+  }
+}
+
+function formatDate(iso: string): string {
+  return new Date(iso).toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
+
+function InfoRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-center justify-between gap-4 text-sm">
+      <span className="text-muted-foreground">{label}</span>
+      <span className="font-medium">{value}</span>
+    </div>
+  );
+}
+
+function InjuryDetail({
+  injury,
+  onUpdateStatus,
+  onDelete,
+}: {
+  injury: InjuryReport;
+  onUpdateStatus: (id: string, status: InjuryStatus) => void;
+  onDelete: (id: string) => void;
+}) {
+  const regionLabel =
+    BODY_REGION_LABELS[injury.region as BodyRegion] ?? injury.region;
+  const triggers = injury.painTriggerMovements?.length
+    ? injury.painTriggerMovements.map((m) => MOVEMENT_PATTERN_LABELS[m] ?? m)
+    : [];
+
+  return (
+    <div className="p-5 sm:p-6">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h2 className="font-display text-2xl font-bold">{regionLabel}</h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {INJURY_TYPE_LABELS[injury.type]}
+          </p>
+        </div>
+        <Badge variant={injuryStatusVariant(injury.status)}>
+          {INJURY_STATUS_LABELS[injury.status]}
+        </Badge>
+      </div>
+
+      <div className="mt-5 grid grid-cols-2 gap-3">
+        <div className="rounded-xl bg-muted/50 p-4 text-center">
+          <p
+            className={`text-2xl font-bold ${injurySeverityColor(injury.severity)}`}
+          >
+            {INJURY_SEVERITY_LABELS[injury.severity]}
+          </p>
+          <p className="mt-0.5 text-xs text-muted-foreground">Severity</p>
+        </div>
+        <div className="rounded-xl bg-muted/50 p-4 text-center">
+          <p className="text-2xl font-bold">
+            {injury.painScore != null ? `${injury.painScore}/10` : "—"}
+          </p>
+          <p className="mt-0.5 text-xs text-muted-foreground">Pain</p>
+        </div>
+      </div>
+
+      {triggers.length > 0 && (
+        <div className="mt-5">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            Pain triggers
+          </h3>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {triggers.map((t) => (
+              <span
+                key={t}
+                className="rounded-full border border-border bg-muted/50 px-3 py-1 text-sm"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {injury.notes && (
+        <div className="mt-5">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            Notes
+          </h3>
+          <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
+            {injury.notes}
+          </p>
+        </div>
+      )}
+
+      <div className="mt-5 space-y-3 border-t border-border pt-5">
+        <InfoRow label="Reported" value={formatDate(injury.reportedAt)} />
+        <InfoRow label="Last updated" value={formatDate(injury.updatedAt)} />
+        {injury.clearedAt && (
+          <InfoRow label="Cleared" value={formatDate(injury.clearedAt)} />
+        )}
+      </div>
+
+      {injury.severity === "severe" && injury.status !== "cleared" && (
+        <div className="mt-5 rounded-xl border border-danger/30 bg-danger/5 p-3 text-sm text-danger">
+          Severe — consult a physiotherapist. Plan adjustment is not medical
+          advice.
+        </div>
+      )}
+
+      <div className="mt-6 flex flex-wrap gap-2">
+        {injury.status === "active" && (
+          <Button
+            variant="secondary"
+            onClick={() => onUpdateStatus(injury.id, "healing")}
+          >
+            Mark healing
+          </Button>
+        )}
+        {(injury.status === "active" || injury.status === "healing") && (
+          <Button
+            variant="primary"
+            onClick={() => onUpdateStatus(injury.id, "cleared")}
+          >
+            Mark cleared
+          </Button>
+        )}
+        {injury.status === "cleared" && (
+          <Button
+            variant="secondary"
+            onClick={() => onUpdateStatus(injury.id, "active")}
+          >
+            Reactivate
+          </Button>
+        )}
+        <Button variant="danger" onClick={() => onDelete(injury.id)}>
+          Delete
+        </Button>
+      </div>
     </div>
   );
 }

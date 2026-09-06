@@ -8,7 +8,7 @@ import { FRONT_MUSCLES, BACK_MUSCLES } from "./muscleArt";
 
 interface BodyRegionPickerProps {
   value?: BodyRegion;
-  onChange: (region: BodyRegion) => void;
+  onChange: (region: BodyRegion | null) => void;
   activeRegions?: BodyRegion[];
   disabledRegions?: BodyRegion[];
   compact?: boolean;
@@ -66,14 +66,15 @@ export function BodyRegionPicker({
             <BodyFigure
               view={view}
               onSelect={(region) => {
-                if (!isDisabled(region)) onChange(region);
+                if (region == null) onChange(null);
+                else if (!isDisabled(region)) onChange(region);
               }}
               selectedRegion={value}
               activeRegions={activeRegions}
               disabledRegions={disabledRegions}
             />
             <p className="mt-2 text-center text-xs text-muted-foreground">
-              Tap the affected area, or pick from the list.
+              Tap the affected area, or pick from the list. Tap again to deselect.
             </p>
           </div>
 
@@ -95,7 +96,7 @@ export function BodyRegionPicker({
                         key={region}
                         type="button"
                         disabled={disabled}
-                        onClick={() => onChange(region)}
+                        onClick={() => onChange(selected ? null : region)}
                         className={`rounded-full border px-2.5 py-1 text-xs font-medium transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-40 ${
                           selected
                             ? "border-transparent bg-primary text-primary-foreground"
@@ -128,7 +129,7 @@ export function BodyRegionPicker({
                 key={region}
                 type="button"
                 disabled={disabled}
-                onClick={() => onChange(region)}
+                onClick={() => onChange(selected ? null : region)}
                 className={`rounded-full border px-2.5 py-1 text-xs font-medium transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-40 ${
                   selected
                     ? "border-transparent bg-primary text-primary-foreground"
@@ -198,7 +199,7 @@ interface RegionDef {
 
 interface BodyFigureProps {
   view: "front" | "back";
-  onSelect: (region: BodyRegion) => void;
+  onSelect: (region: BodyRegion | null) => void;
   selectedRegion?: BodyRegion;
   activeRegions: BodyRegion[];
   disabledRegions: BodyRegion[];
@@ -285,7 +286,8 @@ function BodyFigure({
 
           const strokeOpacity = hovering || selected || active ? 0.9 : 0;
 
-          const showLabel = selected || active || hovering;
+          const showLabel =
+            (selected || active || hovering) && !isShoulder(region);
 
           return (
             <g
@@ -293,14 +295,14 @@ function BodyFigure({
               className="cursor-pointer"
               onMouseEnter={() => setHovered(region)}
               onMouseLeave={() => setHovered(null)}
-              onClick={() => onSelect(region)}
+              onClick={() => onSelect(selected ? null : region)}
               role="button"
               aria-label={BODY_REGION_LABELS[region]}
               aria-pressed={selected}
               tabIndex={disabled ? -1 : 0}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
-                  onSelect(region);
+                  onSelect(selected ? null : region);
                 }
               }}
             >
@@ -335,6 +337,11 @@ function BodyFigure({
       </svg>
     </div>
   );
+}
+
+// Shoulder regions have no short label inside the figure.
+function isShoulder(region: BodyRegion): boolean {
+  return region === "shoulder_left" || region === "shoulder_right";
 }
 
 // Short labels for display inside the small figure regions

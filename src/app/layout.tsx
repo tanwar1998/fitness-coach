@@ -22,7 +22,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "FitCoach — Personal Fitness & Workout Planner",
+  title: "FitPulse — Personal Fitness & Workout Planner",
   description:
     "Build personalized workouts, track your progress, and reach your fitness goals.",
 };
@@ -42,7 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="min-h-full bg-background text-foreground">
         <ThemeProvider>
-          <div className="flex min-h-screen">
+          <div className="flex min-h-screen flex-col md:flex-row">
             <Sidebar />
             <div className="flex min-w-0 flex-1 flex-col">
               <main className="flex-1">{children}</main>

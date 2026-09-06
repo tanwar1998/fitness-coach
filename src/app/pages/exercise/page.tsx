@@ -1,197 +1,38 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { Badge } from "@/components/Badge";
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { MuscleDiagram } from "@/components/MuscleDiagram";
-import categoryData from "@/lib/wger-exercisecategory.json";
-import equipmentData from "@/lib/wger-equipment.json";
-import muscleData from "@/lib/wger-muscle.json";
-
-interface Muscle {
-  id: number;
-  name: string;
-  name_en: string;
-  is_front: boolean;
-  image_url_main: string;
-  image_url_secondary: string;
-}
-
-interface Equipment {
-  id: number;
-  name: string;
-}
-
-interface Category {
-  id: number;
-  name: string;
-}
-
-interface ExerciseImage {
-  id: number;
-  uuid: string;
-  image: string;
-  thumbnails: { small: string; medium: string } | null;
-  is_main: boolean;
-}
-
-interface Translation {
-  id: number;
-  uuid: string;
-  name: string;
-  description: string;
-  language: number;
-  aliases: { alias: string }[];
-}
-
-interface ExerciseInfo {
-  id: number;
-  uuid: string;
-  category: Category;
-  muscles: Muscle[];
-  muscles_secondary: Muscle[];
-  equipment: Equipment[];
-  images: ExerciseImage[];
-  translations: Translation[];
-  variation_group: string | null;
-  author_history: string[];
-}
-
-interface LocalExerciseImage {
-  image_id: number;
-  file: string;
-  exercise_id: number;
-  name: string;
-  type: string;
-}
-
-const PLACEHOLDER_CATEGORIES = new Set([
-  "abs",
-  "arms",
-  "back",
-  "calves",
-  "cardio",
-  "chest",
-  "legs",
-  "shoulders",
-]);
+import { MuscleBodySelector } from "@/components/exercise/MuscleBodySelector";
+import {
+  CARDIO_ID,
+  EQUIPMENT_LIST,
+  ExerciseInfo,
+  MUSCLE_GROUPS,
+  MuscleTag,
+  getEnglishTranslation,
+  getExerciseAliases,
+  getExerciseDescription,
+  getExerciseImage,
+  getExerciseName,
+  getMainMuscleNames,
+  getPlaceholderImage,
+  hasMuscleData,
+  loadLocalImageMap,
+  muscleName,
+} from "@/lib/wger-exercise";
 
 const PAGE_SIZE = 20;
 
-const CATEGORIES: Category[] = categoryData.results;
-const EQUIPMENT_LIST: Equipment[] = equipmentData.results;
-const MUSCLES: Muscle[] = muscleData.results;
-
-let localImageMapPromise: Promise<Map<number, string>> | null = null;
-
-function loadLocalImageMap(): Promise<Map<number, string>> {
-  if (!localImageMapPromise) {
-    localImageMapPromise = fetch("/exercise/images.json")
-      .then((res) => res.json())
-      .then((entries: LocalExerciseImage[]) => {
-        const map = new Map<number, string>();
-        for (const entry of entries) {
-          if (!map.has(entry.exercise_id)) {
-            map.set(entry.exercise_id, `/exercise/${entry.file}`);
-          }
-        }
-        return map;
-      })
-      .catch(() => new Map<number, string>());
-  }
-  return localImageMapPromise;
-}
-
-function getPlaceholderImage(exercise: ExerciseInfo): string {
-  const slug = exercise.category.name.toLowerCase();
-  const file = PLACEHOLDER_CATEGORIES.has(slug) ? slug : "generic";
-  return `/exercise/placeholders/${file}.svg`;
-}
-
-function stripHtml(html: string): string {
-  return html
-    .replace(/<[^>]*>/g, "")
-    .replace(/&nbsp;/g, " ")
-    .replace(/&#39;/g, "'")
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .trim();
-}
-
-function getEnglishTranslation(translations: Translation[]): Translation | undefined {
-  return translations.find((t) => t.language === 2);
-}
-
-function getExerciseName(exercise: ExerciseInfo): string {
-  const en = getEnglishTranslation(exercise.translations);
-  if (en) return en.name;
-  if (exercise.translations.length > 0) return exercise.translations[0].name;
-  return "Unnamed Exercise";
-}
-
-function getExerciseDescription(exercise: ExerciseInfo): string {
-  const en = getEnglishTranslation(exercise.translations);
-  const desc = en?.description || exercise.translations[0]?.description || "";
-  return stripHtml(desc);
-}
-
-function getExerciseAliases(exercise: ExerciseInfo): string[] {
-  const en = getEnglishTranslation(exercise.translations);
-  if (!en) return [];
-  return en.aliases.map((a) => a.alias);
-}
-
-function getExerciseImage(
-  exercise: ExerciseInfo,
-  localImages: Map<number, string>,
-): string | null {
-  const main = exercise.images.find((img) => img.is_main);
-  if (main) return main.thumbnails?.medium || main.image;
-  if (exercise.images.length > 0) {
-    const first = exercise.images[0];
-    return first.thumbnails?.medium || first.image;
-  }
-  return localImages.get(exercise.id) ?? null;
-}
-
-function hasMuscleData(exercise: ExerciseInfo): boolean {
-  return exercise.muscles.length > 0 || exercise.muscles_secondary.length > 0;
-}
-
-function getMainMuscleNames(exercise: ExerciseInfo): string[] {
-  return exercise.muscles.map((m) => m.name_en || m.name);
-}
-
-function getSecondaryMuscleNames(exercise: ExerciseInfo): string[] {
-  return exercise.muscles_secondary.map((m) => m.name_en || m.name);
-}
-
-function MuscleTag({ name, variant }: { name: string; variant: "primary" | "secondary" }) {
-  return (
-    <span
-      className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ${
-        variant === "primary"
-          ? "bg-primary/10 text-primary"
-          : "bg-secondary text-secondary-foreground"
-      }`}
-    >
-      {variant === "primary" && <span className="h-1.5 w-1.5 rounded-full bg-primary" />}
-      {name}
-    </span>
-  );
-}
-
 function ExerciseCard({
   exercise,
-  isSelected,
   onSelect,
   localImages,
 }: {
   exercise: ExerciseInfo;
-  isSelected: boolean;
   onSelect: () => void;
   localImages: Map<number, string>;
 }) {
@@ -204,11 +45,7 @@ function ExerciseCard({
     <button
       type="button"
       onClick={onSelect}
-      className={`w-full overflow-hidden rounded-2xl border bg-card text-left shadow-sm transition-all hover:shadow-md ${
-        isSelected
-          ? "border-primary ring-2 ring-primary/20"
-          : "border-border hover:border-primary/40"
-      }`}
+      className="group w-full overflow-hidden rounded-2xl border border-border bg-card text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
     >
       {imageUrl ? (
         <div className="relative aspect-[4/3] w-full overflow-hidden bg-secondary">
@@ -216,15 +53,15 @@ function ExerciseCard({
             src={imageUrl}
             alt={name}
             fill
-            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            className="object-cover"
+            sizes="(min-width: 1536px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
             unoptimized
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-          <div className="absolute bottom-3 left-3 right-3">
+          <div className="absolute bottom-2.5 left-2.5 right-2.5">
             <h3 className="truncate text-sm font-bold text-white drop-shadow-md">{name}</h3>
           </div>
-          <div className="absolute left-3 top-3 rounded-full bg-background/85 px-2.5 py-1 text-xs font-semibold backdrop-blur">
+          <div className="absolute left-2.5 top-2.5 rounded-full bg-background/85 px-2 py-0.5 text-[11px] font-semibold backdrop-blur">
             {exercise.category.name}
           </div>
         </div>
@@ -241,39 +78,78 @@ function ExerciseCard({
             src={getPlaceholderImage(exercise)}
             alt={name}
             fill
-            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            className="object-cover"
+            sizes="(min-width: 1536px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
             unoptimized
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-          <div className="absolute bottom-3 left-3 right-3">
+          <div className="absolute bottom-2.5 left-2.5 right-2.5">
             <h3 className="truncate text-sm font-bold text-white drop-shadow-md">{name}</h3>
           </div>
-          <div className="absolute left-3 top-3 rounded-full bg-background/85 px-2.5 py-1 text-xs font-semibold backdrop-blur">
+          <div className="absolute left-2.5 top-2.5 rounded-full bg-background/85 px-2 py-0.5 text-[11px] font-semibold backdrop-blur">
             {exercise.category.name}
           </div>
         </div>
       )}
-      <div className="p-3">
+      <div className="p-2.5">
         {mainMuscles.length > 0 && (
-          <div className="mt-2 flex flex-wrap gap-1">
-            {mainMuscles.map((m) => (
+          <div className="mt-1 flex flex-wrap gap-1">
+            {mainMuscles.slice(0, 2).map((m) => (
               <MuscleTag key={m} name={m} variant="primary" />
             ))}
-            {getSecondaryMuscleNames(exercise)
-              .slice(0, 2)
-              .map((m) => (
-                <MuscleTag key={m} name={m} variant="secondary" />
-              ))}
+            {mainMuscles.length > 2 && (
+              <span className="text-[11px] text-muted-foreground">
+                +{mainMuscles.length - 2}
+              </span>
+            )}
           </div>
         )}
         {equipment.length > 0 && (
-          <p className="mt-2 truncate text-xs text-muted-foreground">
-            {equipment.join(" · ")}
+          <p className="mt-1.5 truncate text-[11px] text-muted-foreground">
+            {equipment.slice(0, 2).join(" · ")}
+            {equipment.length > 2 ? "…" : ""}
           </p>
         )}
       </div>
     </button>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M18 6 6 18" />
+      <path d="m6 6 12 12" />
+    </svg>
+  );
+}
+
+function ChevronIcon({ open }: { open: boolean }) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={`transition-transform duration-200 ${open ? "" : "-rotate-180"}`}
+      aria-hidden="true"
+    >
+      <path d="m6 9 6 6 6-6" />
+    </svg>
   );
 }
 
@@ -292,14 +168,14 @@ function ExerciseDetail({
   const secondaryMuscles = exercise.muscles_secondary;
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+    <div>
       {imageUrl ? (
         <div className="relative aspect-[16/9] w-full overflow-hidden bg-secondary">
           <Image
             src={imageUrl}
             alt={name}
             fill
-            sizes="(min-width: 1024px) 50vw, 100vw"
+            sizes="(min-width: 768px) 45vw, 100vw"
             className="object-contain"
             unoptimized
           />
@@ -317,17 +193,17 @@ function ExerciseDetail({
             src={getPlaceholderImage(exercise)}
             alt={name}
             fill
-            sizes="(min-width: 1024px) 50vw, 100vw"
+            sizes="(min-width: 768px) 45vw, 100vw"
             className="object-cover"
             unoptimized
           />
         </div>
       )}
 
-      <div className="p-6 sm:p-8">
+      <div className="p-5 sm:p-6">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h2 className="font-display text-2xl font-bold">{name}</h2>
+            <h2 className="font-display text-xl font-bold leading-tight">{name}</h2>
             <div className="mt-2 flex flex-wrap gap-2">
               <Badge variant="primary">{exercise.category.name}</Badge>
               {exercise.equipment.map((eq) => (
@@ -349,7 +225,7 @@ function ExerciseDetail({
         )}
 
         {mainMuscles.length > 0 && (
-          <div className="mt-6">
+          <div className="mt-5">
             <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
               Primary Muscles
             </h3>
@@ -357,7 +233,7 @@ function ExerciseDetail({
               {mainMuscles.map((m) => (
                 <div
                   key={m.id}
-                  className="flex items-center gap-2 rounded-xl border border-primary/20 bg-primary/5 px-3 py-2"
+                  className="flex items-center gap-2 rounded-xl border border-primary/20 bg-primary/5 px-3 py-1.5"
                 >
                   <span className="h-2 w-2 rounded-full bg-primary" />
                   <span className="text-sm font-medium">{m.name_en || m.name}</span>
@@ -376,7 +252,7 @@ function ExerciseDetail({
               {secondaryMuscles.map((m) => (
                 <div
                   key={m.id}
-                  className="flex items-center gap-2 rounded-xl border border-border bg-muted/50 px-3 py-2"
+                  className="flex items-center gap-2 rounded-xl border border-border bg-muted/50 px-3 py-1.5"
                 >
                   <span className="h-2 w-2 rounded-full bg-muted-foreground" />
                   <span className="text-sm font-medium">{m.name_en || m.name}</span>
@@ -387,7 +263,7 @@ function ExerciseDetail({
         )}
 
         {(mainMuscles.length > 0 || secondaryMuscles.length > 0) && (
-          <div className="mt-6 grid grid-cols-2 gap-4">
+          <div className="mt-5 grid grid-cols-2 gap-3">
             <div className="rounded-xl bg-muted/50 p-4 text-center">
               <p className="text-2xl font-bold">{mainMuscles.length + secondaryMuscles.length}</p>
               <p className="text-xs text-muted-foreground">Muscles Targeted</p>
@@ -400,7 +276,7 @@ function ExerciseDetail({
         )}
 
         {description && (
-          <div className="mt-6">
+          <div className="mt-5">
             <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
               Instructions
             </h3>
@@ -409,12 +285,6 @@ function ExerciseDetail({
             </p>
           </div>
         )}
-
-        {/* {exercise.author_history.length > 0 && (
-          <p className="mt-6 text-xs text-muted-foreground">
-            Contributed by: {exercise.author_history.join(", ")}
-          </p>
-        )} */}
       </div>
     </div>
   );
@@ -423,8 +293,8 @@ function ExerciseDetail({
 function SkeletonCard() {
   return (
     <div className="animate-pulse overflow-hidden rounded-2xl border border-border bg-card">
-      <div className="h-36 bg-secondary" />
-      <div className="p-3">
+      <div className="aspect-[4/3] bg-secondary" />
+      <div className="p-2.5">
         <div className="h-4 w-2/3 rounded bg-muted" />
         <div className="mt-2 flex gap-1">
           <div className="h-5 w-14 rounded-full bg-muted" />
@@ -443,10 +313,40 @@ export default function ExercisePage() {
   const [selectedExercise, setSelectedExercise] = useState<ExerciseInfo | null>(null);
   const [initialLoadComplete, setInitialLoadComplete] = useState(false);
 
-  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+  const [selectedCardio, setSelectedCardio] = useState(false);
   const [selectedEquipment, setSelectedEquipment] = useState<number | null>(null);
-  const [selectedMuscle, setSelectedMuscle] = useState<number | null>(null);
+  const [selectedMuscles, setSelectedMuscles] = useState<number[]>([]);
   const [localImages, setLocalImages] = useState<Map<number, string>>(new Map());
+
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [resultFlash, setResultFlash] = useState(false);
+  const flashTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const triggerResultFlash = useCallback(() => {
+    setResultFlash(true);
+    if (flashTimerRef.current) clearTimeout(flashTimerRef.current);
+    flashTimerRef.current = setTimeout(() => setResultFlash(false), 900);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (flashTimerRef.current) clearTimeout(flashTimerRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!selectedExercise) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedExercise(null);
+    };
+    window.addEventListener("keydown", onKey);
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [selectedExercise]);
 
   useEffect(() => {
     let cancelled = false;
@@ -475,33 +375,53 @@ export default function ExercisePage() {
     return () => clearTimeout(timer);
   }, [query]);
 
-  const toggleCategory = (id: number) => {
-    setSelectedCategory((prev) => (prev === id ? null : id));
-    setVisibleCount(PAGE_SIZE);
-  };
+  useEffect(() => {
+    if (allExercises.length === 0) return;
+    const timer = setTimeout(() => {
+      triggerResultFlash();
+    }, 50);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedQuery, allExercises.length]);
 
   const toggleEquipment = (id: number) => {
     setSelectedEquipment((prev) => (prev === id ? null : id));
     setVisibleCount(PAGE_SIZE);
+    triggerResultFlash();
   };
 
   const toggleMuscle = (id: number) => {
-    setSelectedMuscle((prev) => (prev === id ? null : id));
+    setSelectedMuscles((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
+    );
     setVisibleCount(PAGE_SIZE);
+    triggerResultFlash();
+  };
+
+  const toggleCardio = () => {
+    setSelectedCardio((prev) => !prev);
+    setVisibleCount(PAGE_SIZE);
+    triggerResultFlash();
   };
 
   const filteredExercises = useMemo(() => {
     const q = debouncedQuery.trim().toLowerCase();
-    if (!q && selectedCategory === null && selectedEquipment === null && selectedMuscle === null) {
+    if (
+      !q &&
+      selectedEquipment === null &&
+      selectedMuscles.length === 0 &&
+      !selectedCardio
+    ) {
       return allExercises;
     }
     return allExercises.filter((exercise) => {
-      if (selectedCategory !== null && exercise.category.id !== selectedCategory) return false;
       if (selectedEquipment !== null && !exercise.equipment.some((eq) => eq.id === selectedEquipment)) {
         return false;
       }
-      if (selectedMuscle !== null && !exercise.muscles.some((m) => m.id === selectedMuscle)) {
-        return false;
+      if (selectedMuscles.length > 0 || selectedCardio) {
+        const muscleMatch = exercise.muscles.some((m) => selectedMuscles.includes(m.id));
+        const cardioMatch = selectedCardio && exercise.category.id === CARDIO_ID;
+        if (!muscleMatch && !cardioMatch) return false;
       }
       if (!q) return true;
       const en = getEnglishTranslation(exercise.translations);
@@ -509,7 +429,7 @@ export default function ExercisePage() {
       if (en.name.toLowerCase().includes(q)) return true;
       return en.aliases.some((a) => a.alias.toLowerCase().includes(q));
     });
-  }, [allExercises, debouncedQuery, selectedCategory, selectedEquipment, selectedMuscle]);
+  }, [allExercises, debouncedQuery, selectedEquipment, selectedMuscles, selectedCardio]);
 
   const exercises = useMemo(
     () => filteredExercises.slice(0, visibleCount),
@@ -532,22 +452,24 @@ export default function ExercisePage() {
   }, [hasMore, filteredExercises.length]);
 
   const clearFilters = () => {
-    setSelectedCategory(null);
+    setSelectedCardio(false);
     setSelectedEquipment(null);
-    setSelectedMuscle(null);
+    setSelectedMuscles([]);
     setQuery("");
+    setDebouncedQuery("");
     setVisibleCount(PAGE_SIZE);
+    triggerResultFlash();
   };
 
   const hasActiveFilters =
-    selectedCategory !== null || selectedEquipment !== null || selectedMuscle !== null || query !== "";
+    selectedCardio ||
+    selectedEquipment !== null ||
+    selectedMuscles.length > 0 ||
+    query !== "";
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+    <div className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
       <div className="text-center">
-        {/* <Badge variant="primary" className="mb-4">
-          Exercise Library
-        </Badge> */}
         <h1 className="font-display text-4xl font-bold tracking-tight sm:text-6xl">
           Browse Exercises
         </h1>
@@ -556,117 +478,197 @@ export default function ExercisePage() {
         </p>
       </div>
 
-      <div className="mx-auto mt-10 max-w-4xl rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
-        <Input
-          label="Search Exercises"
-          placeholder="e.g. bench press, squat, bicep curl..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-
-        <div className="mt-5">
-          <p className="mb-2 text-sm font-medium text-foreground">Category</p>
-          <div className="flex flex-wrap gap-2">
-            {CATEGORIES.map((cat) => (
-              <Button
-                key={cat.id}
-                size="sm"
-                variant={selectedCategory === cat.id ? "primary" : "outline"}
-                onClick={() => toggleCategory(cat.id)}
-              >
-                {cat.name}
-              </Button>
-            ))}
+      {/* Filters */}
+      <div className="mx-auto mt-10 max-w-6xl rounded-2xl border border-border bg-card shadow-sm">
+        <div className="flex items-center gap-3 p-5 sm:p-6">
+          <div className="min-w-0 flex-1">
+            <Input
+              label="Search Exercises"
+              placeholder="e.g. bench press, squat, bicep curl..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
           </div>
-        </div>
-
-        <div className="mt-4">
-          <p className="mb-2 text-sm font-medium text-foreground">Equipment</p>
-          <div className="flex flex-wrap gap-2">
-            {EQUIPMENT_LIST.map((eq) => (
-              <Button
-                key={eq.id}
-                size="sm"
-                variant={selectedEquipment === eq.id ? "primary" : "outline"}
-                onClick={() => toggleEquipment(eq.id)}
-              >
-                {eq.name}
+          <div className="flex shrink-0 items-center gap-2 pt-5">
+            {hasActiveFilters && (
+              <Button size="sm" variant="ghost" onClick={clearFilters}>
+                Clear all
               </Button>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-4">
-          <p className="mb-2 text-sm font-medium text-foreground">Muscle</p>
-          <div className="flex flex-wrap gap-2">
-            {MUSCLES.map((mus) => (
-              <Button
-                key={mus.id}
-                size="sm"
-                variant={selectedMuscle === mus.id ? "primary" : "outline"}
-                onClick={() => toggleMuscle(mus.id)}
-              >
-                {mus.name_en || mus.name}
-              </Button>
-            ))}
-          </div>
-        </div>
-
-        {hasActiveFilters && (
-          <div className="mt-4 flex items-center gap-3">
-            <Button size="sm" variant="ghost" onClick={clearFilters}>
-              Clear all filters
+            )}
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => setFiltersOpen((v) => !v)}
+              aria-expanded={filtersOpen}
+            >
+              <span className="hidden sm:inline">
+                {filtersOpen ? "Hide filters" : "Show filters"}
+              </span>
+              <span className="sm:hidden">
+                {filtersOpen ? "Hide" : "Filters"}
+              </span>
+              <ChevronIcon open={filtersOpen} />
             </Button>
+          </div>
+        </div>
+
+        {filtersOpen && (
+          <div className="border-t border-border p-5 pt-6 sm:p-6">
+            <div className="grid gap-6 lg:grid-cols-[minmax(0,280px)_1fr]">
+              {/* Body map */}
+              <div className="flex justify-center lg:justify-start">
+                <MuscleBodySelector
+                  value={selectedMuscles}
+                  onChange={(id: number) => {
+                    toggleMuscle(id);
+                  }}
+                />
+              </div>
+
+              {/* Groups + filters */}
+              <div className="space-y-6">
+                <div>
+                  <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-foreground">
+                    Body part
+                  </p>
+                  <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
+                    {MUSCLE_GROUPS.map((group) => (
+                      <div key={group.label}>
+                        <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                          {group.label}
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {group.ids.map((id) => (
+                            <Button
+                              key={id}
+                              size="sm"
+                              variant={selectedMuscles.includes(id) ? "primary" : "outline"}
+                              onClick={() => toggleMuscle(id)}
+                            >
+                              {muscleName(id)}
+                            </Button>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                    <Button
+                      size="sm"
+                      variant={selectedCardio ? "primary" : "outline"}
+                      onClick={toggleCardio}
+                    >
+                      Cardio
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="border-t border-border pt-5">
+                  <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-foreground">
+                    Equipment
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {EQUIPMENT_LIST.map((eq) => (
+                      <Button
+                        key={eq.id}
+                        size="sm"
+                        variant={selectedEquipment === eq.id ? "primary" : "outline"}
+                        onClick={() => toggleEquipment(eq.id)}
+                      >
+                        {eq.name}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>
 
-      <div className="mt-10 grid gap-6 lg:grid-cols-5">
-        <div className="lg:col-span-2">
-          <div className="flex items-center justify-between">
-            <h2 className="font-display text-lg font-bold">Exercises</h2>
-            <span className="text-sm text-muted-foreground">
-              {filteredExercises.length.toLocaleString()} found
-            </span>
-          </div>
-          <div className="mt-4 max-h-[70vh] space-y-3 overflow-y-auto pr-1">
-            {loading
-              ? Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
-              : exercises.map((exercise) => (
-                  <ExerciseCard
-                    key={exercise.id}
-                    exercise={exercise}
-                    isSelected={selectedExercise?.id === exercise.id}
-                    onSelect={() => setSelectedExercise(exercise)}
-                    localImages={localImages}
-                  />
-                ))}
-            <div ref={observerRef} className="h-4" />
-            {!loading && exercises.length === 0 && (
-              <div className="flex min-h-[200px] items-center justify-center rounded-2xl border border-dashed border-border">
-                <p className="text-center text-muted-foreground">No exercises found</p>
-              </div>
-            )}
-          </div>
+      {/* Results */}
+      <div className="mx-auto mt-10 max-w-6xl">
+        <div className="flex items-center justify-between">
+          <h2 className="font-display text-lg font-bold">Exercises</h2>
+          <span
+            className={`rounded-full border px-3 py-1 text-sm font-semibold transition-all duration-500 ${
+              resultFlash
+                ? "border-primary bg-primary/10 text-primary"
+                : "border-border bg-card text-muted-foreground"
+            }`}
+            aria-live="polite"
+          >
+            {filteredExercises.length.toLocaleString()} found
+          </span>
         </div>
 
-        <div className="lg:col-span-3">
-          <h2 className="font-display text-lg font-bold">Details</h2>
-          <div className="mt-4">
-            {selectedExercise ? (
-              <ExerciseDetail exercise={selectedExercise} localImages={localImages} />
-            ) : (
-              <div className="flex min-h-[300px] items-center justify-center rounded-2xl border border-dashed border-border bg-card">
-                <p className="text-center text-muted-foreground">
-                  Select an exercise from the list
-                  <br />
-                  to view its full details.
-                </p>
-              </div>
-            )}
-          </div>
+        <div className="mt-5">
+          {loading ? (
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <SkeletonCard key={i} />
+              ))}
+            </div>
+          ) : exercises.length === 0 ? (
+            <div className="flex min-h-[240px] items-center justify-center rounded-2xl border border-dashed border-border">
+              <p className="text-center text-muted-foreground">
+                No exercises match your filters.
+                <br />
+                Try removing some filters.
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+              {exercises.map((exercise) => (
+                <ExerciseCard
+                  key={exercise.id}
+                  exercise={exercise}
+                  onSelect={() => setSelectedExercise(exercise)}
+                  localImages={localImages}
+                />
+              ))}
+            </div>
+          )}
+          <div ref={observerRef} className="h-4" />
+          {!loading && hasMore && (
+            <p className="py-4 text-center text-sm text-muted-foreground">
+              Loading more exercises…
+            </p>
+          )}
         </div>
       </div>
+
+      {/* Slide-in detail panel */}
+      <div
+        className={`fixed inset-0 z-50 bg-black/50 backdrop-blur-sm transition-opacity duration-300 ${
+          selectedExercise ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+        onClick={() => setSelectedExercise(null)}
+        aria-hidden="true"
+      />
+      <aside
+        role="dialog"
+        aria-modal="true"
+        aria-label="Exercise details"
+        className={`fixed inset-y-0 right-0 z-50 flex w-full max-w-xl flex-col bg-card shadow-2xl transition-transform duration-300 ease-out ${
+          selectedExercise ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex items-center justify-between border-b border-border px-5 py-4 sm:px-6">
+          <h2 className="font-display text-lg font-bold">Exercise Details</h2>
+          <button
+            type="button"
+            onClick={() => setSelectedExercise(null)}
+            aria-label="Close details"
+            className="grid h-9 w-9 cursor-pointer place-items-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          >
+            <CloseIcon />
+          </button>
+        </div>
+        <div className="flex-1 overflow-y-auto">
+          {selectedExercise && (
+            <ExerciseDetail exercise={selectedExercise} localImages={localImages} />
+          )}
+        </div>
+      </aside>
     </div>
   );
 }

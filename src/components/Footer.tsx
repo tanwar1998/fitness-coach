@@ -37,7 +37,7 @@ export function Footer() {
         </nav>
 
         <p className="text-sm text-muted-foreground">
-          © {year} FitCoach. All rights reserved.
+          © {year} FitPulse. All rights reserved.
         </p>
       </div>
     </footer>
