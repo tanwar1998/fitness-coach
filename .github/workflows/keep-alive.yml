@@ -1,0 +1,15 @@
+name: Keep Render Service Alive
+
+on:
+  schedule:
+    # Runs every 10 minutes
+    - cron: '*/10 * * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  ping-service:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Render App
+        run: |
+          curl -s -o /dev/null -w "%{http_code}" https://fitness-coach-79yi.onrender.com/api/health

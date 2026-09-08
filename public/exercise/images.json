@@ -1,2547 +1,2183 @@
 [
   {
-    "image_id": 3,
     "file": "Crunches-1.png",
     "exercise_id": 167,
     "name": "Crunches",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "2 Handed Kettlebell Swing.jpeg",
     "exercise_id": 9,
     "name": "2 Handed Kettlebell Swing",
     "type": "Abs"
   },
   {
-    "image_id": 7,
     "file": "Decline-crunch-1.png",
     "exercise_id": 427,
     "name": "Negative Crunches",
     "type": "Abs"
   },
   {
-    "image_id": 11,
     "file": "Hyperextensions-1.png",
     "exercise_id": 301,
     "name": "Hyperextensions",
     "type": "Back"
   },
   {
-    "image_id": 15,
     "file": "Narrow-grip-bench-press-1.png",
     "exercise_id": 76,
     "name": "Bench Press Narrow Grip",
     "type": "Arms"
   },
   {
-    "image_id": 19,
     "file": "Standing-biceps-curl-1.png",
     "exercise_id": 95,
     "name": "Biceps Curl With Cable",
     "type": "Arms"
   },
   {
-    "image_id": 23,
     "file": "Biceps-curl-1.png",
     "exercise_id": 92,
     "name": "Biceps Curls With Dumbbell",
     "type": "Arms"
   },
   {
-    "image_id": 27,
     "file": "Bicep-curls-1.png",
     "exercise_id": 91,
     "name": "Biceps Curls With Barbell",
     "type": "Arms"
   },
   {
-    "image_id": 35,
     "file": "Bench-dips-1.png",
     "exercise_id": 197,
     "name": "Dips Between Two Benches",
     "type": "Arms"
   },
   {
-    "image_id": 39,
     "file": "Dumbbell-shrugs-2.png",
     "exercise_id": 572,
     "name": "Shrugs, Dumbbells",
     "type": "Shoulders"
   },
   {
-    "image_id": 43,
     "file": "Barbell-shrugs-1.png",
     "exercise_id": 571,
     "name": "Shrugs, Barbells",
     "type": "Shoulders"
   },
   {
-    "image_id": 47,
     "file": "Bicep-hammer-curl-1.png",
     "exercise_id": 272,
     "name": "Hammer Curls",
     "type": "Arms"
   },
   {
-    "image_id": 51,
     "file": "Hammer-curls-with-rope-1.png",
     "exercise_id": 275,
     "name": "Hammercurls on Cable",
     "type": "Arms"
   },
   {
-    "image_id": 60,
     "file": "Lying-close-grip-triceps-press-to-chin-1.png",
     "exercise_id": 246,
     "name": "Skullcrusher SZ-bar",
     "type": "Arms"
   },
   {
-    "image_id": 66,
     "file": "a02c9c7d-f42d-43e0-9946-1b99b014daee.png",
     "exercise_id": 1392,
     "name": "Good Morning",
     "type": "Legs"
   },
   {
-    "image_id": 68,
     "file": "Bench-press-1.png",
     "exercise_id": 73,
     "name": "Bench Press",
     "type": "Chest"
   },
   {
-    "image_id": 73,
     "file": "6c1a7459-266d-491a-bd50-7cbaea2bc771.png",
     "exercise_id": 152,
     "name": "Chin Up",
     "type": "Back"
   },
   {
-    "image_id": 77,
     "file": "T-bar-row-1.png",
     "exercise_id": 513,
     "name": "Rowing, T-bar",
     "type": "Back"
   },
   {
-    "image_id": 84,
     "file": "Barbell-rear-delt-row-1.png",
     "exercise_id": 83,
     "name": "Bent Over Rowing",
     "type": "Back"
   },
   {
-    "image_id": 91,
     "file": "Reverse-grip-bent-over-rows-1.png",
     "exercise_id": 84,
     "name": "Bent Over Rowing Reverse",
     "type": "Back"
   },
   {
-    "image_id": 93,
     "file": "Preacher-curl-3-1.png",
     "exercise_id": 465,
     "name": "Preacher Curls",
     "type": "Arms"
   },
   {
-    "image_id": 105,
     "file": "Incline-press-1.png",
     "exercise_id": 537,
     "name": "Incline Bench Press - Dumbbell",
     "type": "Chest"
   },
   {
-    "image_id": 107,
     "file": "Close-grip-bench-press-1.png",
     "exercise_id": 539,
     "name": "Incline Bench Press - MP",
     "type": "Chest"
   },
   {
-    "image_id": 111,
     "file": "Butterfly-machine-2.png",
     "exercise_id": 135,
     "name": "Butterfly",
     "type": "Chest"
   },
   {
-    "image_id": 113,
     "file": "Dumbbell-bench-press-1.png",
     "exercise_id": 75,
     "name": "Benchpress Dumbbells",
     "type": "Chest"
   },
   {
-    "image_id": 115,
     "file": "Decline-bench-press-1.png",
     "exercise_id": 185,
     "name": "Decline Bench Press Barbell",
     "type": "Chest"
   },
   {
-    "image_id": 119,
     "file": "Incline-cable-flyes-1.png",
     "exercise_id": 237,
     "name": "Fly With Cable",
     "type": "Chest"
   },
   {
-    "image_id": 121,
     "file": "Walking-lunges-1.png",
     "exercise_id": 206,
     "name": "Dumbbell Lunges Walking",
     "type": "Legs"
   },
   {
-    "image_id": 125,
     "file": "Narrow-stance-hack-squats-1-1024x721.png",
     "exercise_id": 375,
     "name": "Leg Press on Hackenschmidt Machine",
     "type": "Legs"
   },
   {
-    "image_id": 127,
     "file": "Cable-crossover-2.png",
     "exercise_id": 323,
     "name": "Cable Cross-over",
     "type": "Chest"
   },
   {
-    "image_id": 129,
     "file": "Incline-bench-press-1.png",
     "exercise_id": 538,
     "name": "Incline Bench Press - Barbell",
     "type": "Chest"
   },
   {
-    "image_id": 135,
     "file": "135-Decline-crunch-1.png",
     "exercise_id": 171,
     "name": "Incline Crunches",
     "type": "Abs"
   },
   {
-    "image_id": 139,
     "file": "Leg-raises-2.png",
     "exercise_id": 377,
     "name": "Leg Raises, Lying",
     "type": "Abs"
   },
   {
-    "image_id": 143,
     "file": "Cable-seated-rows-2.png",
     "exercise_id": 394,
     "name": "Long-Pulley (low Row)",
     "type": "Back"
   },
   {
-    "image_id": 145,
     "file": "Dead-lifts-2.png",
     "exercise_id": 484,
     "name": "Rack Deadlift",
     "type": "Back"
   },
   {
-    "image_id": 147,
     "file": "Cross-body-crunch-1.png",
     "exercise_id": 576,
     "name": "Side Crunch",
     "type": "Abs"
   },
   {
-    "image_id": 149,
     "file": "Front-squat-1-857x1024.png",
     "exercise_id": 257,
     "name": "Front Squats",
     "type": "Legs"
   },
   {
-    "image_id": 171,
     "file": "seated-barbell-shoulder-press-large-1.png",
     "exercise_id": 566,
     "name": "Shoulder Press, Barbell",
     "type": "Shoulders"
   },
   {
-    "image_id": 173,
     "file": "dumbbell-shoulder-press-large-1.png",
     "exercise_id": 567,
     "name": "Shoulder Press, Dumbbells",
     "type": "Shoulders"
   },
   {
-    "image_id": 177,
     "file": "lateral-dumbbell-raises-large-2.png",
     "exercise_id": 348,
     "name": "Lateral Raises",
     "type": "Shoulders"
   },
   {
-    "image_id": 179,
     "file": "lying-leg-curl-machine-large-1.png",
     "exercise_id": 365,
     "name": "Leg Curls (laying)",
     "type": "Legs"
   },
   {
-    "image_id": 181,
     "file": "seated-leg-curl-large-1.png",
     "exercise_id": 366,
     "name": "Leg Curls (sitting)",
     "type": "Legs"
   },
   {
-    "image_id": 183,
     "file": "standing-leg-curls-large-1.png",
     "exercise_id": 367,
     "name": "Leg Curls (standing)",
     "type": "Legs"
   },
   {
-    "image_id": 195,
     "file": "Shoulder-press-machine-2.png",
     "exercise_id": 543,
     "name": "Shoulder Press, on Machine",
     "type": "Shoulders"
   },
   {
-    "image_id": 211,
     "file": "34600351-8b0b-4cb0-8daa-583537be15b0.png",
     "exercise_id": 194,
     "name": "Dips",
     "type": "Chest"
   },
   {
-    "image_id": 212,
     "file": "2fc242d3-5bdd-4f97-99bd-678adb8c96fc.png",
     "exercise_id": 238,
     "name": "Fly With Dumbbells",
     "type": "Chest"
   },
   {
-    "image_id": 214,
     "file": "2e959dab-f39b-4c7c-9063-eb43064ab5eb.png",
     "exercise_id": 828,
     "name": "Incline Bench Reverse Fly",
     "type": "Back"
   },
   {
-    "image_id": 216,
     "file": "74affc0d-03b6-4f33-b5f4-a822a2615f68.png",
     "exercise_id": 822,
     "name": "Cable Rear Delt Fly",
     "type": "Shoulders"
   },
   {
-    "image_id": 218,
     "file": "ad724e5c-b1ed-49e8-9279-a17545b0dd0b.png",
     "exercise_id": 487,
     "name": "Rear Delt Raises",
     "type": "Shoulders"
   },
   {
-    "image_id": 220,
     "file": "119e6823-6960-4341-a9e1-aaf78d7fb57c.png",
     "exercise_id": 694,
     "name": "Upright Row w/ Dumbbells",
     "type": "Shoulders"
   },
   {
-    "image_id": 248,
     "file": "7b392101-9c47-4693-935e-a88b1887eec5.jpg",
     "exercise_id": 927,
     "name": "Suspended crossess",
     "type": "Cardio"
   },
   {
-    "image_id": 271,
     "file": "0fd94587-6021-4763-856e-7227f5fcba2a.png",
     "exercise_id": 957,
     "name": "Quadriped Arm and Leg Raise",
     "type": "Back"
   },
   {
-    "image_id": 272,
     "file": "53a5e008-bc31-4ee0-9463-69a858c2ec18.png",
     "exercise_id": 959,
     "name": "TRX Rows",
     "type": "Back"
   },
   {
-    "image_id": 273,
     "file": "f74644fa-f43e-46bd-8603-6e3a2ee8ee2d.jpg",
     "exercise_id": 1022,
     "name": "Single Arm Plank to Row",
     "type": "Back"
   },
   {
-    "image_id": 322,
     "file": "c4bf7ba1-6058-4d14-928f-7187885d5d57.webp",
     "exercise_id": 1080,
     "name": "Hindu Pushups",
     "type": "Shoulders"
   },
   {
-    "image_id": 323,
     "file": "b0554016-16fd-4dbe-be47-a2a17d16ae0e.jpg",
     "exercise_id": 475,
     "name": "Pull-ups",
     "type": "Back"
   },
   {
-    "image_id": 324,
     "file": "91dd5a95-1c45-46f2-a074-de41b6ad599b.jpg",
     "exercise_id": 1084,
     "name": "Dumbbell Floor Press",
     "type": "Chest"
   },
   {
-    "image_id": 326,
     "file": "b2ee8d9b-0480-4992-8494-c223b37c2696.jpg",
     "exercise_id": 1086,
     "name": "Close-grip Press-ups",
     "type": "Chest"
   },
   {
-    "image_id": 327,
     "file": "d85f4e02-b20c-457c-bdfb-0b00e2d14150.jpg",
     "exercise_id": 1087,
     "name": "Dumbbell Hang Power Cleans",
     "type": "Back"
   },
   {
-    "image_id": 328,
     "file": "1c052351-2af0-4227-aeb0-244008e4b0a8.jpeg",
     "exercise_id": 203,
     "name": "Dumbbell Goblet Squat",
     "type": "Legs"
   },
   {
-    "image_id": 330,
     "file": "9f66b288-ce8f-4154-ba80-78fee267263c.jpg",
     "exercise_id": 1088,
     "name": "Dumbbell sumo deadlift",
     "type": "Legs"
   },
   {
-    "image_id": 331,
     "file": "70a2d72c-a822-45f3-8de2-54ea85951b84.jpg",
     "exercise_id": 478,
     "name": "Push Press",
     "type": "Shoulders"
   },
   {
-    "image_id": 332,
     "file": "1709c405-620a-4d07-9658-fade2b66a2df.jpeg",
     "exercise_id": 184,
     "name": "Deadlifts",
     "type": "Back"
   },
   {
-    "image_id": 333,
     "file": "49f51716-535d-41dd-aeb5-cff5bb906bc1.jpeg",
     "exercise_id": 1089,
     "name": "Medicine ball twist",
     "type": "Abs"
   },
   {
-    "image_id": 334,
     "file": "50c8912d-54ef-46c9-99d1-633b6196aa1e.jpg",
     "exercise_id": 1091,
     "name": "Plank Shoulder Taps",
     "type": "Abs"
   },
   {
-    "image_id": 335,
     "file": "d0931eb3-8db0-4049-bb08-aa4036072056.jfif",
     "exercise_id": 999,
     "name": "Reverse lunges",
     "type": "Legs"
   },
   {
-    "image_id": 337,
     "file": "b7def5bc-2352-499b-b9e5-fff741003831.png",
     "exercise_id": 256,
     "name": "Front Raises",
     "type": "Shoulders"
   },
   {
-    "image_id": 338,
     "file": "9d969203-9cb6-4d47-9c31-fef53bfe1de5.png",
     "exercise_id": 349,
     "name": "Lateral Rows on Cable, One Armed",
     "type": "Shoulders"
   },
   {
-    "image_id": 342,
     "file": "fa5328a2-64cb-4afb-a283-b3d948ddaf3f.jpg",
     "exercise_id": 1098,
     "name": "Seated rear delt rise",
     "type": "Back"
   },
   {
-    "image_id": 343,
     "file": "ab203e0c-8220-4537-987c-871eb259d687.jpg",
     "exercise_id": 1100,
     "name": "Wall balls",
     "type": "Legs"
   },
   {
-    "image_id": 344,
     "file": "36776818-799a-40bf-9eca-aebb3aa5008f.png",
     "exercise_id": 1105,
     "name": "Seated Knee Tuck",
     "type": "Abs"
   },
   {
-    "image_id": 346,
     "file": "b7bd9c28-9f1d-4647-bd17-ab6a3adf5770.png",
     "exercise_id": 458,
     "name": "Plank",
     "type": "Abs"
   },
   {
-    "image_id": 357,
     "file": "81f40bee-4adf-4317-8476-1a87706e3031.png",
     "exercise_id": 1112,
     "name": "Push-Ups | Decline",
     "type": "Chest"
   },
   {
-    "image_id": 359,
     "file": "695ced5c-9961-4076-add2-cb250d01089e.png",
     "exercise_id": 50,
     "name": "Barbell Triceps Extension",
     "type": "Arms"
   },
   {
-    "image_id": 364,
     "file": "5c7ffe68-e7b2-47f3-a22a-f9cc28640432.png",
     "exercise_id": 984,
     "name": "Lunges",
     "type": "Legs"
   },
   {
-    "image_id": 370,
     "file": "2555c4c3-a84d-47db-b83b-cbf721f12e45.png",
     "exercise_id": 1117,
     "name": "Seated Cable Row",
     "type": "Back"
   },
   {
-    "image_id": 371,
     "file": "fa2a2207-43cb-4dc0-bc2a-039e32544790.png",
     "exercise_id": 418,
     "name": "Military Press mit SZ-Bar",
     "type": "Shoulders"
   },
   {
-    "image_id": 374,
     "file": "e74255c0-67a0-4309-b78d-2d79e6ff8c11.png",
     "exercise_id": 1117,
     "name": "Seated Cable Row",
     "type": "Back"
   },
   {
-    "image_id": 376,
     "file": "9b138ad2-5b80-42a8-bfff-93a960444ffe.png",
     "exercise_id": 1119,
     "name": "Remo maquina agarre estrecho",
     "type": "Back"
   },
   {
-    "image_id": 377,
     "file": "df9a5256-e977-44d0-bc9c-b53253faeb22.png",
     "exercise_id": 1120,
     "name": "Remo maquina agarre estrecho supino",
     "type": "Back"
   },
   {
-    "image_id": 378,
     "file": "00b0a0bf-c14a-4f13-bb14-62c09030a1aa.png",
     "exercise_id": 1109,
     "name": "Cable Concentration Curl",
     "type": "Arms"
   },
   {
-    "image_id": 379,
     "file": "6dee2f60-aea2-4f2d-9bf6-aef50c4f9483.png",
     "exercise_id": 94,
     "name": "Biceps Curls With SZ-bar",
     "type": "Arms"
   },
   {
-    "image_id": 383,
     "file": "6283b258-a4d7-4833-84f7-a38987022d3d.png",
     "exercise_id": 988,
     "name": "Bulgarian split squats left",
     "type": "Legs"
   },
   {
-    "image_id": 384,
     "file": "60e2aa21-1910-40d3-9fed-babfee06dd48.png",
     "exercise_id": 373,
     "name": "Leg Presses (narrow)",
     "type": "Legs"
   },
   {
-    "image_id": 386,
     "file": "78c915d1-e46d-4d30-8124-65d68664c3ef.png",
     "exercise_id": 369,
     "name": "Leg Extension",
     "type": "Legs"
   },
   {
-    "image_id": 388,
     "file": "553266a8-a972-48c5-a014-b12afac66f65.png",
     "exercise_id": 1000,
     "name": "Floor dips",
     "type": "Arms"
   },
   {
-    "image_id": 391,
     "file": "0d51a0f2-622f-434b-beb8-1a003c54712a.png",
     "exercise_id": 158,
     "name": "Close-grip Lat Pull Down",
     "type": "Back"
   },
   {
-    "image_id": 392,
     "file": "4942b7c0-6bda-4983-88e5-86547c3d445e.png",
     "exercise_id": 1127,
     "name": "Close-grip supinated lat pulldown",
     "type": "Back"
   },
   {
-    "image_id": 395,
     "file": "a60452f1-e2ea-43fe-baa6-c1a2208d060c.png",
     "exercise_id": 659,
     "name": "Triceps Extensions on Cable",
     "type": "Arms"
   },
   {
-    "image_id": 397,
     "file": "3bcf3024-2dcc-4995-9694-55aa2c2e4a9a.png",
     "exercise_id": 1131,
     "name": "Cable glute extension",
     "type": "Legs"
   },
   {
-    "image_id": 399,
     "file": "b318dde9-f5f2-489f-940a-cd864affb9e3.png",
     "exercise_id": 364,
     "name": "Leg Curl",
     "type": "Legs"
   },
   {
-    "image_id": 402,
     "file": "5778a8e9-c606-4843-89c8-9d9469eeb6e4.PNG",
     "exercise_id": 1136,
     "name": "Neutral-grip chest pulldown",
     "type": "Back"
   },
   {
-    "image_id": 403,
     "file": "42f22229-c0a0-4bfc-aca6-66fe5e1ab10d.PNG",
     "exercise_id": 1137,
     "name": "High-pulley pullover",
     "type": "Back"
   },
   {
-    "image_id": 404,
     "file": "6c35fd79-ef35-4cf3-abf5-9c969457b8d4.PNG",
     "exercise_id": 1138,
     "name": "Incline bench pulldown",
     "type": "Back"
   },
   {
-    "image_id": 406,
     "file": "8270fdb8-28f1-4eff-b410-af8642085b3f.png",
     "exercise_id": 1012,
     "name": "Alternating bicep curls",
     "type": "Arms"
   },
   {
-    "image_id": 409,
     "file": "c7be1cd1-46c5-4a86-a114-5f0fe861c3e0.jpg",
     "exercise_id": 1141,
     "name": "Arabesque",
     "type": "Legs"
   },
   {
-    "image_id": 410,
     "file": "a751a438-ae2d-4751-8d61-cef0e9292174.png",
     "exercise_id": 81,
     "name": "Bent Over Dumbbell Rows",
     "type": "Back"
   },
   {
-    "image_id": 412,
     "file": "6e21cb6c-da09-4bcd-b9d2-1ef75237b763.png",
     "exercise_id": 1143,
     "name": "Back extensión",
     "type": "Back"
   },
   {
-    "image_id": 415,
     "file": "c5ca283d-8958-4fd8-9d59-a3f52a3ac66b.jpg",
     "exercise_id": 1185,
     "name": "Triceps Pushdown",
     "type": "Arms"
   },
   {
-    "image_id": 416,
-    "file": "297d4ce1-7e9e-4adb-8f5c-7d54054be885.jpg",
-    "exercise_id": 691,
-    "name": "Upright Row, on Multi Press",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 419,
-    "file": "1987a039-cf35-437e-bbdc-40c53dd7d053.jpg",
-    "exercise_id": 1186,
-    "name": "One Arm Bent Row",
-    "type": "Back"
-  },
-  {
-    "image_id": 421,
-    "file": "43e714e4-b736-4f3a-8ab4-97821fdff86a.jpg",
-    "exercise_id": 1188,
-    "name": "Side bend",
-    "type": "Abs"
-  },
-  {
-    "image_id": 423,
-    "file": "c05818bf-1c81-46df-9f24-42e354265388.png",
-    "exercise_id": 1290,
-    "name": "Reverse Grip Barbell Curls",
-    "type": "Arms"
-  },
-  {
-    "image_id": 425,
-    "file": "651a4535-8210-4dbd-8f06-61d95fdd9963.png",
-    "exercise_id": 1192,
-    "name": "Alternating Biceps Curls With Dumbbell",
-    "type": "Arms"
-  },
-  {
-    "image_id": 426,
-    "file": "70ca5d80-3847-4a8c-8882-c6e9e485e29e.png",
-    "exercise_id": 1193,
-    "name": "Russian Twist",
-    "type": "Abs"
-  },
-  {
-    "image_id": 427,
-    "file": "074e1766-4208-4a67-a211-9721772d99b0.png",
-    "exercise_id": 1194,
-    "name": "Pallof Press",
-    "type": "Abs"
-  },
-  {
-    "image_id": 428,
-    "file": "864906ac-4ac7-4e52-a886-c6bb97950a9f.jpg",
-    "exercise_id": 1198,
-    "name": "Inverted Rows",
-    "type": "Chest"
-  },
-  {
-    "image_id": 429,
-    "file": "947ac249-475d-44ed-bed3-8dc433374f59.png",
-    "exercise_id": 958,
-    "name": "Biceps with TRX",
-    "type": "Arms"
-  },
-  {
-    "image_id": 432,
-    "file": "3b681e59-377b-40db-9113-ca5873ce084b.jpg",
-    "exercise_id": 456,
-    "name": "Pistol Squat",
-    "type": "Legs"
-  },
-  {
-    "image_id": 437,
-    "file": "9a429bd0-afd3-4ad0-8043-e9beec901c81.jpeg",
-    "exercise_id": 622,
-    "name": "Standing Calf Raises",
-    "type": "Calves"
-  },
-  {
-    "image_id": 440,
-    "file": "590e65db-de60-4727-b7eb-55f80af56043.png",
-    "exercise_id": 1217,
-    "name": "Finger Pushup",
-    "type": "Arms"
-  },
-  {
-    "image_id": 441,
-    "file": "bf20836a-23b0-4f50-8b98-cfdd97684527.webp",
-    "exercise_id": 1223,
-    "name": "Claps over the head",
-    "type": "Arms"
-  },
-  {
-    "image_id": 443,
-    "file": "39a0b7e7-9780-425d-84f5-56d10d1690ac.gif",
-    "exercise_id": 1225,
-    "name": "Dumbbell wide bicep curls",
-    "type": "Arms"
-  },
-  {
-    "image_id": 444,
-    "file": "a6154dbd-67a0-4a36-8748-0f5af3865e83.jpg",
-    "exercise_id": 1226,
-    "name": "Dumbbell bicep curl to press",
-    "type": "Arms"
-  },
-  {
-    "image_id": 445,
-    "file": "57415c3c-2963-4130-9f6f-79f6a96113b6.gif",
-    "exercise_id": 1227,
-    "name": "Dumbbell rear delt row",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 448,
-    "file": "9fd1e2fd-f2c4-432d-b3ae-5e5f24085777.webp",
-    "exercise_id": 1230,
-    "name": "Triceps stretch left",
-    "type": "Arms"
-  },
-  {
-    "image_id": 449,
-    "file": "b10457ce-5fa5-4d20-a32f-3c7100c6a9d9.webp",
-    "exercise_id": 1231,
-    "name": "Triceps stretch right",
-    "type": "Arms"
-  },
-  {
-    "image_id": 450,
-    "file": "2b6de046-5806-49e3-bf36-b6fae16af021.png",
-    "exercise_id": 1232,
-    "name": "Standing biceps stretch left",
-    "type": "Arms"
-  },
-  {
-    "image_id": 451,
-    "file": "d7d6f9e1-7834-4cca-bd3b-f9def33ff44d.png",
-    "exercise_id": 1233,
-    "name": "Standing biceps stretch right",
-    "type": "Arms"
-  },
-  {
-    "image_id": 452,
-    "file": "5026373a-a7b4-4e26-a0aa-c46634205196.jpg",
-    "exercise_id": 1239,
-    "name": "Standing Calf Stretch",
-    "type": "Legs"
-  },
-  {
-    "image_id": 453,
-    "file": "53d4fabe-c994-4907-873f-8d82813a9832.png",
-    "exercise_id": 1243,
-    "name": "Double Leg Calf Raise",
-    "type": "Legs"
-  },
-  {
-    "image_id": 454,
-    "file": "bcffdf52-3c36-4b0c-b787-fb84f20bf82d.png",
-    "exercise_id": 1274,
-    "name": "Sitting Calf Stretch (Dorsiflexion)",
-    "type": "Legs"
-  },
-  {
-    "image_id": 455,
-    "file": "0652d306-93eb-42f0-b564-7c3261ea809a.png",
-    "exercise_id": 1275,
-    "name": "Plantarflexion Stretch with Band",
-    "type": "Legs"
-  },
-  {
-    "image_id": 457,
-    "file": "9f3c7817-3e3d-417d-8b08-2c0a1aa5fe03.jpg",
-    "exercise_id": 537,
-    "name": "Incline Bench Press - Dumbbell",
-    "type": "Chest"
-  },
-  {
-    "image_id": 459,
-    "file": "e7262f70-7512-408a-8d00-4c499ef632fc.jpg",
-    "exercise_id": 1283,
-    "name": "Incline Chest-Supported Dumbbell Row",
-    "type": "Back"
-  },
-  {
-    "image_id": 460,
-    "file": "1ab8005d-41e4-4505-9a7d-5277d59bb3cd.jpg",
-    "exercise_id": 1285,
-    "name": "Talons fesses",
-    "type": "Cardio"
-  },
-  {
-    "image_id": 462,
-    "file": "c42782fe-337a-44f4-9079-7f6dedab4885.png",
-    "exercise_id": 1296,
-    "name": "Low-Cable Cross-Over - NB",
-    "type": "Chest"
-  },
-  {
-    "image_id": 464,
-    "file": "ec4b83ec-5a8f-4303-9050-99ec4389bc2a.png",
-    "exercise_id": 1298,
-    "name": "High-Cable Cross Tricep Extention - NB",
-    "type": "Arms"
-  },
-  {
-    "image_id": 476,
-    "file": "d8372291-6725-452a-9711-6321c061e354.jpg",
-    "exercise_id": 1325,
-    "name": "Lateral Push Off",
-    "type": "Legs"
-  },
-  {
-    "image_id": 481,
-    "file": "89f43354-32e3-473a-9bcf-caca51f1a8e3.webp",
-    "exercise_id": 1333,
-    "name": "Forearm Curls (underhand grip)",
-    "type": "Arms"
-  },
-  {
-    "image_id": 484,
-    "file": "ebf88217-df26-4ef7-94cb-f0c2220c6abe.webp",
-    "exercise_id": 1336,
-    "name": "Triceps Overhead (Dumbbell)",
-    "type": "Arms"
-  },
-  {
-    "image_id": 486,
-    "file": "9d157b4d-5af0-43c1-bd34-f52144ba1b54.webp",
-    "exercise_id": 1338,
-    "name": "Shoulder Raise (Dumbbell)",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 496,
-    "file": "a3769120-2445-49f2-97d3-afc1238bfc2a.webp",
-    "exercise_id": 1348,
-    "name": "Lower Back Extensions",
-    "type": "Back"
-  },
-  {
-    "image_id": 501,
-    "file": "138cb483-7d4d-4519-b029-63e4269810a6.webp",
-    "exercise_id": 1353,
-    "name": "Dumbbell Hex Press",
-    "type": "Chest"
-  },
-  {
-    "image_id": 504,
-    "file": "1dba566b-e799-4bde-abb0-c011a3c75e52.webp",
-    "exercise_id": 1363,
-    "name": "Blackroll",
-    "type": "Back"
-  },
-  {
-    "image_id": 513,
-    "file": "12e7a231-d36a-4992-bf57-ff7bfe0f3ae4.jpg",
-    "exercise_id": 1377,
-    "name": "Torso Twist",
-    "type": "Abs"
-  },
-  {
-    "image_id": 514,
-    "file": "7c1fcf34-fb7e-45e7-a0c1-51f296235315.jpg",
-    "exercise_id": 1378,
-    "name": "Cable Lateral Raises (Single Arm)",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 519,
-    "file": "a2cf7eda-5540-4105-b30e-1c2f2679a6c7.png",
-    "exercise_id": 1387,
-    "name": "Hamstring Kicks",
-    "type": "Legs"
-  },
-  {
-    "image_id": 521,
-    "file": "ca1bc68d-9c36-4dd3-8ec4-496c57b5c564.jpg",
-    "exercise_id": 1621,
-    "name": "Unilateral Cable row",
-    "type": "Back"
-  },
-  {
-    "image_id": 522,
-    "file": "fab7f641-27d4-40b5-8edd-1a0a137bfd94.gif",
-    "exercise_id": 1519,
-    "name": "Overhead Triceps Extension",
-    "type": "Arms"
-  },
-  {
-    "image_id": 523,
-    "file": "e4e4aa78-3c96-4b1d-95c0-f9f73a0779d0.webp",
-    "exercise_id": 1521,
-    "name": "Pendular hack",
-    "type": "Legs"
-  },
-  {
-    "image_id": 524,
-    "file": "a6a9e561-3965-45c6-9f2b-ee671e1a3a45.png",
-    "exercise_id": 1551,
-    "name": "Push-Up",
-    "type": "Chest"
-  },
-  {
-    "image_id": 526,
-    "file": "49207a62-8799-4b47-8c0b-7bde02926f3d.png",
-    "exercise_id": 1554,
-    "name": "Clap Push-UP",
-    "type": "Chest"
-  },
-  {
-    "image_id": 528,
-    "file": "a23c820b-e08b-4911-a6a4-80f16c15d2e0.png",
-    "exercise_id": 1556,
-    "name": "Devil’s Press",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 539,
-    "file": "0a8c155c-a48e-47e8-9df3-e39f025c6cad.png",
-    "exercise_id": 1567,
-    "name": "Alternating dumbbell hammer curl",
-    "type": "Arms"
-  },
-  {
-    "image_id": 545,
-    "file": "3d14e761-a73d-49da-8804-f3016a7573ff.png",
-    "exercise_id": 1572,
-    "name": "Bird Dog",
-    "type": "Abs"
-  },
-  {
-    "image_id": 546,
-    "file": "b71a6710-5798-4639-ac5a-22a2cdae2036.jpg",
-    "exercise_id": 1581,
-    "name": "Trap press",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 547,
-    "file": "5094fe30-eea2-4269-b0de-4b8a20558fd7.png",
-    "exercise_id": 1582,
-    "name": "Side-laying interior rotation",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 548,
-    "file": "9815fcd6-cf40-4ddd-9b38-2eac25973de1.gif",
-    "exercise_id": 1593,
-    "name": "Smith Machine Split Squat",
-    "type": "Legs"
-  },
-  {
-    "image_id": 550,
-    "file": "7695428e-bfed-4021-b987-498d93153995.png",
-    "exercise_id": 1604,
-    "name": "Sliding Lateral Lunge",
-    "type": "Legs"
-  },
-  {
-    "image_id": 551,
-    "file": "3dc33f57-2786-4305-8b91-e011d7055923.jpg",
-    "exercise_id": 1612,
-    "name": "kettlebell sumo deadlift",
-    "type": "Legs"
-  },
-  {
-    "image_id": 553,
-    "file": "a851fe9d-771f-44da-82f0-799e02ae3fd1.jpg",
-    "exercise_id": 1613,
-    "name": "rubber band glute kickback",
-    "type": "Legs"
-  },
-  {
-    "image_id": 556,
-    "file": "7792295c-83b6-4ea8-9353-ce02f0ad2559.jpg",
-    "exercise_id": 1615,
-    "name": "Treadmill Cardio",
-    "type": "Cardio"
-  },
-  {
-    "image_id": 557,
-    "file": "97e6fd98-2ca6-486f-b9b2-f0499fe38044.jpg",
-    "exercise_id": 1616,
-    "name": "Dumbbell donkey kick",
-    "type": "Legs"
-  },
-  {
-    "image_id": 559,
-    "file": "c18baedc-ff98-4fb2-b4f5-38a05c12f637.png",
-    "exercise_id": 1618,
-    "name": "Stationary bike cardio",
-    "type": "Cardio"
-  },
-  {
-    "image_id": 560,
-    "file": "edd40e39-e337-4460-a8dd-6127d40ddd16.jpeg",
-    "exercise_id": 1620,
-    "name": "Seated Dumbbell Calf Raise",
-    "type": "Calves"
-  },
-  {
-    "image_id": 561,
-    "file": "2184e68c-32b5-413f-a7c1-4a2d1bb98c35.png",
-    "exercise_id": 1448,
-    "name": "Seated W Curl",
-    "type": "Arms"
-  },
-  {
-    "image_id": 562,
-    "file": "8b284904-d072-4381-a256-4c81d8fd9c1f.png",
-    "exercise_id": 146,
-    "name": "Calf Press Using Leg Press Machine",
-    "type": "Calves"
-  },
-  {
-    "image_id": 563,
-    "file": "b938437e-ff00-4679-9036-acb41bb28bbd.png",
-    "exercise_id": 512,
-    "name": "Rowing seated, narrow grip",
-    "type": "Back"
-  },
-  {
-    "image_id": 564,
-    "file": "05c91bd2-7814-40b6-b2d1-51ae942b8321.png",
-    "exercise_id": 693,
-    "name": "Upright Row, SZ-bar",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 565,
-    "file": "0305d98e-0887-4c0c-8992-7c220814efc2.webp",
-    "exercise_id": 1479,
-    "name": "Sit Up Elbow Thrust",
-    "type": "Abs"
-  },
-  {
-    "image_id": 566,
-    "file": "36605bc8-d7e1-43e1-87c1-b9cb50db62b2.webp",
-    "exercise_id": 279,
-    "name": "Hand Grip",
-    "type": "Arms"
-  },
-  {
-    "image_id": 567,
-    "file": "f1730f56-7aca-4566-8338-3e42b1bee6e1.webp",
-    "exercise_id": 51,
-    "name": "Barbell Wrist Curl",
-    "type": "Arms"
-  },
-  {
-    "image_id": 569,
-    "file": "4d621b17-f6cb-4107-97c0-9f44e9a2dbc6.webp",
-    "exercise_id": 369,
-    "name": "Leg Extension",
-    "type": "Legs"
-  },
-  {
-    "image_id": 570,
-    "file": "4a42cc6f-648d-40cc-a72a-c49dd47e1667.webp",
-    "exercise_id": 12,
-    "name": "Seated Hip Adduction",
-    "type": "Legs"
-  },
-  {
-    "image_id": 571,
-    "file": "b0f0c7d8-5878-4d9e-b820-21acc013741d.webp",
-    "exercise_id": 630,
-    "name": "Sumo Deadlift",
-    "type": "Legs"
-  },
-  {
-    "image_id": 572,
-    "file": "02e8a7c3-dc67-434e-a4bc-77fdecf84b49.webp",
-    "exercise_id": 158,
-    "name": "Close-grip Lat Pull Down",
-    "type": "Back"
-  },
-  {
-    "image_id": 573,
-    "file": "d2136f96-3a43-4d4c-9944-1919c4ca1ce1.webp",
-    "exercise_id": 371,
-    "name": "Leg Press",
-    "type": "Legs"
-  },
-  {
-    "image_id": 574,
-    "file": "9a4704d3-1b25-43e3-b244-3885f4d3db87.png",
-    "exercise_id": 1634,
-    "name": "Rope Pullover/row",
-    "type": "Back"
-  },
-  {
-    "image_id": 575,
-    "file": "b8c34e3a-7474-41ea-99e3-8d7fdb1e12d6.png",
-    "exercise_id": 1635,
-    "name": "Modified pulldown",
-    "type": "Back"
-  },
-  {
-    "image_id": 576,
-    "file": "1bf3ee54-207c-4b53-b057-15adc1dd6128.png",
-    "exercise_id": 1621,
-    "name": "Unilateral Cable row",
-    "type": "Back"
-  },
-  {
-    "image_id": 577,
-    "file": "a1fbe83a-a3e5-49f6-a2c2-5d5b533c2be8.png",
-    "exercise_id": 1637,
-    "name": "Single arm row",
-    "type": "Back"
-  },
-  {
-    "image_id": 578,
-    "file": "046c09b0-c35d-48d0-a552-39dd49f956d2.webp",
-    "exercise_id": 1638,
-    "name": "Barbell Clean and press",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 579,
-    "file": "8927346e-f5ca-4795-bdf1-5ac9309401e7.webp",
-    "exercise_id": 1639,
-    "name": "Dumbbell Bent Over Face Pull",
-    "type": "Back"
-  },
-  {
-    "image_id": 580,
-    "file": "bdea82f1-15ef-4649-8b5a-1303cfc178e7.webp",
-    "exercise_id": 1640,
-    "name": "Dumbbell Front Squat",
-    "type": "Legs"
-  },
-  {
-    "image_id": 581,
-    "file": "68d9488d-2596-420f-be0f-52aa70732c83.webp",
-    "exercise_id": 1641,
-    "name": "Kettlebell One Legged Deadlift",
-    "type": "Legs"
-  },
-  {
-    "image_id": 582,
-    "file": "a81ad922-caf5-47f8-99b4-640cb0717436.webp",
-    "exercise_id": 1642,
-    "name": "Dumbbell Hip Thrust",
-    "type": "Legs"
-  },
-  {
-    "image_id": 585,
-    "file": "9e730259-1dcd-4b5e-b4cc-9ebc0cfda75c.webp",
-    "exercise_id": 572,
-    "name": "Shrugs, Dumbbells",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 586,
-    "file": "63ae02d6-6dd9-4e9e-84da-d4905e78a33c.jpg",
-    "exercise_id": 1648,
-    "name": "Weighted Crunch",
-    "type": "Abs"
-  },
-  {
-    "image_id": 588,
-    "file": "1d7a5336-ec0b-4898-a474-78ba32789bf3.webp",
-    "exercise_id": 1650,
-    "name": "Dumbbell Side Bend",
-    "type": "Abs"
-  },
-  {
-    "image_id": 589,
-    "file": "04ab2679-a04d-4d05-9c85-0d36e898328c.webp",
-    "exercise_id": 1651,
-    "name": "Dumbbell Rear Lunge",
-    "type": "Legs"
-  },
-  {
-    "image_id": 590,
-    "file": "0306c8c0-70cc-45d4-92de-6fa72ceaa834.webp",
-    "exercise_id": 1652,
-    "name": "Dumbbell Romanian Deadlift",
-    "type": "Legs"
-  },
-  {
-    "image_id": 591,
-    "file": "c10c4e17-1e14-4cf9-930b-cc3a614f15dd.webp",
-    "exercise_id": 1653,
-    "name": "Dumbbell Side Squat",
-    "type": "Legs"
-  },
-  {
-    "image_id": 592,
-    "file": "aa724a58-b3b5-4522-b278-1155416236a5.jpg",
-    "exercise_id": 1654,
-    "name": "Machine Lateral Raise",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 593,
-    "file": "b263c968-e067-4750-916a-d8758a7df23e.webp",
-    "exercise_id": 129,
-    "name": "Chest Press",
-    "type": "Chest"
-  },
-  {
-    "image_id": 597,
-    "file": "0c5243cc-2539-4005-aee0-d3a8c5d3a32c.jfif",
-    "exercise_id": 1706,
-    "name": "Bulgarian Squat with Dumbbells",
-    "type": "Legs"
-  },
-  {
-    "image_id": 598,
-    "file": "f0ebd44e-b8e1-400c-b598-ca371f3a07af.png",
-    "exercise_id": 1725,
-    "name": "Seated Row (Machine)",
-    "type": "Back"
-  },
-  {
-    "image_id": 599,
-    "file": "2e7e541b-5f55-405a-ae78-3e71b3f42db4.png",
-    "exercise_id": 1726,
-    "name": "Straight-Arm Pulldown (Cable)",
-    "type": "Back"
-  },
-  {
-    "image_id": 600,
-    "file": "d13b9adb-968e-4f73-95e6-b16690bcf616.jpg",
-    "exercise_id": 1732,
-    "name": "Face pulls with yellow/green band",
-    "type": "Back"
-  },
-  {
-    "image_id": 601,
-    "file": "4ef77069-beb2-4504-a4f3-b181d5f35212.png",
-    "exercise_id": 1733,
-    "name": "Isometric Squat to Failure",
-    "type": "Legs"
-  },
-  {
-    "image_id": 602,
-    "file": "782e2fbb-1267-476d-a817-14f3b83e0564.png",
-    "exercise_id": 1734,
-    "name": "Single-Leg Lunge with Kettlebell:",
-    "type": "Legs"
-  },
-  {
-    "image_id": 603,
-    "file": "43bca7d9-2333-43f3-8554-2d0b39fa2a07.png",
-    "exercise_id": 1735,
-    "name": "Single-leg side glute press",
-    "type": "Legs"
-  },
-  {
-    "image_id": 604,
-    "file": "aa724cc5-c485-4f3e-9d2a-0c6ae4baefbe.png",
-    "exercise_id": 1736,
-    "name": "Single-Leg Deadlift with Dumbbell",
-    "type": "Legs"
-  },
-  {
-    "image_id": 605,
-    "file": "0529acdf-ede8-42a2-a3e5-8d0c57b7a0e1.jpg",
-    "exercise_id": 1738,
-    "name": "Neutral-grip pull-ups or TRX rows",
-    "type": "Arms"
-  },
-  {
-    "image_id": 606,
-    "file": "cb9263c4-39fc-4261-8d30-a5d6d57841c1.jpg",
-    "exercise_id": 1744,
-    "name": "Machine Side Lateral Raises",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 607,
-    "file": "9c92843a-6b90-428b-a868-9af4b11bad38.jpg",
-    "exercise_id": 1745,
-    "name": "Cable Front Raise with a small bar",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 609,
-    "file": "af9647dd-04ec-4adf-9c07-4e33edb77277.jpg",
-    "exercise_id": 1747,
-    "name": "Smith machine squat",
-    "type": "Legs"
-  },
-  {
-    "image_id": 610,
-    "file": "923a3ff7-c269-49bd-9f03-697151a40f06.jpg",
-    "exercise_id": 1748,
-    "name": "Machine Hip Abduction",
-    "type": "Legs"
-  },
-  {
-    "image_id": 615,
-    "file": "60043328-1cfb-4289-9865-aaf64d5aaa28.jpg",
-    "exercise_id": 1801,
-    "name": "Barbell Full Squat",
-    "type": "Legs"
-  },
-  {
-    "image_id": 617,
-    "file": "691c69b8-c3db-4177-8435-dd3a97d88542.webp",
-    "exercise_id": 1804,
-    "name": "ankle dorsiflexion rocks",
-    "type": "Legs"
-  },
-  {
-    "image_id": 619,
-    "file": "3b6c547c-ab3d-4472-93cf-561710279eab.jpg",
-    "exercise_id": 1830,
-    "name": "Barbell Step Back Lunge",
-    "type": "Legs"
-  },
-  {
-    "image_id": 620,
-    "file": "2d9d509f-707b-4132-961e-91a2459ca198.jpg",
-    "exercise_id": 1831,
-    "name": "Hammerstrength Decline Chest Press",
-    "type": "Chest"
-  },
-  {
-    "image_id": 621,
-    "file": "ca4a0b7e-9fdd-4173-843a-f0392824abe1.jpg",
-    "exercise_id": 1835,
-    "name": "External Rotation Stretch",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 622,
-    "file": "ccd3c18e-c864-426f-8176-15dce14305e3.webp",
-    "exercise_id": 1854,
-    "name": "Calves foam roller",
-    "type": "Legs"
-  },
-  {
-    "image_id": 623,
-    "file": "a6597ed8-1613-4458-ba56-4b63bc946a35.webp",
-    "exercise_id": 1855,
-    "name": "Hamstring Foam roller",
-    "type": "Legs"
-  },
-  {
-    "image_id": 624,
-    "file": "19c31c63-4968-4887-b8e6-4127be27fdde.jpg",
-    "exercise_id": 1856,
-    "name": "Foam Roller Anterior tibialis",
-    "type": "Legs"
-  },
-  {
-    "image_id": 625,
-    "file": "92291128-cc7e-4f70-9663-80840c516fc9.jpg",
-    "exercise_id": 1857,
-    "name": "Foam Roller Iliotibial band",
-    "type": "Legs"
-  },
-  {
-    "image_id": 626,
-    "file": "058b6fdb-8093-4b6d-a504-cbf869f3e3d3.jpg",
-    "exercise_id": 1858,
-    "name": "Foam Roller quadriceps",
-    "type": "Legs"
-  },
-  {
-    "image_id": 627,
-    "file": "2465d5eb-c249-454d-93eb-58aa13bdc080.webp",
-    "exercise_id": 1859,
-    "name": "Foam Roller Gluteus",
-    "type": "Legs"
-  },
-  {
-    "image_id": 628,
-    "file": "f0410e66-28d5-455f-90f3-d078e0988460.avif",
-    "exercise_id": 1860,
-    "name": "Foam Roller Adductors",
-    "type": "Legs"
-  },
-  {
-    "image_id": 629,
-    "file": "0ffe4e99-71ad-47fb-b98c-1f243faa0499.png",
-    "exercise_id": 1861,
-    "name": "Side stretch",
-    "type": "Back"
-  },
-  {
-    "image_id": 630,
-    "file": "93d993f8-1d8c-4e21-99c6-08b2fe424a17.png",
-    "exercise_id": 1862,
-    "name": "Hip Circles",
-    "type": "Legs"
-  },
-  {
-    "image_id": 631,
-    "file": "5f29959d-0fd1-46d2-98b7-0c2cb5d9ee13.png",
-    "exercise_id": 1863,
-    "name": "Hip Crossover",
-    "type": "Legs"
-  },
-  {
-    "image_id": 632,
-    "file": "5970cdd8-0123-4eba-a921-2157fb6adacf.png",
-    "exercise_id": 1864,
-    "name": "Ankle Roll",
-    "type": "Legs"
-  },
-  {
-    "image_id": 633,
-    "file": "c2c9848e-5094-4ed9-bd81-0831b6551483.png",
-    "exercise_id": 1865,
-    "name": "Banded Ankle Mobility",
-    "type": "Legs"
-  },
-  {
-    "image_id": 635,
-    "file": "767631e5-10d2-46b8-b03f-cc298f96963b.png",
-    "exercise_id": 1867,
-    "name": "Hip Flexor Stretch",
-    "type": "Legs"
-  },
-  {
-    "image_id": 636,
-    "file": "446e7065-215d-4a91-9da7-9416101442bb.png",
-    "exercise_id": 1868,
-    "name": "Lunge with Twist Stretch",
-    "type": "Legs"
-  },
-  {
-    "image_id": 637,
-    "file": "c49187bd-9f90-4a7a-b25e-1d50e857a104.png",
-    "exercise_id": 1869,
-    "name": "Lying Figure Four Stretch",
-    "type": "Legs"
-  },
-  {
-    "image_id": 638,
-    "file": "7465bbcf-3b86-42a6-8d2f-12a3d1f60a15.png",
-    "exercise_id": 1870,
-    "name": "Lying Hamstring Stretch with Band",
-    "type": "Legs"
-  },
-  {
-    "image_id": 639,
-    "file": "85a6b9de-4eec-445b-8ebb-f1950b076aba.png",
-    "exercise_id": 1452,
-    "name": "Knee to Chest Stretch",
-    "type": "Legs"
-  },
-  {
-    "image_id": 640,
-    "file": "df982df1-512a-4eb9-acd9-68cc1c265df6.png",
-    "exercise_id": 1872,
-    "name": "Pigeon Stretch",
-    "type": "Legs"
-  },
-  {
-    "image_id": 641,
-    "file": "c0ed299b-6d87-4d90-885d-bb3b5d85f1eb.png",
-    "exercise_id": 1873,
-    "name": "Quad Stretch",
-    "type": "Legs"
-  },
-  {
-    "image_id": 642,
-    "file": "66fca8a5-41e8-42d1-8776-5e46a4902650.png",
-    "exercise_id": 1874,
-    "name": "Runners Lunge Stretch",
-    "type": "Legs"
-  },
-  {
-    "image_id": 643,
-    "file": "e1128391-4b73-43a9-ab27-657d8bb43083.png",
-    "exercise_id": 1875,
-    "name": "Standing IT Band Stretch",
-    "type": "Legs"
-  },
-  {
-    "image_id": 644,
-    "file": "ca7b3fe7-5908-4ec2-9d85-7fa1b80bb105.png",
-    "exercise_id": 1876,
-    "name": "Supported Calf Stretch",
-    "type": "Calves"
-  },
-  {
-    "image_id": 646,
-    "file": "bc51ef67-0c12-4340-a36c-42ef722778dd.png",
-    "exercise_id": 1889,
-    "name": "Decline Bench Leg Raise",
-    "type": "Abs"
-  },
-  {
-    "image_id": 647,
-    "file": "7dbad19e-0616-41fd-9d7d-3e21649c0eea.png",
-    "exercise_id": 1893,
-    "name": "Overhead Barbell Press",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 648,
-    "file": "9abec4e4-90ba-44f9-9e6e-5e35f7273078.png",
-    "exercise_id": 76,
-    "name": "Bench Press Narrow Grip",
-    "type": "Arms"
-  },
-  {
-    "image_id": 649,
-    "file": "a8243245-8f8f-4e2b-93ca-694d416cb11d.png",
-    "exercise_id": 1900,
-    "name": "Tricep Rope Pushdowns",
-    "type": "Arms"
-  },
-  {
-    "image_id": 650,
-    "file": "046f0f42-0ed5-48c5-a9ee-41de25e3b6a0.png",
-    "exercise_id": 1901,
-    "name": "Clean and Press",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 651,
-    "file": "d0c3f170-543c-4be4-bc70-5c6dc606406c.png",
-    "exercise_id": 1902,
-    "name": "Weighted push-ups",
-    "type": "Chest"
-  },
-  {
-    "image_id": 652,
-    "file": "6ec66efd-e74f-4142-bed1-0a0ac74e3294.png",
-    "exercise_id": 206,
-    "name": "Dumbbell Lunges Walking",
-    "type": "Legs"
-  },
-  {
-    "image_id": 653,
-    "file": "e7d97b4b-9fe4-4378-aea3-5a9d93b6eb8d.png",
-    "exercise_id": 1916,
-    "name": "Tuck planche",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 654,
-    "file": "eb750ee5-3220-4128-aef1-5e2f1ccff40a.webp",
-    "exercise_id": 1922,
-    "name": "Seated Cable chest fly",
-    "type": "Chest"
-  },
-  {
-    "image_id": 658,
-    "file": "68b4a33f-40f1-4dda-b56c-a2e20ed13903.jpg",
-    "exercise_id": 570,
-    "name": "Shoulder Shrug",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 659,
-    "file": "a9ab402b-61ef-4d60-b91a-df52bf7f41a9.jpg",
-    "exercise_id": 1573,
-    "name": "Ab wheel",
-    "type": "Abs"
-  },
-  {
-    "image_id": 663,
-    "file": "4201a9c0-f9e4-48ca-80f1-b46c7ffe5640.webp",
-    "exercise_id": 1947,
-    "name": "dumbbell snatch",
-    "type": "Legs"
-  },
-  {
-    "image_id": 664,
-    "file": "d3ffe51f-7eb8-4cc9-9eae-105847af3005.png",
-    "exercise_id": 978,
-    "name": "Knee Raises",
-    "type": "Abs"
-  },
-  {
-    "image_id": 665,
-    "file": "92f6451b-f89d-49d6-9531-8970ea420d97.png",
-    "exercise_id": 31,
-    "name": "Axe Hold",
-    "type": "Arms"
-  },
-  {
-    "image_id": 666,
-    "file": "7a437824-e2cc-46e1-804a-674f0ea31d25.png",
-    "exercise_id": 805,
-    "name": "Tricep Pushdown on Cable",
-    "type": "Arms"
-  },
-  {
-    "image_id": 667,
-    "file": "f9377a7e-eb58-4cca-b805-2d36863aeb03.png",
-    "exercise_id": 981,
-    "name": "Step-ups",
-    "type": "Legs"
-  },
-  {
-    "image_id": 668,
-    "file": "41d9267a-99bc-4e94-b1c4-0e39fe7a968f.png",
-    "exercise_id": 975,
-    "name": "one-handed kettlebell curls",
-    "type": "Arms"
-  },
-  {
-    "image_id": 669,
-    "file": "da4d0560-da89-4bb5-b91f-746458fb04ad.png",
-    "exercise_id": 960,
-    "name": "Kettlebell Swing",
-    "type": "Legs"
-  },
-  {
-    "image_id": 670,
-    "file": "f6121ac9-330e-4ed7-8219-91ce246bf871.png",
-    "exercise_id": 282,
-    "name": "Handstand Pushup",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 671,
-    "file": "94649ea6-bf58-4fd9-90c1-b2ec96ee20cd.png",
-    "exercise_id": 976,
-    "name": "Medicine ball booklet crunch",
-    "type": "Abs"
-  },
-  {
-    "image_id": 672,
-    "file": "3124c091-6395-4377-96c5-56048b627ceb.png",
-    "exercise_id": 977,
-    "name": "Box squat",
-    "type": "Legs"
-  },
-  {
-    "image_id": 673,
-    "file": "6f4b8bd9-fa05-49de-870b-1f79b595ce89.png",
-    "exercise_id": 804,
-    "name": "Sloper hanging",
-    "type": "Arms"
-  },
-  {
-    "image_id": 674,
-    "file": "34b37423-269f-43d4-9d29-d2a90eeaa6b4.png",
-    "exercise_id": 41,
-    "name": "Barbell Ab Rollout",
-    "type": "Abs"
-  },
-  {
-    "image_id": 675,
-    "file": "de20457c-914a-45c9-8cf9-0ad9739759a1.png",
-    "exercise_id": 990,
-    "name": "Kneeling kickbacks",
-    "type": "Legs"
-  },
-  {
-    "image_id": 676,
-    "file": "16245344-9957-4a24-8d61-f9939ed5f964.png",
-    "exercise_id": 983,
-    "name": "High knees",
-    "type": "Cardio"
-  },
-  {
-    "image_id": 677,
-    "file": "159222d9-c1e4-46ae-89ee-6a2dfaab978d.png",
-    "exercise_id": 909,
-    "name": "Reverse Nordic Curl",
-    "type": "Legs"
-  },
-  {
-    "image_id": 678,
-    "file": "27097a3a-5749-428d-b94c-6082afe390f6.png",
-    "exercise_id": 979,
-    "name": "Leg raises pull up bar",
-    "type": "Abs"
-  },
-  {
-    "image_id": 679,
-    "file": "e10a034f-6370-4dd6-b1c2-416b27844529.png",
-    "exercise_id": 912,
-    "name": "Straight Bar Cable Curls",
-    "type": "Arms"
-  },
-  {
-    "image_id": 680,
-    "file": "da58dfbf-748a-461b-891e-3d6bc9cc4be2.png",
-    "exercise_id": 79,
-    "name": "Bent High Pulls",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 681,
-    "file": "dbad8cd0-5eeb-4de2-8d9e-80c7770735fd.png",
-    "exercise_id": 129,
-    "name": "Chest Press",
-    "type": "Chest"
-  },
-  {
-    "image_id": 682,
-    "file": "b9b1803e-2817-40bf-8ac7-e398ca86d8b4.png",
-    "exercise_id": 161,
-    "name": "Cross-Bench Dumbbell Pullovers",
-    "type": "Chest"
-  },
-  {
-    "image_id": 683,
-    "file": "4141e8b2-d9f2-4597-8ef0-7768127fd0ec.png",
-    "exercise_id": 285,
-    "name": "High Knee Jumps",
-    "type": "Cardio"
-  },
-  {
-    "image_id": 684,
-    "file": "ddf91765-8045-4087-bece-de17f33332ce.png",
-    "exercise_id": 1002,
-    "name": "Child's pose",
-    "type": "Back"
-  },
-  {
-    "image_id": 685,
-    "file": "772d6e47-3865-4944-9255-7435d0b06782.png",
-    "exercise_id": 1003,
-    "name": "Kettlebell deadlifts",
-    "type": "Back"
-  },
-  {
-    "image_id": 687,
-    "file": "757846d3-78e4-4068-bbca-62e567372c94.png",
-    "exercise_id": 1007,
-    "name": "Head turns",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 688,
-    "file": "5bbd3879-b6fc-4aaa-9e8e-33ae9a688112.png",
-    "exercise_id": 1018,
-    "name": "Head tilts",
-    "type": "Back"
-  },
-  {
-    "image_id": 690,
-    "file": "67dbb1c9-b378-46f9-adb6-1f55b3d3007a.png",
-    "exercise_id": 925,
-    "name": "Smith Machine Slight Incline Press",
-    "type": "Chest"
-  },
-  {
-    "image_id": 691,
-    "file": "ae9deb5d-a1e9-4c30-b1e3-c128ba5d4969.png",
-    "exercise_id": 926,
-    "name": "Machine chest fly",
-    "type": "Chest"
-  },
-  {
-    "image_id": 692,
-    "file": "fe8ebece-dff8-4700-b84c-9110e2e074f5.png",
-    "exercise_id": 915,
-    "name": "Bus Drivers",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 693,
-    "file": "9bf7555a-fec6-43a9-b343-aae496744e5e.png",
-    "exercise_id": 916,
-    "name": "Smith Press",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 694,
-    "file": "6c9124b6-3551-47a8-9c22-20141c8b9c53.png",
-    "exercise_id": 320,
-    "name": "Jumping Jacks",
-    "type": "Legs"
-  },
-  {
-    "image_id": 696,
-    "file": "729af526-19a0-4d3d-a258-196c7575d139.jpg",
-    "exercise_id": 1971,
-    "name": "Mentzer Pulldown",
-    "type": "Arms"
-  },
-  {
-    "image_id": 697,
-    "file": "447f3c17-405f-46e0-b138-65c2a8caaab0.png",
-    "exercise_id": 454,
-    "name": "Pike Push Ups",
-    "type": "Arms"
-  },
-  {
-    "image_id": 698,
-    "file": "74041371-1019-4f89-9ebe-cec792484a46.png",
-    "exercise_id": 1962,
-    "name": "Step Jack",
-    "type": "Cardio"
-  },
-  {
-    "image_id": 699,
-    "file": "db285682-1ab3-4be0-ae00-5117ecce1ee6.png",
-    "exercise_id": 1963,
-    "name": "Slow Squat",
-    "type": "Legs"
-  },
-  {
-    "image_id": 700,
-    "file": "03c08a42-dedb-4a46-8d15-acaf497a35a2.png",
-    "exercise_id": 1965,
-    "name": "Marching High Knees",
-    "type": "Legs"
-  },
-  {
-    "image_id": 701,
-    "file": "cd92e973-a0d9-4e5f-9011-5369012598d3.png",
-    "exercise_id": 1968,
-    "name": "Single-arm dumbbell shoulder press",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 702,
-    "file": "b10d3341-baa8-49ab-b462-5b3529389aac.png",
-    "exercise_id": 297,
-    "name": "Hollow Hold",
-    "type": "Abs"
-  },
-  {
-    "image_id": 703,
-    "file": "7b700f5d-17fc-41a9-bd41-e98e45c15768.png",
-    "exercise_id": 75,
-    "name": "Benchpress Dumbbells",
-    "type": "Chest"
-  },
-  {
-    "image_id": 704,
-    "file": "d44aeb87-d654-4033-ad2a-368946b0a97e.png",
-    "exercise_id": 537,
-    "name": "Incline Bench Press - Dumbbell",
-    "type": "Chest"
-  },
-  {
-    "image_id": 705,
-    "file": "f6262118-1e01-4a98-b8aa-1cc69d383311.png",
-    "exercise_id": 2452,
-    "name": "Curl De Muñeca Con Barra",
-    "type": "Arms"
-  },
-  {
-    "image_id": 706,
-    "file": "02f1ae86-d374-4b5a-b314-a76c487ea1e9.png",
-    "exercise_id": 2494,
-    "name": "Band Terminal Knee extension",
-    "type": "Legs"
-  },
-  {
-    "image_id": 708,
-    "file": "5978ac7d-f4d4-4807-87e6-03e457485191.png",
-    "exercise_id": 2495,
-    "name": "Machine Leg Flexion",
-    "type": "Legs"
-  },
-  {
-    "image_id": 4,
-    "file": "Crunches-2.png",
-    "exercise_id": 167,
-    "name": "Crunches",
-    "type": "Abs"
-  },
-  {
-    "image_id": 8,
-    "file": "Decline-crunch-2.png",
-    "exercise_id": 427,
-    "name": "Negative Crunches",
-    "type": "Abs"
-  },
-  {
-    "image_id": 12,
-    "file": "Hyperextensions-2.png",
-    "exercise_id": 301,
-    "name": "Hyperextensions",
-    "type": "Back"
-  },
-  {
-    "image_id": 16,
-    "file": "Narrow-grip-bench-press-2.png",
-    "exercise_id": 76,
-    "name": "Bench Press Narrow Grip",
-    "type": "Arms"
-  },
-  {
-    "image_id": 20,
-    "file": "Standing-biceps-curl-2.png",
-    "exercise_id": 95,
-    "name": "Biceps Curl With Cable",
-    "type": "Arms"
-  },
-  {
-    "image_id": 24,
-    "file": "Biceps-curl-2.png",
-    "exercise_id": 92,
-    "name": "Biceps Curls With Dumbbell",
-    "type": "Arms"
-  },
-  {
-    "image_id": 28,
-    "file": "Bicep-curls-2.png",
-    "exercise_id": 91,
-    "name": "Biceps Curls With Barbell",
-    "type": "Arms"
-  },
-  {
-    "image_id": 36,
-    "file": "Bench-dips-2.png",
-    "exercise_id": 197,
-    "name": "Dips Between Two Benches",
-    "type": "Arms"
-  },
-  {
-    "image_id": 40,
-    "file": "Dumbbell-shrugs-1.png",
-    "exercise_id": 572,
-    "name": "Shrugs, Dumbbells",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 44,
-    "file": "Barbell-shrugs-2.png",
-    "exercise_id": 571,
-    "name": "Shrugs, Barbells",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 48,
-    "file": "Bicep-hammer-curl-2.png",
-    "exercise_id": 272,
-    "name": "Hammer Curls",
-    "type": "Arms"
-  },
-  {
-    "image_id": 52,
-    "file": "Hammer-curls-with-rope-2.png",
-    "exercise_id": 275,
-    "name": "Hammercurls on Cable",
-    "type": "Arms"
-  },
-  {
-    "image_id": 61,
-    "file": "Lying-close-grip-triceps-press-to-chin-2.png",
-    "exercise_id": 246,
-    "name": "Skullcrusher SZ-bar",
-    "type": "Arms"
-  },
-  {
-    "image_id": 67,
-    "file": "af848376-3db3-4b16-a056-4aa936d49da4.png",
-    "exercise_id": 1392,
-    "name": "Good Morning",
-    "type": "Legs"
-  },
-  {
-    "image_id": 70,
-    "file": "Bench-press-2.png",
-    "exercise_id": 73,
-    "name": "Bench Press",
-    "type": "Chest"
-  },
-  {
-    "image_id": 75,
-    "file": "b2c5a9f9-8beb-41f7-841c-9664d22a427e.png",
-    "exercise_id": 152,
-    "name": "Chin Up",
-    "type": "Back"
-  },
-  {
-    "image_id": 79,
-    "file": "T-bar-row-2.png",
-    "exercise_id": 513,
-    "name": "Rowing, T-bar",
-    "type": "Back"
-  },
-  {
-    "image_id": 90,
-    "file": "Barbell-rear-delt-row-2.png",
-    "exercise_id": 83,
-    "name": "Bent Over Rowing",
-    "type": "Back"
-  },
-  {
-    "image_id": 92,
-    "file": "Reverse-grip-bent-over-rows-2.png",
-    "exercise_id": 84,
-    "name": "Bent Over Rowing Reverse",
-    "type": "Back"
-  },
-  {
-    "image_id": 94,
-    "file": "Preacher-curl-3-2.png",
-    "exercise_id": 465,
-    "name": "Preacher Curls",
-    "type": "Arms"
-  },
-  {
-    "image_id": 106,
-    "file": "Incline-press-2.png",
-    "exercise_id": 537,
-    "name": "Incline Bench Press - Dumbbell",
-    "type": "Chest"
-  },
-  {
-    "image_id": 108,
-    "file": "Close-grip-bench-press-2.png",
-    "exercise_id": 539,
-    "name": "Incline Bench Press - MP",
-    "type": "Chest"
-  },
-  {
-    "image_id": 112,
-    "file": "Butterfly-machine-1.png",
-    "exercise_id": 135,
-    "name": "Butterfly",
-    "type": "Chest"
-  },
-  {
-    "image_id": 114,
-    "file": "Dumbbell-bench-press-2.png",
-    "exercise_id": 75,
-    "name": "Benchpress Dumbbells",
-    "type": "Chest"
-  },
-  {
-    "image_id": 116,
-    "file": "Decline-bench-press-2.png",
-    "exercise_id": 185,
-    "name": "Decline Bench Press Barbell",
-    "type": "Chest"
-  },
-  {
-    "image_id": 120,
-    "file": "Incline-cable-flyes-2.png",
-    "exercise_id": 237,
-    "name": "Fly With Cable",
-    "type": "Chest"
-  },
-  {
-    "image_id": 122,
-    "file": "Walking-lunges-2.png",
-    "exercise_id": 206,
-    "name": "Dumbbell Lunges Walking",
-    "type": "Legs"
-  },
-  {
-    "image_id": 123,
-    "file": "Walking-lunges-3.png",
-    "exercise_id": 206,
-    "name": "Dumbbell Lunges Walking",
-    "type": "Legs"
-  },
-  {
-    "image_id": 124,
-    "file": "Walking-lunges-4.png",
-    "exercise_id": 206,
-    "name": "Dumbbell Lunges Walking",
-    "type": "Legs"
-  },
-  {
-    "image_id": 126,
-    "file": "Narrow-stance-hack-squats-2-1024x721.png",
-    "exercise_id": 375,
-    "name": "Leg Press on Hackenschmidt Machine",
-    "type": "Legs"
-  },
-  {
-    "image_id": 128,
-    "file": "Cable-crossover-1.png",
-    "exercise_id": 323,
-    "name": "Cable Cross-over",
-    "type": "Chest"
-  },
-  {
-    "image_id": 130,
-    "file": "Incline-bench-press-2.png",
-    "exercise_id": 538,
-    "name": "Incline Bench Press - Barbell",
-    "type": "Chest"
-  },
-  {
-    "image_id": 136,
-    "file": "136-Decline-crunch-2.png",
-    "exercise_id": 171,
-    "name": "Incline Crunches",
-    "type": "Abs"
-  },
-  {
-    "image_id": 140,
-    "file": "Leg-raises-1.png",
-    "exercise_id": 377,
-    "name": "Leg Raises, Lying",
-    "type": "Abs"
-  },
-  {
-    "image_id": 144,
-    "file": "Cable-seated-rows-1.png",
-    "exercise_id": 394,
-    "name": "Long-Pulley (low Row)",
-    "type": "Back"
-  },
-  {
-    "image_id": 146,
-    "file": "Dead-lifts-1.png",
-    "exercise_id": 484,
-    "name": "Rack Deadlift",
-    "type": "Back"
-  },
-  {
-    "image_id": 148,
-    "file": "Cross-body-crunch-2.png",
-    "exercise_id": 576,
-    "name": "Side Crunch",
-    "type": "Abs"
-  },
-  {
-    "image_id": 150,
-    "file": "Front-squat-2-857x1024.png",
-    "exercise_id": 257,
-    "name": "Front Squats",
-    "type": "Legs"
-  },
-  {
-    "image_id": 172,
-    "file": "seated-barbell-shoulder-press-large-2.png",
-    "exercise_id": 566,
-    "name": "Shoulder Press, Barbell",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 174,
-    "file": "dumbbell-shoulder-press-large-2.png",
-    "exercise_id": 567,
-    "name": "Shoulder Press, Dumbbells",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 178,
-    "file": "lateral-dumbbell-raises-large-1.png",
-    "exercise_id": 348,
-    "name": "Lateral Raises",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 180,
-    "file": "lying-leg-curl-machine-large-2.png",
-    "exercise_id": 365,
-    "name": "Leg Curls (laying)",
-    "type": "Legs"
-  },
-  {
-    "image_id": 182,
-    "file": "seated-leg-curl-large-2.png",
-    "exercise_id": 366,
-    "name": "Leg Curls (sitting)",
-    "type": "Legs"
-  },
-  {
-    "image_id": 184,
-    "file": "standing-leg-curls-large-2.png",
-    "exercise_id": 367,
-    "name": "Leg Curls (standing)",
-    "type": "Legs"
-  },
-  {
-    "image_id": 196,
-    "file": "Shoulder-press-machine-1.png",
-    "exercise_id": 543,
-    "name": "Shoulder Press, on Machine",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 213,
-    "file": "c6464fb3-1924-4ff1-adfa-fd36da9b5d13.png",
-    "exercise_id": 238,
-    "name": "Fly With Dumbbells",
-    "type": "Chest"
-  },
-  {
-    "image_id": 215,
-    "file": "abfc7700-fadf-4f2d-ac84-e045e590a2fe.png",
-    "exercise_id": 828,
-    "name": "Incline Bench Reverse Fly",
-    "type": "Back"
-  },
-  {
-    "image_id": 217,
-    "file": "6a770e5d-cd62-4754-a18c-eebe2103d7c5.png",
-    "exercise_id": 822,
-    "name": "Cable Rear Delt Fly",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 219,
-    "file": "692c598c-0493-42a5-be8b-b9d2e9adcd00.png",
-    "exercise_id": 487,
-    "name": "Rear Delt Raises",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 221,
-    "file": "2e69c005-b241-4806-8557-fc5a4d5ee44d.png",
-    "exercise_id": 694,
-    "name": "Upright Row w/ Dumbbells",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 274,
-    "file": "eef8fb9d-ae72-4e23-81da-4d62f2734332.jpg",
-    "exercise_id": 1022,
-    "name": "Single Arm Plank to Row",
-    "type": "Back"
-  },
-  {
-    "image_id": 329,
-    "file": "2ab30113-4e08-4d39-9d23-d901ce2c0971.jpeg",
-    "exercise_id": 203,
-    "name": "Dumbbell Goblet Squat",
-    "type": "Legs"
-  },
-  {
-    "image_id": 336,
-    "file": "8548b2d2-004d-48b4-95fd-b1b25f4e53d0.jfif",
-    "exercise_id": 999,
-    "name": "Reverse lunges",
-    "type": "Legs"
-  },
-  {
-    "image_id": 339,
-    "file": "8dc5ad63-a93a-496f-9473-ac414236e58d.png",
-    "exercise_id": 349,
-    "name": "Lateral Rows on Cable, One Armed",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 340,
-    "file": "7359ab6a-72a4-4ed8-b7da-35d57aaa2199.png",
-    "exercise_id": 349,
-    "name": "Lateral Rows on Cable, One Armed",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 341,
-    "file": "d74d171e-d39a-4c13-bbcd-6821bc94d424.png",
-    "exercise_id": 349,
-    "name": "Lateral Rows on Cable, One Armed",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 347,
-    "file": "902e6836-394e-458b-b94e-101d714294e2.png",
-    "exercise_id": 458,
-    "name": "Plank",
-    "type": "Abs"
-  },
-  {
-    "image_id": 348,
-    "file": "d1ca4a79-f299-4e70-a391-3e9526c3b141.png",
-    "exercise_id": 458,
-    "name": "Plank",
-    "type": "Abs"
-  },
-  {
-    "image_id": 349,
-    "file": "b180ce8b-a2c2-40da-924f-998d97aebb63.png",
-    "exercise_id": 458,
-    "name": "Plank",
-    "type": "Abs"
-  },
-  {
-    "image_id": 350,
-    "file": "167db646-9acb-4426-a383-c7e7dc92e3ec.png",
-    "exercise_id": 458,
-    "name": "Plank",
-    "type": "Abs"
-  },
-  {
-    "image_id": 351,
-    "file": "e13f92a4-69ae-4043-ae1f-70f155a53024.png",
-    "exercise_id": 458,
-    "name": "Plank",
-    "type": "Abs"
-  },
-  {
-    "image_id": 352,
-    "file": "bce9a15d-d080-4fb0-bc30-f80778b38793.png",
-    "exercise_id": 458,
-    "name": "Plank",
-    "type": "Abs"
-  },
-  {
-    "image_id": 353,
-    "file": "2c43d623-5898-4669-b5f8-eb3e1c38cd29.png",
-    "exercise_id": 458,
-    "name": "Plank",
-    "type": "Abs"
-  },
-  {
-    "image_id": 354,
-    "file": "122735cf-f940-4de8-aa30-49a1da148319.png",
-    "exercise_id": 458,
-    "name": "Plank",
-    "type": "Abs"
-  },
-  {
-    "image_id": 360,
-    "file": "44cf2c72-a78a-4d5e-a8b5-a02c6ea61fb4.jpg",
-    "exercise_id": 50,
-    "name": "Barbell Triceps Extension",
-    "type": "Arms"
-  },
-  {
-    "image_id": 361,
-    "file": "60c68ac5-70c7-4ed6-bfc1-99bed63a472a.jpg",
-    "exercise_id": 50,
-    "name": "Barbell Triceps Extension",
-    "type": "Arms"
-  },
-  {
-    "image_id": 366,
-    "file": "69b519d8-4861-4bb1-b504-3887aa30e7d8.png",
-    "exercise_id": 50,
-    "name": "Barbell Triceps Extension",
-    "type": "Arms"
-  },
-  {
-    "image_id": 387,
-    "file": "a1c23996-c8aa-42e3-9dfc-bed0654d849f.png",
-    "exercise_id": 538,
-    "name": "Incline Bench Press - Barbell",
-    "type": "Chest"
-  },
-  {
-    "image_id": 417,
-    "file": "72bb8231-8994-453f-8a3f-85b061dcffb8.jpg",
-    "exercise_id": 691,
-    "name": "Upright Row, on Multi Press",
-    "type": "Shoulders"
-  },
-  {
-    "image_id": 418,
     "file": "141711a2-58dc-47f7-b30c-968256953198.jpg",
     "exercise_id": 691,
     "name": "Upright Row, on Multi Press",
     "type": "Shoulders"
   },
   {
-    "image_id": 430,
+    "file": "1987a039-cf35-437e-bbdc-40c53dd7d053.jpg",
+    "exercise_id": 1186,
+    "name": "One Arm Bent Row",
+    "type": "Back"
+  },
+  {
+    "file": "43e714e4-b736-4f3a-8ab4-97821fdff86a.jpg",
+    "exercise_id": 1188,
+    "name": "Side bend",
+    "type": "Abs"
+  },
+  {
+    "file": "c05818bf-1c81-46df-9f24-42e354265388.png",
+    "exercise_id": 1290,
+    "name": "Reverse Grip Barbell Curls",
+    "type": "Arms"
+  },
+  {
+    "file": "651a4535-8210-4dbd-8f06-61d95fdd9963.png",
+    "exercise_id": 1192,
+    "name": "Alternating Biceps Curls With Dumbbell",
+    "type": "Arms"
+  },
+  {
+    "file": "70ca5d80-3847-4a8c-8882-c6e9e485e29e.png",
+    "exercise_id": 1193,
+    "name": "Russian Twist",
+    "type": "Abs"
+  },
+  {
+    "file": "074e1766-4208-4a67-a211-9721772d99b0.png",
+    "exercise_id": 1194,
+    "name": "Pallof Press",
+    "type": "Abs"
+  },
+  {
+    "file": "864906ac-4ac7-4e52-a886-c6bb97950a9f.jpg",
+    "exercise_id": 1198,
+    "name": "Inverted Rows",
+    "type": "Chest"
+  },
+  {
+    "file": "947ac249-475d-44ed-bed3-8dc433374f59.png",
+    "exercise_id": 958,
+    "name": "Biceps with TRX",
+    "type": "Arms"
+  },
+  {
+    "file": "3b681e59-377b-40db-9113-ca5873ce084b.jpg",
+    "exercise_id": 456,
+    "name": "Pistol Squat",
+    "type": "Legs"
+  },
+  {
+    "file": "9a429bd0-afd3-4ad0-8043-e9beec901c81.jpeg",
+    "exercise_id": 622,
+    "name": "Standing Calf Raises",
+    "type": "Calves"
+  },
+  {
+    "file": "590e65db-de60-4727-b7eb-55f80af56043.png",
+    "exercise_id": 1217,
+    "name": "Finger Pushup",
+    "type": "Arms"
+  },
+  {
+    "file": "bf20836a-23b0-4f50-8b98-cfdd97684527.webp",
+    "exercise_id": 1223,
+    "name": "Claps over the head",
+    "type": "Arms"
+  },
+  {
+    "file": "39a0b7e7-9780-425d-84f5-56d10d1690ac.gif",
+    "exercise_id": 1225,
+    "name": "Dumbbell wide bicep curls",
+    "type": "Arms"
+  },
+  {
+    "file": "a6154dbd-67a0-4a36-8748-0f5af3865e83.jpg",
+    "exercise_id": 1226,
+    "name": "Dumbbell bicep curl to press",
+    "type": "Arms"
+  },
+  {
+    "file": "57415c3c-2963-4130-9f6f-79f6a96113b6.gif",
+    "exercise_id": 1227,
+    "name": "Dumbbell rear delt row",
+    "type": "Shoulders"
+  },
+  {
+    "file": "9fd1e2fd-f2c4-432d-b3ae-5e5f24085777.webp",
+    "exercise_id": 1230,
+    "name": "Triceps stretch left",
+    "type": "Arms"
+  },
+  {
+    "file": "b10457ce-5fa5-4d20-a32f-3c7100c6a9d9.webp",
+    "exercise_id": 1231,
+    "name": "Triceps stretch right",
+    "type": "Arms"
+  },
+  {
+    "file": "2b6de046-5806-49e3-bf36-b6fae16af021.png",
+    "exercise_id": 1232,
+    "name": "Standing biceps stretch left",
+    "type": "Arms"
+  },
+  {
+    "file": "d7d6f9e1-7834-4cca-bd3b-f9def33ff44d.png",
+    "exercise_id": 1233,
+    "name": "Standing biceps stretch right",
+    "type": "Arms"
+  },
+  {
+    "file": "5026373a-a7b4-4e26-a0aa-c46634205196.jpg",
+    "exercise_id": 1239,
+    "name": "Standing Calf Stretch",
+    "type": "Legs"
+  },
+  {
+    "file": "53d4fabe-c994-4907-873f-8d82813a9832.png",
+    "exercise_id": 1243,
+    "name": "Double Leg Calf Raise",
+    "type": "Legs"
+  },
+  {
+    "file": "bcffdf52-3c36-4b0c-b787-fb84f20bf82d.png",
+    "exercise_id": 1274,
+    "name": "Sitting Calf Stretch (Dorsiflexion)",
+    "type": "Legs"
+  },
+  {
+    "file": "0652d306-93eb-42f0-b564-7c3261ea809a.png",
+    "exercise_id": 1275,
+    "name": "Plantarflexion Stretch with Band",
+    "type": "Legs"
+  },
+  {
+    "file": "9f3c7817-3e3d-417d-8b08-2c0a1aa5fe03.jpg",
+    "exercise_id": 537,
+    "name": "Incline Bench Press - Dumbbell",
+    "type": "Chest"
+  },
+  {
+    "file": "e7262f70-7512-408a-8d00-4c499ef632fc.jpg",
+    "exercise_id": 1283,
+    "name": "Incline Chest-Supported Dumbbell Row",
+    "type": "Back"
+  },
+  {
+    "file": "1ab8005d-41e4-4505-9a7d-5277d59bb3cd.jpg",
+    "exercise_id": 1285,
+    "name": "Talons fesses",
+    "type": "Cardio"
+  },
+  {
+    "file": "c42782fe-337a-44f4-9079-7f6dedab4885.png",
+    "exercise_id": 1296,
+    "name": "Low-Cable Cross-Over - NB",
+    "type": "Chest"
+  },
+  {
+    "file": "ec4b83ec-5a8f-4303-9050-99ec4389bc2a.png",
+    "exercise_id": 1298,
+    "name": "High-Cable Cross Tricep Extention - NB",
+    "type": "Arms"
+  },
+  {
+    "file": "d8372291-6725-452a-9711-6321c061e354.jpg",
+    "exercise_id": 1325,
+    "name": "Lateral Push Off",
+    "type": "Legs"
+  },
+  {
+    "file": "89f43354-32e3-473a-9bcf-caca51f1a8e3.webp",
+    "exercise_id": 1333,
+    "name": "Forearm Curls (underhand grip)",
+    "type": "Arms"
+  },
+  {
+    "file": "ebf88217-df26-4ef7-94cb-f0c2220c6abe.webp",
+    "exercise_id": 1336,
+    "name": "Triceps Overhead (Dumbbell)",
+    "type": "Arms"
+  },
+  {
+    "file": "9d157b4d-5af0-43c1-bd34-f52144ba1b54.webp",
+    "exercise_id": 1338,
+    "name": "Shoulder Raise (Dumbbell)",
+    "type": "Shoulders"
+  },
+  {
+    "file": "a3769120-2445-49f2-97d3-afc1238bfc2a.webp",
+    "exercise_id": 1348,
+    "name": "Lower Back Extensions",
+    "type": "Back"
+  },
+  {
+    "file": "138cb483-7d4d-4519-b029-63e4269810a6.webp",
+    "exercise_id": 1353,
+    "name": "Dumbbell Hex Press",
+    "type": "Chest"
+  },
+  {
+    "file": "1dba566b-e799-4bde-abb0-c011a3c75e52.webp",
+    "exercise_id": 1363,
+    "name": "Blackroll",
+    "type": "Back"
+  },
+  {
+    "file": "12e7a231-d36a-4992-bf57-ff7bfe0f3ae4.jpg",
+    "exercise_id": 1377,
+    "name": "Torso Twist",
+    "type": "Abs"
+  },
+  {
+    "file": "7c1fcf34-fb7e-45e7-a0c1-51f296235315.jpg",
+    "exercise_id": 1378,
+    "name": "Cable Lateral Raises (Single Arm)",
+    "type": "Shoulders"
+  },
+  {
+    "file": "a2cf7eda-5540-4105-b30e-1c2f2679a6c7.png",
+    "exercise_id": 1387,
+    "name": "Hamstring Kicks",
+    "type": "Legs"
+  },
+  {
+    "file": "ca1bc68d-9c36-4dd3-8ec4-496c57b5c564.jpg",
+    "exercise_id": 1621,
+    "name": "Unilateral Cable row",
+    "type": "Back"
+  },
+  {
+    "file": "fab7f641-27d4-40b5-8edd-1a0a137bfd94.gif",
+    "exercise_id": 1519,
+    "name": "Overhead Triceps Extension",
+    "type": "Arms"
+  },
+  {
+    "file": "e4e4aa78-3c96-4b1d-95c0-f9f73a0779d0.webp",
+    "exercise_id": 1521,
+    "name": "Pendular hack",
+    "type": "Legs"
+  },
+  {
+    "file": "a6a9e561-3965-45c6-9f2b-ee671e1a3a45.png",
+    "exercise_id": 1551,
+    "name": "Push-Up",
+    "type": "Chest"
+  },
+  {
+    "file": "49207a62-8799-4b47-8c0b-7bde02926f3d.png",
+    "exercise_id": 1554,
+    "name": "Clap Push-UP",
+    "type": "Chest"
+  },
+  {
+    "file": "a23c820b-e08b-4911-a6a4-80f16c15d2e0.png",
+    "exercise_id": 1556,
+    "name": "Devil’s Press",
+    "type": "Shoulders"
+  },
+  {
+    "file": "0a8c155c-a48e-47e8-9df3-e39f025c6cad.png",
+    "exercise_id": 1567,
+    "name": "Alternating dumbbell hammer curl",
+    "type": "Arms"
+  },
+  {
+    "file": "3d14e761-a73d-49da-8804-f3016a7573ff.png",
+    "exercise_id": 1572,
+    "name": "Bird Dog",
+    "type": "Abs"
+  },
+  {
+    "file": "b71a6710-5798-4639-ac5a-22a2cdae2036.jpg",
+    "exercise_id": 1581,
+    "name": "Trap press",
+    "type": "Shoulders"
+  },
+  {
+    "file": "5094fe30-eea2-4269-b0de-4b8a20558fd7.png",
+    "exercise_id": 1582,
+    "name": "Side-laying interior rotation",
+    "type": "Shoulders"
+  },
+  {
+    "file": "9815fcd6-cf40-4ddd-9b38-2eac25973de1.gif",
+    "exercise_id": 1593,
+    "name": "Smith Machine Split Squat",
+    "type": "Legs"
+  },
+  {
+    "file": "7695428e-bfed-4021-b987-498d93153995.png",
+    "exercise_id": 1604,
+    "name": "Sliding Lateral Lunge",
+    "type": "Legs"
+  },
+  {
+    "file": "3dc33f57-2786-4305-8b91-e011d7055923.jpg",
+    "exercise_id": 1612,
+    "name": "kettlebell sumo deadlift",
+    "type": "Legs"
+  },
+  {
+    "file": "a851fe9d-771f-44da-82f0-799e02ae3fd1.jpg",
+    "exercise_id": 1613,
+    "name": "rubber band glute kickback",
+    "type": "Legs"
+  },
+  {
+    "file": "7792295c-83b6-4ea8-9353-ce02f0ad2559.jpg",
+    "exercise_id": 1615,
+    "name": "Treadmill Cardio",
+    "type": "Cardio"
+  },
+  {
+    "file": "97e6fd98-2ca6-486f-b9b2-f0499fe38044.jpg",
+    "exercise_id": 1616,
+    "name": "Dumbbell donkey kick",
+    "type": "Legs"
+  },
+  {
+    "file": "c18baedc-ff98-4fb2-b4f5-38a05c12f637.png",
+    "exercise_id": 1618,
+    "name": "Stationary bike cardio",
+    "type": "Cardio"
+  },
+  {
+    "file": "edd40e39-e337-4460-a8dd-6127d40ddd16.jpeg",
+    "exercise_id": 1620,
+    "name": "Seated Dumbbell Calf Raise",
+    "type": "Calves"
+  },
+  {
+    "file": "2184e68c-32b5-413f-a7c1-4a2d1bb98c35.png",
+    "exercise_id": 1448,
+    "name": "Seated W Curl",
+    "type": "Arms"
+  },
+  {
+    "file": "8b284904-d072-4381-a256-4c81d8fd9c1f.png",
+    "exercise_id": 146,
+    "name": "Calf Press Using Leg Press Machine",
+    "type": "Calves"
+  },
+  {
+    "file": "b938437e-ff00-4679-9036-acb41bb28bbd.png",
+    "exercise_id": 512,
+    "name": "Rowing seated, narrow grip",
+    "type": "Back"
+  },
+  {
+    "file": "05c91bd2-7814-40b6-b2d1-51ae942b8321.png",
+    "exercise_id": 693,
+    "name": "Upright Row, SZ-bar",
+    "type": "Shoulders"
+  },
+  {
+    "file": "0305d98e-0887-4c0c-8992-7c220814efc2.webp",
+    "exercise_id": 1479,
+    "name": "Sit Up Elbow Thrust",
+    "type": "Abs"
+  },
+  {
+    "file": "36605bc8-d7e1-43e1-87c1-b9cb50db62b2.webp",
+    "exercise_id": 279,
+    "name": "Hand Grip",
+    "type": "Arms"
+  },
+  {
+    "file": "f1730f56-7aca-4566-8338-3e42b1bee6e1.webp",
+    "exercise_id": 51,
+    "name": "Barbell Wrist Curl",
+    "type": "Arms"
+  },
+  {
+    "file": "4d621b17-f6cb-4107-97c0-9f44e9a2dbc6.webp",
+    "exercise_id": 369,
+    "name": "Leg Extension",
+    "type": "Legs"
+  },
+  {
+    "file": "4a42cc6f-648d-40cc-a72a-c49dd47e1667.webp",
+    "exercise_id": 12,
+    "name": "Seated Hip Adduction",
+    "type": "Legs"
+  },
+  {
+    "file": "b0f0c7d8-5878-4d9e-b820-21acc013741d.webp",
+    "exercise_id": 630,
+    "name": "Sumo Deadlift",
+    "type": "Legs"
+  },
+  {
+    "file": "02e8a7c3-dc67-434e-a4bc-77fdecf84b49.webp",
+    "exercise_id": 158,
+    "name": "Close-grip Lat Pull Down",
+    "type": "Back"
+  },
+  {
+    "file": "d2136f96-3a43-4d4c-9944-1919c4ca1ce1.webp",
+    "exercise_id": 371,
+    "name": "Leg Press",
+    "type": "Legs"
+  },
+  {
+    "file": "9a4704d3-1b25-43e3-b244-3885f4d3db87.png",
+    "exercise_id": 1634,
+    "name": "Rope Pullover/row",
+    "type": "Back"
+  },
+  {
+    "file": "b8c34e3a-7474-41ea-99e3-8d7fdb1e12d6.png",
+    "exercise_id": 1635,
+    "name": "Modified pulldown",
+    "type": "Back"
+  },
+  {
+    "file": "1bf3ee54-207c-4b53-b057-15adc1dd6128.png",
+    "exercise_id": 1621,
+    "name": "Unilateral Cable row",
+    "type": "Back"
+  },
+  {
+    "file": "a1fbe83a-a3e5-49f6-a2c2-5d5b533c2be8.png",
+    "exercise_id": 1637,
+    "name": "Single arm row",
+    "type": "Back"
+  },
+  {
+    "file": "046c09b0-c35d-48d0-a552-39dd49f956d2.webp",
+    "exercise_id": 1638,
+    "name": "Barbell Clean and press",
+    "type": "Shoulders"
+  },
+  {
+    "file": "8927346e-f5ca-4795-bdf1-5ac9309401e7.webp",
+    "exercise_id": 1639,
+    "name": "Dumbbell Bent Over Face Pull",
+    "type": "Back"
+  },
+  {
+    "file": "bdea82f1-15ef-4649-8b5a-1303cfc178e7.webp",
+    "exercise_id": 1640,
+    "name": "Dumbbell Front Squat",
+    "type": "Legs"
+  },
+  {
+    "file": "68d9488d-2596-420f-be0f-52aa70732c83.webp",
+    "exercise_id": 1641,
+    "name": "Kettlebell One Legged Deadlift",
+    "type": "Legs"
+  },
+  {
+    "file": "a81ad922-caf5-47f8-99b4-640cb0717436.webp",
+    "exercise_id": 1642,
+    "name": "Dumbbell Hip Thrust",
+    "type": "Legs"
+  },
+  {
+    "file": "9e730259-1dcd-4b5e-b4cc-9ebc0cfda75c.webp",
+    "exercise_id": 572,
+    "name": "Shrugs, Dumbbells",
+    "type": "Shoulders"
+  },
+  {
+    "file": "63ae02d6-6dd9-4e9e-84da-d4905e78a33c.jpg",
+    "exercise_id": 1648,
+    "name": "Weighted Crunch",
+    "type": "Abs"
+  },
+  {
+    "file": "1d7a5336-ec0b-4898-a474-78ba32789bf3.webp",
+    "exercise_id": 1650,
+    "name": "Dumbbell Side Bend",
+    "type": "Abs"
+  },
+  {
+    "file": "04ab2679-a04d-4d05-9c85-0d36e898328c.webp",
+    "exercise_id": 1651,
+    "name": "Dumbbell Rear Lunge",
+    "type": "Legs"
+  },
+  {
+    "file": "0306c8c0-70cc-45d4-92de-6fa72ceaa834.webp",
+    "exercise_id": 1652,
+    "name": "Dumbbell Romanian Deadlift",
+    "type": "Legs"
+  },
+  {
+    "file": "c10c4e17-1e14-4cf9-930b-cc3a614f15dd.webp",
+    "exercise_id": 1653,
+    "name": "Dumbbell Side Squat",
+    "type": "Legs"
+  },
+  {
+    "file": "aa724a58-b3b5-4522-b278-1155416236a5.jpg",
+    "exercise_id": 1654,
+    "name": "Machine Lateral Raise",
+    "type": "Shoulders"
+  },
+  {
+    "file": "b263c968-e067-4750-916a-d8758a7df23e.webp",
+    "exercise_id": 129,
+    "name": "Chest Press",
+    "type": "Chest"
+  },
+  {
+    "file": "0c5243cc-2539-4005-aee0-d3a8c5d3a32c.jfif",
+    "exercise_id": 1706,
+    "name": "Bulgarian Squat with Dumbbells",
+    "type": "Legs"
+  },
+  {
+    "file": "f0ebd44e-b8e1-400c-b598-ca371f3a07af.png",
+    "exercise_id": 1725,
+    "name": "Seated Row (Machine)",
+    "type": "Back"
+  },
+  {
+    "file": "2e7e541b-5f55-405a-ae78-3e71b3f42db4.png",
+    "exercise_id": 1726,
+    "name": "Straight-Arm Pulldown (Cable)",
+    "type": "Back"
+  },
+  {
+    "file": "d13b9adb-968e-4f73-95e6-b16690bcf616.jpg",
+    "exercise_id": 1732,
+    "name": "Face pulls with yellow/green band",
+    "type": "Back"
+  },
+  {
+    "file": "4ef77069-beb2-4504-a4f3-b181d5f35212.png",
+    "exercise_id": 1733,
+    "name": "Isometric Squat to Failure",
+    "type": "Legs"
+  },
+  {
+    "file": "782e2fbb-1267-476d-a817-14f3b83e0564.png",
+    "exercise_id": 1734,
+    "name": "Single-Leg Lunge with Kettlebell:",
+    "type": "Legs"
+  },
+  {
+    "file": "43bca7d9-2333-43f3-8554-2d0b39fa2a07.png",
+    "exercise_id": 1735,
+    "name": "Single-leg side glute press",
+    "type": "Legs"
+  },
+  {
+    "file": "aa724cc5-c485-4f3e-9d2a-0c6ae4baefbe.png",
+    "exercise_id": 1736,
+    "name": "Single-Leg Deadlift with Dumbbell",
+    "type": "Legs"
+  },
+  {
+    "file": "0529acdf-ede8-42a2-a3e5-8d0c57b7a0e1.jpg",
+    "exercise_id": 1738,
+    "name": "Neutral-grip pull-ups or TRX rows",
+    "type": "Arms"
+  },
+  {
+    "file": "cb9263c4-39fc-4261-8d30-a5d6d57841c1.jpg",
+    "exercise_id": 1744,
+    "name": "Machine Side Lateral Raises",
+    "type": "Shoulders"
+  },
+  {
+    "file": "9c92843a-6b90-428b-a868-9af4b11bad38.jpg",
+    "exercise_id": 1745,
+    "name": "Cable Front Raise with a small bar",
+    "type": "Shoulders"
+  },
+  {
+    "file": "af9647dd-04ec-4adf-9c07-4e33edb77277.jpg",
+    "exercise_id": 1747,
+    "name": "Smith machine squat",
+    "type": "Legs"
+  },
+  {
+    "file": "923a3ff7-c269-49bd-9f03-697151a40f06.jpg",
+    "exercise_id": 1748,
+    "name": "Machine Hip Abduction",
+    "type": "Legs"
+  },
+  {
+    "file": "60043328-1cfb-4289-9865-aaf64d5aaa28.jpg",
+    "exercise_id": 1801,
+    "name": "Barbell Full Squat",
+    "type": "Legs"
+  },
+  {
+    "file": "691c69b8-c3db-4177-8435-dd3a97d88542.webp",
+    "exercise_id": 1804,
+    "name": "ankle dorsiflexion rocks",
+    "type": "Legs"
+  },
+  {
+    "file": "3b6c547c-ab3d-4472-93cf-561710279eab.jpg",
+    "exercise_id": 1830,
+    "name": "Barbell Step Back Lunge",
+    "type": "Legs"
+  },
+  {
+    "file": "2d9d509f-707b-4132-961e-91a2459ca198.jpg",
+    "exercise_id": 1831,
+    "name": "Hammerstrength Decline Chest Press",
+    "type": "Chest"
+  },
+  {
+    "file": "ca4a0b7e-9fdd-4173-843a-f0392824abe1.jpg",
+    "exercise_id": 1835,
+    "name": "External Rotation Stretch",
+    "type": "Shoulders"
+  },
+  {
+    "file": "ccd3c18e-c864-426f-8176-15dce14305e3.webp",
+    "exercise_id": 1854,
+    "name": "Calves foam roller",
+    "type": "Legs"
+  },
+  {
+    "file": "a6597ed8-1613-4458-ba56-4b63bc946a35.webp",
+    "exercise_id": 1855,
+    "name": "Hamstring Foam roller",
+    "type": "Legs"
+  },
+  {
+    "file": "19c31c63-4968-4887-b8e6-4127be27fdde.jpg",
+    "exercise_id": 1856,
+    "name": "Foam Roller Anterior tibialis",
+    "type": "Legs"
+  },
+  {
+    "file": "92291128-cc7e-4f70-9663-80840c516fc9.jpg",
+    "exercise_id": 1857,
+    "name": "Foam Roller Iliotibial band",
+    "type": "Legs"
+  },
+  {
+    "file": "058b6fdb-8093-4b6d-a504-cbf869f3e3d3.jpg",
+    "exercise_id": 1858,
+    "name": "Foam Roller quadriceps",
+    "type": "Legs"
+  },
+  {
+    "file": "2465d5eb-c249-454d-93eb-58aa13bdc080.webp",
+    "exercise_id": 1859,
+    "name": "Foam Roller Gluteus",
+    "type": "Legs"
+  },
+  {
+    "file": "f0410e66-28d5-455f-90f3-d078e0988460.avif",
+    "exercise_id": 1860,
+    "name": "Foam Roller Adductors",
+    "type": "Legs"
+  },
+  {
+    "file": "0ffe4e99-71ad-47fb-b98c-1f243faa0499.png",
+    "exercise_id": 1861,
+    "name": "Side stretch",
+    "type": "Back"
+  },
+  {
+    "file": "93d993f8-1d8c-4e21-99c6-08b2fe424a17.png",
+    "exercise_id": 1862,
+    "name": "Hip Circles",
+    "type": "Legs"
+  },
+  {
+    "file": "5f29959d-0fd1-46d2-98b7-0c2cb5d9ee13.png",
+    "exercise_id": 1863,
+    "name": "Hip Crossover",
+    "type": "Legs"
+  },
+  {
+    "file": "5970cdd8-0123-4eba-a921-2157fb6adacf.png",
+    "exercise_id": 1864,
+    "name": "Ankle Roll",
+    "type": "Legs"
+  },
+  {
+    "file": "c2c9848e-5094-4ed9-bd81-0831b6551483.png",
+    "exercise_id": 1865,
+    "name": "Banded Ankle Mobility",
+    "type": "Legs"
+  },
+  {
+    "file": "767631e5-10d2-46b8-b03f-cc298f96963b.png",
+    "exercise_id": 1867,
+    "name": "Hip Flexor Stretch",
+    "type": "Legs"
+  },
+  {
+    "file": "446e7065-215d-4a91-9da7-9416101442bb.png",
+    "exercise_id": 1868,
+    "name": "Lunge with Twist Stretch",
+    "type": "Legs"
+  },
+  {
+    "file": "c49187bd-9f90-4a7a-b25e-1d50e857a104.png",
+    "exercise_id": 1869,
+    "name": "Lying Figure Four Stretch",
+    "type": "Legs"
+  },
+  {
+    "file": "7465bbcf-3b86-42a6-8d2f-12a3d1f60a15.png",
+    "exercise_id": 1870,
+    "name": "Lying Hamstring Stretch with Band",
+    "type": "Legs"
+  },
+  {
+    "file": "85a6b9de-4eec-445b-8ebb-f1950b076aba.png",
+    "exercise_id": 1452,
+    "name": "Knee to Chest Stretch",
+    "type": "Legs"
+  },
+  {
+    "file": "df982df1-512a-4eb9-acd9-68cc1c265df6.png",
+    "exercise_id": 1872,
+    "name": "Pigeon Stretch",
+    "type": "Legs"
+  },
+  {
+    "file": "c0ed299b-6d87-4d90-885d-bb3b5d85f1eb.png",
+    "exercise_id": 1873,
+    "name": "Quad Stretch",
+    "type": "Legs"
+  },
+  {
+    "file": "66fca8a5-41e8-42d1-8776-5e46a4902650.png",
+    "exercise_id": 1874,
+    "name": "Runners Lunge Stretch",
+    "type": "Legs"
+  },
+  {
+    "file": "e1128391-4b73-43a9-ab27-657d8bb43083.png",
+    "exercise_id": 1875,
+    "name": "Standing IT Band Stretch",
+    "type": "Legs"
+  },
+  {
+    "file": "ca7b3fe7-5908-4ec2-9d85-7fa1b80bb105.png",
+    "exercise_id": 1876,
+    "name": "Supported Calf Stretch",
+    "type": "Calves"
+  },
+  {
+    "file": "bc51ef67-0c12-4340-a36c-42ef722778dd.png",
+    "exercise_id": 1889,
+    "name": "Decline Bench Leg Raise",
+    "type": "Abs"
+  },
+  {
+    "file": "7dbad19e-0616-41fd-9d7d-3e21649c0eea.png",
+    "exercise_id": 1893,
+    "name": "Overhead Barbell Press",
+    "type": "Shoulders"
+  },
+  {
+    "file": "9abec4e4-90ba-44f9-9e6e-5e35f7273078.png",
+    "exercise_id": 76,
+    "name": "Bench Press Narrow Grip",
+    "type": "Arms"
+  },
+  {
+    "file": "a8243245-8f8f-4e2b-93ca-694d416cb11d.png",
+    "exercise_id": 1900,
+    "name": "Tricep Rope Pushdowns",
+    "type": "Arms"
+  },
+  {
+    "file": "046f0f42-0ed5-48c5-a9ee-41de25e3b6a0.png",
+    "exercise_id": 1901,
+    "name": "Clean and Press",
+    "type": "Shoulders"
+  },
+  {
+    "file": "d0c3f170-543c-4be4-bc70-5c6dc606406c.png",
+    "exercise_id": 1902,
+    "name": "Weighted push-ups",
+    "type": "Chest"
+  },
+  {
+    "file": "6ec66efd-e74f-4142-bed1-0a0ac74e3294.png",
+    "exercise_id": 206,
+    "name": "Dumbbell Lunges Walking",
+    "type": "Legs"
+  },
+  {
+    "file": "e7d97b4b-9fe4-4378-aea3-5a9d93b6eb8d.png",
+    "exercise_id": 1916,
+    "name": "Tuck planche",
+    "type": "Shoulders"
+  },
+  {
+    "file": "eb750ee5-3220-4128-aef1-5e2f1ccff40a.webp",
+    "exercise_id": 1922,
+    "name": "Seated Cable chest fly",
+    "type": "Chest"
+  },
+  {
+    "file": "68b4a33f-40f1-4dda-b56c-a2e20ed13903.jpg",
+    "exercise_id": 570,
+    "name": "Shoulder Shrug",
+    "type": "Shoulders"
+  },
+  {
+    "file": "a9ab402b-61ef-4d60-b91a-df52bf7f41a9.jpg",
+    "exercise_id": 1573,
+    "name": "Ab wheel",
+    "type": "Abs"
+  },
+  {
+    "file": "4201a9c0-f9e4-48ca-80f1-b46c7ffe5640.webp",
+    "exercise_id": 1947,
+    "name": "dumbbell snatch",
+    "type": "Legs"
+  },
+  {
+    "file": "d3ffe51f-7eb8-4cc9-9eae-105847af3005.png",
+    "exercise_id": 978,
+    "name": "Knee Raises",
+    "type": "Abs"
+  },
+  {
+    "file": "92f6451b-f89d-49d6-9531-8970ea420d97.png",
+    "exercise_id": 31,
+    "name": "Axe Hold",
+    "type": "Arms"
+  },
+  {
+    "file": "7a437824-e2cc-46e1-804a-674f0ea31d25.png",
+    "exercise_id": 805,
+    "name": "Tricep Pushdown on Cable",
+    "type": "Arms"
+  },
+  {
+    "file": "f9377a7e-eb58-4cca-b805-2d36863aeb03.png",
+    "exercise_id": 981,
+    "name": "Step-ups",
+    "type": "Legs"
+  },
+  {
+    "file": "41d9267a-99bc-4e94-b1c4-0e39fe7a968f.png",
+    "exercise_id": 975,
+    "name": "one-handed kettlebell curls",
+    "type": "Arms"
+  },
+  {
+    "file": "da4d0560-da89-4bb5-b91f-746458fb04ad.png",
+    "exercise_id": 960,
+    "name": "Kettlebell Swing",
+    "type": "Legs"
+  },
+  {
+    "file": "f6121ac9-330e-4ed7-8219-91ce246bf871.png",
+    "exercise_id": 282,
+    "name": "Handstand Pushup",
+    "type": "Shoulders"
+  },
+  {
+    "file": "94649ea6-bf58-4fd9-90c1-b2ec96ee20cd.png",
+    "exercise_id": 976,
+    "name": "Medicine ball booklet crunch",
+    "type": "Abs"
+  },
+  {
+    "file": "3124c091-6395-4377-96c5-56048b627ceb.png",
+    "exercise_id": 977,
+    "name": "Box squat",
+    "type": "Legs"
+  },
+  {
+    "file": "6f4b8bd9-fa05-49de-870b-1f79b595ce89.png",
+    "exercise_id": 804,
+    "name": "Sloper hanging",
+    "type": "Arms"
+  },
+  {
+    "file": "34b37423-269f-43d4-9d29-d2a90eeaa6b4.png",
+    "exercise_id": 41,
+    "name": "Barbell Ab Rollout",
+    "type": "Abs"
+  },
+  {
+    "file": "de20457c-914a-45c9-8cf9-0ad9739759a1.png",
+    "exercise_id": 990,
+    "name": "Kneeling kickbacks",
+    "type": "Legs"
+  },
+  {
+    "file": "16245344-9957-4a24-8d61-f9939ed5f964.png",
+    "exercise_id": 983,
+    "name": "High knees",
+    "type": "Cardio"
+  },
+  {
+    "file": "159222d9-c1e4-46ae-89ee-6a2dfaab978d.png",
+    "exercise_id": 909,
+    "name": "Reverse Nordic Curl",
+    "type": "Legs"
+  },
+  {
+    "file": "27097a3a-5749-428d-b94c-6082afe390f6.png",
+    "exercise_id": 979,
+    "name": "Leg raises pull up bar",
+    "type": "Abs"
+  },
+  {
+    "file": "e10a034f-6370-4dd6-b1c2-416b27844529.png",
+    "exercise_id": 912,
+    "name": "Straight Bar Cable Curls",
+    "type": "Arms"
+  },
+  {
+    "file": "da58dfbf-748a-461b-891e-3d6bc9cc4be2.png",
+    "exercise_id": 79,
+    "name": "Bent High Pulls",
+    "type": "Shoulders"
+  },
+  {
+    "file": "dbad8cd0-5eeb-4de2-8d9e-80c7770735fd.png",
+    "exercise_id": 129,
+    "name": "Chest Press",
+    "type": "Chest"
+  },
+  {
+    "file": "b9b1803e-2817-40bf-8ac7-e398ca86d8b4.png",
+    "exercise_id": 161,
+    "name": "Cross-Bench Dumbbell Pullovers",
+    "type": "Chest"
+  },
+  {
+    "file": "4141e8b2-d9f2-4597-8ef0-7768127fd0ec.png",
+    "exercise_id": 285,
+    "name": "High Knee Jumps",
+    "type": "Cardio"
+  },
+  {
+    "file": "ddf91765-8045-4087-bece-de17f33332ce.png",
+    "exercise_id": 1002,
+    "name": "Child's pose",
+    "type": "Back"
+  },
+  {
+    "file": "772d6e47-3865-4944-9255-7435d0b06782.png",
+    "exercise_id": 1003,
+    "name": "Kettlebell deadlifts",
+    "type": "Back"
+  },
+  {
+    "file": "757846d3-78e4-4068-bbca-62e567372c94.png",
+    "exercise_id": 1007,
+    "name": "Head turns",
+    "type": "Shoulders"
+  },
+  {
+    "file": "5bbd3879-b6fc-4aaa-9e8e-33ae9a688112.png",
+    "exercise_id": 1018,
+    "name": "Head tilts",
+    "type": "Back"
+  },
+  {
+    "file": "67dbb1c9-b378-46f9-adb6-1f55b3d3007a.png",
+    "exercise_id": 925,
+    "name": "Smith Machine Slight Incline Press",
+    "type": "Chest"
+  },
+  {
+    "file": "ae9deb5d-a1e9-4c30-b1e3-c128ba5d4969.png",
+    "exercise_id": 926,
+    "name": "Machine chest fly",
+    "type": "Chest"
+  },
+  {
+    "file": "fe8ebece-dff8-4700-b84c-9110e2e074f5.png",
+    "exercise_id": 915,
+    "name": "Bus Drivers",
+    "type": "Shoulders"
+  },
+  {
+    "file": "9bf7555a-fec6-43a9-b343-aae496744e5e.png",
+    "exercise_id": 916,
+    "name": "Smith Press",
+    "type": "Shoulders"
+  },
+  {
+    "file": "6c9124b6-3551-47a8-9c22-20141c8b9c53.png",
+    "exercise_id": 320,
+    "name": "Jumping Jacks",
+    "type": "Legs"
+  },
+  {
+    "file": "729af526-19a0-4d3d-a258-196c7575d139.jpg",
+    "exercise_id": 1971,
+    "name": "Mentzer Pulldown",
+    "type": "Arms"
+  },
+  {
+    "file": "447f3c17-405f-46e0-b138-65c2a8caaab0.png",
+    "exercise_id": 454,
+    "name": "Pike Push Ups",
+    "type": "Arms"
+  },
+  {
+    "file": "74041371-1019-4f89-9ebe-cec792484a46.png",
+    "exercise_id": 1962,
+    "name": "Step Jack",
+    "type": "Cardio"
+  },
+  {
+    "file": "db285682-1ab3-4be0-ae00-5117ecce1ee6.png",
+    "exercise_id": 1963,
+    "name": "Slow Squat",
+    "type": "Legs"
+  },
+  {
+    "file": "03c08a42-dedb-4a46-8d15-acaf497a35a2.png",
+    "exercise_id": 1965,
+    "name": "Marching High Knees",
+    "type": "Legs"
+  },
+  {
+    "file": "cd92e973-a0d9-4e5f-9011-5369012598d3.png",
+    "exercise_id": 1968,
+    "name": "Single-arm dumbbell shoulder press",
+    "type": "Shoulders"
+  },
+  {
+    "file": "b10d3341-baa8-49ab-b462-5b3529389aac.png",
+    "exercise_id": 297,
+    "name": "Hollow Hold",
+    "type": "Abs"
+  },
+  {
+    "file": "7b700f5d-17fc-41a9-bd41-e98e45c15768.png",
+    "exercise_id": 75,
+    "name": "Benchpress Dumbbells",
+    "type": "Chest"
+  },
+  {
+    "file": "d44aeb87-d654-4033-ad2a-368946b0a97e.png",
+    "exercise_id": 537,
+    "name": "Incline Bench Press - Dumbbell",
+    "type": "Chest"
+  },
+  {
+    "file": "f6262118-1e01-4a98-b8aa-1cc69d383311.png",
+    "exercise_id": 2452,
+    "name": "Curl De Muñeca Con Barra",
+    "type": "Arms"
+  },
+  {
+    "file": "02f1ae86-d374-4b5a-b314-a76c487ea1e9.png",
+    "exercise_id": 2494,
+    "name": "Band Terminal Knee extension",
+    "type": "Legs"
+  },
+  {
+    "file": "5978ac7d-f4d4-4807-87e6-03e457485191.png",
+    "exercise_id": 2495,
+    "name": "Machine Leg Flexion",
+    "type": "Legs"
+  },
+  {
+    "file": "Crunches-2.png",
+    "exercise_id": 167,
+    "name": "Crunches",
+    "type": "Abs"
+  },
+  {
+    "file": "Decline-crunch-2.png",
+    "exercise_id": 427,
+    "name": "Negative Crunches",
+    "type": "Abs"
+  },
+  {
+    "file": "Hyperextensions-2.png",
+    "exercise_id": 301,
+    "name": "Hyperextensions",
+    "type": "Back"
+  },
+  {
+    "file": "Narrow-grip-bench-press-2.png",
+    "exercise_id": 76,
+    "name": "Bench Press Narrow Grip",
+    "type": "Arms"
+  },
+  {
+    "file": "Standing-biceps-curl-2.png",
+    "exercise_id": 95,
+    "name": "Biceps Curl With Cable",
+    "type": "Arms"
+  },
+  {
+    "file": "Biceps-curl-2.png",
+    "exercise_id": 92,
+    "name": "Biceps Curls With Dumbbell",
+    "type": "Arms"
+  },
+  {
+    "file": "Bicep-curls-2.png",
+    "exercise_id": 91,
+    "name": "Biceps Curls With Barbell",
+    "type": "Arms"
+  },
+  {
+    "file": "Bench-dips-2.png",
+    "exercise_id": 197,
+    "name": "Dips Between Two Benches",
+    "type": "Arms"
+  },
+  {
+    "file": "Dumbbell-shrugs-1.png",
+    "exercise_id": 572,
+    "name": "Shrugs, Dumbbells",
+    "type": "Shoulders"
+  },
+  {
+    "file": "Barbell-shrugs-2.png",
+    "exercise_id": 571,
+    "name": "Shrugs, Barbells",
+    "type": "Shoulders"
+  },
+  {
+    "file": "Bicep-hammer-curl-2.png",
+    "exercise_id": 272,
+    "name": "Hammer Curls",
+    "type": "Arms"
+  },
+  {
+    "file": "Hammer-curls-with-rope-2.png",
+    "exercise_id": 275,
+    "name": "Hammercurls on Cable",
+    "type": "Arms"
+  },
+  {
+    "file": "Lying-close-grip-triceps-press-to-chin-2.png",
+    "exercise_id": 246,
+    "name": "Skullcrusher SZ-bar",
+    "type": "Arms"
+  },
+  {
+    "file": "af848376-3db3-4b16-a056-4aa936d49da4.png",
+    "exercise_id": 1392,
+    "name": "Good Morning",
+    "type": "Legs"
+  },
+  {
+    "file": "Bench-press-2.png",
+    "exercise_id": 73,
+    "name": "Bench Press",
+    "type": "Chest"
+  },
+  {
+    "file": "b2c5a9f9-8beb-41f7-841c-9664d22a427e.png",
+    "exercise_id": 152,
+    "name": "Chin Up",
+    "type": "Back"
+  },
+  {
+    "file": "T-bar-row-2.png",
+    "exercise_id": 513,
+    "name": "Rowing, T-bar",
+    "type": "Back"
+  },
+  {
+    "file": "Barbell-rear-delt-row-2.png",
+    "exercise_id": 83,
+    "name": "Bent Over Rowing",
+    "type": "Back"
+  },
+  {
+    "file": "Reverse-grip-bent-over-rows-2.png",
+    "exercise_id": 84,
+    "name": "Bent Over Rowing Reverse",
+    "type": "Back"
+  },
+  {
+    "file": "Preacher-curl-3-2.png",
+    "exercise_id": 465,
+    "name": "Preacher Curls",
+    "type": "Arms"
+  },
+  {
+    "file": "Incline-press-2.png",
+    "exercise_id": 537,
+    "name": "Incline Bench Press - Dumbbell",
+    "type": "Chest"
+  },
+  {
+    "file": "Close-grip-bench-press-2.png",
+    "exercise_id": 539,
+    "name": "Incline Bench Press - MP",
+    "type": "Chest"
+  },
+  {
+    "file": "Butterfly-machine-1.png",
+    "exercise_id": 135,
+    "name": "Butterfly",
+    "type": "Chest"
+  },
+  {
+    "file": "Dumbbell-bench-press-2.png",
+    "exercise_id": 75,
+    "name": "Benchpress Dumbbells",
+    "type": "Chest"
+  },
+  {
+    "file": "Decline-bench-press-2.png",
+    "exercise_id": 185,
+    "name": "Decline Bench Press Barbell",
+    "type": "Chest"
+  },
+  {
+    "file": "Incline-cable-flyes-2.png",
+    "exercise_id": 237,
+    "name": "Fly With Cable",
+    "type": "Chest"
+  },
+  {
+    "file": "Walking-lunges-2.png",
+    "exercise_id": 206,
+    "name": "Dumbbell Lunges Walking",
+    "type": "Legs"
+  },
+  {
+    "file": "Walking-lunges-3.png",
+    "exercise_id": 206,
+    "name": "Dumbbell Lunges Walking",
+    "type": "Legs"
+  },
+  {
+    "file": "Walking-lunges-4.png",
+    "exercise_id": 206,
+    "name": "Dumbbell Lunges Walking",
+    "type": "Legs"
+  },
+  {
+    "file": "Narrow-stance-hack-squats-2-1024x721.png",
+    "exercise_id": 375,
+    "name": "Leg Press on Hackenschmidt Machine",
+    "type": "Legs"
+  },
+  {
+    "file": "Cable-crossover-1.png",
+    "exercise_id": 323,
+    "name": "Cable Cross-over",
+    "type": "Chest"
+  },
+  {
+    "file": "Incline-bench-press-2.png",
+    "exercise_id": 538,
+    "name": "Incline Bench Press - Barbell",
+    "type": "Chest"
+  },
+  {
+    "file": "136-Decline-crunch-2.png",
+    "exercise_id": 171,
+    "name": "Incline Crunches",
+    "type": "Abs"
+  },
+  {
+    "file": "Leg-raises-1.png",
+    "exercise_id": 377,
+    "name": "Leg Raises, Lying",
+    "type": "Abs"
+  },
+  {
+    "file": "Cable-seated-rows-1.png",
+    "exercise_id": 394,
+    "name": "Long-Pulley (low Row)",
+    "type": "Back"
+  },
+  {
+    "file": "Dead-lifts-1.png",
+    "exercise_id": 484,
+    "name": "Rack Deadlift",
+    "type": "Back"
+  },
+  {
+    "file": "Cross-body-crunch-2.png",
+    "exercise_id": 576,
+    "name": "Side Crunch",
+    "type": "Abs"
+  },
+  {
+    "file": "Front-squat-2-857x1024.png",
+    "exercise_id": 257,
+    "name": "Front Squats",
+    "type": "Legs"
+  },
+  {
+    "file": "seated-barbell-shoulder-press-large-2.png",
+    "exercise_id": 566,
+    "name": "Shoulder Press, Barbell",
+    "type": "Shoulders"
+  },
+  {
+    "file": "dumbbell-shoulder-press-large-2.png",
+    "exercise_id": 567,
+    "name": "Shoulder Press, Dumbbells",
+    "type": "Shoulders"
+  },
+  {
+    "file": "lateral-dumbbell-raises-large-1.png",
+    "exercise_id": 348,
+    "name": "Lateral Raises",
+    "type": "Shoulders"
+  },
+  {
+    "file": "lying-leg-curl-machine-large-2.png",
+    "exercise_id": 365,
+    "name": "Leg Curls (laying)",
+    "type": "Legs"
+  },
+  {
+    "file": "seated-leg-curl-large-2.png",
+    "exercise_id": 366,
+    "name": "Leg Curls (sitting)",
+    "type": "Legs"
+  },
+  {
+    "file": "standing-leg-curls-large-2.png",
+    "exercise_id": 367,
+    "name": "Leg Curls (standing)",
+    "type": "Legs"
+  },
+  {
+    "file": "Shoulder-press-machine-1.png",
+    "exercise_id": 543,
+    "name": "Shoulder Press, on Machine",
+    "type": "Shoulders"
+  },
+  {
+    "file": "c6464fb3-1924-4ff1-adfa-fd36da9b5d13.png",
+    "exercise_id": 238,
+    "name": "Fly With Dumbbells",
+    "type": "Chest"
+  },
+  {
+    "file": "abfc7700-fadf-4f2d-ac84-e045e590a2fe.png",
+    "exercise_id": 828,
+    "name": "Incline Bench Reverse Fly",
+    "type": "Back"
+  },
+  {
+    "file": "6a770e5d-cd62-4754-a18c-eebe2103d7c5.png",
+    "exercise_id": 822,
+    "name": "Cable Rear Delt Fly",
+    "type": "Shoulders"
+  },
+  {
+    "file": "692c598c-0493-42a5-be8b-b9d2e9adcd00.png",
+    "exercise_id": 487,
+    "name": "Rear Delt Raises",
+    "type": "Shoulders"
+  },
+  {
+    "file": "2e69c005-b241-4806-8557-fc5a4d5ee44d.png",
+    "exercise_id": 694,
+    "name": "Upright Row w/ Dumbbells",
+    "type": "Shoulders"
+  },
+  {
+    "file": "eef8fb9d-ae72-4e23-81da-4d62f2734332.jpg",
+    "exercise_id": 1022,
+    "name": "Single Arm Plank to Row",
+    "type": "Back"
+  },
+  {
+    "file": "2ab30113-4e08-4d39-9d23-d901ce2c0971.jpeg",
+    "exercise_id": 203,
+    "name": "Dumbbell Goblet Squat",
+    "type": "Legs"
+  },
+  {
+    "file": "8548b2d2-004d-48b4-95fd-b1b25f4e53d0.jfif",
+    "exercise_id": 999,
+    "name": "Reverse lunges",
+    "type": "Legs"
+  },
+  {
+    "file": "8dc5ad63-a93a-496f-9473-ac414236e58d.png",
+    "exercise_id": 349,
+    "name": "Lateral Rows on Cable, One Armed",
+    "type": "Shoulders"
+  },
+  {
+    "file": "7359ab6a-72a4-4ed8-b7da-35d57aaa2199.png",
+    "exercise_id": 349,
+    "name": "Lateral Rows on Cable, One Armed",
+    "type": "Shoulders"
+  },
+  {
+    "file": "d74d171e-d39a-4c13-bbcd-6821bc94d424.png",
+    "exercise_id": 349,
+    "name": "Lateral Rows on Cable, One Armed",
+    "type": "Shoulders"
+  },
+  {
+    "file": "902e6836-394e-458b-b94e-101d714294e2.png",
+    "exercise_id": 458,
+    "name": "Plank",
+    "type": "Abs"
+  },
+  {
+    "file": "d1ca4a79-f299-4e70-a391-3e9526c3b141.png",
+    "exercise_id": 458,
+    "name": "Plank",
+    "type": "Abs"
+  },
+  {
+    "file": "b180ce8b-a2c2-40da-924f-998d97aebb63.png",
+    "exercise_id": 458,
+    "name": "Plank",
+    "type": "Abs"
+  },
+  {
+    "file": "167db646-9acb-4426-a383-c7e7dc92e3ec.png",
+    "exercise_id": 458,
+    "name": "Plank",
+    "type": "Abs"
+  },
+  {
+    "file": "e13f92a4-69ae-4043-ae1f-70f155a53024.png",
+    "exercise_id": 458,
+    "name": "Plank",
+    "type": "Abs"
+  },
+  {
+    "file": "bce9a15d-d080-4fb0-bc30-f80778b38793.png",
+    "exercise_id": 458,
+    "name": "Plank",
+    "type": "Abs"
+  },
+  {
+    "file": "2c43d623-5898-4669-b5f8-eb3e1c38cd29.png",
+    "exercise_id": 458,
+    "name": "Plank",
+    "type": "Abs"
+  },
+  {
+    "file": "122735cf-f940-4de8-aa30-49a1da148319.png",
+    "exercise_id": 458,
+    "name": "Plank",
+    "type": "Abs"
+  },
+  {
+    "file": "44cf2c72-a78a-4d5e-a8b5-a02c6ea61fb4.jpg",
+    "exercise_id": 50,
+    "name": "Barbell Triceps Extension",
+    "type": "Arms"
+  },
+  {
+    "file": "60c68ac5-70c7-4ed6-bfc1-99bed63a472a.jpg",
+    "exercise_id": 50,
+    "name": "Barbell Triceps Extension",
+    "type": "Arms"
+  },
+  {
+    "file": "69b519d8-4861-4bb1-b504-3887aa30e7d8.png",
+    "exercise_id": 50,
+    "name": "Barbell Triceps Extension",
+    "type": "Arms"
+  },
+  {
+    "file": "a1c23996-c8aa-42e3-9dfc-bed0654d849f.png",
+    "exercise_id": 538,
+    "name": "Incline Bench Press - Barbell",
+    "type": "Chest"
+  },
+  {
+    "file": "141711a2-58dc-47f7-b30c-968256953198.jpg",
+    "exercise_id": 691,
+    "name": "Upright Row, on Multi Press",
+    "type": "Shoulders"
+  },
+  {
+    "file": "141711a2-58dc-47f7-b30c-968256953198.jpg",
+    "exercise_id": 691,
+    "name": "Upright Row, on Multi Press",
+    "type": "Shoulders"
+  },
+  {
     "file": "95f2bbc4-2f95-476d-a9b8-81b333fe2ef5.png",
     "exercise_id": 958,
     "name": "Biceps with TRX",
     "type": "Arms"
   },
   {
-    "image_id": 431,
     "file": "dfad24f7-3f6f-497c-8436-7dfd909bca3f.png",
     "exercise_id": 958,
     "name": "Biceps with TRX",
     "type": "Arms"
   },
   {
-    "image_id": 433,
     "file": "c51d875b-0c07-495e-a7cf-08893a9f125d.jpg",
     "exercise_id": 456,
     "name": "Pistol Squat",
     "type": "Legs"
   },
   {
-    "image_id": 434,
     "file": "93716d06-c378-49b8-820a-8bf3e1d7e45c.jpg",
     "exercise_id": 456,
     "name": "Pistol Squat",
     "type": "Legs"
   },
   {
-    "image_id": 435,
     "file": "b8f007b1-d43f-416d-a44b-fb3c15291414.jpg",
     "exercise_id": 456,
     "name": "Pistol Squat",
     "type": "Legs"
   },
   {
-    "image_id": 438,
     "file": "d6d57067-97de-462e-a8bb-15228d730323.jpeg",
     "exercise_id": 622,
     "name": "Standing Calf Raises",
     "type": "Calves"
   },
   {
-    "image_id": 439,
     "file": "0705bc22-fadd-4c19-9c94-649a0b1f927f.jpeg",
     "exercise_id": 622,
     "name": "Standing Calf Raises",
     "type": "Calves"
   },
   {
-    "image_id": 518,
     "file": "300a44ac-4368-48e2-8b18-beea32ab915d.gif",
     "exercise_id": 203,
     "name": "Dumbbell Goblet Squat",
     "type": "Legs"
   },
   {
-    "image_id": 552,
     "file": "e719b872-d122-4e2d-be17-bd2babfe457a.jpg",
     "exercise_id": 1612,
     "name": "kettlebell sumo deadlift",
     "type": "Legs"
   },
   {
-    "image_id": 616,
     "file": "68720d5e-f422-47ac-81e4-c7b51144d302.jpg",
     "exercise_id": 1801,
     "name": "Barbell Full Squat",
     "type": "Legs"
   },
   {
-    "image_id": 657,
     "file": "662db55d-68d0-4297-8215-3dcf6c21c778.jpg",
     "exercise_id": 1573,
     "name": "Ab wheel",
     "type": "Abs"
   },
   {
-    "image_id": 660,
     "file": "b8efea91-8fcb-4926-82a9-76c62b16925f.jpg",
     "exercise_id": 1573,
     "name": "Ab wheel",
     "type": "Abs"
   },
   {
-    "image_id": 686,
     "file": "a2b47fa8-79b4-4a21-920b-48765f562bc4.png",
     "exercise_id": 1003,
     "name": "Kettlebell deadlifts",
     "type": "Back"
   },
   {
-    "image_id": 689,
     "file": "5f84cb9b-2d3a-48ff-87ec-b3d3950841f1.png",
     "exercise_id": 1018,
     "name": "Head tilts",
     "type": "Back"
   },
   {
-    "image_id": 695,
     "file": "85a075aa-53ff-4d61-bad3-5f47e14e0f8e.png",
     "exercise_id": 320,
     "name": "Jumping Jacks",
     "type": "Legs"
   },
   {
-    "image_id": 707,
     "file": "2213ff47-94e8-4884-919f-5af8a2fe9c0f.png",
     "exercise_id": 2494,
     "name": "Band Terminal Knee extension",
@@ -2555,28 +2191,24 @@
 
 
   {
-    "image_id": null,
     "file": "Kettlebell Swings.jpeg",
     "exercise_id": 331,
     "name": "Kettlebell Swings",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Arnold Shoulder Press.jpeg",
     "exercise_id": 20,
     "name": "Arnold Shoulder Press",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Barbell Lunges Standing.jpeg",
     "exercise_id": 46,
     "name": "Barbell Lunges Standing",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Barbell Hack Squats.jpeg",
     "exercise_id": 43,
     "name": "Barbell Hack Squats",
@@ -2584,1883 +2216,1614 @@
   },
   
   {
-    "image_id": null,
     "file": "Barbell Reverse Wrist Curl.jpeg",
     "exercise_id": 48,
     "name": "Barbell Reverse Wrist Curl",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Abdominal Stabilization.jpeg",
     "exercise_id": 56,
     "name": "Abdominal Stabilization",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Bear Walk 2.jpeg",
     "exercise_id": 57,
     "name": "Bear Walk 2",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Single Leg Extension.jpeg",
     "exercise_id": 71,
     "name": "Single Leg Extension",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Bent-over Lateral Raises.jpeg",
     "exercise_id": 82,
     "name": "Bent-over Lateral Raises",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Body-Ups.jpeg",
     "exercise_id": 112,
     "name": "Body-Ups",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Braced Squat.jpeg",
     "exercise_id": 124,
     "name": "Braced Squat",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Burpees.jpeg",
     "exercise_id": 132,
     "name": "Burpees",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Butterfly Narrow Grip.jpeg",
     "exercise_id": 137,
     "name": "Butterfly Narrow Grip",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Butterfly Reverse.jpeg",
     "exercise_id": 139,
     "name": "Butterfly Reverse",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Cable External Rotation.jpeg",
     "exercise_id": 142,
     "name": "Cable External Rotation",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Cable Woodchoppers.jpeg",
     "exercise_id": 145,
     "name": "Cable Woodchoppers",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Calf Raises on Hackenschmitt Machine.jpeg",
     "exercise_id": 148,
     "name": "Calf Raises on Hackenschmitt Machine",
     "type": "Calves"
   },
   {
-    "image_id": null,
     "file": "Ball crunches.jpeg",
     "exercise_id": 165,
     "name": "Ball crunches",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Crunches on Machine.jpeg",
     "exercise_id": 172,
     "name": "Crunches on Machine",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Crunches With Cable.jpeg",
     "exercise_id": 173,
     "name": "Crunches With Cable",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Crunches With Legs Up.jpeg",
     "exercise_id": 174,
     "name": "Crunches With Legs Up",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Cycling.jpeg",
     "exercise_id": 177,
     "name": "Cycling",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Deadbug.jpeg",
     "exercise_id": 178,
     "name": "Deadbug",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Deadhang.jpeg",
     "exercise_id": 182,
     "name": "Deadhang",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Decline Bench Press Dumbbell.jpeg",
     "exercise_id": 186,
     "name": "Decline Bench Press Dumbbell",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Deficit Deadlift.jpeg",
     "exercise_id": 189,
     "name": "Deficit Deadlift",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Diagonal Shoulder Press.jpeg",
     "exercise_id": 193,
     "name": "Diagonal Shoulder Press",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Dumbbell Concentration Curl.jpeg",
     "exercise_id": 202,
     "name": "Dumbbell Concentration Curl",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Dumbbell Incline Curl.jpeg",
     "exercise_id": 204,
     "name": "Dumbbell Incline Curl",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Dumbbell Lunges Standing.jpeg",
     "exercise_id": 205,
     "name": "Dumbbell Lunges Standing",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Dumbbells on Scott Machine.jpeg",
     "exercise_id": 208,
     "name": "Dumbbells on Scott Machine",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Dumbbell Triceps Extension.jpeg",
     "exercise_id": 211,
     "name": "Dumbbell Triceps Extension",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Facepull.jpeg",
     "exercise_id": 222,
     "name": "Facepull",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Flutter Kicks.jpeg",
     "exercise_id": 235,
     "name": "Flutter Kicks",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Fly With Dumbbells, Decline Bench.jpeg",
     "exercise_id": 239,
     "name": "Fly With Dumbbells, Decline Bench",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Skullcrusher Dumbbells.jpeg",
     "exercise_id": 245,
     "name": "Skullcrusher Dumbbells",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Front Raises with Plates.jpeg",
     "exercise_id": 254,
     "name": "Front Raises with Plates",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Front pull wide.jpeg",
     "exercise_id": 258,
     "name": "Front pull wide",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Front Pull narrow.jpeg",
     "exercise_id": 259,
     "name": "Front Pull narrow",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Full Sit Outs.jpeg",
     "exercise_id": 260,
     "name": "Full Sit Outs",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Glute Bridge.jpeg",
     "exercise_id": 265,
     "name": "Glute Bridge",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Hanging Leg Raises.jpeg",
     "exercise_id": 283,
     "name": "Hanging Leg Raises",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Hercules Pillars.jpeg",
     "exercise_id": 284,
     "name": "Hercules Pillars",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "High Pull.jpeg",
     "exercise_id": 289,
     "name": "High Pull",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Hindu Squats.jpeg",
     "exercise_id": 291,
     "name": "Hindu Squats",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Hip Raise, Lying.jpeg",
     "exercise_id": 292,
     "name": "Hip Raise, Lying",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Hip Thrust.jpeg",
     "exercise_id": 294,
     "name": "Hip Thrust",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Incline Dumbbell Fly.jpeg",
     "exercise_id": 308,
     "name": "Incline Dumbbell Fly",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Incline Dumbbell Row.jpeg",
     "exercise_id": 310,
     "name": "Incline Dumbbell Row",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Incline Plank With Alternate Floor Touch.jpeg",
     "exercise_id": 312,
     "name": "Incline Plank With Alternate Floor Touch",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Isometric Wipers.jpeg",
     "exercise_id": 314,
     "name": "Isometric Wipers",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Jogging.jpeg",
     "exercise_id": 319,
     "name": "Jogging",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Squats on Multipress.jpeg",
     "exercise_id": 341,
     "name": "Squats on Multipress",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Landmine press.jpeg",
     "exercise_id": 346,
     "name": "Landmine press",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Lateral-to-Front Raises.jpeg",
     "exercise_id": 351,
     "name": "Lateral-to-Front Raises",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Lat Pull Down (Leaning Back).jpeg",
     "exercise_id": 354,
     "name": "Lat Pull Down (Leaning Back)",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Lat Pull Down (Leaning Back).jpeg",
     "exercise_id": 355,
     "name": "Lat Pull Down (Straight Back)",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Leg Presses (wide).jpeg",
     "exercise_id": 374,
     "name": "Leg Presses (wide)",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Leg Raise.jpeg",
     "exercise_id": 376,
     "name": "Leg Raise",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Leg Raises, Standing.jpeg",
     "exercise_id": 378,
     "name": "Leg Raises, Standing",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Leverage Machine Chest Press.jpeg",
     "exercise_id": 379,
     "name": "Leverage Machine Chest Press",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Leverage Machine Iso Row.jpeg",
     "exercise_id": 380,
     "name": "Leverage Machine Iso Row",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "L Hold.jpeg",
     "exercise_id": 382,
     "name": "L Hold",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Diamond push ups.jpg",
     "exercise_id": 386,
     "name": "Diamond push ups",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Long-Pulley, Narrow.jpeg",
     "exercise_id": 395,
     "name": "Long-Pulley, Narrow",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Low Box Squat - Wide Stance.jpeg",
     "exercise_id": 397,
     "name": "Low Box Squat - Wide Stance",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Lying Rotator Cuff Exercise.jpeg",
     "exercise_id": 406,
     "name": "Lying Rotator Cuff Exercise",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Muscle up.jpeg",
     "exercise_id": 423,
     "name": "Muscle up",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Overhand Cable Curl.jpeg",
     "exercise_id": 439,
     "name": "Overhand Cable Curl",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Overhead Squat.jpeg",
     "exercise_id": 441,
     "name": "Overhead Squat",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Pause Bench.jpeg",
     "exercise_id": 445,
     "name": "Pause Bench",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Pendelay Rows.jpeg",
     "exercise_id": 448,
     "name": "Pendelay Rows",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Prone Scapular Retraction - Arms at Side.jpeg",
     "exercise_id": 468,
     "name": "Prone Scapular Retraction - Arms at Side",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Pull Ups on Machine.jpeg",
     "exercise_id": 477,
     "name": "Pull Ups on Machine",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Renegade Row.jpeg",
     "exercise_id": 490,
     "name": "Renegade Row",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Reverse Bar Curl.jpeg",
     "exercise_id": 493,
     "name": "Reverse Bar Curl",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Reverse Curl.jpeg",
     "exercise_id": 495,
     "name": "Reverse Curl",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Reverse Grip Bench Press.jpeg",
     "exercise_id": 498,
     "name": "Reverse Grip Bench Press",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Reverse Plank.jpeg",
     "exercise_id": 500,
     "name": "Reverse Plank",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Ring Dips.jpeg",
     "exercise_id": 501,
     "name": "Ring Dips",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Roman Chair Crunch.jpeg",
     "exercise_id": 505,
     "name": "Roman Chair Crunch",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Romanian Deadlift.jpeg",
     "exercise_id": 507,
     "name": "Romanian Deadlift",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Row.jpeg",
     "exercise_id": 508,
     "name": "Row",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Rowing, Lying on Bench.jpeg",
     "exercise_id": 510,
     "name": "Rowing, Lying on Bench",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Front Wood Chop.jpeg",
     "exercise_id": 516,
     "name": "Front Wood Chop",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Run.jpeg",
     "exercise_id": 527,
     "name": "Run",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Run - Interval Training.jpeg",
     "exercise_id": 529,
     "name": "Run - Interval Training",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Run - Treadmill.jpeg",
     "exercise_id": 530,
     "name": "Run - Treadmill",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Scissors.jpeg",
     "exercise_id": 545,
     "name": "Scissors",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Seated Triceps Press.jpeg",
     "exercise_id": 549,
     "name": "Seated Triceps Press",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Side Bends on Machine.jpeg",
     "exercise_id": 556,
     "name": "Side Bends on Machine",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Shotgun Row.jpeg",
     "exercise_id": 562,
     "name": "Shotgun Row",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Shoulder_Press_on_Multi_Press.jpeg",
     "exercise_id": 569,
     "name": "Shoulder Press, on Multi Press",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Shrugs on Multipress.jpeg",
     "exercise_id": 575,
     "name": "Shrugs on Multipress",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Side Dumbbell Trunk Flexion.jpeg",
     "exercise_id": 577,
     "name": "Side Dumbbell Trunk Flexion",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Side-lying External Rotation.jpeg",
     "exercise_id": 578,
     "name": "Side-lying External Rotation",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Side Plank.jpeg",
     "exercise_id": 580,
     "name": "Side Plank",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Side to Side Push Ups.jpeg",
     "exercise_id": 583,
     "name": "Side to Side Push Ups",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Single-arm Preacher Curl.jpeg",
     "exercise_id": 584,
     "name": "Single-arm Preacher Curl",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Sitting Calf Raises.jpeg",
     "exercise_id": 590,
     "name": "Sitting Calf Raises",
     "type": "Calves"
   },
   {
-    "image_id": null,
     "file": "Sit-ups.jpeg",
     "exercise_id": 591,
     "name": "Sit-ups",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Skipping - Standard.jpeg",
     "exercise_id": 595,
     "name": "Skipping - Standard",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Smith Machine Close-grip Bench Press.jpeg",
     "exercise_id": 598,
     "name": "Smith Machine Close-grip Bench Press",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Snatch.jpeg",
     "exercise_id": 599,
     "name": "Snatch",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Speed Deadlift.jpeg",
     "exercise_id": 604,
     "name": "Speed Deadlift",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Splinter Sit-ups.jpeg",
     "exercise_id": 607,
     "name": "Splinter Sit-ups",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Squat Jumps.jpeg",
     "exercise_id": 614,
     "name": "Squat Jumps",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": null,
     "exercise_id": 615,
     "name": "Squats",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Squat Thrust.jpeg",
     "exercise_id": 616,
     "name": "Squat Thrust",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Standing Bicep Curl.jpeg",
     "exercise_id": 621,
     "name": "Standing Bicep Curl",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Standing Rope Forearm.jpeg",
     "exercise_id": 623,
     "name": "Standing Rope Forearm",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Stationary Bike.jpeg",
     "exercise_id": 624,
     "name": "Stationary Bike",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Stiff-legged Deadlifts.jpeg",
     "exercise_id": 627,
     "name": "Stiff-legged Deadlifts",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Straight-arm Pull Down (bar Attachment).jpeg",
     "exercise_id": 628,
     "name": "Straight-arm Pull Down (bar Attachment)",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": ":Straight-arm Pull Down (rope Attachment).jpeg",
     "exercise_id": 629,
     "name": "Straight-arm Pull Down (rope Attachment)",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Sumo Squats.jpeg",
     "exercise_id": 632,
     "name": "Sumo Squats",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Superman.jpeg",
     "exercise_id": 636,
     "name": "Superman",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Thruster.jpeg",
     "exercise_id": 650,
     "name": "Thruster",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Tricep Dumbbell Kickback.jpeg",
     "exercise_id": 655,
     "name": "Tricep Dumbbell Kickback",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Triceps Extensions on Cable With Bar.jpeg",
     "exercise_id": 660,
     "name": "Triceps Extensions on Cable With Bar",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Triceps on Machine.jpeg",
     "exercise_id": 661,
     "name": "Triceps on Machine",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Trunk Rotation With Cable.jpeg",
     "exercise_id": 672,
     "name": "Trunk Rotation With Cable",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Rowing with TRX band.jpeg",
     "exercise_id": 674,
     "name": "Rowing with TRX band",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Turkish Get-Up.jpeg",
     "exercise_id": 675,
     "name": "Turkish Get-Up",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Power Clean.jpeg",
     "exercise_id": 683,
     "name": "Power Clean",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Underhand Lat Pull Down.jpeg",
     "exercise_id": 684,
     "name": "Underhand Lat Pull Down",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Overhead Press.jpeg",
     "exercise_id": 687,
     "name": "Overhead Press",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Upper External Oblique.jpeg",
     "exercise_id": 688,
     "name": "Upper External Oblique",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "V-Bar Pulldown.jpeg",
     "exercise_id": 695,
     "name": "V-Bar Pulldown",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Calf raises, one legged.jpeg",
     "exercise_id": 702,
     "name": "Calf raises, one legged",
     "type": "Calves"
   },
   {
-    "image_id": null,
     "file": "Wall Handstand.jpeg",
     "exercise_id": 711,
     "name": "Wall Handstand",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Wall Pushup.jpeg",
     "exercise_id": 713,
     "name": "Wall Pushup",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Wall Slides.jpeg",
     "exercise_id": 716,
     "name": "Wall Slides",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Wall Squat.jpeg",
     "exercise_id": 718,
     "name": "Wall Squat",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Weighted Step-ups.jpeg",
     "exercise_id": 722,
     "name": "Weighted Step-ups",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Wide-grip Pulldown.jpeg",
     "exercise_id": 723,
     "name": "Wide-grip Pulldown",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Dumbbell Push-Up.jpeg",
     "exercise_id": 801,
     "name": "Dumbbell Push-Up",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Barbell Lunges Walking.jpeg",
     "exercise_id": 802,
     "name": "Barbell Lunges Walking",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "One Arm Triceps Extensions on Cable.jpeg",
     "exercise_id": 803,
     "name": "One Arm Triceps Extensions on Cable",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Fingerboard 20 mm edge.jpeg",
     "exercise_id": 820,
     "name": "Fingerboard 20 mm edge",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Pullup on fingerboard.jpeg",
     "exercise_id": 821,
     "name": "Pullup on fingerboard",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Zone 2 Running.jpeg",
     "exercise_id": 908,
     "name": "Zone 2 Running",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Nordic Curl.jpeg",
     "exercise_id": 910,
     "name": "Nordic Curl",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Incline Skull Crush.jpeg",
     "exercise_id": 911,
     "name": "Incline Skull Crush",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Reverse Preacher Curl (Close Grip).jpeg",
     "exercise_id": 913,
     "name": "Reverse Preacher Curl (Close Grip)",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Reverse EZ Bar Cable Curls.jpeg",
     "exercise_id": 914,
     "name": "Reverse EZ Bar Cable Curls",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Straight Bar Cable Front Raise.jpeg",
     "exercise_id": 917,
     "name": "Straight Bar Cable Front Raise",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Seated Dumbbell Side Lateral.jpeg",
     "exercise_id": 918,
     "name": "Seated Dumbbell Side Lateral",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "T-Bar row.jpeg",
     "exercise_id": 919,
     "name": "T-Bar row",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Seated Cable Mid Trap Shrug.jpeg",
     "exercise_id": 922,
     "name": "Seated Cable Mid Trap Shrug",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Lying Dumbbell Row SS Seated Shrug.jpeg",
     "exercise_id": 923,
     "name": "Lying Dumbbell Row SS Seated Shrug",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Swimming 50m sprints.jpeg",
     "exercise_id": 961,
     "name": "Swimming 50m sprints",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Elliptical.jpeg",
     "exercise_id": 962,
     "name": "Elliptical",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Curl with kettlebell two hands.jpeg",
     "exercise_id": 974,
     "name": "Curl with kettlebell two hands",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "commando pull-ups.jpeg",
     "exercise_id": 980,
     "name": "commando pull-ups",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Push-up rotations.jpeg",
     "exercise_id": 985,
     "name": "Push-up rotations",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Side split squats left.jpeg",
     "exercise_id": 986,
     "name": "Side split squats left",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Side split squats right.jpeg",
     "exercise_id": 987,
     "name": "Side split squats right",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Bulgarian split squats right.jpeg",
     "exercise_id": 989,
     "name": "Bulgarian split squats right",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Split squats left.jpeg",
     "exercise_id": 991,
     "name": "Split squats left",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Split squats right.jpeg",
     "exercise_id": 992,
     "name": "Split squats right",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Jump rope basic jumps.jpeg",
     "exercise_id": 993,
     "name": "Jump rope: basic jumps",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Forward arm circles.jpeg",
     "exercise_id": 994,
     "name": "Forward arm circles",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Backward arm circles.jpeg",
     "exercise_id": 995,
     "name": "Backward arm circles",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Mountain climbers.jpeg",
     "exercise_id": 996,
     "name": "Mountain climbers",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "4-count burpees.jpeg",
     "exercise_id": 997,
     "name": "4-count burpees",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "No push-up burpees.jpeg",
     "exercise_id": 998,
     "name": "No push-up burpees",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "High plank.jpeg",
     "exercise_id": 1001,
     "name": "High plank",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Forward shoulder rotation.jpeg",
     "exercise_id": 1004,
     "name": "Forward shoulder rotation",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Backward shoulder rotation.jpeg",
     "exercise_id": 1005,
     "name": "Backward shoulder rotation",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Chin tuck.jpeg",
     "exercise_id": 1006,
     "name": "Chin tuck",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Left neck stretch.jpeg",
     "exercise_id": 1008,
     "name": "Left neck stretch",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Right neck stretch.jpeg",
     "exercise_id": 1009,
     "name": "Right neck stretch",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": null,
     "exercise_id": 1010,
     "name": "Back neck stretch",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Front neck stretch.jpeg",
     "exercise_id": 1011,
     "name": "Front neck stretch",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Left levator scapulae stretch.jpeg",
     "exercise_id": 1013,
     "name": "Left levator scapulae stretch",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Right levator scapulae stretch.jpeg",
     "exercise_id": 1014,
     "name": "Right levator scapulae stretch",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Clockwise neck circles.jpeg",
     "exercise_id": 1015,
     "name": "Clockwise neck circles",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Counterclockwise neck circles.jpeg",
     "exercise_id": 1016,
     "name": "Counterclockwise neck circles",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Neck half circles.jpeg",
     "exercise_id": 1017,
     "name": "Neck half circles",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Side plank right.jpeg",
     "exercise_id": 1019,
     "name": "Side plank right",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Pistol squats right.jpeg",
     "exercise_id": 1020,
     "name": "Pistol squats right",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Calf raises, right leg.jpeg",
     "exercise_id": 1021,
     "name": "Calf raises, right leg",
     "type": "Calves"
   },
   {
-    "image_id": null,
     "file": "Elevated prayer stretch.jpeg",
     "exercise_id": 1027,
     "name": "Elevated prayer stretch",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Quadruped thoracic rotation left.jpeg",
     "exercise_id": 1028,
     "name": "Quadruped thoracic rotation left",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Quadruped thoracic rotation left.jpeg",
     "exercise_id": 1029,
     "name": "Quadruped thoracic rotation right",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Shoulder dislocates.jpeg",
     "exercise_id": 1081,
     "name": "Shoulder dislocates",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Bent over row to external rotation.jpeg",
     "exercise_id": 1082,
     "name": "Bent over row to external rotation",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "YWTs.jpeg",
     "exercise_id": 1083,
     "name": "YWTs",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Vpushup.jpeg",
     "exercise_id": 1090,
     "name": "Vpushup",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Bag training.jpeg",
     "exercise_id": 1092,
     "name": "Bag training",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Rowing Machine.jpeg",
     "exercise_id": 1093,
     "name": "Rowing Machine",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Seated Bench Press.jpeg",
     "exercise_id": 1094,
     "name": "Seated Bench Press",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Abduction while standing.jpeg",
     "exercise_id": 1096,
     "name": "Abduction while standing",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Dynamic side hold.jpeg",
     "exercise_id": 1099,
     "name": "Dynamic side hold",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Horizontal traction isometry.jpeg",
     "exercise_id": 1101,
     "name": "Horizontal traction isometry",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Alternate back lunges.jpeg",
     "exercise_id": 1102,
     "name": "Alternate back lunges",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "walking bridge.jpeg",
     "exercise_id": 1103,
     "name": "walking bridge",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Push-Ups  Incline.jpeg",
     "exercise_id": 1111,
     "name": "Push-Ups | Incline",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Push-Ups  Parallettes.jpeg",
     "exercise_id": 1113,
     "name": "Push-Ups | Parallettes",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Rest (for timed workouts).jpeg",
     "exercise_id": 1114,
     "name": "Rest (for timed workouts)",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "3D lunge warmup.jpeg",
     "exercise_id": 1115,
     "name": "3D lunge warmup",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Dumbbell farmer's carry.jpeg",
     "exercise_id": 1116,
     "name": "Dumbbell farmer's carry",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Wide-grip supinated lat pulldown.jpeg",
     "exercise_id": 1125,
     "name": "Wide-grip supinated lat pulldown",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Machine glute extension.jpeg",
     "exercise_id": 1132,
     "name": "Machine glute extension",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Side Slides plus Squats.jpeg",
     "exercise_id": 1195,
     "name": "Side Slides + Squats",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Wall Drills.jpeg",
     "exercise_id": 1196,
     "name": "Wall Drills",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Tibialis raises.jpeg",
     "exercise_id": 1200,
     "name": "Tibialis raises",
     "type": "Calves"
   },
   {
-    "image_id": null,
     "file": "Dragon squat.jpeg",
     "exercise_id": 1201,
     "name": "Dragon squat",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Side Lying Hip Abduction.jpeg",
     "exercise_id": 1202,
     "name": "Side Lying Hip Abduction",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Calf raises, left leg.jpeg",
     "exercise_id": 1203,
     "name": "Calf raises, left leg",
     "type": "Calves"
   },
   {
-    "image_id": null,
     "file": "Cycling cardio session.jpeg",
     "exercise_id": 1204,
     "name": "Cycling cardio session",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Wrist curl, dumbbells.jpeg",
     "exercise_id": 1205,
     "name": "Wrist curl, dumbbells",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Scorpion Kick.jpeg",
     "exercise_id": 1207,
     "name": "Scorpion Kick",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Prisoner Squat.jpeg",
     "exercise_id": 1208,
     "name": "Prisoner Squat",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Shoulder width three-point push-up.jpeg",
     "exercise_id": 1209,
     "name": "Shoulder width three-point push-up",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Skydiver with arms in T-position.jpeg",
     "exercise_id": 1210,
     "name": "Skydiver with arms in T-position",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Front lever tuck.jpeg",
     "exercise_id": 1214,
     "name": "Front lever tuck",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Reverse Snow Angel.jpeg",
     "exercise_id": 1215,
     "name": "Reverse Snow Angel",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Recruitment Pulls.jpeg",
     "exercise_id": 1216,
     "name": "Recruitment Pulls",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "knee push-ups.jpeg",
     "exercise_id": 1218,
     "name": "knee push-ups",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Australian pull-ups.jpeg",
     "exercise_id": 1219,
     "name": "Australian pull-ups",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Dumbbell drag curls.jpeg",
     "exercise_id": 1224,
     "name": "Dumbbell drag curls",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Dumbbell close grip bench press.jpeg",
     "exercise_id": 1228,
     "name": "Dumbbell close grip bench press",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Dumbbell Single-leg Hip Thrust.jpeg",
     "exercise_id": 1234,
     "name": "Dumbbell Single-leg Hip Thrust",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Frog stand.jpeg",
     "exercise_id": 1238,
     "name": "Frog stand",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Standing Soleus Stretch.jpeg",
     "exercise_id": 1240,
     "name": "Standing Soleus Stretch",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Exercise Band Dorsiflexion.jpeg",
     "exercise_id": 1241,
     "name": "Exercise Band Dorsiflexion",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Exercise Band Plantarflexion.jpeg",
     "exercise_id": 1242,
     "name": "Exercise Band Plantarflexion",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Yoga exercise Cow-cat.jpeg",
     "exercise_id": 1244,
     "name": "Yoga exercise: Cow-cat",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Front Lever.jpeg",
     "exercise_id": 1245,
     "name": "Front Lever",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "TRX roll out.jpeg",
     "exercise_id": 1246,
     "name": "TRX roll out",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Ice cream maker.jpeg",
     "exercise_id": 1248,
     "name": "Ice cream maker",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Front lever pull-up.jpeg",
     "exercise_id": 1252,
     "name": "Front lever pull-up",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "TRX Obliques.jpeg",
     "exercise_id": 1259,
     "name": "TRX Obliques",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "TRX hammer curl.jpeg",
     "exercise_id": 1260,
     "name": "TRX hammer curl",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "TRX gorilla biceps curl.jpeg",
     "exercise_id": 1261,
     "name": "TRX gorilla biceps curl",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Trx Single Arm Bicep Curl.jpeg",
     "exercise_id": 1262,
     "name": "Trx Single Arm Bicep Curl",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Back bridge.jpeg",
     "exercise_id": 1263,
     "name": "Back bridge",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "TRX Tricep Extension.jpeg",
     "exercise_id": 1266,
     "name": "TRX Tricep Extension",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "TRX dips.jpeg",
     "exercise_id": 1269,
     "name": "TRX dips",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Low Pulley Cable Fly.jpeg",
     "exercise_id": 1270,
     "name": "Low Pulley Cable Fly",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Pullover.jpeg",
     "exercise_id": 1273,
     "name": "Pullover",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Front Pull narrow.jpeg",
     "exercise_id": 1280,
     "name": "Biceps Close Grip Pull Down",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Isometria trazioni impugnatura inversa.jpeg",
     "exercise_id": 1282,
     "name": "Isometria trazioni impugnatura inversa",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Pseudo Planche Push-up.jpeg",
     "exercise_id": 1284,
     "name": "Pseudo Planche Push-up",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Dynamic Planche.jpeg",
     "exercise_id": 1286,
     "name": "Dynamic Planche",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Reach ups.jpeg",
     "exercise_id": 1287,
     "name": "Reach ups",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Side plank right.jpeg",
     "exercise_id": 1288,
     "name": "Dynamic side plank",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Seated Dumbbell Curls.jpeg",
     "exercise_id": 1289,
     "name": "Seated Dumbbell Curls",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Horizontal traction isometry.jpeg",
     "exercise_id": 1292,
     "name": "Reverse-grip pull-ups",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "One armed push-ups.jpeg",
     "exercise_id": 1293,
     "name": "One armed push-ups",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Single-leg hamstring curl.jpeg",
     "exercise_id": 1294,
     "name": "Single-leg hamstring curl",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "JM Press.jpeg",
     "exercise_id": 1302,
     "name": "JM Press",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Helms Row.jpg",
     "exercise_id": 1303,
     "name": "Helms Row",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Meadows Row.jpeg",
     "exercise_id": 1304,
     "name": "Meadows Row",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Front Plank.jpeg",
     "exercise_id": 1307,
     "name": "Front Plank",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Bodyweight Squat HD.jpeg",
     "exercise_id": 1312,
     "name": "Bodyweight Squat HD",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Jumping Jack HD.jpeg",
     "exercise_id": 1314,
     "name": "Jumping Jack HD",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "High Knee Skips HD.jpeg",
     "exercise_id": 1318,
     "name": "High Knee Skips HD",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Bench Dips On Floor HD.jpeg",
     "exercise_id": 1320,
     "name": "Bench Dips On Floor HD",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Bodyweight lunge HD.jpeg",
     "exercise_id": 1324,
     "name": "Bodyweight lunge HD",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Double Kettlebell Clean and Press.jpeg",
     "exercise_id": 1360,
     "name": "Double Kettlebell Clean and Press",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Double Kettlebell Front Squat.jpeg",
     "exercise_id": 1361,
     "name": "Double Kettlebell Front Squat",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Dumbbell Split Squat.jpeg",
     "exercise_id": 1366,
     "name": "Dumbbell Split Squat",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Dumbbell Deadlift.jpeg",
     "exercise_id": 1370,
     "name": "Dumbbell Deadlift",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Triceps Dips (Assisted).jpeg",
     "exercise_id": 1372,
     "name": "Triceps Dips (Assisted)",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "box jumps.jpeg",
     "exercise_id": 1373,
     "name": "box jumps",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Rotary Torso Machine.jpeg",
     "exercise_id": 1374,
     "name": "Rotary Torso Machine",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Recumbent Bike.jpeg",
     "exercise_id": 1376,
     "name": "Recumbent Bike",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Band pull-aparts.jpeg",
     "exercise_id": 1380,
     "name": "Band pull-aparts",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Upper Back.jpeg",
     "exercise_id": 1381,
     "name": "Upper Back",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Pullover Machine.jpeg",
     "exercise_id": 1384,
     "name": "Pullover Machine",
@@ -4469,2212 +3832,1896 @@
 
   ,
   {
-    "image_id": null,
     "file": "Single Leg RDL.jpeg",
     "exercise_id": 1388,
     "name": "Single Leg RDL",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Toe Touch.jpeg",
     "exercise_id": 1390,
     "name": "Toe Touch",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Elephant Walks.jpeg",
     "exercise_id": 1391,
     "name": "Elephant Walks",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Single Leg Hamstring Stretch.jpeg",
     "exercise_id": 1393,
     "name": "Single Leg Hamstring Stretch",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Sit & Reach.jpeg",
     "exercise_id": 1394,
     "name": "Sit & Reach",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Crossbody Leg Swings.jpeg",
     "exercise_id": 1395,
     "name": "Crossbody Leg Swings",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Standing Pancake.jpeg",
     "exercise_id": 1396,
     "name": "Standing Pancake",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Standing Pancake Good Morning.jpeg",
     "exercise_id": 1397,
     "name": "Standing Pancake Good Morning",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Hamstring Chokes.jpeg",
     "exercise_id": 1398,
     "name": "Hamstring Chokes",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Roll Down.jpeg",
     "exercise_id": 1399,
     "name": "Roll Down",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Crossbody Hamstring Stretch.jpeg",
     "exercise_id": 1400,
     "name": "Crossbody Hamstring Stretch",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Plank-to-Elbow Extension.jpeg",
     "exercise_id": 1406,
     "name": "Plank-to-Elbow Extension",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Cossack squat.jpeg",
     "exercise_id": 1407,
     "name": "Cossack squat",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Wall-sit.jpeg",
     "exercise_id": 1408,
     "name": "Wall-sit",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Dragon-flag.jpeg",
     "exercise_id": 1409,
     "name": "Dragon-flag",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Plank with Alternating Leg Lift.jpeg",
     "exercise_id": 1410,
     "name": "Plank with Alternating Leg Lift",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Heel Touches.jpeg",
     "exercise_id": 1411,
     "name": "Heel Touches",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "bicycle crunches.jpeg",
     "exercise_id": 1412,
     "name": "bicycle crunches",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Hack Squats.jpeg",
     "exercise_id": 1414,
     "name": "Hack Squats",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Dumbbell Crunches.jpeg",
     "exercise_id": 1415,
     "name": "Dumbbell Crunches",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Biceps Curl Machine.jpeg",
     "exercise_id": 1424,
     "name": "Biceps Curl Machine",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Toe Taps.jpeg",
     "exercise_id": 1425,
     "name": "Toe Taps",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Standing Side Crunches.jpeg",
     "exercise_id": 1426,
     "name": "Standing Side Crunches",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Dumbbell Shoulder Rotations.jpeg",
     "exercise_id": 1429,
     "name": "Dumbbell Shoulder Rotations",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Plate Pinch Hold.jpeg",
     "exercise_id": 1430,
     "name": "Plate Pinch Hold",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Reverse Wood Chops.jpeg",
     "exercise_id": 1433,
     "name": "Reverse Wood Chops",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Lat Pull DB.jpeg",
     "exercise_id": 1434,
     "name": "Lat Pull DB",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Scapula Pulls.jpeg",
     "exercise_id": 1435,
     "name": "Scapula Pulls",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Pin Bench Press BB.jpeg",
     "exercise_id": 1436,
     "name": "Pin Bench Press BB",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Pin Squat.jpeg",
     "exercise_id": 1437,
     "name": "Pin Squat",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Clean.jpeg",
     "exercise_id": 1438,
     "name": "Clean",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Pin OHP.jpeg",
     "exercise_id": 1439,
     "name": "Pin OHP",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Push OHP.jpeg",
     "exercise_id": 1440,
     "name": "Push OHP",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Incline OHP DB.jpeg",
     "exercise_id": 1441,
     "name": "Incline OHP DB",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Kreis Press DB.jpeg",
     "exercise_id": 1442,
     "name": "Kreis Press DB",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Shoulder Raise Side and Front DB.jpeg",
     "exercise_id": 1443,
     "name": "Shoulder Raise Side and Front DB",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Jerk OL.jpeg",
     "exercise_id": 1445,
     "name": "Jerk OL",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Clean and Jerk OL.jpeg",
     "exercise_id": 1446,
     "name": "Clean and Jerk OL",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Snatch OL.jpeg",
     "exercise_id": 1447,
     "name": "Snatch OL",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "ClimbMill.jpeg",
     "exercise_id": 1449,
     "name": "ClimbMill",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": null,
     "exercise_id": 1450,
     "name": "Cobra Stretch",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Torso rotation stretch.jpeg",
     "exercise_id": 1451,
     "name": "Torso rotation stretch",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Towel Superman.jpeg",
     "exercise_id": 1455,
     "name": "Towel Superman",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Cable Press Around.jpeg",
     "exercise_id": 1457,
     "name": "Cable Press Around",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Cross-Body Cable Y-Raise.jpeg",
     "exercise_id": 1458,
     "name": "Cross-Body Cable Y-Raise",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "No Leg Drive Dumbbell Chest Press.jpeg",
     "exercise_id": 1461,
     "name": "No Leg Drive Dumbbell Chest Press",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "punches.jpeg",
     "exercise_id": 1462,
     "name": "punches",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Dumbbell Underhand Dead Row.jpeg",
     "exercise_id": 1463,
     "name": "Dumbbell Underhand Dead Row",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Pause Hack Squats.jpeg",
     "exercise_id": 1464,
     "name": "Pause Hack Squats",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Spider Curl.jpeg",
     "exercise_id": 1465,
     "name": "Spider Curl",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Calf Raise using Hack Squat Machine.jpeg",
     "exercise_id": 1466,
     "name": "Calf Raise using Hack Squat Machine",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Incline Close Grip Barbell Bench Press.jpeg",
     "exercise_id": 1467,
     "name": "Incline Close Grip Barbell Bench Press",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Floor Skull Crusher.jpeg",
     "exercise_id": 1468,
     "name": "Floor Skull Crusher",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Bent over Cable Flye.jpeg",
     "exercise_id": 1469,
     "name": "Bent over Cable Flye",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "1-Arm Half-Kneeling Lat Pulldown.jpeg",
     "exercise_id": 1470,
     "name": "1-Arm Half-Kneeling Lat Pulldown",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Kroc Row.jpeg",
     "exercise_id": 1471,
     "name": "Kroc Row",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Cable Shrug-In.jpeg",
     "exercise_id": 1472,
     "name": "Cable Shrug-In",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Reverse Cable Flye.jpeg",
     "exercise_id": 1473,
     "name": "Reverse Cable Flye",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "W-Raise.jpeg",
     "exercise_id": 1474,
     "name": "W-Raise",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Black Widow Knee Slides.jpeg",
     "exercise_id": 1475,
     "name": "Black Widow Knee Slides",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Butterfly Sit Up.jpeg",
     "exercise_id": 1476,
     "name": "Butterfly Sit Up",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Seated Corkscrew.jpeg",
     "exercise_id": 1477,
     "name": "Seated Corkscrew",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Levitation Crunch.jpeg",
     "exercise_id": 1478,
     "name": "Levitation Crunch",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Lying Triceps Extensions.jpeg",
     "exercise_id": 1480,
     "name": "Lying Triceps Extensions",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Drag Pushdown.jpeg",
     "exercise_id": 1481,
     "name": "Drag Pushdown",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Dumbbell Cheat Curl.jpeg",
     "exercise_id": 1482,
     "name": "Dumbbell Cheat Curl",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Bizeps Curls Trifecta.jpeg",
     "exercise_id": 1483,
     "name": "Bizeps Curls Trifecta",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Omni Cable Cross-over.jpeg",
     "exercise_id": 1484,
     "name": "Omni Cable Cross-over",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Rocking Triceps Pushdown.jpeg",
     "exercise_id": 1485,
     "name": "Rocking Triceps Pushdown",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Alternating High Cable Row.jpeg",
     "exercise_id": 1486,
     "name": "Alternating High Cable Row",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Hyper Y W Combo.jpeg",
     "exercise_id": 1487,
     "name": "Hyper Y W Combo",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Plank Jacks.jpeg",
     "exercise_id": 1489,
     "name": "Plank Jacks",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Lying Triceps Kickback.jpeg",
     "exercise_id": 1490,
     "name": "Lying Triceps Kickback",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "High Row.jpeg",
     "exercise_id": 1492,
     "name": "High Row",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Bayesian Curl.jpeg",
     "exercise_id": 1493,
     "name": "Bayesian Curl",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "DB Upper Chest Variation.jpeg",
     "exercise_id": 1496,
     "name": "DB Upper Chest Variation",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "DB Underhand bench press.jpeg",
     "exercise_id": 1497,
     "name": "DB Underhand bench press",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Elbows Tucked DB Bench Press.jpeg",
     "exercise_id": 1498,
     "name": "Elbows Tucked DB Bench Press",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Alternative DB Gorilla rows.jpeg",
     "exercise_id": 1501,
     "name": "Alternative DB Gorilla rows",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "DB Cross Body Hammer Curls.jpeg",
     "exercise_id": 1502,
     "name": "DB Cross Body Hammer Curls",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Dumbbell Frog Press.jpeg",
     "exercise_id": 1503,
     "name": "Dumbbell Frog Press",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Dumbbell Bradford press.jpeg",
     "exercise_id": 1504,
     "name": "Dumbbell Bradford press",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "High-Incline Smith Machine Press.jpeg",
     "exercise_id": 1508,
     "name": "High-Incline Smith Machine Press",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Cable Tricep Kickback.jpeg",
     "exercise_id": 1509,
     "name": "Cable Tricep Kickback",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Neutral Grip Lat Pulldown.jpeg",
     "exercise_id": 1510,
     "name": "Neutral Grip Lat Pulldown",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Kong Curl.jpeg",
     "exercise_id": 1511,
     "name": "Kong Curl",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Drop Curl.jpeg",
     "exercise_id": 1512,
     "name": "Drop Curl",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Overhead Cable Tricep Extension.jpeg",
     "exercise_id": 1513,
     "name": "Overhead Cable Tricep Extension",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Lateral Walk.jpeg",
     "exercise_id": 1514,
     "name": "Lateral Walk",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Leg Press Toe Press.jpeg",
     "exercise_id": 1515,
     "name": "Leg Press Toe Press",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Handstand.jpeg",
     "exercise_id": 1516,
     "name": "Handstand",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Sled Push.jpeg",
     "exercise_id": 1523,
     "name": "Sled Push",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Battle Ropes.jpeg",
     "exercise_id": 1524,
     "name": "Battle Ropes",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": null,
     "exercise_id": 1525,
     "name": "Ball Slams",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Ski Machine.jpeg",
     "exercise_id": 1526,
     "name": "Ski Machine",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Pendulum Squat.jpeg",
     "exercise_id": 1527,
     "name": "Pendulum Squat",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Glute Drive.jpeg",
     "exercise_id": 1528,
     "name": "Glute Drive",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Toes to bar.jpeg",
     "exercise_id": 1529,
     "name": "Toes to bar",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Lying Dumbbell Curls.jpeg",
     "exercise_id": 1530,
     "name": "Lying Dumbbell Curls",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Cable Curls.jpeg",
     "exercise_id": 1531,
     "name": "Cable Curls",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Delt Stretch.jpeg",
     "exercise_id": 1536,
     "name": "Delt Stretch",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Pull-up Isometric Hold.jpeg",
     "exercise_id": 1537,
     "name": "Pull-up Isometric Hold",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Archer Pull Up.jpeg",
     "exercise_id": 1545,
     "name": "Archer Pull Up",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Larsen Press.jpeg",
     "exercise_id": 1546,
     "name": "Larsen Press",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Stair Master.jpeg",
     "exercise_id": 1548,
     "name": "Stair Master",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Schwimmen.jpeg",
     "exercise_id": 1574,
     "name": "Schwimmen",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Standing Dowel Shoulder press.jpeg",
     "exercise_id": 1575,
     "name": "Standing Dowel Shoulder press",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Snap Down.jpeg",
     "exercise_id": 1576,
     "name": "Snap Down",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Bretzel stretch.jpeg",
     "exercise_id": 1577,
     "name": "Bretzel stretch",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Hip hinge.jpeg",
     "exercise_id": 1578,
     "name": "Hip hinge",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Bronco.jpeg",
     "exercise_id": 1579,
     "name": "Bronco",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Perpendicular Unilateral Landmine Row.jpeg",
     "exercise_id": 1580,
     "name": "Perpendicular Unilateral Landmine Row",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Supine press.jpeg",
     "exercise_id": 1583,
     "name": "Supine press",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "March or jog in place.jpeg",
     "exercise_id": 1584,
     "name": "March or jog in place",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Leg and hip stretch.jpeg",
     "exercise_id": 1589,
     "name": "Leg and hip stretch",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Arm and neck stretch.jpeg",
     "exercise_id": 1590,
     "name": "Arm and neck stretch",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Deep breathing (standing or seated).jpeg",
     "exercise_id": 1591,
     "name": "Deep breathing (standing or seated)",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Guided or free meditation.jpeg",
     "exercise_id": 1592,
     "name": "Guided or free meditation",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Dumbbell Scaption.jpeg",
     "exercise_id": 1602,
     "name": "Dumbbell Scaption",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Leg curl with elastic.jpeg",
     "exercise_id": 1603,
     "name": "Leg curl with elastic",
     "type": "Calves"
   },
   {
-    "image_id": null,
     "file": "Copenhagen Adduction Exercise.jpeg",
     "exercise_id": 1605,
     "name": "Copenhagen Adduction Exercise",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Arm Raises (T_Y_I).jpeg",
     "exercise_id": 1606,
     "name": "Arm Raises (T/Y/I)",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Typewriter Pull-ups.jpeg",
     "exercise_id": 1607,
     "name": "Typewriter Pull-ups",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Bodyweight Biceps Curl.jpeg",
     "exercise_id": 1608,
     "name": "Bodyweight Biceps Curl",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Blaze.jpeg",
     "exercise_id": 1630,
     "name": "Blaze",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Cable Chest Press - Decline.jpeg",
     "exercise_id": 1656,
     "name": "Cable Chest Press - Decline",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Preacher Curl - Internally Rotated.jpeg",
     "exercise_id": 1657,
     "name": "Preacher Curl - Internally Rotated",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Preacher Curl - Externally Rotated.jpeg",
     "exercise_id": 1658,
     "name": "Preacher Curl - Externally Rotated",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Lat Pulldown - Cross Body Single Arm.jpeg",
     "exercise_id": 1659,
     "name": "Lat Pulldown - Cross Body Single Arm",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Cable Chest Press - Incline.jpeg",
     "exercise_id": 1660,
     "name": "Cable Chest Press - Incline",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Cable Triceps Press.jpeg",
     "exercise_id": 1661,
     "name": "Cable Triceps Press",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Cable Tri Extension - Internal Rotation.jpeg",
     "exercise_id": 1662,
     "name": "Cable Tri Extension - Internal Rotation",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Curl  - With Shoulder Elevated.jpeg",
     "exercise_id": 1666,
     "name": "Curl  - With Shoulder Elevated",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "One Arm Overhead Cable Tricep Extension.jpeg",
     "exercise_id": 1668,
     "name": "One Arm Overhead Cable Tricep Extension",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Leg Swings (Front-Back).jpeg",
     "exercise_id": 1670,
     "name": "Leg Swings (Front-Back)",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Seated Hip Abduction.jpeg",
     "exercise_id": 1672,
     "name": "Seated Hip Abduction",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Wall Angels.jpeg",
     "exercise_id": 1679,
     "name": "Wall Angels",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "seated figure four.jpeg",
     "exercise_id": 1680,
     "name": "seated figure four",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Zottman curl.jpeg",
     "exercise_id": 1683,
     "name": "Zottman curl",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Dumbbell Thruster.jpeg",
     "exercise_id": 1684,
     "name": "Dumbbell Thruster",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Glute Bridge Single-Arm Press.jpeg",
     "exercise_id": 1686,
     "name": "Glute Bridge Single-Arm Press",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Bear crawl pull through.jpeg",
     "exercise_id": 1687,
     "name": "Bear crawl pull through",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Kickstand RDL.jpeg",
     "exercise_id": 1688,
     "name": "Kickstand RDL",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Cable Fly Middle Chest.jpeg",
     "exercise_id": 1689,
     "name": "Cable Fly Middle Chest",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Cable Fly Upper Chest.jpeg",
     "exercise_id": 1690,
     "name": "Cable Fly Upper Chest",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Cable Fly Lower Chest.jpeg",
     "exercise_id": 1691,
     "name": "Cable Fly Lower Chest",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Incline Static Hold.jpeg",
     "exercise_id": 1693,
     "name": "Incline Static Hold",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Flat Machine Press.jpeg",
     "exercise_id": 1694,
     "name": "Flat Machine Press",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Pull-Ups (Wide Grip).jpeg",
     "exercise_id": 1695,
     "name": "Pull-Ups (Wide Grip)",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Pull-Ups (Neutral Grip).jpeg",
     "exercise_id": 1696,
     "name": "Pull-Ups (Neutral Grip)",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Barbell Row (Overhand).jpeg",
     "exercise_id": 1698,
     "name": "Barbell Row (Overhand)",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Barbell Row (Overhand).jpeg",
     "exercise_id": 1699,
     "name": "Barbell Row (Underhand)",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Barbell Romanian Deadlift (RDL).jpeg",
     "exercise_id": 1700,
     "name": "Barbell Romanian Deadlift (RDL)",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "One-Arm Heavy Row.jpeg",
     "exercise_id": 1701,
     "name": "One-Arm Heavy Row",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Underhand Lat Pull Down.jpeg",
     "exercise_id": 1702,
     "name": "Jalón al pecho con agarre ancho",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Patadas traseras.jpeg",
     "exercise_id": 1703,
     "name": "Patadas traseras",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Tuck L-sit.jpeg",
     "exercise_id": 1704,
     "name": "Tuck L-sit",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Straight Bar Cable Front Raise.jpeg",
     "exercise_id": 1707,
     "name": "Elevación lateral polea",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Reverse Fly Standing.jpeg",
     "exercise_id": 1709,
     "name": "Reverse Fly Standing",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Butchers Block Stretch.jpeg",
     "exercise_id": 1710,
     "name": "Butchers Block Stretch",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": null,
     "exercise_id": 1711,
     "name": "Sleeper Stretch",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Horizontal Shoulder Flexion Stretch.jpeg",
     "exercise_id": 1712,
     "name": "Horizontal Shoulder Flexion Stretch",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Doorway Pectoral Stretch.jpeg",
     "exercise_id": 1713,
     "name": "Doorway Pectoral Stretch",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Shoulder Dumbbell Pendular Exercise.jpeg",
     "exercise_id": 1714,
     "name": "Shoulder Dumbbell Pendular Exercise",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Shoulder External Rotation with Dumbbell.jpeg",
     "exercise_id": 1715,
     "name": "Shoulder External Rotation with Dumbbell",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Incline Shoulder Press Up.jpeg",
     "exercise_id": 1716,
     "name": "Incline Shoulder Press Up",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Neck extension.jpeg",
     "exercise_id": 1717,
     "name": "Neck extension",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "One Arm Triceps Extensions on Cable.jpeg",
     "exercise_id": 1718,
     "name": "Remo alto polea alta",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Jalon caballero unialteral.jpeg",
     "exercise_id": 1719,
     "name": "Jalon caballero unialteral",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": null,
     "exercise_id": 1723,
     "name": "Glute Kickback (Machine)",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": null,
     "exercise_id": 1724,
     "name": "Standing Adduction (Cable)",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Side Straight-Arm Pulldown (Cable).jpeg",
     "exercise_id": 1727,
     "name": "Side Straight-Arm Pulldown (Cable)",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Shoulder Internal Rotation (Cable).jpeg",
     "exercise_id": 1728,
     "name": "Shoulder Internal Rotation (Cable)",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Shoulder External Rotation (Cable).jpeg",
     "exercise_id": 1729,
     "name": "Shoulder External Rotation (Cable)",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Side Lateral Raise (Cable).jpeg",
     "exercise_id": 1730,
     "name": "Side Lateral Raise (Cable)",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Front Raise (Cable).jpeg",
     "exercise_id": 1731,
     "name": "Front Raise (Cable)",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Assisted chin-ups.jpeg",
     "exercise_id": 1737,
     "name": "Assisted chin-ups",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Shrimp Squad.jpeg",
     "exercise_id": 1739,
     "name": "Shrimp Squad",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Single Leg Glute Bridge.jpeg",
     "exercise_id": 1740,
     "name": "Single Leg Glute Bridge",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "L-Sit Pull-ups.jpeg",
     "exercise_id": 1741,
     "name": "L-Sit Pull-ups",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Back Lever.jpeg",
     "exercise_id": 1742,
     "name": "Back Lever",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Windshield Wipers.jpeg",
     "exercise_id": 1743,
     "name": "Windshield Wipers",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Cable pull through.jpeg",
     "exercise_id": 1751,
     "name": "Cable pull through",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Cross-Body Cable Y-Raise.jpeg",
     "exercise_id": 1752,
     "name": "Side lateral raise - Front (Cable)",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Cross-Body Cable Y-Raise.jpeg",
     "exercise_id": 1753,
     "name": "Side lateral raise - Back (Cable)",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "45° lateral raises.jpeg",
     "exercise_id": 1754,
     "name": "45° lateral raises",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Shoulder Y-pull cable.jpeg",
     "exercise_id": 1755,
     "name": "Shoulder Y-pull cable",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Plank Reach.jpeg",
     "exercise_id": 1766,
     "name": "Plank Reach",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Wrist curl, cable.jpeg",
     "exercise_id": 1771,
     "name": "Wrist curl, cable",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Reverse crunch.jpeg",
     "exercise_id": 1772,
     "name": "Reverse crunch",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Legend Incline Bench Press.jpeg",
     "exercise_id": 1773,
     "name": "Legend Incline Bench Press",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Chair dips.jpeg",
     "exercise_id": 1774,
     "name": "Chair dips",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Pec deck rear delt fly.jpeg",
     "exercise_id": 1775,
     "name": "Pec deck rear delt fly",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Suitcase Carry.jpeg",
     "exercise_id": 1776,
     "name": "Suitcase Carry",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Deficit Push ups.jpeg",
     "exercise_id": 1777,
     "name": "Deficit Push ups",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Supino inclinado.jpeg",
     "exercise_id": 1778,
     "name": "Supino inclinado",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Landmine Rotation.jpeg",
     "exercise_id": 1779,
     "name": "Landmine Rotation",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Side Straight-Arm Pulldown (Cable).jpeg",
     "exercise_id": 1795,
     "name": "unilateral cross body cable pull down",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Trap Bar Squat.jpeg",
     "exercise_id": 1803,
     "name": "Trap Bar Squat",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Behind the Back Cable Lateral Raise.jpeg",
     "exercise_id": 1807,
     "name": "Behind the Back Cable Lateral Raise",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Parallel Bar Hold.jpeg",
     "exercise_id": 1808,
     "name": "Parallel Bar Hold",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Reverse Hyperextension.jpeg",
     "exercise_id": 1809,
     "name": "Reverse Hyperextension",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Sphinx.jpeg",
     "exercise_id": 1810,
     "name": "Sphinx",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Open Book.jpeg",
     "exercise_id": 1822,
     "name": "Open Book",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Clamshell.jpeg",
     "exercise_id": 1823,
     "name": "Clamshell",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Dumbbell close grip bench press.jpeg",
     "exercise_id": 1824,
     "name": "Dumbell Tate Press",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Chest-Supported Rear Delt Raise.jpeg",
     "exercise_id": 1825,
     "name": "Chest-Supported Rear Delt Raise",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Band pull-aparts.jpeg",
     "exercise_id": 1826,
     "name": "Band pull-apart with external rotation",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Double-Leg Abdominal Press.jpeg",
     "exercise_id": 1827,
     "name": "Double-Leg Abdominal Press",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Abdominal Draw-In.jpeg",
     "exercise_id": 1828,
     "name": "Abdominal Draw-In",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Landmine Squat to Press.jpeg",
     "exercise_id": 1829,
     "name": "Landmine Squat to Press",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Ring Support Hold.jpeg",
     "exercise_id": 1832,
     "name": "Ring Support Hold",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Floor Glider Hamstring Curls.jpeg",
     "exercise_id": 1833,
     "name": "Floor Glider Hamstring Curls",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Trap-3 Raise.jpeg",
     "exercise_id": 1834,
     "name": "Trap-3 Raise",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Banded Shoulder Drills.jpeg",
     "exercise_id": 1838,
     "name": "Banded Shoulder Drills",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Solo Hip Flexor Stretch.jpeg",
     "exercise_id": 1839,
     "name": "Solo Hip Flexor Stretch",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Bent-Leg Hamstring Stretch.jpeg",
     "exercise_id": 1840,
     "name": "Bent-Leg Hamstring Stretch",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Seated Shoulder Extension Stretch.jpeg",
     "exercise_id": 1841,
     "name": "Seated Shoulder Extension Stretch",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Banded Clamshell.jpeg",
     "exercise_id": 1842,
     "name": "Banded Clamshell",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Butterfly Stretch.jpeg",
     "exercise_id": 1843,
     "name": "Butterfly Stretch",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Frog Stretch.jpeg",
     "exercise_id": 1844,
     "name": "Frog Stretch",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Seated Pancake Good Morning.jpeg",
     "exercise_id": 1845,
     "name": "Seated Pancake Good Morning",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Horse Stance (Side Splits).jpeg",
     "exercise_id": 1846,
     "name": "Horse Stance (Side Splits)",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Straddle L-Sit.jpeg",
     "exercise_id": 1847,
     "name": "Straddle L-Sit",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "L-sit.jpeg",
     "exercise_id": 1852,
     "name": "L-sit",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "L-Sit (Foot Supported).jpeg",
     "exercise_id": 1853,
     "name": "L-Sit (Foot Supported)",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Banded Scapular Retraction.jpeg",
     "exercise_id": 1877,
     "name": "Banded Scapular Retraction",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Incline DB Y-Raise.jpeg",
     "exercise_id": 1879,
     "name": "Incline DB Y-Raise",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "DB Wrist Extension.jpeg",
     "exercise_id": 1881,
     "name": "DB Wrist Extension",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Shoulder External Rotation (Cable).jpeg",
     "exercise_id": 1882,
     "name": "High-Cable Lateral Raise",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Shinbox IR Stretch.jpeg",
     "exercise_id": 1884,
     "name": "Shinbox IR Stretch",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "YTWL Exercise.jpeg",
     "exercise_id": 1885,
     "name": "YTWL Exercise",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Supine Hip Abduction.jpeg",
     "exercise_id": 1886,
     "name": "Supine Hip Abduction",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Pec deck rear delt fly.jpeg",
     "exercise_id": 1904,
     "name": "Pec Deck",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Pullback.jpeg",
     "exercise_id": 1905,
     "name": "Pullback",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Single Leg Glute Bridge.jpeg",
     "exercise_id": 1906,
     "name": "Hip Bridge",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Unilateral Lunges.jpeg",
     "exercise_id": 1907,
     "name": "Unilateral Lunges",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Butterfly Superman.jpeg",
     "exercise_id": 1908,
     "name": "Butterfly Superman",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Leg Wheel.jpeg",
     "exercise_id": 1909,
     "name": "Leg Wheel",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Kneeling Superman.jpeg",
     "exercise_id": 1910,
     "name": "Kneeling Superman",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Cat Plank.jpeg",
     "exercise_id": 1911,
     "name": "Cat Plank",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Core Rotation.jpeg",
     "exercise_id": 1912,
     "name": "Core Rotation",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Unilateral Hip Thrust.jpeg",
     "exercise_id": 1913,
     "name": "Unilateral Hip Thrust",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Parallel Bar Hold.jpeg",
     "exercise_id": 1914,
     "name": "Isometria alle parallele",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Quadruped Hip Abduction.jpeg",
     "exercise_id": 1915,
     "name": "Quadruped Hip Abduction",
     "type": "Calves"
   },
   {
-    "image_id": null,
     "file": "Legend Chest Press.jpeg",
     "exercise_id": 1918,
     "name": "Legend Chest Press",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Extreme Pec Stretch.jpeg",
     "exercise_id": 1919,
     "name": "Extreme Pec Stretch",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Extreme Shoulder Stretch.jpeg",
     "exercise_id": 1920,
     "name": "Extreme Shoulder Stretch",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": null,
     "exercise_id": 1921,
     "name": "Extreme Lat Stretch",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "3008 Abdominal Crunch.jpeg",
     "exercise_id": 1924,
     "name": "3008 Abdominal Crunch",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Barbell Silverback Shrug.jpeg",
     "exercise_id": 1925,
     "name": "Barbell Silverback Shrug",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Wide-grip supinated lat pulldown.jpeg",
     "exercise_id": 1927,
     "name": "Inverted Lat Pull Down",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Long-Pulley, Narrow.jpeg",
     "exercise_id": 1928,
     "name": "Seated V-Grip Row",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Assisted Pull-Up.jpeg",
     "exercise_id": 1929,
     "name": "Assisted Pull-Up",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Dumbbell Curl.jpeg",
     "exercise_id": 1931,
     "name": "Dumbbell Curl",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Abdominal Crunch.jpeg",
     "exercise_id": 1933,
     "name": "Abdominal Crunch",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Belt Squat.jpeg",
     "exercise_id": 1935,
     "name": "Belt Squat",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Cable Rear-Delt Fly (single arm).jpeg",
     "exercise_id": 1936,
     "name": "Cable Rear-Delt Fly (single arm)",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Cat-Cow.jpeg",
     "exercise_id": 1938,
     "name": "Cat-Cow",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Neck CARs.jpeg",
     "exercise_id": 1939,
     "name": "Neck CARs",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Diaphragmatic Breathing.jpeg",
     "exercise_id": 1940,
     "name": "Diaphragmatic Breathing",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "1 Leg Box Squat.jpeg",
     "exercise_id": 1948,
     "name": "1 Leg Box Squat",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Limber 11.jpeg",
     "exercise_id": 1949,
     "name": "Limber 11",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Foam Roll IT Band.jpeg",
     "exercise_id": 1950,
     "name": "Foam Roll IT Band",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "SMR Glutes (lax ball).jpeg",
     "exercise_id": 1952,
     "name": "SMR Glutes (lax ball)",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Bent-knee Iron Cross.jpeg",
     "exercise_id": 1953,
     "name": "Bent-knee Iron Cross",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Roll-overs into V-sits.jpeg",
     "exercise_id": 1954,
     "name": "Roll-overs into V-sits",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Fire Hydrant Circles.jpeg",
     "exercise_id": 1956,
     "name": "Fire Hydrant Circles",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Seated Piriformis Stretch.jpeg",
     "exercise_id": 1959,
     "name": "Seated Piriformis Stretch",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Rear-foot-elevated Hip Flexor Stretch.jpeg",
     "exercise_id": 1960,
     "name": "Rear-foot-elevated Hip Flexor Stretch",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Wide Push-Up.jpeg",
     "exercise_id": 1964,
     "name": "Wide Push-Up",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Kneeling Thoracic Rotation.jpeg",
     "exercise_id": 1966,
     "name": "1/2 Kneeling Thoracic Rotation",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "lento avanti seduto.jpeg",
     "exercise_id": 1967,
     "name": "lento avanti seduto",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "One Arm Triceps Extensions on Cable.jpeg",
     "exercise_id": 1969,
     "name": "Single-arm cable pushdown",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Curl with kettlebell two hands.jpeg",
     "exercise_id": 1970,
     "name": "Kettlebell sumo high pull",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Wide-grip Pulldown.jpeg",
     "exercise_id": 1972,
     "name": "Single-Arm Lat Pulldown",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Hip Airplane.jpeg",
     "exercise_id": 2447,
     "name": "Hip Airplane",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Reverse Clamshell.jpeg",
     "exercise_id": 2448,
     "name": "Reverse Clamshell",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Clamshell to Reverse Clamshell.jpeg",
     "exercise_id": 2449,
     "name": "Clamshell to Reverse Clamshell",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "YTW Raises.jpeg",
     "exercise_id": 2454,
     "name": "YTW Raises",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Glute-Ham Raise.jpeg",
     "exercise_id": 2478,
     "name": "Glute-Ham Raise",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Swimming 50m sprints.jpeg",
     "exercise_id": 2480,
     "name": "Easy Continuous Swim (Freestyle)",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Kick with Board.jpeg",
     "exercise_id": 2481,
     "name": "Kick with Board",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Bobbing Exhale Drill.jpeg",
     "exercise_id": 2482,
     "name": "Bobbing Exhale Drill",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Wall-Hold Rotation.jpeg",
     "exercise_id": 2483,
     "name": "Wall-Hold Rotation",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Side-Kick Breathing (Kickboard).jpeg",
     "exercise_id": 2484,
     "name": "Side-Kick Breathing (Kickboard)",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Stroke-and-Roll Drill.jpeg",
     "exercise_id": 2485,
     "name": "Stroke-and-Roll Drill",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Recovery Bobbing.jpeg",
     "exercise_id": 2486,
     "name": "Recovery Bobbing",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Cool-Down Swim.jpeg",
     "exercise_id": 2487,
     "name": "Cool-Down Swim",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Posterior Pelvic Tilt.jpeg",
     "exercise_id": 2488,
     "name": "Posterior Pelvic Tilt",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Low row.jpeg",
     "exercise_id": 2489,
     "name": "Low row",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Pulley (low, with triangle).jpeg",
     "exercise_id": 2490,
     "name": "Pulley (low, with triangle)",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Abductors.jpeg",
     "exercise_id": 2491,
     "name": "Abductors",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Adductor Side Plank.jpeg",
     "exercise_id": 2493,
     "name": "Adductor Side Plank",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Wall Push-ups (Vasco L1).jpeg",
     "exercise_id": 2496,
     "name": "Wall Push-ups (Vasco L1)",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "DB Floor Press (5kg Single Arm).jpeg",
     "exercise_id": 2497,
     "name": "DB Floor Press (5kg Single Arm)",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Pike Push-ups (Vasco L1).jpeg",
     "exercise_id": 2498,
     "name": "Pike Push-ups (Vasco L1)",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Incline Push-ups (Vasco L2).jpeg",
     "exercise_id": 2499,
     "name": "Incline Push-ups (Vasco L2)",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "Table Bodyweight Rows (Vasco L1).jpeg",
     "exercise_id": 2501,
     "name": "Table Bodyweight Rows (Vasco L1)",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "DB Single-Arm Row (5kg).jpeg",
     "exercise_id": 2502,
     "name": "DB Single-Arm Row (5kg)",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "Face Pulls (Bodyweight Doorframe Towel).jpeg",
     "exercise_id": 2503,
     "name": "Face Pulls (Bodyweight Doorframe/Towel)",
     "type": "Back"
   },
   {
-    "image_id": null,
     "file": "DB Hammer Curls (5kg).jpeg",
     "exercise_id": 2504,
     "name": "DB Hammer Curls (5kg)",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Dead Bug (Core L1).jpeg",
     "exercise_id": 2505,
     "name": "Dead Bug (Core L1)",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Forearm Plank (Core L1).jpeg",
     "exercise_id": 2507,
     "name": "Forearm Plank (Core L1)",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Bird Dog (Core L1).jpeg",
     "exercise_id": 2508,
     "name": "Bird Dog (Core L1)",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Side plank right.jpeg",
     "exercise_id": 2509,
     "name": "Side Plank (Core L1)",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Hollow Body Hold (Core L1).jpeg",
     "exercise_id": 2510,
     "name": "Hollow Body Hold (Core L1)",
     "type": "Cardio"
   },
   {
-    "image_id": null,
     "file": "Cable Tri Extension - Internal Rotation.jpeg",
     "exercise_id": 2522,
     "name": "Tricep Pull-Down",
     "type": "Arms"
   },
   {
-    "image_id": null,
     "file": "Serratus Wall Slide Stretch.jpeg",
     "exercise_id": 2523,
     "name": "Serratus Wall Slide Stretch",
     "type": "Shoulders"
   },
   {
-    "image_id": null,
     "file": "Straddle Stance Good Morning.jpeg",
     "exercise_id": 2524,
     "name": "Straddle Stance Good Morning",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Couch Stretch.jpeg",
     "exercise_id": 2525,
     "name": "Couch Stretch",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Long Lunge Pulse Stretch.jpeg",
     "exercise_id": 2526,
     "name": "Long Lunge Pulse Stretch",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Front Split Stretch.jpeg",
     "exercise_id": 2527,
     "name": "Front Split Stretch",
     "type": "Legs"
   },
   {
-    "image_id": null,
     "file": "Squat Sky Reach Stretch.jpeg",
     "exercise_id": 2528,
     "name": "Squat Sky Reach Stretch",
     "type": "Chest"
   },
   {
-    "image_id": null,
     "file": "elbow lever.jpeg",
     "exercise_id": 2531,
     "name": "elbow lever",
     "type": "Abs"
   },
   {
-    "image_id": null,
     "file": "Planche Lean Hold.jpeg",
     "exercise_id": 2532,
     "name": "Planche Lean Hold",
