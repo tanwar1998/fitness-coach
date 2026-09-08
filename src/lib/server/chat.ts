@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { query } from "./db";
 import { resolveProvider } from "./ai";
+import { runCoachGraph } from "./ai/graph";
 
 export type ChatRole = "user" | "assistant";
 
@@ -167,14 +168,29 @@ export async function sendMessage(
     { id: userMessageId, role: "user" as const, content, createdAt: Date.now() },
   ].map((message) => ({ role: message.role, content: message.content }));
 
+  // Run the conversation through the shared LangGraph coaching graph. The
+  // graph resolves the requested provider internally, so every AI tool flows
+  // through the same orchestration (tools, fallback, human hand-off).
   const provider = resolveProvider(providerId);
-  const reply = await provider.generateReply({ messages: history });
+  const result = await runCoachGraph({
+    messages: history,
+    providerId: provider.id,
+  });
+
+  const reply = result.reply;
 
   const assistantMessageId = createId();
   await query(
     `INSERT INTO chat_messages (id, session_id, role, content, provider)
      VALUES ($1, $2, 'assistant', $3, $4)`,
-    [assistantMessageId, sessionId, reply, provider.id],
+    [
+      assistantMessageId,
+      sessionId,
+      reply,
+      // When the graph handed the conversation to a human coach, the reply is
+      // not an AI answer, so record that instead of the provider id.
+      result.yieldedToHuman ? "human" : provider.id,
+    ],
   );
 
   await query(

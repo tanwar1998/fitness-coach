@@ -5,7 +5,9 @@ import type { ChatSession } from "@/lib/ai-coach";
 
 interface AiCoachSidebarProps {
   open: boolean;
+  collapsed?: boolean;
   onClose: () => void;
+  onToggleCollapse?: () => void;
   sessions: ChatSession[];
   activeId: string | null;
   onSelect: (id: string) => void;
@@ -89,6 +91,64 @@ function CloseIcon() {
   );
 }
 
+function ChevronsLeftIcon() {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="m11 17-5-5 5-5" />
+      <path d="m18 17-5-5 5-5" />
+    </svg>
+  );
+}
+
+function ChevronsRightIcon() {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="m6 17 5-5-5-5" />
+      <path d="m13 17 5-5-5-5" />
+    </svg>
+  );
+}
+
+function HistoryIcon() {
+  return (
+    <svg
+      width="36"
+      height="36"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+      <path d="M3 3v5h5" />
+      <path d="M12 7v5l4 2" />
+    </svg>
+  );
+}
+
 function startOfDay(timestamp: number) {
   const date = new Date(timestamp);
   return new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
@@ -105,7 +165,9 @@ function groupLabel(timestamp: number) {
 
 export function AiCoachSidebar({
   open,
+  collapsed = false,
   onClose,
+  onToggleCollapse,
   sessions,
   activeId,
   onSelect,
@@ -135,11 +197,41 @@ export function AiCoachSidebar({
       />
 
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-72 max-w-[85vw] flex-col border-r border-border bg-card transition-transform duration-300 md:static md:z-auto md:translate-x-0 ${
-          open ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed inset-y-0 left-0 z-50 flex w-72 max-w-[85vw] flex-col overflow-hidden border-r border-border bg-card transition-[width,transform] duration-300 md:static md:z-auto ${
+          open ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+        } ${collapsed ? "md:w-14" : "md:w-72"}`}
       >
+        {/* Desktop rail shown when the drawer is collapsed */}
+        <div
+          className={`hidden h-full flex-col items-center justify-center gap-2 p-3 md:flex ${
+            collapsed ? "" : "hidden"
+          }`}
+        >
+          <button
+            type="button"
+            onClick={onToggleCollapse}
+            aria-label="Expand chat history"
+            className="grid h-11 w-11 cursor-pointer place-items-center rounded-xl border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          >
+            <ChevronsRightIcon />
+          </button>
+        </div>
+
+        {/* Full content (hidden on desktop when collapsed) */}
+        <div
+          className={`flex min-h-0 flex-1 flex-col  ${
+            collapsed ? "hidden md:hidden" : "flex"
+          }`}
+        >
         <div className="flex items-center gap-2 border-b border-border p-4">
+          <button
+            type="button"
+            onClick={onToggleCollapse}
+            aria-label="Collapse chat history"
+            className="hidden h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-xl border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:grid"
+          >
+            <ChevronsLeftIcon />
+          </button>
           <button
             type="button"
             onClick={onNew}
@@ -160,9 +252,17 @@ export function AiCoachSidebar({
 
         <nav className="flex-1 overflow-y-auto p-3">
           {groups.length === 0 ? (
-            <p className="px-2 py-8 text-center text-sm text-muted-foreground">
-              No conversations yet.
-            </p>
+            <div className="flex flex-col items-center justify-center px-4 py-12 text-center">
+              <span className="grid h-16 w-16 place-items-center rounded-2xl bg-primary/10 text-primary">
+                <HistoryIcon />
+              </span>
+              <p className="mt-4 text-sm font-medium text-muted-foreground">
+                No conversations yet
+              </p>
+              <p className="mt-1 text-xs text-muted-foreground/80">
+                Your past chat threads will appear here.
+              </p>
+            </div>
           ) : (
             <div className="flex flex-col gap-5">
               {groups.map(([label, items]) => (
@@ -225,6 +325,7 @@ export function AiCoachSidebar({
           <p className="text-xs text-muted-foreground">
             Conversations are saved on the server.
           </p>
+        </div>
         </div>
       </aside>
     </>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { AiCoachChat } from "@/components/ai-coach/AiCoachChat";
+import { AiCoachChat, type ChatProfile } from "@/components/ai-coach/AiCoachChat";
 import { AiCoachSidebar } from "@/components/ai-coach/AiCoachSidebar";
 import {
   createSession,
@@ -12,15 +12,28 @@ import {
   type AiProviderInfo,
   type ChatSession,
 } from "@/lib/ai-coach";
+import { fetchInjuries, BODY_REGION_LABELS } from "@/lib/injury-recovery";
+import { WORKOUT_GOALS, type WorkoutGoal } from "@/lib/workout-generator";
+import { loadHistory } from "@/lib/workout-history";
+
+const GOAL_LABELS: Record<WorkoutGoal, string> = Object.fromEntries(
+  WORKOUT_GOALS.map((option) => [option.value, option.label]),
+) as Record<WorkoutGoal, string>;
 
 export default function AiCoachPage() {
   const [sessions, setSessions] = useState<ChatSession[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [isThinking, setIsThinking] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [providers, setProviders] = useState<AiProviderInfo[]>([]);
   const [providerId, setProviderId] = useState<string>("");
+  const [injuryLabel, setInjuryLabel] = useState<string | null>(null);
+  const [goalLabel] = useState<string>(() => {
+    const latest = loadHistory()[0]?.workout;
+    return latest?.goal ? GOAL_LABELS[latest.goal] : "General fitness";
+  });
 
   useEffect(() => {
     let cancelled = false;
@@ -45,9 +58,48 @@ export default function AiCoachPage() {
     };
   }, []);
 
+  useEffect(() => {
+    let cancelled = false;
+    fetchInjuries()
+      .then((injuries) => {
+        if (cancelled) return;
+        const active = injuries
+          .filter((injury) => injury.status !== "cleared")
+          .sort((a, b) => (a.status === "active" ? -1 : 1) - (b.status === "active" ? -1 : 1));
+        if (active.length === 0) {
+          setInjuryLabel(null);
+          return;
+        }
+        const labels = active.map((injury) => {
+          const region = BODY_REGION_LABELS[injury.region] ?? injury.region;
+          return injury.status === "active" ? `${region} (Active)` : `${region} (Healing)`;
+        });
+        setInjuryLabel([...new Set(labels)].join(", "));
+      })
+      .catch(() => {
+        if (cancelled) setInjuryLabel(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, []);
+
   const activeSession = useMemo(
     () => sessions.find((session) => session.id === activeId) ?? null,
     [sessions, activeId],
+  );
+
+  const profile: ChatProfile = useMemo(
+    () => ({ goalLabel, injuryLabel, providerId }),
+    [goalLabel, injuryLabel, providerId],
   );
 
   const handleNew = useCallback(async () => {
@@ -118,10 +170,12 @@ export default function AiCoachPage() {
   }, []);
 
   return (
-    <div className="flex h-[calc(100dvh-4rem)] overflow-hidden bg-background">
+    <div className="flex h-[calc(100dvh-4rem)] overflow-hidden bg-background md:h-dvh">
       <AiCoachSidebar
         open={sidebarOpen}
+        collapsed={sidebarCollapsed}
         onClose={() => setSidebarOpen(false)}
+        onToggleCollapse={() => setSidebarCollapsed((value) => !value)}
         sessions={sessions}
         activeId={activeId}
         onSelect={handleSelect}
@@ -135,9 +189,9 @@ export default function AiCoachPage() {
           error={error}
           providers={providers}
           providerId={providerId}
+          profile={profile}
           onProviderChange={setProviderId}
           onSend={handleSend}
-          onNew={handleNew}
           onToggleSidebar={handleToggleSidebar}
         />
       </div>

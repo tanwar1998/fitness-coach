@@ -12,6 +12,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@langchain/core": "^1.2.9",
+    "@langchain/langgraph": "^1.4.14",
     "next": "16.3.0",
     "pg": "^8.23.0",
     "react": "19.2.8",

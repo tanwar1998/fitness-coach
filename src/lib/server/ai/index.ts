@@ -2,12 +2,20 @@ import { AiProviderError, type AiProvider, type AiProviderId } from "./types";
 import { geminiProvider } from "./providers/gemini";
 import { grokProvider } from "./providers/grok";
 import { deepseekProvider } from "./providers/deepseek";
+import { registerCoachModelResolver } from "./multiplexed-model";
 
 const providers: Record<AiProviderId, AiProvider> = {
   gemini: geminiProvider,
   grok: grokProvider,
   deepseek: deepseekProvider,
 };
+
+// Teach the shared LangGraph coaching graph how to reach the configured
+// provider before the first chat request is handled. Imported lazily to avoid
+// a module-load-time circular dependency with the graph module.
+export function ensureCoachModelResolver(): void {
+  registerCoachModelResolver();
+}
 
 export type { AiProvider, AiProviderId } from "./types";
 

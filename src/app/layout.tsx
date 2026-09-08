@@ -3,7 +3,7 @@ import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Sidebar } from "@/components/Sidebar";
-import { Footer } from "@/components/Footer";
+import { FooterSlot } from "@/components/FooterSlot";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,7 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Sidebar />
             <div className="flex min-w-0 flex-1 flex-col">
               <main className="flex-1">{children}</main>
-              <Footer />
+              <FooterSlot />
             </div>
           </div>
         </ThemeProvider>

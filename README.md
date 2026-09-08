@@ -23,6 +23,7 @@ A fitness web app built with Next.js. It includes an exercise library, a workout
 | [Tailwind CSS](https://tailwindcss.com) | 4.x | Styling (`@tailwindcss/postcss`) |
 | [ESLint](https://eslint.org) | 9 + `eslint-config-next` | Linting |
 | [node-postgres (`pg`)](https://node-postgres.com) | 8.x | PostgreSQL connection pool for chat persistence |
+| [LangGraph](https://www.npmjs.com/package/@langchain/langgraph) | ^1.4 | Orchestrates the AI-coach chat graph (`@langchain/langgraph` + `@langchain/core`) |
 
 Requires Node.js >= 20.9.0.
 
@@ -49,6 +50,30 @@ Pluggable provider layer in `src/lib/server/ai/providers/` (plain REST calls, no
 - **DeepSeek** — `DEEPSEEK_API_KEY`
 
 The active provider is chosen via the `AI_PROVIDER` env var or auto-detected from whichever key is configured.
+
+### LangGraph coaching workflow
+
+Every AI-coach message runs through a shared
+[LangGraph](https://www.npmjs.com/package/@langchain/langgraph) `StateGraph`
+defined in `src/lib/server/ai/graph.ts`. The app's lightweight
+`{ role, content }` messages are converted to LangChain `BaseMessage`s at the
+boundary in `src/lib/server/chat.ts`, so the graph is provider-agnostic and works
+for all AI tools.
+
+Graph shape: `START → agent → (conditional) → END | fallback → END`
+
+- **agent** resolves the requested provider and streams its reply through the
+  model adapter in `src/lib/server/ai/multiplexed-model.ts`.
+- A deterministic **safety gate** (in `agent`) detects out-of-scope topics
+  (suspected injury, medical symptoms, unsafe load, etc.) and routes to the
+  **fallback** node, which hands the conversation to a qualified human coach
+  instead of answering with the model.
+
+Because providers are plain single-string REST adapters, the human hand-off uses
+the deterministic gate rather than LLM tool-calling. The graph itself still
+renders/compiles through LangGraph's standard `StateGraph` API, so adding
+tool-calling providers later is a drop-in change. The packages are listed in
+`serverExternalPackages` in `next.config.ts` so they're not bundled by Next.js.
 
 ### Database
 

@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
   cacheComponents: true,
-  serverExternalPackages: ["pg"],
+  serverExternalPackages: ["pg", "@langchain/core", "@langchain/langgraph"],
 };
 
 export default nextConfig;
