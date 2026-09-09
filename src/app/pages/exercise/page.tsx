@@ -27,25 +27,98 @@ import {
 
 const PAGE_SIZE = 20;
 
+function BookmarkIcon({ filled }: { filled?: boolean }) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill={filled ? "currentColor" : "none"}
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+    </svg>
+  );
+}
+
+function PlusIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M5 12h14" />
+      <path d="M12 5v14" />
+    </svg>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  );
+}
+
 function ExerciseCard({
   exercise,
   onSelect,
   localImages,
+  onBookmark,
+  onAddToRoutine,
+  bookmarked,
+  inRoutine,
 }: {
   exercise: ExerciseInfo;
   onSelect: () => void;
   localImages: Map<number, string>;
+  onBookmark?: (exercise: ExerciseInfo) => void;
+  onAddToRoutine?: (exercise: ExerciseInfo) => void;
+  bookmarked?: boolean;
+  inRoutine?: boolean;
 }) {
   const name = getExerciseName(exercise);
   const imageUrl = getExerciseImage(exercise, localImages);
   const mainMuscles = getMainMuscleNames(exercise);
   const equipment = exercise.equipment.map((e) => e.name);
 
+  const handleBookmark = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onBookmark?.(exercise);
+  };
+
+  const handleAddToRoutine = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onAddToRoutine?.(exercise);
+  };
+
   return (
     <button
       type="button"
       onClick={onSelect}
-      className="group w-full overflow-hidden rounded-2xl border border-border bg-card text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
+      className="group relative w-full overflow-hidden rounded-2xl border border-border bg-card text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
     >
       {imageUrl ? (
         <div className="relative aspect-[4/3] w-full overflow-hidden bg-secondary">
@@ -54,7 +127,7 @@ function ExerciseCard({
             alt={name}
             fill
             sizes="(min-width: 1536px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            className="object-cover mix-blend-multiply transition-transform duration-300 group-hover:scale-105 dark:mix-blend-lighten"
             unoptimized
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
@@ -63,6 +136,33 @@ function ExerciseCard({
           </div>
           <div className="absolute left-2.5 top-2.5 rounded-full bg-background/85 px-2 py-0.5 text-[11px] font-semibold backdrop-blur">
             {exercise.category.name}
+          </div>
+          <div className="absolute right-2 top-2 flex gap-1.5 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+            <button
+              type="button"
+              onClick={handleBookmark}
+              className={`grid h-8 w-8 place-items-center rounded-full backdrop-blur transition-colors ${
+                bookmarked
+                  ? "bg-primary/90 text-primary-foreground"
+                  : "bg-black/50 text-white hover:bg-black/70"
+              }`}
+              aria-label={bookmarked ? "Remove bookmark" : "Bookmark exercise"}
+            >
+              <BookmarkIcon filled={bookmarked} />
+            </button>
+            <button
+              type="button"
+              onClick={handleAddToRoutine}
+              className={`grid h-8 w-8 place-items-center rounded-full backdrop-blur transition-colors ${
+                inRoutine
+                  ? "bg-success/90 text-white"
+                  : "bg-black/50 text-white hover:bg-primary/90 hover:text-primary-foreground"
+              }`}
+              aria-label={inRoutine ? "Remove from routine" : "Add to routine"}
+              title={inRoutine ? "Added to routine" : "Add to routine"}
+            >
+              {inRoutine ? <CheckIcon /> : <PlusIcon />}
+            </button>
           </div>
         </div>
       ) : hasMuscleData(exercise) ? (
@@ -71,6 +171,33 @@ function ExerciseCard({
             muscles={exercise.muscles}
             musclesSecondary={exercise.muscles_secondary}
           />
+          <div className="absolute right-2 top-2 flex gap-1.5 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+            <button
+              type="button"
+              onClick={handleBookmark}
+              className={`grid h-8 w-8 place-items-center rounded-full backdrop-blur transition-colors ${
+                bookmarked
+                  ? "bg-primary/90 text-primary-foreground"
+                  : "bg-black/50 text-white hover:bg-black/70"
+              }`}
+              aria-label={bookmarked ? "Remove bookmark" : "Bookmark exercise"}
+            >
+              <BookmarkIcon filled={bookmarked} />
+            </button>
+            <button
+              type="button"
+              onClick={handleAddToRoutine}
+              className={`grid h-8 w-8 place-items-center rounded-full backdrop-blur transition-colors ${
+                inRoutine
+                  ? "bg-success/90 text-white"
+                  : "bg-black/50 text-white hover:bg-primary/90 hover:text-primary-foreground"
+              }`}
+              aria-label={inRoutine ? "Remove from routine" : "Add to routine"}
+              title={inRoutine ? "Added to routine" : "Add to routine"}
+            >
+              {inRoutine ? <CheckIcon /> : <PlusIcon />}
+            </button>
+          </div>
         </div>
       ) : (
         <div className="relative aspect-[4/3] w-full overflow-hidden bg-secondary">
@@ -79,7 +206,7 @@ function ExerciseCard({
             alt={name}
             fill
             sizes="(min-width: 1536px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            className="object-cover mix-blend-multiply transition-transform duration-300 group-hover:scale-105 dark:mix-blend-lighten"
             unoptimized
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
@@ -88,6 +215,33 @@ function ExerciseCard({
           </div>
           <div className="absolute left-2.5 top-2.5 rounded-full bg-background/85 px-2 py-0.5 text-[11px] font-semibold backdrop-blur">
             {exercise.category.name}
+          </div>
+          <div className="absolute right-2 top-2 flex gap-1.5 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+            <button
+              type="button"
+              onClick={handleBookmark}
+              className={`grid h-8 w-8 place-items-center rounded-full backdrop-blur transition-colors ${
+                bookmarked
+                  ? "bg-primary/90 text-primary-foreground"
+                  : "bg-black/50 text-white hover:bg-black/70"
+              }`}
+              aria-label={bookmarked ? "Remove bookmark" : "Bookmark exercise"}
+            >
+              <BookmarkIcon filled={bookmarked} />
+            </button>
+            <button
+              type="button"
+              onClick={handleAddToRoutine}
+              className={`grid h-8 w-8 place-items-center rounded-full backdrop-blur transition-colors ${
+                inRoutine
+                  ? "bg-success/90 text-white"
+                  : "bg-black/50 text-white hover:bg-primary/90 hover:text-primary-foreground"
+              }`}
+              aria-label={inRoutine ? "Remove from routine" : "Add to routine"}
+              title={inRoutine ? "Added to routine" : "Add to routine"}
+            >
+              {inRoutine ? <CheckIcon /> : <PlusIcon />}
+            </button>
           </div>
         </div>
       )}
@@ -322,6 +476,9 @@ export default function ExercisePage() {
   const [resultFlash, setResultFlash] = useState(false);
   const flashTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const [bookmarkedIds, setBookmarkedIds] = useState<Set<number>>(new Set());
+  const [routineIds, setRoutineIds] = useState<Set<number>>(new Set());
+
   const triggerResultFlash = useCallback(() => {
     setResultFlash(true);
     if (flashTimerRef.current) clearTimeout(flashTimerRef.current);
@@ -461,6 +618,79 @@ export default function ExercisePage() {
     triggerResultFlash();
   };
 
+  const toggleBookmark = (exercise: ExerciseInfo) => {
+    setBookmarkedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(exercise.id)) {
+        next.delete(exercise.id);
+      } else {
+        next.add(exercise.id);
+      }
+      return next;
+    });
+  };
+
+  const toggleAddToRoutine = (exercise: ExerciseInfo) => {
+    setRoutineIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(exercise.id)) {
+        next.delete(exercise.id);
+      } else {
+        next.add(exercise.id);
+      }
+      return next;
+    });
+  };
+
+  const activeFilterCount =
+    (selectedCardio ? 1 : 0) +
+    (selectedEquipment !== null ? 1 : 0) +
+    selectedMuscles.length +
+    (query !== "" ? 1 : 0);
+
+  const activeFilterTags: { label: string; onRemove: () => void }[] = [];
+  if (query !== "") {
+    activeFilterTags.push({
+      label: `\u201c${query}\u201d`,
+      onRemove: () => {
+        setQuery("");
+        setDebouncedQuery("");
+        setVisibleCount(PAGE_SIZE);
+      },
+    });
+  }
+  if (selectedCardio) {
+    activeFilterTags.push({
+      label: "Cardio",
+      onRemove: () => {
+        setSelectedCardio(false);
+        setVisibleCount(PAGE_SIZE);
+      },
+    });
+  }
+  if (selectedEquipment !== null) {
+    const eq = EQUIPMENT_LIST.find((e) => e.id === selectedEquipment);
+    if (eq) {
+      activeFilterTags.push({
+        label: eq.name,
+        onRemove: () => {
+          setSelectedEquipment(null);
+          setVisibleCount(PAGE_SIZE);
+        },
+      });
+    }
+  }
+  for (const muscleId of selectedMuscles) {
+    const name = muscleName(muscleId);
+    activeFilterTags.push({
+      label: name,
+      onRemove: () => {
+        setSelectedMuscles((prev) => prev.filter((x) => x !== muscleId));
+        setVisibleCount(PAGE_SIZE);
+      },
+    });
+  }
+
   const hasActiveFilters =
     selectedCardio ||
     selectedEquipment !== null ||
@@ -500,6 +730,7 @@ export default function ExercisePage() {
               variant="outline"
               onClick={() => setFiltersOpen((v) => !v)}
               aria-expanded={filtersOpen}
+              className="relative"
             >
               <span className="hidden sm:inline">
                 {filtersOpen ? "Hide filters" : "Show filters"}
@@ -507,6 +738,11 @@ export default function ExercisePage() {
               <span className="sm:hidden">
                 {filtersOpen ? "Hide" : "Filters"}
               </span>
+              {activeFilterCount > 0 && (
+                <span className="grid h-5 min-w-5 place-items-center rounded-full bg-primary px-1 text-[11px] font-bold text-primary-foreground">
+                  {activeFilterCount}
+                </span>
+              )}
               <ChevronIcon open={filtersOpen} />
             </Button>
           </div>
@@ -586,18 +822,50 @@ export default function ExercisePage() {
 
       {/* Results */}
       <div className="mx-auto mt-10 max-w-6xl">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 className="font-display text-lg font-bold">Exercises</h2>
-          <span
-            className={`rounded-full border px-3 py-1 text-sm font-semibold transition-all duration-500 ${
-              resultFlash
-                ? "border-primary bg-primary/10 text-primary"
-                : "border-border bg-card text-muted-foreground"
-            }`}
-            aria-live="polite"
-          >
-            {filteredExercises.length.toLocaleString()} found
-          </span>
+          <div className="flex flex-wrap items-center gap-2">
+            {activeFilterTags.length > 0 && (
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="text-xs text-muted-foreground">Active:</span>
+                {activeFilterTags.map((tag) => (
+                  <button
+                    key={tag.label}
+                    type="button"
+                    onClick={tag.onRemove}
+                    title={`Remove filter: ${tag.label}`}
+                    className="inline-flex items-center gap-1 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary transition-colors hover:bg-primary/20"
+                  >
+                    {tag.label}
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M18 6 6 18" />
+                      <path d="m6 6 12 12" />
+                    </svg>
+                  </button>
+                ))}
+              </div>
+            )}
+            <span
+              className={`rounded-full border px-3 py-1 text-sm font-semibold transition-all duration-500 ${
+                resultFlash
+                  ? "border-primary bg-primary/10 text-primary"
+                  : "border-border bg-card text-muted-foreground"
+              }`}
+              aria-live="polite"
+            >
+              {filteredExercises.length.toLocaleString()} found
+            </span>
+          </div>
         </div>
 
         <div className="mt-5">
@@ -623,6 +891,10 @@ export default function ExercisePage() {
                   exercise={exercise}
                   onSelect={() => setSelectedExercise(exercise)}
                   localImages={localImages}
+                  onBookmark={toggleBookmark}
+                  onAddToRoutine={toggleAddToRoutine}
+                  bookmarked={bookmarkedIds.has(exercise.id)}
+                  inRoutine={routineIds.has(exercise.id)}
                 />
               ))}
             </div>
@@ -652,16 +924,42 @@ export default function ExercisePage() {
           selectedExercise ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between border-b border-border px-5 py-4 sm:px-6">
+        <div className="flex items-center justify-between gap-3 border-b border-border px-5 py-4 sm:px-6">
           <h2 className="font-display text-lg font-bold">Exercise Details</h2>
-          <button
-            type="button"
-            onClick={() => setSelectedExercise(null)}
-            aria-label="Close details"
-            className="grid h-9 w-9 cursor-pointer place-items-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-          >
-            <CloseIcon />
-          </button>
+          <div className="flex items-center gap-2">
+            {selectedExercise && (
+              <>
+                <Button
+                  size="sm"
+                  variant={bookmarkedIds.has(selectedExercise.id) ? "primary" : "outline"}
+                  onClick={() => toggleBookmark(selectedExercise)}
+                >
+                  <BookmarkIcon filled={bookmarkedIds.has(selectedExercise.id)} />
+                  <span className="hidden sm:inline">
+                    {bookmarkedIds.has(selectedExercise.id) ? "Saved" : "Bookmark"}
+                  </span>
+                </Button>
+                <Button
+                  size="sm"
+                  variant={routineIds.has(selectedExercise.id) ? "primary" : "outline"}
+                  onClick={() => toggleAddToRoutine(selectedExercise)}
+                >
+                  {routineIds.has(selectedExercise.id) ? <CheckIcon /> : <PlusIcon />}
+                  <span className="hidden sm:inline">
+                    {routineIds.has(selectedExercise.id) ? "In Routine" : "Add to Routine"}
+                  </span>
+                </Button>
+              </>
+            )}
+            <button
+              type="button"
+              onClick={() => setSelectedExercise(null)}
+              aria-label="Close details"
+              className="grid h-9 w-9 cursor-pointer place-items-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            >
+              <CloseIcon />
+            </button>
+          </div>
         </div>
         <div className="flex-1 overflow-y-auto">
           {selectedExercise && (

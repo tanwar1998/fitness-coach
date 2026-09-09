@@ -41,6 +41,8 @@ interface ApiResponse {
 }
 
 type MacroTab = "all" | "protein" | "carbs" | "fat";
+type MacroFilter = "all" | "high-protein" | "low-carb" | "keto";
+type ViewMode = "grid" | "list";
 
 function MacroBar({ protein, carbs, fat }: { protein: number; carbs: number; fat: number }) {
   const total = protein * 4 + carbs * 4 + fat * 9;
@@ -51,10 +53,18 @@ function MacroBar({ protein, carbs, fat }: { protein: number; carbs: number; fat
   const fatPct = (fat * 9 / total) * 100;
 
   return (
-    <div className="flex h-2 w-full overflow-hidden rounded-full bg-muted" title={`P: ${proteinPct.toFixed(0)}% · C: ${carbsPct.toFixed(0)}% · F: ${fatPct.toFixed(0)}%`}>
-      <div className="bg-primary transition-all duration-500" style={{ width: `${proteinPct}%` }} />
-      <div className="bg-[#f59e0b] transition-all duration-500" style={{ width: `${carbsPct}%` }} />
-      <div className="bg-[#ef4444] transition-all duration-500" style={{ width: `${fatPct}%` }} />
+    <div
+      className="group/bar relative flex h-2 w-full overflow-hidden rounded-full bg-muted"
+      title={`Protein ${proteinPct.toFixed(0)}% · Carbs ${carbsPct.toFixed(0)}% · Fat ${fatPct.toFixed(0)}%`}
+    >
+      <div className="bg-[#6366f1] transition-all duration-500" style={{ width: `${proteinPct}%` }} />
+      <div className="bg-[#10b981] transition-all duration-500" style={{ width: `${carbsPct}%` }} />
+      <div className="bg-[#f59e0b] transition-all duration-500" style={{ width: `${fatPct}%` }} />
+      <span className="pointer-events-none absolute inset-0 hidden items-center justify-between px-1 text-[9px] font-semibold text-white group-hover/bar:flex">
+        <span>P {proteinPct.toFixed(0)}%</span>
+        <span>C {carbsPct.toFixed(0)}%</span>
+        <span>F {fatPct.toFixed(0)}%</span>
+      </span>
     </div>
   );
 }
@@ -127,6 +137,53 @@ function IngredientCard({
   );
 }
 
+function CompactIngredientRow({
+  ingredient,
+  onSelect,
+}: {
+  ingredient: Ingredient;
+  onSelect: () => void;
+}) {
+  const protein = parseFloat(ingredient.protein);
+  const carbs = parseFloat(ingredient.carbohydrates);
+  const fat = parseFloat(ingredient.fat);
+
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      className="group w-full border-b border-border bg-card text-left transition-colors last:border-b-0 hover:bg-muted/50"
+    >
+      <div className="flex items-center gap-4 px-4 py-3">
+        <div className="min-w-0 flex-1">
+          <h3 className="truncate text-sm font-semibold">{ingredient.name}</h3>
+          {ingredient.brand && (
+            <p className="mt-0.5 truncate text-[11px] text-muted-foreground">{ingredient.brand}</p>
+          )}
+        </div>
+        <div className="hidden w-20 shrink-0 items-center gap-1.5 sm:flex">
+          <span className="h-2 w-2 shrink-0 rounded-full bg-[#6366f1]" />
+          <span className="text-xs tabular-nums text-muted-foreground">{protein.toFixed(1)}g</span>
+        </div>
+        <div className="hidden w-20 shrink-0 items-center gap-1.5 sm:flex">
+          <span className="h-2 w-2 shrink-0 rounded-full bg-[#10b981]" />
+          <span className="text-xs tabular-nums text-muted-foreground">{carbs.toFixed(1)}g</span>
+        </div>
+        <div className="hidden w-20 shrink-0 items-center gap-1.5 sm:flex">
+          <span className="h-2 w-2 shrink-0 rounded-full bg-[#f59e0b]" />
+          <span className="text-xs tabular-nums text-muted-foreground">{fat.toFixed(1)}g</span>
+        </div>
+        <div className="hidden w-24 shrink-0 md:block">
+          <MacroBar protein={protein} carbs={carbs} fat={fat} />
+        </div>
+        <span className="shrink-0 rounded-full bg-secondary px-2 py-0.5 text-[11px] font-bold text-secondary-foreground">
+          {ingredient.energy} kcal
+        </span>
+      </div>
+    </button>
+  );
+}
+
 function IngredientDetail({ ingredient }: { ingredient: Ingredient }) {
   const protein = parseFloat(ingredient.protein);
   const carbs = parseFloat(ingredient.carbohydrates);
@@ -154,9 +211,9 @@ function IngredientDetail({ ingredient }: { ingredient: Ingredient }) {
       <div className="mx-5 mb-6 sm:mx-6">
         <MacroBar protein={protein} carbs={carbs} fat={fat} />
         <div className="mt-3 flex flex-wrap gap-4">
-          <MacroPill label="Protein" value={protein.toFixed(1)} color="bg-primary" />
-          <MacroPill label="Carbs" value={carbs.toFixed(1)} color="bg-[#f59e0b]" />
-          <MacroPill label="Fat" value={fat.toFixed(1)} color="bg-[#ef4444]" />
+          <MacroPill label="Protein" value={protein.toFixed(1)} color="bg-[#6366f1]" />
+          <MacroPill label="Carbs" value={carbs.toFixed(1)} color="bg-[#10b981]" />
+          <MacroPill label="Fat" value={fat.toFixed(1)} color="bg-[#f59e0b]" />
         </div>
       </div>
 
@@ -168,9 +225,9 @@ function IngredientDetail({ ingredient }: { ingredient: Ingredient }) {
             </h3>
             <div className="space-y-3">
               {[
-                { label: "Protein", value: protein, max: 50, color: "bg-primary" },
-                { label: "Carbohydrates", value: carbs, max: 100, color: "bg-[#f59e0b]" },
-                { label: "Fat", value: fat, max: 100, color: "bg-[#ef4444]" },
+                { label: "Protein", value: protein, max: 50, color: "bg-[#6366f1]" },
+                { label: "Carbohydrates", value: carbs, max: 100, color: "bg-[#10b981]" },
+                { label: "Fat", value: fat, max: 100, color: "bg-[#f59e0b]" },
                 { label: "Fiber", value: fiber, max: 30, color: "bg-[#22c55e]" },
               ].map((item) => (
                 <div key={item.label}>
@@ -317,6 +374,15 @@ export default function NutritionPage() {
   const [resultFlash, setResultFlash] = useState(false);
   const flashTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const [viewMode, setViewMode] = useState<ViewMode>("grid");
+  const [macroFilter, setMacroFilter] = useState<MacroFilter>("all");
+  const [aiMode, setAiMode] = useState(false);
+  const [aiInput, setAiInput] = useState("");
+  const [aiParsing, setAiParsing] = useState(false);
+  const [aiError, setAiError] = useState<string | null>(null);
+  const [aiToast, setAiToast] = useState<string | null>(null);
+  const aiToastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const triggerResultFlash = useCallback(() => {
     setResultFlash(true);
     if (flashTimerRef.current) clearTimeout(flashTimerRef.current);
@@ -328,6 +394,53 @@ export default function NutritionPage() {
       if (flashTimerRef.current) clearTimeout(flashTimerRef.current);
     };
   }, []);
+
+  useEffect(() => {
+    return () => {
+      if (aiToastTimerRef.current) clearTimeout(aiToastTimerRef.current);
+    };
+  }, []);
+
+  const showToast = useCallback((message: string) => {
+    setAiToast(message);
+    if (aiToastTimerRef.current) clearTimeout(aiToastTimerRef.current);
+    aiToastTimerRef.current = setTimeout(() => setAiToast(null), 3000);
+  }, []);
+
+  const parseMealWithAI = async () => {
+    const text = aiInput.trim();
+    if (!text) return;
+    setAiParsing(true);
+    setAiError(null);
+    try {
+      const res = await fetch("/api/ai/meal-parser", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || `API error: ${res.status}`);
+      }
+      const data: { items: { name: string }[] } = await res.json();
+      const names = (data.items || []).map((item) => item.name);
+      if (names.length === 0) {
+        setAiError("No ingredients could be parsed from that text.");
+        return;
+      }
+      setQuery(names.join(","));
+      setDebouncedQuery(names.join(","));
+      setAiMode(false);
+      setAiInput("");
+      showToast(
+        `Found ${names.length} ingredient${names.length > 1 ? "s" : ""}: ${names.slice(0, 3).join(", ")}${names.length > 3 ? "…" : ""}`,
+      );
+    } catch (err) {
+      setAiError(err instanceof Error ? err.message : "Failed to parse meal");
+    } finally {
+      setAiParsing(false);
+    }
+  };
 
   useEffect(() => {
     if (!selectedIngredient) return;
@@ -427,18 +540,33 @@ export default function NutritionPage() {
     return () => observer.disconnect();
   }, [nextUrl, loadingMore, fetchMore]);
 
-  const sortedIngredients = [...ingredients].sort((a, b) => {
-    switch (sortBy) {
-      case "protein":
-        return parseFloat(b.protein) - parseFloat(a.protein);
-      case "carbs":
-        return parseFloat(b.carbohydrates) - parseFloat(a.carbohydrates);
-      case "fat":
-        return parseFloat(b.fat) - parseFloat(a.fat);
-      default:
-        return 0;
-    }
-  });
+  const sortedIngredients = [...ingredients]
+    .filter((ing) => {
+      const p = parseFloat(ing.protein);
+      const c = parseFloat(ing.carbohydrates);
+      switch (macroFilter) {
+        case "high-protein":
+          return p > 20;
+        case "low-carb":
+          return c < 5;
+        case "keto":
+          return c < 10 && p > 5;
+        default:
+          return true;
+      }
+    })
+    .sort((a, b) => {
+      switch (sortBy) {
+        case "protein":
+          return parseFloat(b.protein) - parseFloat(a.protein);
+        case "carbs":
+          return parseFloat(b.carbohydrates) - parseFloat(a.carbohydrates);
+        case "fat":
+          return parseFloat(b.fat) - parseFloat(a.fat);
+        default:
+          return 0;
+      }
+    });
 
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
@@ -454,65 +582,177 @@ export default function NutritionPage() {
 
       {/* Search + sort */}
       <div className="mx-auto mt-10 max-w-6xl rounded-2xl border border-border bg-card shadow-sm">
-        <div className="flex items-center gap-3 p-5 sm:p-6">
-          <div className="min-w-0 flex-1">
-            <Input
-              label="Search Ingredients"
-              placeholder="e.g. chicken breast, rice, avocado..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-          </div>
-          <div className="flex shrink-0 items-center gap-2 pt-5">
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => setFiltersOpen((v) => !v)}
-              aria-expanded={filtersOpen}
-            >
-              <span className="hidden sm:inline">
-                {filtersOpen ? "Hide sort" : "Show sort"}
-              </span>
-              <span className="sm:hidden">{filtersOpen ? "Hide" : "Sort"}</span>
-              <ChevronIcon open={filtersOpen} />
-            </Button>
+        <div className="p-5 sm:p-6">
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <p className="text-sm font-medium text-foreground">Search Ingredients</p>
+              <button
+                type="button"
+                onClick={() => {
+                  setAiMode((v) => !v);
+                  setAiError(null);
+                }}
+                className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
+                  aiMode
+                    ? "bg-primary text-primary-foreground"
+                    : "border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                }`}
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M12 2 15.09 8.26 22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z" />
+                </svg>
+                AI Meal Parser
+              </button>
+            </div>
+
+            {aiMode ? (
+              <div className="flex flex-col gap-2">
+                <div className="flex items-end gap-2">
+                  <Input
+                    placeholder='e.g. "I ate 3 scrambled eggs with 1 slice of cheddar and a slice of toast"'
+                    value={aiInput}
+                    onChange={(e) => setAiInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") parseMealWithAI();
+                    }}
+                  />
+                  <Button
+                    size="sm"
+                    onClick={parseMealWithAI}
+                    disabled={aiParsing || aiInput.trim() === ""}
+                  >
+                    {aiParsing ? "Parsing…" : "Parse"}
+                  </Button>
+                </div>
+                {aiError && (
+                  <p className="text-xs text-danger">{aiError}</p>
+                )}
+                <p className="text-xs text-muted-foreground">
+                  Type or paste what you ate, and the AI will identify the ingredients automatically.
+                </p>
+              </div>
+            ) : (
+              <div className="flex items-center gap-3">
+                <div className="min-w-0 flex-1">
+                  <Input
+                    placeholder="e.g. chicken breast, rice, avocado..."
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                  />
+                </div>
+                <div className="flex shrink-0 items-center gap-2 pt-5">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => setFiltersOpen((v) => !v)}
+                    aria-expanded={filtersOpen}
+                  >
+                    <span className="hidden sm:inline">
+                      {filtersOpen ? "Hide sort" : "Show sort"}
+                    </span>
+                    <span className="sm:hidden">{filtersOpen ? "Hide" : "Sort"}</span>
+                    <ChevronIcon open={filtersOpen} />
+                  </Button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
-        {filtersOpen && (
-          <div className="border-t border-border p-5 pt-5 sm:px-6 sm:pb-6">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-foreground">
-              Sort by
+        {aiMode && (
+          <div className="border-t border-border px-5 py-3 sm:px-6">
+            <p className="text-xs text-muted-foreground">
+              {`Tip: Try "2 eggs and a banana", "grilled chicken salad", or "oatmeal with berries".`}
             </p>
-            <div className="flex flex-wrap gap-2">
-              <Button
-                size="sm"
-                variant={sortBy === "all" ? "primary" : "outline"}
-                onClick={() => changeSort("all")}
-              >
-                Default
-              </Button>
-              <Button
-                size="sm"
-                variant={sortBy === "protein" ? "primary" : "outline"}
-                onClick={() => changeSort("protein")}
-              >
-                Highest Protein
-              </Button>
-              <Button
-                size="sm"
-                variant={sortBy === "carbs" ? "primary" : "outline"}
-                onClick={() => changeSort("carbs")}
-              >
-                Highest Carbs
-              </Button>
-              <Button
-                size="sm"
-                variant={sortBy === "fat" ? "primary" : "outline"}
-                onClick={() => changeSort("fat")}
-              >
-                Highest Fat
-              </Button>
+          </div>
+        )}
+
+        {filtersOpen && !aiMode && (
+          <div className="border-t border-border p-5 pt-5 sm:px-6 sm:pb-6">
+            <div className="space-y-6">
+              {/* Macro target filter */}
+              <div>
+                <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-foreground">
+                  Macro target
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <Button
+                    size="sm"
+                    variant={macroFilter === "all" ? "primary" : "outline"}
+                    onClick={() => setMacroFilter("all")}
+                  >
+                    All
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant={macroFilter === "high-protein" ? "primary" : "outline"}
+                    onClick={() => setMacroFilter("high-protein")}
+                  >
+                    High Protein (&gt;20g)
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant={macroFilter === "low-carb" ? "primary" : "outline"}
+                    onClick={() => setMacroFilter("low-carb")}
+                  >
+                    Low Carb (&lt;5g)
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant={macroFilter === "keto" ? "primary" : "outline"}
+                    onClick={() => setMacroFilter("keto")}
+                  >
+                    Keto Friendly
+                  </Button>
+                </div>
+              </div>
+
+              {/* Sort by */}
+              <div>
+                <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-foreground">
+                  Sort by
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <Button
+                    size="sm"
+                    variant={sortBy === "all" ? "primary" : "outline"}
+                    onClick={() => changeSort("all")}
+                  >
+                    Default
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant={sortBy === "protein" ? "primary" : "outline"}
+                    onClick={() => changeSort("protein")}
+                  >
+                    Highest Protein
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant={sortBy === "carbs" ? "primary" : "outline"}
+                    onClick={() => changeSort("carbs")}
+                  >
+                    Highest Carbs
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant={sortBy === "fat" ? "primary" : "outline"}
+                    onClick={() => changeSort("fat")}
+                  >
+                    Highest Fat
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -526,18 +766,77 @@ export default function NutritionPage() {
 
       {/* Results */}
       <div className="mx-auto mt-10 max-w-6xl">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 className="font-display text-lg font-bold">Ingredients</h2>
-          <span
-            className={`rounded-full border px-3 py-1 text-sm font-semibold transition-all duration-500 ${
-              resultFlash
-                ? "border-primary bg-primary/10 text-primary"
-                : "border-border bg-card text-muted-foreground"
-            }`}
-            aria-live="polite"
-          >
-            {ingredients.length.toLocaleString()} loaded
-          </span>
+          <div className="flex items-center gap-2">
+            {/* View switcher */}
+            <div className="flex items-center overflow-hidden rounded-full border border-border bg-card p-0.5">
+              <button
+                type="button"
+                onClick={() => setViewMode("grid")}
+                title="Grid view"
+                className={`grid h-7 w-7 place-items-center rounded-full transition-colors ${
+                  viewMode === "grid" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+                }`}
+                aria-label="Grid view"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="3" y="3" width="7" height="7" rx="1" />
+                  <rect x="14" y="3" width="7" height="7" rx="1" />
+                  <rect x="3" y="14" width="7" height="7" rx="1" />
+                  <rect x="14" y="14" width="7" height="7" rx="1" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode("list")}
+                title="Compact list view"
+                className={`grid h-7 w-7 place-items-center rounded-full transition-colors ${
+                  viewMode === "list" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+                }`}
+                aria-label="Compact list view"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <line x1="8" x2="21" y1="6" y2="6" />
+                  <line x1="8" x2="21" y1="12" y2="12" />
+                  <line x1="8" x2="21" y1="18" y2="18" />
+                  <line x1="3" x2="3.01" y1="6" y2="6" />
+                  <line x1="3" x2="3.01" y1="12" y2="12" />
+                  <line x1="3" x2="3.01" y1="18" y2="18" />
+                </svg>
+              </button>
+            </div>
+            <span
+              className={`rounded-full border px-3 py-1 text-sm font-semibold transition-all duration-500 ${
+                resultFlash
+                  ? "border-primary bg-primary/10 text-primary"
+                  : "border-border bg-card text-muted-foreground"
+              }`}
+              aria-live="polite"
+            >
+              {ingredients.length.toLocaleString()} loaded
+            </span>
+          </div>
         </div>
 
         <div className="mt-5">
@@ -555,10 +854,28 @@ export default function NutritionPage() {
                 Try a different search.
               </p>
             </div>
-          ) : (
+          ) : viewMode === "grid" ? (
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {sortedIngredients.map((ingredient) => (
                 <IngredientCard
+                  key={ingredient.id}
+                  ingredient={ingredient}
+                  onSelect={() => setSelectedIngredient(ingredient)}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+              <div className="flex items-center gap-4 border-b border-border bg-muted/40 px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+                <div className="min-w-0 flex-1">Ingredient</div>
+                <div className="hidden w-20 shrink-0 sm:block">Protein</div>
+                <div className="hidden w-20 shrink-0 sm:block">Carbs</div>
+                <div className="hidden w-20 shrink-0 sm:block">Fat</div>
+                <div className="hidden w-24 shrink-0 md:block">Calorie Split</div>
+                <div className="w-16 shrink-0 text-right">Energy</div>
+              </div>
+              {sortedIngredients.map((ingredient) => (
+                <CompactIngredientRow
                   key={ingredient.id}
                   ingredient={ingredient}
                   onSelect={() => setSelectedIngredient(ingredient)}
@@ -574,6 +891,13 @@ export default function NutritionPage() {
           )}
         </div>
       </div>
+
+      {/* AI toast */}
+      {aiToast && (
+        <div className="fixed bottom-6 left-1/2 z-[60] -translate-x-1/2 rounded-full border border-primary/30 bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-lg">
+          {aiToast}
+        </div>
+      )}
 
       {/* Slide-in detail panel */}
       <div
