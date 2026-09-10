@@ -68,6 +68,34 @@ CREATE TABLE IF NOT EXISTS daily_checkins (
 
 CREATE INDEX IF NOT EXISTS idx_checkins_device_date
   ON daily_checkins(device_id, date DESC);
+
+CREATE TABLE IF NOT EXISTS goals (
+  id TEXT PRIMARY KEY,
+  device_id TEXT NOT NULL DEFAULT '',
+  name TEXT NOT NULL,
+  category TEXT NOT NULL DEFAULT 'Custom',
+  unit TEXT NOT NULL DEFAULT 'kg',
+  current_value NUMERIC NOT NULL,
+  target_value NUMERIC NOT NULL,
+  weekly_days TEXT NOT NULL DEFAULT '3',
+  progress INTEGER NOT NULL DEFAULT 0,
+  status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'achieved', 'archived')),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_goals_device
+  ON goals(device_id, created_at DESC);
+
+CREATE TABLE IF NOT EXISTS goal_checkins (
+  id TEXT PRIMARY KEY,
+  goal_id TEXT NOT NULL REFERENCES goals(id) ON DELETE CASCADE,
+  value NUMERIC NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_goal_checkins_goal
+  ON goal_checkins(goal_id, created_at);
 `;
 
 let schemaReady: Promise<void> | null = null;

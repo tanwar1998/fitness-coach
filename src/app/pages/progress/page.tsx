@@ -1,9 +1,16 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Badge } from "@/components/Badge";
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
+import {
+  fetchGoals,
+  createGoal,
+  checkInGoal,
+  type Goal,
+} from "@/lib/progress";
+import { loadHistory } from "@/lib/workout-history";
 import {
   LineChart,
   Line,
@@ -13,19 +20,6 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-
-interface Goal {
-  id: string;
-  name: string;
-  current: number;
-  target: number;
-  unit: string;
-  category: string;
-  weekly: string;
-  progress: number;
-  createdAt: string;
-  history: { date: string; value: number }[];
-}
 
 const WEEKLY_OPTIONS = [
   { value: "1", label: "1 day" },
@@ -54,29 +48,74 @@ const CATEGORY_PRESETS = [
   { name: "Weekly Consistency", icon: "🎯", defaultUnit: "days", currentPlaceholder: "3", targetPlaceholder: "5" },
 ];
 
-function generateMockHistory(): { date: string; value: number }[] {
-  const history = [];
-  const today = new Date();
-  for (let i = 29; i >= 0; i--) {
-    const date = new Date(today);
-    date.setDate(date.getDate() - i);
-    history.push({
-      date: date.toLocaleDateString("en-US", { month: "short", day: "numeric" }),
-      value: 85 - (29 - i) * 0.25 + Math.random() * 0.5,
-    });
-  }
-  return history;
+function isoDaysAgo(days: number): string {
+  const date = new Date();
+  date.setDate(date.getDate() - days);
+  return date.toISOString();
 }
 
-function generateWorkoutDays(): string[] {
-  const days = [];
+function buildMockGoals(): Goal[] {
+  const history = [];
+  for (let i = 29; i >= 0; i--) {
+    history.push({
+      id: `mock-chk-${i}`,
+      date: isoDaysAgo(i),
+      value: Math.round((85 - i * 0.155) * 10) / 10,
+    });
+  }
+  const runHistory = [5, 6, 7, 8].map((value, i) => ({
+    id: `mock-run-${i}`,
+    date: isoDaysAgo((3 - i) * 7),
+    value,
+  }));
+
+  return [
+    {
+      id: "mock-goal-1",
+      userId: "demo",
+      name: "Lose 7kg",
+      category: "Body Weight",
+      unit: "kg",
+      current: 85,
+      target: 78,
+      weekly: "4",
+      progress: 65,
+      status: "active",
+      createdAt: isoDaysAgo(30),
+      updatedAt: isoDaysAgo(0),
+      history,
+    },
+    {
+      id: "mock-goal-2",
+      userId: "demo",
+      name: "Run a 10K",
+      category: "Distance / Endurance",
+      unit: "km",
+      current: 8,
+      target: 10,
+      weekly: "3",
+      progress: 60,
+      status: "active",
+      createdAt: isoDaysAgo(21),
+      updatedAt: isoDaysAgo(0),
+      history: runHistory,
+    },
+  ];
+}
+
+function buildMockWorkoutDays(): string[] {
+  const days: string[] = [];
   const today = new Date();
+  let skip = false;
   for (let i = 27; i >= 0; i--) {
     const date = new Date(today);
     date.setDate(date.getDate() - i);
-    if (Math.random() > 0.4) {
-      days.push(date.toISOString().split("T")[0]);
+    if (skip) {
+      skip = false;
+      continue;
     }
+    days.push(date.toISOString().split("T")[0]);
+    skip = i % 3 === 0;
   }
   return days;
 }
@@ -198,11 +237,16 @@ function KPICard({
 function GoalCard({
   goal,
   onCheckIn,
+  demo = false,
 }: {
   goal: Goal;
   onCheckIn: (id: string, newValue: number) => void;
+  demo?: boolean;
 }) {
-  const [checkInValue, setCheckInValue] = useState(goal.current.toString());
+  const [checkInValue, setCheckInValue] = useState("");
+
+  const latestValue = goal.history[goal.history.length - 1]?.value ?? goal.current;
+  const toGo = latestValue - goal.target;
 
   return (
     <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
@@ -232,7 +276,7 @@ function GoalCard({
 
       <div className="mt-4 grid grid-cols-3 gap-3 text-center">
         <div className="rounded-xl bg-muted p-3">
-          <p className="text-lg font-bold text-foreground">{goal.current} {goal.unit}</p>
+          <p className="text-lg font-bold text-foreground">{latestValue} {goal.unit}</p>
           <p className="text-xs text-muted-foreground">Current</p>
         </div>
         <div className="rounded-xl bg-muted p-3">
@@ -241,7 +285,7 @@ function GoalCard({
         </div>
         <div className="rounded-xl bg-muted p-3">
           <p className="text-lg font-bold text-foreground">
-            {goal.current - goal.target} {goal.unit}
+            {toGo} {goal.unit}
           </p>
           <p className="text-xs text-muted-foreground">To go</p>
         </div>
@@ -252,19 +296,34 @@ function GoalCard({
           label=""
           type="number"
           min={0}
-          placeholder="New value"
+          placeholder={demo ? "Example only" : "New value"}
           value={checkInValue}
           onChange={(e) => setCheckInValue(e.target.value)}
           className="h-10 flex-1"
+          disabled={demo}
         />
         <Button
           size="md"
-          onClick={() => onCheckIn(goal.id, parseFloat(checkInValue))}
-          disabled={!checkInValue}
+          onClick={() => {
+            if (!checkInValue) return;
+            onCheckIn(goal.id, parseFloat(checkInValue));
+            setCheckInValue("");
+          }}
+          disabled={!checkInValue || goal.status === "achieved" || demo}
         >
-          Check In
+          {goal.status === "achieved" ? "Achieved" : "Check In"}
         </Button>
       </div>
+
+      {demo && (
+        <p className="mt-3 text-xs text-muted-foreground">
+          Demo data — add your own goal to check in for real.
+        </p>
+      )}
+
+      {goal.status === "achieved" && (
+        <p className="mt-3 text-sm font-medium text-success">🎉 Goal achieved — great work!</p>
+      )}
 
       <p className="mt-3 text-sm text-muted-foreground">
         Training {goal.weekly} day{Number(goal.weekly) > 1 ? "s" : ""} per week. Keep showing up!
@@ -275,7 +334,13 @@ function GoalCard({
 
 export default function ProgressPage() {
   const [goals, setGoals] = useState<Goal[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [loadFailed, setLoadFailed] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [dismissMock, setDismissMock] = useState(false);
+  const [workoutDays, setWorkoutDays] = useState<string[]>([]);
+  const [totalWorkouts, setTotalWorkouts] = useState(0);
   const [name, setName] = useState("");
   const [current, setCurrent] = useState("");
   const [target, setTarget] = useState("");
@@ -283,26 +348,87 @@ export default function ProgressPage() {
   const [unit, setUnit] = useState("kg");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  const mockHistory = useMemo(() => generateMockHistory(), []);
-  const workoutDays = useMemo(() => generateWorkoutDays(), []);
+  useEffect(() => {
+    let cancelled = false;
+    fetchGoals()
+      .then((loaded) => {
+        if (cancelled) return;
+        setGoals(loaded);
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setLoadFailed(true);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
-  const totalWorkouts = workoutDays.length;
+  useEffect(() => {
+    let cancelled = false;
+    Promise.resolve()
+      .then(() => loadHistory())
+      .then((entries) => {
+        if (cancelled) return;
+        const days = new Set<string>();
+        for (const entry of entries) {
+          const timestamp = entry.startedAt ?? entry.workout.createdAt;
+          if (timestamp) {
+            days.add(new Date(timestamp).toISOString().split("T")[0]);
+          }
+        }
+        setWorkoutDays([...days]);
+        setTotalWorkouts(entries.length);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const mockGoals = useMemo(() => buildMockGoals(), []);
+  const mockWorkoutDays = useMemo(() => buildMockWorkoutDays(), []);
+
+  const isNewUser = !loading && !loadFailed && goals.length === 0 && workoutDays.length === 0;
+  const showMock = (loadFailed || isNewUser) && !dismissMock;
+
+  const effectiveGoals = showMock && goals.length === 0 ? mockGoals : goals;
+  const effectiveWorkoutDays =
+    showMock && workoutDays.length === 0 ? mockWorkoutDays : workoutDays;
+  const effectiveTotalWorkouts =
+    showMock && totalWorkouts === 0 ? mockWorkoutDays.length : totalWorkouts;
+
   const streak = useMemo(() => {
+    if (effectiveWorkoutDays.length === 0) return 0;
     let count = 0;
     const today = new Date();
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 365; i++) {
       const date = new Date(today);
       date.setDate(date.getDate() - i);
-      if (workoutDays.includes(date.toISOString().split("T")[0])) {
+      if (effectiveWorkoutDays.includes(date.toISOString().split("T")[0])) {
         count++;
       } else {
         break;
       }
     }
     return count;
-  }, [workoutDays]);
+  }, [effectiveWorkoutDays]);
 
-  const activeGoalProgress = goals.length > 0 ? goals[goals.length - 1].progress : 65;
+  const activeGoal = effectiveGoals[0] ?? null;
+  const activeGoalProgress = activeGoal?.progress ?? 0;
+
+  const chartData = useMemo(() => {
+    const history = activeGoal?.history ?? [];
+    return history.map((h) => ({
+      date: new Date(h.date).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      }),
+      value: h.value,
+    }));
+  }, [activeGoal]);
 
   const handleCategorySelect = useCallback((category: typeof CATEGORY_PRESETS[number]) => {
     setSelectedCategory(category.name);
@@ -311,54 +437,58 @@ export default function ProgressPage() {
     setTarget("");
   }, []);
 
-  const handleSubmit = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
-    if (!name.trim() || !current || !target) return;
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      if (!name.trim() || !current || !target) return;
 
-    const initialHistory = [
-      { date: "Start", value: Number(current) },
-    ];
+      try {
+        const newGoal = await createGoal({
+          name: name.trim(),
+          category: selectedCategory ?? "Custom",
+          unit,
+          current: Number(current),
+          target: Number(target),
+          weekly,
+        });
+        setGoals((prev) => [...prev, newGoal]);
+        setError(null);
+        setName("");
+        setCurrent("");
+        setTarget("");
+        setWeekly("3");
+        setUnit("kg");
+        setSelectedCategory(null);
+        setDrawerOpen(false);
+      } catch {
+        setError("Could not save your goal. Please try again.");
+      }
+    },
+    [name, current, target, unit, selectedCategory, weekly],
+  );
 
-    const newGoal: Goal = {
-      id: Date.now().toString(),
-      name: name.trim(),
-      current: Number(current),
-      target: Number(target),
-      unit,
-      category: selectedCategory || "Custom",
-      weekly,
-      progress: 0,
-      createdAt: new Date().toISOString(),
-      history: initialHistory,
-    };
-
-    setGoals((prev) => [...prev, newGoal]);
-    setName("");
-    setCurrent("");
-    setTarget("");
-    setWeekly("3");
-    setUnit("kg");
-    setSelectedCategory(null);
-    setDrawerOpen(false);
-  }, [name, current, target, unit, selectedCategory, weekly]);
-
-  const handleCheckIn = useCallback((id: string, newValue: number) => {
-    setGoals((prev) =>
-      prev.map((goal) => {
-        if (goal.id !== id) return goal;
-        const total = Math.abs(goal.target - goal.current);
-        const done = Math.abs(newValue - goal.current);
-        const progress = Math.min(100, Math.round((done / total) * 100));
-        return {
-          ...goal,
-          progress,
-          history: [
-            ...goal.history,
-            { date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" }), value: newValue },
-          ],
-        };
-      })
-    );
+  const handleCheckIn = useCallback(async (id: string, newValue: number) => {
+    try {
+      const updated = await checkInGoal(id, newValue);
+      setError(null);
+      setGoals((prev) =>
+        prev.map((goal) => {
+          if (goal.id !== id) return goal;
+          return {
+            ...goal,
+            progress: updated.progress,
+            status: updated.status,
+            updatedAt: updated.updatedAt,
+            history: [
+              ...goal.history,
+              { id: updated.checkIn?.id ?? "", date: updated.checkIn?.date ?? new Date().toISOString(), value: newValue },
+            ],
+          };
+        }),
+      );
+    } catch {
+      setError("Could not save your check-in. Please try again.");
+    }
   }, []);
 
   return (
@@ -366,26 +496,47 @@ export default function ProgressPage() {
       <div className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <Badge variant="primary" className="mb-2">
-              Goal Tracker
-            </Badge>
             <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
               Progress Dashboard
             </h1>
-            <p className="mt-1 text-muted-foreground">
-              Track your fitness journey and stay motivated
-            </p>
-          </div>
-          <Button size="lg" onClick={() => setDrawerOpen(true)}>
-            + Add New Goal
-          </Button>
+<p className="mt-1 text-muted-foreground">
+            Track your fitness journey and stay motivated
+          </p>
         </div>
+        <Button size="lg" onClick={() => setDrawerOpen(true)}>
+          + Add New Goal
+        </Button>
+      </div>
+
+      {error && (
+        <div className="mb-4 rounded-xl border border-danger/30 bg-danger/10 p-4 text-sm text-danger">
+          {error}
+        </div>
+      )}
+
+      {showMock && (
+        <div className="mb-4 flex flex-col gap-2 rounded-xl border border-primary/30 bg-primary/10 p-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-foreground">
+            <span className="font-semibold">Demo data</span>
+            {loadFailed
+              ? " — couldn't reach the server, so this is example data."
+              : " — you're new here! This is example data to preview your dashboard. It disappears once you add a goal or log a workout."}
+          </p>
+          <button
+            type="button"
+            onClick={() => setDismissMock(true)}
+            className="shrink-0 text-sm font-medium text-primary hover:underline cursor-pointer"
+          >
+            Show empty state
+          </button>
+        </div>
+      )}
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <KPICard title="Current Streak" value={`${streak} Days`} subtitle="Active this week">
+          <KPICard title="Current Streak" value={`${streak} Days`} subtitle="Consecutive days active">
             <span className="text-3xl">🔥</span>
           </KPICard>
-          <KPICard title="Workouts Completed" value={`${totalWorkouts}`} subtitle="Sessions this month">
+          <KPICard title="Workouts Completed" value={`${effectiveTotalWorkouts}`} subtitle="Logged sessions">
             <span className="text-3xl">🏋️</span>
           </KPICard>
           <KPICard title="Active Goal Progress" value={`${activeGoalProgress}%`} subtitle="To Target">
@@ -395,10 +546,19 @@ export default function ProgressPage() {
 
         <div className="mt-6 grid gap-4 lg:grid-cols-3">
           <div className="lg:col-span-2 rounded-2xl border border-border bg-card p-5 shadow-sm">
-            <h2 className="mb-4 text-lg font-bold text-foreground">Weight Progress</h2>
+            <h2 className="mb-4 text-lg font-bold text-foreground">
+              {activeGoal ? activeGoal.name : "Weight Progress"}
+            </h2>
+            {chartData.length === 0 ? (
+              <div className="flex h-64 flex-col items-center justify-center gap-2 text-center">
+                <p className="text-muted-foreground">
+                  No progress data yet. Add a goal and check in to see your trend.
+                </p>
+              </div>
+            ) : (
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={mockHistory}>
+                <LineChart data={chartData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="currentColor" className="text-border" />
                   <XAxis
                     dataKey="date"
@@ -429,12 +589,13 @@ export default function ProgressPage() {
                 </LineChart>
               </ResponsiveContainer>
             </div>
+            )}
           </div>
 
           <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
             <h2 className="mb-4 text-lg font-bold text-foreground">Activity Heatmap</h2>
             <p className="mb-3 text-sm text-muted-foreground">Last 4 weeks of workouts</p>
-            <CalendarHeatmap workoutDays={workoutDays} />
+            <CalendarHeatmap workoutDays={effectiveWorkoutDays} />
             <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
               <div className="w-3 h-3 rounded-sm bg-muted" />
               <span>Rest</span>
@@ -446,14 +607,23 @@ export default function ProgressPage() {
 
         <div className="mt-6">
           <h2 className="mb-4 text-lg font-bold text-foreground">Your Goals</h2>
-          {goals.length === 0 ? (
+          {loading ? (
+            <div className="rounded-2xl border border-border bg-card p-8 text-center">
+              <p className="text-muted-foreground">Loading your goals…</p>
+            </div>
+          ) : effectiveGoals.length === 0 ? (
             <div className="rounded-2xl border border-border bg-card p-8 text-center">
               <p className="text-muted-foreground">No goals yet. Add your first goal to start tracking!</p>
             </div>
           ) : (
             <div className="grid gap-4 sm:grid-cols-2">
-              {goals.map((goal) => (
-                <GoalCard key={goal.id} goal={goal} onCheckIn={handleCheckIn} />
+              {effectiveGoals.map((goal) => (
+                <GoalCard
+                  key={goal.id}
+                  goal={goal}
+                  onCheckIn={handleCheckIn}
+                  demo={goal.id.startsWith("mock-")}
+                />
               ))}
             </div>
           )}
