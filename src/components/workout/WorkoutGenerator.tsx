@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { Badge } from "@/components/Badge";
 import { Button } from "@/components/Button";
 import { ExercisePicker } from "@/components/workout/ExercisePicker";
 import type { PickerResult } from "@/components/workout/ExercisePicker";
-import { GeneratedWorkoutView } from "@/components/workout/GeneratedWorkoutView";
 import {
   EXPERIENCE_LEVELS,
   EQUIPMENT_PRESETS,
@@ -27,6 +27,23 @@ import {
   upsertWorkout,
 } from "@/lib/workout-history";
 import type { WorkoutHistoryEntry } from "@/lib/workout-history";
+
+// Heavy workout rendering (loads the full wger exercise catalog) is fetched
+// on demand, only after the user generates a workout.
+const GeneratedWorkoutView = dynamic(
+  () =>
+    import("@/components/workout/GeneratedWorkoutView").then(
+      (m) => m.GeneratedWorkoutView,
+    ),
+  {
+    ssr: false,
+    loading: () => (
+      <p className="py-10 text-center text-sm text-muted-foreground">
+        Building your workout…
+      </p>
+    ),
+  },
+);
 
 function SparklesIcon({ className }: { className?: string }) {
   return (

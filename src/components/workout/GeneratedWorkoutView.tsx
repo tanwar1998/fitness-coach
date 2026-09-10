@@ -21,6 +21,7 @@ import {
   loadLocalImageMap,
   muscleName,
 } from "@/lib/wger-exercise";
+import { loadExerciseInfo } from "@/lib/wger-data";
 import type { GeneratedExercise, GeneratedWorkout } from "@/lib/workout-generator";
 
 interface ResolvedItem {
@@ -341,10 +342,10 @@ export function GeneratedWorkoutView({
 
   useEffect(() => {
     let cancelled = false;
-    Promise.all([import("@/lib/wger-exerciseinfo.json"), loadLocalImageMap()]).then(
-      ([exerciseInfoModule, imageMap]) => {
+    Promise.all([loadExerciseInfo(), loadLocalImageMap()]).then(
+      ([exerciseList, imageMap]) => {
         if (cancelled) return;
-        setLibrary(exerciseInfoModule.default.results as ExerciseInfo[]);
+        setLibrary(exerciseList);
         setLocalImages(imageMap);
       },
     );

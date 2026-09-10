@@ -24,6 +24,7 @@ import {
   loadLocalImageMap,
   muscleName,
 } from "@/lib/wger-exercise";
+import { loadExerciseInfo } from "@/lib/wger-data";
 
 const PAGE_SIZE = 20;
 
@@ -507,12 +508,15 @@ export default function ExercisePage() {
 
   useEffect(() => {
     let cancelled = false;
-    Promise.all([import("@/lib/wger-exerciseinfo.json"), loadLocalImageMap()]).then(
-      ([exerciseInfoModule, imageMap]) => {
+    Promise.all([loadExerciseInfo(), loadLocalImageMap()]).then(
+      ([exerciseList, imageMap]) => {
         if (cancelled) return;
-        setAllExercises(exerciseInfoModule.default.results);
+        setAllExercises(exerciseList);
         setLocalImages(imageMap);
         setInitialLoadComplete(true);
+      },
+      () => {
+        if (!cancelled) setInitialLoadComplete(true);
       },
     );
     return () => {

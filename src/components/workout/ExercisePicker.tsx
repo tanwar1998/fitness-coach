@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Input } from "@/components/Input";
+import { loadExerciseInfo } from "@/lib/wger-data";
 import type { EquipmentPreset } from "@/lib/workout-generator";
 
 export interface PickerResult {
@@ -92,9 +93,7 @@ let libraryPromise: Promise<WgerExerciseInfo[]> | null = null;
 
 function loadLibrary(): Promise<WgerExerciseInfo[]> {
   if (!libraryPromise) {
-    libraryPromise = import("@/lib/wger-exerciseinfo.json").then(
-      (module) => module.default.results as WgerExerciseInfo[],
-    );
+    libraryPromise = loadExerciseInfo().then((list) => list as WgerExerciseInfo[]);
   }
   return libraryPromise;
 }

@@ -45,15 +45,12 @@ export interface Translation {
 
 export interface ExerciseInfo {
   id: number;
-  uuid: string;
   category: Category;
   muscles: Muscle[];
   muscles_secondary: Muscle[];
   equipment: Equipment[];
   images: ExerciseImage[];
   translations: Translation[];
-  variation_group: string | null;
-  author_history: string[];
 }
 
 export interface LocalExerciseImage {

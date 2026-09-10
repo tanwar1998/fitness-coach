@@ -1,44 +1,12 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
+import { loadIngredientInfo } from "@/lib/wger-data";
+import type { Ingredient } from "@/lib/wger-data";
 
-interface WeightUnit {
-  id: number;
-  uuid: string;
-  ingredient: number;
-  gram: number;
-  name: string;
-}
-
-interface Ingredient {
-  id: number;
-  uuid: string;
-  name: string;
-  common_name: string | null;
-  brand: string | null;
-  energy: number;
-  protein: string;
-  carbohydrates: string;
-  carbohydrates_sugar: string;
-  fat: string;
-  fat_saturated: string;
-  fiber: string;
-  sodium: string;
-  weight_units: WeightUnit[];
-  language: {
-    short_name: string;
-    full_name: string;
-  };
-}
-
-interface ApiResponse {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: Ingredient[];
-}
+const PAGE_SIZE = 20;
 
 type MacroTab = "all" | "protein" | "carbs" | "fat";
 type MacroFilter = "all" | "high-protein" | "low-carb" | "keto";
@@ -361,14 +329,13 @@ function ChevronIcon({ open }: { open: boolean }) {
 export default function NutritionPage() {
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
-  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+  const [allIngredients, setAllIngredients] = useState<Ingredient[]>([]);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [selectedIngredient, setSelectedIngredient] = useState<Ingredient | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [nextUrl, setNextUrl] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<MacroTab>("all");
   const observerRef = useRef<HTMLDivElement | null>(null);
   const [initialLoadComplete, setInitialLoadComplete] = useState(false);
-  const [loadingMore, setLoadingMore] = useState(false);
 
   const [filtersOpen, setFiltersOpen] = useState(true);
   const [resultFlash, setResultFlash] = useState(false);
@@ -430,6 +397,7 @@ export default function NutritionPage() {
       }
       setQuery(names.join(","));
       setDebouncedQuery(names.join(","));
+      setVisibleCount(PAGE_SIZE);
       setAiMode(false);
       setAiInput("");
       showToast(
@@ -463,24 +431,9 @@ export default function NutritionPage() {
 
   const loading = !initialLoadComplete;
 
-  const fetchMore = useCallback(
-    async (url: string) => {
-      setLoadingMore(true);
-      try {
-        const res = await fetch(url);
-        if (!res.ok) throw new Error(`API error: ${res.status}`);
-        const data: ApiResponse = await res.json();
-        setIngredients((prev) => [...prev, ...data.results]);
-        setNextUrl(data.next);
-        setError(null);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to fetch ingredients");
-      } finally {
-        setLoadingMore(false);
-      }
-    },
-    [],
-  );
+  const showMore = useCallback(() => {
+    setVisibleCount((count) => count + PAGE_SIZE);
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedQuery(query), 400);
@@ -488,34 +441,39 @@ export default function NutritionPage() {
   }, [query]);
 
   useEffect(() => {
-    const baseUrl = "https://wger.de/api/v2/ingredientinfo/?limit=20&language=2&format=json";
-    const url = debouncedQuery
-      ? `${baseUrl}&name__search=${encodeURIComponent(debouncedQuery)}`
-      : baseUrl;
     let cancelled = false;
 
-    async function load() {
-      const res = await fetch(url);
-      if (cancelled) return;
-      if (!res.ok) throw new Error(`API error: ${res.status}`);
-      const data: ApiResponse = await res.json();
-      if (cancelled) return;
-      setIngredients(data.results);
-      setNextUrl(data.next);
-      setError(null);
-      setInitialLoadComplete(true);
-    }
-
-    load().catch((err) => {
-      if (!cancelled) {
-        setError(err instanceof Error ? err.message : "Failed to fetch ingredients");
-      }
-    });
+    loadIngredientInfo()
+      .then((list) => {
+        if (cancelled) return;
+        setAllIngredients(list);
+        setError(null);
+        setInitialLoadComplete(true);
+      })
+      .catch((err) => {
+        if (cancelled) return;
+        setError(
+          err instanceof Error ? err.message : "Failed to load ingredients",
+        );
+        setInitialLoadComplete(true);
+      });
 
     return () => {
       cancelled = true;
     };
-  }, [debouncedQuery]);
+  }, []);
+
+  const searchResults = useMemo(() => {
+    const terms = debouncedQuery
+      .split(",")
+      .map((term) => term.trim().toLowerCase())
+      .filter(Boolean);
+    return terms.length === 0
+      ? allIngredients
+      : allIngredients.filter((ing) =>
+          terms.some((term) => ing.name.toLowerCase().includes(term)),
+        );
+  }, [debouncedQuery, allIngredients]);
 
   useEffect(() => {
     if (debouncedQuery === "") return;
@@ -526,47 +484,52 @@ export default function NutritionPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedQuery]);
 
+  const sortedIngredients = useMemo(
+    () =>
+      [...searchResults]
+        .filter((ing) => {
+          const p = parseFloat(ing.protein);
+          const c = parseFloat(ing.carbohydrates);
+          switch (macroFilter) {
+            case "high-protein":
+              return p > 20;
+            case "low-carb":
+              return c < 5;
+            case "keto":
+              return c < 10 && p > 5;
+            default:
+              return true;
+          }
+        })
+        .sort((a, b) => {
+          switch (sortBy) {
+            case "protein":
+              return parseFloat(b.protein) - parseFloat(a.protein);
+            case "carbs":
+              return parseFloat(b.carbohydrates) - parseFloat(a.carbohydrates);
+            case "fat":
+              return parseFloat(b.fat) - parseFloat(a.fat);
+            default:
+              return 0;
+          }
+        }),
+    [searchResults, macroFilter, sortBy],
+  );
+  const hasMore = visibleCount < sortedIngredients.length;
+
   useEffect(() => {
     if (!observerRef.current) return;
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && nextUrl && !loadingMore) {
-          fetchMore(nextUrl);
+        if (entries[0].isIntersecting && hasMore) {
+          showMore();
         }
       },
       { threshold: 0.1 },
     );
     observer.observe(observerRef.current);
     return () => observer.disconnect();
-  }, [nextUrl, loadingMore, fetchMore]);
-
-  const sortedIngredients = [...ingredients]
-    .filter((ing) => {
-      const p = parseFloat(ing.protein);
-      const c = parseFloat(ing.carbohydrates);
-      switch (macroFilter) {
-        case "high-protein":
-          return p > 20;
-        case "low-carb":
-          return c < 5;
-        case "keto":
-          return c < 10 && p > 5;
-        default:
-          return true;
-      }
-    })
-    .sort((a, b) => {
-      switch (sortBy) {
-        case "protein":
-          return parseFloat(b.protein) - parseFloat(a.protein);
-        case "carbs":
-          return parseFloat(b.carbohydrates) - parseFloat(a.carbohydrates);
-        case "fat":
-          return parseFloat(b.fat) - parseFloat(a.fat);
-        default:
-          return 0;
-      }
-    });
+  }, [hasMore, showMore]);
 
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
@@ -647,7 +610,10 @@ export default function NutritionPage() {
                   <Input
                     placeholder="e.g. chicken breast, rice, avocado..."
                     value={query}
-                    onChange={(e) => setQuery(e.target.value)}
+                    onChange={(e) => {
+                        setQuery(e.target.value);
+                        setVisibleCount(PAGE_SIZE);
+                      }}
                   />
                 </div>
                 <div className="flex shrink-0 items-center gap-2 pt-5">
@@ -834,7 +800,7 @@ export default function NutritionPage() {
               }`}
               aria-live="polite"
             >
-              {ingredients.length.toLocaleString()} loaded
+              {searchResults.length.toLocaleString()} loaded
             </span>
           </div>
         </div>
@@ -856,7 +822,7 @@ export default function NutritionPage() {
             </div>
           ) : viewMode === "grid" ? (
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-              {sortedIngredients.map((ingredient) => (
+              {sortedIngredients.slice(0, visibleCount).map((ingredient) => (
                 <IngredientCard
                   key={ingredient.id}
                   ingredient={ingredient}
@@ -874,7 +840,7 @@ export default function NutritionPage() {
                 <div className="hidden w-24 shrink-0 md:block">Calorie Split</div>
                 <div className="w-16 shrink-0 text-right">Energy</div>
               </div>
-              {sortedIngredients.map((ingredient) => (
+              {sortedIngredients.slice(0, visibleCount).map((ingredient) => (
                 <CompactIngredientRow
                   key={ingredient.id}
                   ingredient={ingredient}
@@ -884,9 +850,9 @@ export default function NutritionPage() {
             </div>
           )}
           <div ref={observerRef} className="h-4" />
-          {!loading && loadingMore && (
+          {!loading && hasMore && (
             <p className="py-4 text-center text-sm text-muted-foreground">
-              Loading more ingredients…
+              Scroll for more ingredients…
             </p>
           )}
         </div>
