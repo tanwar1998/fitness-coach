@@ -1,7 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect, useMemo, useRef, useCallback } from "react";
+import Link from "next/link";
+import {
+  useState,
+  useEffect,
+  useMemo,
+  useRef,
+  useCallback,
+  useSyncExternalStore,
+} from "react";
 import { Badge } from "@/components/Badge";
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
@@ -25,8 +33,89 @@ import {
   muscleName,
 } from "@/lib/wger-exercise";
 import { loadExerciseInfo } from "@/lib/wger-data";
+import { buildWgerExercise, type GeneratedWorkout } from "@/lib/workout-generator";
+import {
+  upsertWorkout,
+  type WorkoutHistoryEntry,
+} from "@/lib/workout-history";
 
 const PAGE_SIZE = 20;
+
+const BOOKMARKS_KEY = "fitpulse:bookmarked-exercises";
+const HISTORY_KEY = "fitpulse:workout-history";
+
+let cachedBookmarks: string | null = null;
+function bookmarksSnapshot(): string {
+  if (typeof window === "undefined") return "[]";
+  const value = window.localStorage.getItem(BOOKMARKS_KEY) ?? "[]";
+  if (cachedBookmarks !== value) cachedBookmarks = value;
+  return cachedBookmarks;
+}
+function bookmarksServerSnapshot(): string {
+  return "[]";
+}
+function subscribeBookmarks(callback: () => void): () => void {
+  const onStorage = (e: StorageEvent) => {
+    if (e.key === BOOKMARKS_KEY || e.key === null) callback();
+  };
+  const onCustom = () => callback();
+  window.addEventListener("storage", onStorage);
+  window.addEventListener("bookmarks-changed", onCustom);
+  return () => {
+    window.removeEventListener("storage", onStorage);
+    window.removeEventListener("bookmarks-changed", onCustom);
+  };
+}
+function writeBookmarks(set: Set<number>) {
+  const json = JSON.stringify([...set].sort((a, b) => a - b));
+  try {
+    cachedBookmarks = json;
+    window.localStorage.setItem(BOOKMARKS_KEY, json);
+    window.dispatchEvent(new Event("bookmarks-changed"));
+  } catch {
+    // storage unavailable — ignore
+  }
+}
+
+let cachedHistory: string | null = null;
+function historySnapshot(): string {
+  if (typeof window === "undefined") return "[]";
+  const value = window.localStorage.getItem(HISTORY_KEY) ?? "[]";
+  if (cachedHistory !== value) cachedHistory = value;
+  return cachedHistory;
+}
+function historyServerSnapshot(): string {
+  return "[]";
+}
+function subscribeHistory(callback: () => void): () => void {
+  const onStorage = (e: StorageEvent) => {
+    if (e.key === HISTORY_KEY || e.key === null) callback();
+  };
+  const onCustom = () => callback();
+  window.addEventListener("storage", onStorage);
+  window.addEventListener("workouts-changed", onCustom);
+  return () => {
+    window.removeEventListener("storage", onStorage);
+    window.removeEventListener("workouts-changed", onCustom);
+  };
+}
+
+function parseHistory(value: string): WorkoutHistoryEntry[] {
+  try {
+    const parsed = JSON.parse(value);
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter(
+      (entry): entry is WorkoutHistoryEntry =>
+        entry &&
+        typeof entry === "object" &&
+        typeof entry.workout === "object" &&
+        typeof entry.workout.id === "string" &&
+        typeof entry.status === "string",
+    );
+  } catch {
+    return [];
+  }
+}
 
 function BookmarkIcon({ filled }: { filled?: boolean }) {
   return (
@@ -159,8 +248,8 @@ function ExerciseCard({
                   ? "bg-success/90 text-white"
                   : "bg-black/50 text-white hover:bg-primary/90 hover:text-primary-foreground"
               }`}
-              aria-label={inRoutine ? "Remove from routine" : "Add to routine"}
-              title={inRoutine ? "Added to routine" : "Add to routine"}
+              aria-label={inRoutine ? "Remove from workouts" : "Add to workout"}
+              title={inRoutine ? "Added to routine" : "Add to workout"}
             >
               {inRoutine ? <CheckIcon /> : <PlusIcon />}
             </button>
@@ -193,8 +282,8 @@ function ExerciseCard({
                   ? "bg-success/90 text-white"
                   : "bg-black/50 text-white hover:bg-primary/90 hover:text-primary-foreground"
               }`}
-              aria-label={inRoutine ? "Remove from routine" : "Add to routine"}
-              title={inRoutine ? "Added to routine" : "Add to routine"}
+              aria-label={inRoutine ? "Remove from workouts" : "Add to workout"}
+              title={inRoutine ? "Added to routine" : "Add to workout"}
             >
               {inRoutine ? <CheckIcon /> : <PlusIcon />}
             </button>
@@ -238,8 +327,8 @@ function ExerciseCard({
                   ? "bg-success/90 text-white"
                   : "bg-black/50 text-white hover:bg-primary/90 hover:text-primary-foreground"
               }`}
-              aria-label={inRoutine ? "Remove from routine" : "Add to routine"}
-              title={inRoutine ? "Added to routine" : "Add to routine"}
+              aria-label={inRoutine ? "Remove from workouts" : "Add to workout"}
+              title={inRoutine ? "Added to routine" : "Add to workout"}
             >
               {inRoutine ? <CheckIcon /> : <PlusIcon />}
             </button>
@@ -477,8 +566,37 @@ export default function ExercisePage() {
   const [resultFlash, setResultFlash] = useState(false);
   const flashTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const [bookmarkedIds, setBookmarkedIds] = useState<Set<number>>(new Set());
-  const [routineIds, setRoutineIds] = useState<Set<number>>(new Set());
+  const [showBookmarked, setShowBookmarked] = useState(false);
+  const [routineTarget, setRoutineTarget] = useState<ExerciseInfo | null>(null);
+  const [addedFeedback, setAddedFeedback] = useState<string | null>(null);
+
+  const bookmarksSnapshotString = useSyncExternalStore(
+    subscribeBookmarks,
+    bookmarksSnapshot,
+    bookmarksServerSnapshot,
+  );
+  const bookmarkIds = useMemo(() => {
+    try {
+      const parsed = JSON.parse(bookmarksSnapshotString);
+      if (!Array.isArray(parsed)) return [];
+      return parsed.filter(
+        (x): x is number => typeof x === "number" && Number.isFinite(x),
+      );
+    } catch {
+      return [];
+    }
+  }, [bookmarksSnapshotString]);
+  const bookmarkedIds = useMemo(() => new Set(bookmarkIds), [bookmarkIds]);
+
+  const historySnapshotString = useSyncExternalStore(
+    subscribeHistory,
+    historySnapshot,
+    historyServerSnapshot,
+  );
+  const workouts = useMemo(
+    () => parseHistory(historySnapshotString),
+    [historySnapshotString],
+  );
 
   const triggerResultFlash = useCallback(() => {
     setResultFlash(true);
@@ -505,6 +623,23 @@ export default function ExercisePage() {
       document.body.style.overflow = originalOverflow;
     };
   }, [selectedExercise]);
+
+  useEffect(() => {
+    if (!routineTarget) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setRoutineTarget(null);
+    };
+    window.addEventListener("keydown", onKey);
+    if (!selectedExercise) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        window.removeEventListener("keydown", onKey);
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+    return () => window.removeEventListener("keydown", onKey);
+  }, [routineTarget, selectedExercise]);
 
   useEffect(() => {
     let cancelled = false;
@@ -573,9 +708,12 @@ export default function ExercisePage() {
       selectedMuscles.length === 0 &&
       !selectedCardio
     ) {
+      if (showBookmarked) {
+        return allExercises.filter((ex) => bookmarkedIds.has(ex.id));
+      }
       return allExercises;
     }
-    return allExercises.filter((exercise) => {
+    let list = allExercises.filter((exercise) => {
       if (selectedEquipment !== null && !exercise.equipment.some((eq) => eq.id === selectedEquipment)) {
         return false;
       }
@@ -590,7 +728,9 @@ export default function ExercisePage() {
       if (en.name.toLowerCase().includes(q)) return true;
       return en.aliases.some((a) => a.alias.toLowerCase().includes(q));
     });
-  }, [allExercises, debouncedQuery, selectedEquipment, selectedMuscles, selectedCardio]);
+    if (showBookmarked) list = list.filter((ex) => bookmarkedIds.has(ex.id));
+    return list;
+  }, [allExercises, debouncedQuery, selectedEquipment, selectedMuscles, selectedCardio, showBookmarked, bookmarkedIds]);
 
   const exercises = useMemo(
     () => filteredExercises.slice(0, visibleCount),
@@ -618,39 +758,65 @@ export default function ExercisePage() {
     setSelectedMuscles([]);
     setQuery("");
     setDebouncedQuery("");
+    setShowBookmarked(false);
     setVisibleCount(PAGE_SIZE);
     triggerResultFlash();
   };
 
   const toggleBookmark = (exercise: ExerciseInfo) => {
-    setBookmarkedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(exercise.id)) {
-        next.delete(exercise.id);
-      } else {
-        next.add(exercise.id);
-      }
-      return next;
-    });
+    const next = new Set(bookmarkedIds);
+    if (next.has(exercise.id)) {
+      next.delete(exercise.id);
+    } else {
+      next.add(exercise.id);
+    }
+    writeBookmarks(next);
   };
 
   const toggleAddToRoutine = (exercise: ExerciseInfo) => {
-    setRoutineIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(exercise.id)) {
-        next.delete(exercise.id);
-      } else {
-        next.add(exercise.id);
-      }
-      return next;
-    });
+    setRoutineTarget(exercise);
+  };
+
+  const isInAnyWorkout = (id: number) =>
+    workouts.some((entry) =>
+      entry.workout.exercises.some((e) => e.exerciseId === String(id)),
+    );
+
+  const handleAddToWorkout = (entry: WorkoutHistoryEntry) => {
+    if (!routineTarget) return;
+    const template = entry.workout.exercises[0];
+    const slotConfig = template
+      ? {
+          sets: template.sets,
+          reps: template.reps,
+          restSeconds: template.restSeconds,
+        }
+      : { sets: 3, reps: "8-12" as string, restSeconds: 60 };
+    const added = buildWgerExercise(
+      routineTarget.id,
+      getExerciseName(routineTarget),
+      routineTarget.category.name,
+      routineTarget.muscles.map((m) => m.name_en || m.name),
+      slotConfig,
+    );
+    const next: GeneratedWorkout = {
+      ...entry.workout,
+      exercises: [...entry.workout.exercises, added],
+    };
+    upsertWorkout(next);
+    window.dispatchEvent(new Event("workouts-changed"));
+    setAddedFeedback(entry.workout.id);
+    window.setTimeout(() => {
+      setAddedFeedback((prev) => (prev === entry.workout.id ? null : prev));
+    }, 1600);
   };
 
   const activeFilterCount =
     (selectedCardio ? 1 : 0) +
     (selectedEquipment !== null ? 1 : 0) +
     selectedMuscles.length +
-    (query !== "" ? 1 : 0);
+    (query !== "" ? 1 : 0) +
+    (showBookmarked ? 1 : 0);
 
   const activeFilterTags: { label: string; onRemove: () => void }[] = [];
   if (query !== "") {
@@ -699,7 +865,8 @@ export default function ExercisePage() {
     selectedCardio ||
     selectedEquipment !== null ||
     selectedMuscles.length > 0 ||
-    query !== "";
+    query !== "" ||
+    showBookmarked;
 
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
@@ -827,7 +994,50 @@ export default function ExercisePage() {
       {/* Results */}
       <div className="mx-auto mt-10 max-w-6xl">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 className="font-display text-lg font-bold">Exercises</h2>
+          <div className="flex flex-wrap items-center gap-3">
+            <h2 className="font-display text-lg font-bold">Exercises</h2>
+            <div className="flex items-center gap-1 rounded-full border border-border bg-card p-1">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowBookmarked(false);
+                  setVisibleCount(PAGE_SIZE);
+                }}
+                className={`cursor-pointer rounded-full px-3 py-1 text-sm font-medium transition-colors ${
+                  !showBookmarked
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                All
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowBookmarked(true);
+                  setVisibleCount(PAGE_SIZE);
+                }}
+                className={`cursor-pointer rounded-full px-3 py-1 text-sm font-medium transition-colors ${
+                  showBookmarked
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                Bookmarked
+                {bookmarkIds.length > 0 && (
+                  <span
+                    className={`ml-1.5 rounded-full px-1.5 py-0.5 text-[11px] font-bold ${
+                      showBookmarked
+                        ? "bg-primary-foreground/20 text-primary-foreground"
+                        : "bg-secondary text-secondary-foreground"
+                    }`}
+                  >
+                    {bookmarkIds.length}
+                  </span>
+                )}
+              </button>
+            </div>
+          </div>
           <div className="flex flex-wrap items-center gap-2">
             {activeFilterTags.length > 0 && (
               <div className="flex flex-wrap items-center gap-1.5">
@@ -881,11 +1091,25 @@ export default function ExercisePage() {
             </div>
           ) : exercises.length === 0 ? (
             <div className="flex min-h-[240px] items-center justify-center rounded-2xl border border-dashed border-border">
-              <p className="text-center text-muted-foreground">
-                No exercises match your filters.
-                <br />
-                Try removing some filters.
-              </p>
+              {showBookmarked && bookmarkIds.length === 0 ? (
+                <p className="text-center text-muted-foreground">
+                  No bookmarked exercises yet.
+                  <br />
+                  Tap the bookmark icon on any exercise to save it here.
+                </p>
+              ) : showBookmarked ? (
+                <p className="text-center text-muted-foreground">
+                  No bookmarked exercises match your filters.
+                  <br />
+                  Try removing some filters.
+                </p>
+              ) : (
+                <p className="text-center text-muted-foreground">
+                  No exercises match your filters.
+                  <br />
+                  Try removing some filters.
+                </p>
+              )}
             </div>
           ) : (
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
@@ -898,7 +1122,7 @@ export default function ExercisePage() {
                   onBookmark={toggleBookmark}
                   onAddToRoutine={toggleAddToRoutine}
                   bookmarked={bookmarkedIds.has(exercise.id)}
-                  inRoutine={routineIds.has(exercise.id)}
+                  inRoutine={isInAnyWorkout(exercise.id)}
                 />
               ))}
             </div>
@@ -945,12 +1169,12 @@ export default function ExercisePage() {
                 </Button>
                 <Button
                   size="sm"
-                  variant={routineIds.has(selectedExercise.id) ? "primary" : "outline"}
+                  variant={isInAnyWorkout(selectedExercise.id) ? "primary" : "outline"}
                   onClick={() => toggleAddToRoutine(selectedExercise)}
                 >
-                  {routineIds.has(selectedExercise.id) ? <CheckIcon /> : <PlusIcon />}
+                  {isInAnyWorkout(selectedExercise.id) ? <CheckIcon /> : <PlusIcon />}
                   <span className="hidden sm:inline">
-                    {routineIds.has(selectedExercise.id) ? "In Routine" : "Add to Routine"}
+                    {isInAnyWorkout(selectedExercise.id) ? "In a Workout" : "Add to Workout"}
                   </span>
                 </Button>
               </>
@@ -968,6 +1192,114 @@ export default function ExercisePage() {
         <div className="flex-1 overflow-y-auto">
           {selectedExercise && (
             <ExerciseDetail exercise={selectedExercise} localImages={localImages} />
+          )}
+        </div>
+      </aside>
+
+      {/* Add-to-workout picker */}
+      <div
+        className={`fixed inset-0 z-50 bg-black/50 backdrop-blur-sm transition-opacity duration-300 ${
+          routineTarget ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+        onClick={() => setRoutineTarget(null)}
+        aria-hidden="true"
+      />
+      <aside
+        role="dialog"
+        aria-modal="true"
+        aria-label="Add to a generated workout"
+        className={`fixed inset-y-0 right-0 z-50 flex w-full max-w-lg flex-col bg-card shadow-2xl transition-transform duration-300 ease-out ${
+          routineTarget ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex items-center justify-between border-b border-border px-5 py-4 sm:px-6">
+          <h2 className="font-display text-lg font-bold">Add to workout</h2>
+          <button
+            type="button"
+            onClick={() => setRoutineTarget(null)}
+            aria-label="Close"
+            className="grid h-9 w-9 cursor-pointer place-items-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          >
+            <CloseIcon />
+          </button>
+        </div>
+
+        <div className="flex-1 overflow-y-auto p-5 sm:p-6">
+          {routineTarget && (
+            <div className="mb-5 rounded-xl bg-secondary/40 p-4">
+              <p className="text-sm font-semibold text-foreground">
+                {getExerciseName(routineTarget)}
+              </p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                Pick a generated workout to add this exercise to. It will keep
+                that workout’s sets, reps, and rest style.
+              </p>
+            </div>
+          )}
+
+          {workouts.filter((w) => w.status === "draft").length === 0 ? (
+            <div className="flex min-h-[200px] items-center justify-center rounded-2xl border border-dashed border-border px-6 text-center">
+              <div>
+                <p className="text-sm text-muted-foreground">
+                  No draft workouts yet.
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Generate a workout first, then come back to add exercises to it.
+                </p>
+                <Link href="/pages/generate-workout">
+                  <Button size="sm" variant="outline" className="mt-4">
+                    Go to Generate Workout
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <ul className="flex flex-col gap-2">
+              {workouts
+                .filter((w) => w.status === "draft")
+                .map((entry) => {
+                  const contains = entry.workout.exercises.some(
+                    (e) =>
+                      routineTarget &&
+                      e.exerciseId === String(routineTarget.id),
+                  );
+                  const justAdded = addedFeedback === entry.workout.id;
+                  return (
+                    <li
+                      key={entry.workout.id}
+                      className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card p-3"
+                    >
+                      <div className="min-w-0">
+                        <p className="truncate text-sm font-medium text-foreground">
+                          {entry.workout.goal.replace("_", " ")} ·{" "}
+                          {new Date(entry.workout.createdAt).toLocaleDateString()}
+                        </p>
+                        <p className="mt-0.5 text-xs text-muted-foreground">
+                          {entry.workout.durationMinutes} min ·{" "}
+                          {entry.workout.exercises.length} exercises ·{" "}
+                          {entry.workout.level} · {entry.workout.preset}
+                        </p>
+                      </div>
+                      {justAdded ? (
+                        <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold text-success">
+                          <CheckIcon /> Added
+                        </span>
+                      ) : contains ? (
+                        <span className="inline-flex shrink-0 items-center gap-1 text-sm font-medium text-muted-foreground">
+                          <CheckIcon /> Added
+                        </span>
+                      ) : (
+                        <Button
+                          size="sm"
+                          onClick={() => handleAddToWorkout(entry)}
+                        >
+                          Add
+                        </Button>
+                      )}
+                    </li>
+                  );
+                })}
+            </ul>
           )}
         </div>
       </aside>

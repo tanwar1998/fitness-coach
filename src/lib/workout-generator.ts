@@ -9,7 +9,7 @@ import type { MovementPattern, MuscleGroup } from "../../data";
 // Types
 // ============================================================
 
-export type WorkoutGoal = "strength" | "hypertrophy" | "endurance" | "full_body";
+export type WorkoutGoal = "strength" | "hypertrophy" | "endurance" | "full_body" | "mobility";
 export type ExperienceLevel = "beginner" | "intermediate" | "advanced";
 export type EquipmentKind =
   | "barbell"
@@ -20,7 +20,14 @@ export type EquipmentKind =
   | "kettlebell"
   | "box"
   | "bodyweight";
-export type EquipmentPreset = "full" | "dumbbell" | "home" | "bodyweight";
+export type EquipmentPreset =
+  | "full"
+  | "barbell"
+  | "dumbbell"
+  | "kettlebell"
+  | "cable"
+  | "home"
+  | "bodyweight";
 
 export interface GeneratedExercise {
   key: string;
@@ -60,10 +67,10 @@ export interface BuildOptions {
 
 export const WORKOUT_GOALS: { value: WorkoutGoal; label: string; hint: string }[] =
   [
+    { value: "full_body", label: "Full body", hint: "Balanced mix of everything" },
     { value: "strength", label: "Strength", hint: "Heavy, low reps" },
-    { value: "hypertrophy", label: "Muscle", hint: "8–12 reps" },
-    { value: "endurance", label: "Cardio & stamina", hint: "High reps, short rests" },
-    { value: "full_body", label: "Full body", hint: "Balanced mix" },
+    { value: "endurance", label: "Cardio", hint: "High reps, short rests" },
+    { value: "mobility", label: "Mobility", hint: "Rotations, stability, range of motion" },
   ];
 
 export const WORKOUT_DURATIONS: number[] = [15, 30, 45, 60];
@@ -80,8 +87,11 @@ export const EQUIPMENT_PRESETS: {
   hint: string;
 }[] = [
   { value: "full", label: "Full gym", hint: "Barbells to machines" },
-  { value: "dumbbell", label: "Dumbbells", hint: "Dumbbells + your body" },
-  { value: "home", label: "At home", hint: "Dumbbells, bands, bodyweight" },
+  { value: "barbell", label: "Barbells", hint: "Barbells + bodyweight" },
+  { value: "dumbbell", label: "Dumbbells", hint: "Dumbbells + bodyweight" },
+  { value: "kettlebell", label: "Kettlebells", hint: "Kettlebells + bodyweight" },
+  { value: "cable", label: "Cable machines", hint: "Cable stacks + bodyweight" },
+  { value: "home", label: "Home setup", hint: "Bands, dumbbells + kettlebells" },
   { value: "bodyweight", label: "No equipment", hint: "Bodyweight only" },
 ];
 
@@ -144,7 +154,19 @@ const PRESET_ALLOWS: Record<EquipmentPreset, Set<EquipmentKind>> = {
     "box",
     "bodyweight",
   ]),
-  dumbbell: new Set<EquipmentKind>(["dumbbell", "band", "bodyweight"]),
+  barbell: new Set<EquipmentKind>(["barbell", "box", "bodyweight"]),
+  dumbbell: new Set<EquipmentKind>(["dumbbell", "box", "bodyweight"]),
+  kettlebell: new Set<EquipmentKind>([
+    "kettlebell",
+    "box",
+    "bodyweight",
+  ]),
+  cable: new Set<EquipmentKind>([
+    "cable",
+    "machine",
+    "box",
+    "bodyweight",
+  ]),
   home: new Set<EquipmentKind>([
     "dumbbell",
     "band",
@@ -152,8 +174,64 @@ const PRESET_ALLOWS: Record<EquipmentPreset, Set<EquipmentKind>> = {
     "box",
     "bodyweight",
   ]),
-  bodyweight: new Set<EquipmentKind>(["bodyweight", "box"]),
+  bodyweight: new Set<EquipmentKind>(["box", "bodyweight"]),
 };
+
+/** Real wger equipment names (see src/lib/wger-equipment.json) allowed per preset.
+ *  `null` means "any equipment". Used to filter the wger exercise catalog with
+ *  real per-exercise equipment data. */
+export const PRESET_ALLOWED_EQUIPMENT_NAMES: Record<
+  EquipmentPreset,
+  Set<string> | null
+> = {
+  full: null,
+  barbell: new Set([
+    "Barbell",
+    "SZ-Bar",
+    "Bench",
+    "Incline bench",
+    "Gym mat",
+    "none (bodyweight exercise)",
+  ]),
+  dumbbell: new Set([
+    "Dumbbell",
+    "Gym mat",
+    "none (bodyweight exercise)",
+  ]),
+  kettlebell: new Set([
+    "Kettlebell",
+    "Gym mat",
+    "none (bodyweight exercise)",
+  ]),
+  cable: new Set([
+    "Cable machine",
+    "Pull-up bar",
+    "Gym mat",
+    "none (bodyweight exercise)",
+  ]),
+  home: new Set([
+    "Dumbbell",
+    "Kettlebell",
+    "Resistance band",
+    "Gym mat",
+    "Swiss Ball",
+    "none (bodyweight exercise)",
+  ]),
+  bodyweight: new Set([
+    "Gym mat",
+    "none (bodyweight exercise)",
+  ]),
+};
+
+export function matchesWgerPreset(
+  equipment: { name: string }[],
+  preset: EquipmentPreset,
+): boolean {
+  const allowed = PRESET_ALLOWED_EQUIPMENT_NAMES[preset];
+  if (!allowed) return true;
+  if (equipment.length === 0) return false;
+  return equipment.every((eq) => allowed.has(eq.name));
+}
 
 export function equipmentFor(exerciseId: string): EquipmentKind {
   return EQUIPMENT_BY_ID[exerciseId] ?? "bodyweight";
@@ -161,6 +239,35 @@ export function equipmentFor(exerciseId: string): EquipmentKind {
 
 export function matchesPreset(exerciseId: string, preset: EquipmentPreset): boolean {
   return PRESET_ALLOWS[preset].has(equipmentFor(exerciseId));
+}
+
+export const EQUIPMENT_KIND_LABELS: Record<EquipmentKind, string> = {
+  barbell: "Barbell",
+  dumbbell: "Dumbbell",
+  machine: "Machine",
+  cable: "Cable machine",
+  band: "Resistance band",
+  kettlebell: "Kettlebell",
+  box: "Box / Bench",
+  bodyweight: "Bodyweight",
+};
+
+/**
+ * Display equipment for a generated exercise. Curated exercises show the label
+ * of their filter kind (exactly what the equipment preset matched on, so a
+ * "Cable machines" workout can never surface "Barbell"), while wger exercises
+ * show their real wger equipment tags.
+ */
+export function equipmentDisplayFor(
+  exercise: { exerciseId: string; source: GeneratedExercise["source"] },
+  infoEquipment?: { name: string }[],
+): string[] {
+  if (exercise.source === "wger") {
+    return (infoEquipment ?? [])
+      .map((e) => (e.name === "none (bodyweight exercise)" ? "Bodyweight" : e.name))
+      .filter((name, index, all) => all.indexOf(name) === index);
+  }
+  return [EQUIPMENT_KIND_LABELS[equipmentFor(exercise.exerciseId)] ?? "Bodyweight"];
 }
 
 const MUSCLE_LABELS: Record<MuscleGroup, string> = {
@@ -198,6 +305,7 @@ const GOAL_SCHEME: Record<WorkoutGoal, Scheme> = {
   hypertrophy: { sets: 4, reps: "8-12", restSeconds: 90, targetLoadPercent: 75 },
   endurance: { sets: 3, reps: "15-20", restSeconds: 45, targetLoadPercent: 50 },
   full_body: { sets: 3, reps: "8-12", restSeconds: 75, targetLoadPercent: 70 },
+  mobility: { sets: 3, reps: "20+", restSeconds: 30, targetLoadPercent: 0 },
 };
 
 const LEVEL_SETS: Record<ExperienceLevel, number> = {
@@ -240,6 +348,16 @@ const PATTERN_PRIORITY: Record<WorkoutGoal, MovementPattern[]> = {
     "core_stability",
     "lunge",
   ],
+  mobility: [
+    "rotation",
+    "core_stability",
+    "gait",
+    "carry",
+    "horizontal_pull",
+    "squat",
+    "hinge",
+    "lunge",
+  ],
 };
 
 function exerciseCount(durationMinutes: number, goal: WorkoutGoal): number {
@@ -248,6 +366,7 @@ function exerciseCount(durationMinutes: number, goal: WorkoutGoal): number {
     hypertrophy: 5,
     endurance: 4,
     full_body: 5,
+    mobility: 2,
   }[goal];
   return Math.min(12, Math.max(3, Math.round(durationMinutes / minutesPer)));
 }
@@ -306,7 +425,7 @@ export function generateWorkout(opts: BuildOptions): GeneratedWorkout {
       reps: scheme.reps,
       restSeconds: scheme.restSeconds,
       targetLoadPercent: scheme.targetLoadPercent,
-      showLoad: equipmentFor(pick.id) !== "bodyweight",
+      showLoad: equipmentFor(pick.id) !== "bodyweight" && scheme.targetLoadPercent > 0,
     });
   }
 
@@ -316,9 +435,36 @@ export function generateWorkout(opts: BuildOptions): GeneratedWorkout {
     level: opts.level,
     durationMinutes: opts.durationMinutes,
     preset: opts.preset,
-    exercises,
+    exercises: withRestSecondsToFit(exercises, opts.durationMinutes, opts.goal, schemeBase.restSeconds),
     createdAt: new Date().toISOString(),
   };
+}
+
+/** Scale per-exercise rest so the whole plan roughly fits the chosen timebox. */
+function withRestSecondsToFit(
+  exercises: GeneratedExercise[],
+  durationMinutes: number,
+  goal: WorkoutGoal,
+  schemeRestSeconds: number,
+): GeneratedExercise[] {
+  if (exercises.length === 0) return exercises;
+
+  const workSeconds = exercises.reduce(
+    (sum, e) => sum + e.sets * averageReps(e.reps) * SECONDS_PER_REP[goal],
+    0,
+  );
+  const gaps = exercises.reduce(
+    (sum, e) => sum + Math.max(0, e.sets - 1),
+    0,
+  );
+  const restBudget = Math.max(0, durationMinutes * 60 - workSeconds);
+  const restSeconds = gaps > 0 ? Math.floor(restBudget / gaps) : 0;
+  const clamped = Math.max(15, Math.min(restSeconds, schemeRestSeconds));
+
+  return exercises.map((exercise) => ({
+    ...exercise,
+    restSeconds: clamped,
+  }));
 }
 
 function makeId(): string {
@@ -345,4 +491,53 @@ export function buildWgerExercise(
     restSeconds: slotConfig.restSeconds,
     showLoad: false,
   };
+}
+
+const KCAL_PER_MINUTE: Record<WorkoutGoal, number> = {
+  strength: 5,
+  hypertrophy: 5,
+  endurance: 8,
+  full_body: 6,
+  mobility: 3,
+};
+
+/** Rough seconds each rep takes, by goal (recovery-load style), used for time estimates. */
+const SECONDS_PER_REP: Record<WorkoutGoal, number> = {
+  strength: 6,
+  hypertrophy: 5,
+  endurance: 3,
+  full_body: 5,
+  mobility: 8,
+};
+
+function averageReps(reps: string): number {
+  const match = reps.match(/(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)/);
+  if (match) return (Number(match[1]) + Number(match[2])) / 2;
+  const single = reps.match(/(\d+(?:\.\d+)?)/);
+  if (single) return Number(single[1]);
+  return 8;
+}
+
+export interface WorkoutEstimate {
+  minutes: number;
+  kcal: number;
+}
+
+/** Rough time + calorie estimate for a generated workout, for display only.
+ *  Generation scales rest to the chosen timebox, so the estimate should land on
+ *  or under the requested duration. */
+export function estimateWorkout(workout: GeneratedWorkout): WorkoutEstimate {
+  let seconds = 0;
+  for (const exercise of workout.exercises) {
+    const workSeconds =
+      exercise.sets * averageReps(exercise.reps) * SECONDS_PER_REP[workout.goal];
+    const restSeconds = Math.max(0, exercise.sets - 1) * exercise.restSeconds;
+    seconds += workSeconds + restSeconds;
+  }
+  const minutes = Math.max(
+    1,
+    Math.min(Math.round(seconds / 60), workout.durationMinutes),
+  );
+  const kcal = Math.max(5, Math.round(minutes * KCAL_PER_MINUTE[workout.goal]));
+  return { minutes, kcal };
 }

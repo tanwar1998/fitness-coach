@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { Logo } from "@/components/Logo";
+
+const CURRENT_YEAR = new Date().getFullYear();
 
 const FOOTER_LINKS = [
   { href: "/", label: "Home" },
@@ -13,12 +14,6 @@ const FOOTER_LINKS = [
 ];
 
 export function Footer() {
-  const [year, setYear] = useState<number>(2026);
-
-  useEffect(() => {
-    setYear(new Date().getFullYear());
-  }, []);
-
   return (
     <footer className="border-t border-border bg-background">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 py-10 sm:px-6 md:flex-row md:justify-between">
@@ -37,7 +32,7 @@ export function Footer() {
         </nav>
 
         <p className="text-sm text-muted-foreground">
-          © {year} FitPulse. All rights reserved.
+          © {CURRENT_YEAR} FitPulse. All rights reserved.
         </p>
       </div>
     </footer>

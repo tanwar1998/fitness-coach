@@ -3,7 +3,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { Input } from "@/components/Input";
 import { loadExerciseInfo } from "@/lib/wger-data";
-import type { EquipmentPreset } from "@/lib/workout-generator";
+import {
+  matchesWgerPreset,
+  type EquipmentPreset,
+} from "@/lib/workout-generator";
 
 export interface PickerResult {
   id: number;
@@ -41,25 +44,8 @@ function getExerciseName(exercise: WgerExerciseInfo): string {
   return exercise.translations[0]?.name || "Unnamed Exercise";
 }
 
-const PRESET_EQUIPMENT_NAMES: Record<EquipmentPreset, Set<string> | null> = {
-  full: null,
-  dumbbell: new Set(["Dumbbell", "Bands", "Body only", "Gym mat"]),
-  home: new Set([
-    "Dumbbell",
-    "Bands",
-    "Kettlebell",
-    "Box",
-    "Body only",
-    "Gym mat",
-  ]),
-  bodyweight: new Set(["Body only", "Gym mat", "Box"]),
-};
-
 function matchesPreset(exercise: WgerExerciseInfo, preset: EquipmentPreset) {
-  const allowed = PRESET_EQUIPMENT_NAMES[preset];
-  if (!allowed) return true;
-  if (exercise.equipment.length === 0) return false;
-  return exercise.equipment.every((eq) => allowed.has(eq.name));
+  return matchesWgerPreset(exercise.equipment, preset);
 }
 
 function CloseIcon() {

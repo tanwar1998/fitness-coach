@@ -5,7 +5,7 @@ import type { GeneratedWorkout } from "@/lib/workout-generator";
 const KEY = "fitpulse:workout-history";
 const MAX_ENTRIES = 20;
 
-export type WorkoutStatus = "draft" | "started";
+export type WorkoutStatus = "draft" | "started" | "completed";
 
 export interface WorkoutHistoryEntry {
   workout: GeneratedWorkout;
@@ -67,6 +67,22 @@ export function markStarted(id: string): WorkoutHistoryEntry[] {
         workout: entry.workout,
         status: "started",
         startedAt: new Date().toISOString(),
+      };
+    },
+  );
+  persist(entries);
+  return entries;
+}
+
+/** Mark a workout as completed by the user (auto-logged to Progress). */
+export function markCompleted(id: string): WorkoutHistoryEntry[] {
+  const entries = loadHistory().map(
+    (entry): WorkoutHistoryEntry => {
+      if (entry.workout.id !== id) return entry;
+      return {
+        workout: entry.workout,
+        status: "completed",
+        startedAt: entry.startedAt ?? new Date().toISOString(),
       };
     },
   );

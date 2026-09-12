@@ -22,7 +22,12 @@ import {
   muscleName,
 } from "@/lib/wger-exercise";
 import { loadExerciseInfo } from "@/lib/wger-data";
-import type { GeneratedExercise, GeneratedWorkout } from "@/lib/workout-generator";
+import {
+  equipmentDisplayFor,
+  estimateWorkout,
+  type GeneratedExercise,
+  type GeneratedWorkout,
+} from "@/lib/workout-generator";
 
 interface ResolvedItem {
   exercise: GeneratedExercise;
@@ -141,7 +146,7 @@ function WorkoutExerciseDetail({
   const mainMuscles = info?.muscles ?? [];
   const secondaryMuscles = info?.muscles_secondary ?? [];
   const muscles = info ? info.muscles.map((m) => m.name_en || m.name) : exercise.muscleLabels;
-  const equipment = info ? info.equipment : [];
+  const equipment = equipmentDisplayFor(exercise, info?.equipment);
 
   return (
     <div>
@@ -182,9 +187,9 @@ function WorkoutExerciseDetail({
               {exercise.movementPatternLabel && (
                 <Badge variant="outline">{exercise.movementPatternLabel}</Badge>
               )}
-              {equipment.map((eq) => (
-                <Badge key={eq.id} variant="secondary">
-                  {eq.name}
+              {equipment.map((name) => (
+                <Badge key={name} variant="secondary">
+                  {name}
                 </Badge>
               ))}
             </div>
@@ -378,6 +383,8 @@ export function GeneratedWorkoutView({
     [workout.exercises, library],
   );
 
+  const estimate = useMemo(() => estimateWorkout(workout), [workout]);
+
   const visible = useMemo(
     () =>
       items.filter((item) => {
@@ -420,7 +427,8 @@ export function GeneratedWorkoutView({
         <div>
           <h2 className="font-display text-2xl font-bold">Your generated workout</h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            {workout.durationMinutes} min · {workout.exercises.length} exercises ·{" "}
+            ~{estimate.minutes} min · ~{estimate.kcal} kcal ·{" "}
+            {workout.exercises.length} exercises ·{" "}
             {workout.goal.replace("_", " ")} · {workout.level}
           </p>
         </div>
@@ -523,7 +531,7 @@ export function GeneratedWorkoutView({
           )}
         </div>
 
-        <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">
+        <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {visible.map((item) => (
             <GeneratedExerciseCard
               key={item.exercise.key}
@@ -531,6 +539,14 @@ export function GeneratedWorkoutView({
               info={item.info}
               localImages={localImages}
               onSelect={() => setSelectedIndex(item.index)}
+              onSwap={() => {
+                setSelectedIndex(null);
+                onSwap(item.index);
+              }}
+              onRemove={() => {
+                setSelectedIndex(null);
+                onRemove(item.index);
+              }}
             />
           ))}
           <button

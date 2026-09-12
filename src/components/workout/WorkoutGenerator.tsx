@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { Badge } from "@/components/Badge";
@@ -10,7 +10,6 @@ import type { PickerResult } from "@/components/workout/ExercisePicker";
 import {
   EXPERIENCE_LEVELS,
   EQUIPMENT_PRESETS,
-  WORKOUT_DURATIONS,
   WORKOUT_GOALS,
   buildWgerExercise,
   generateWorkout,
@@ -24,6 +23,7 @@ import type {
 import {
   loadHistory,
   markStarted,
+  removeFromHistory,
   upsertWorkout,
 } from "@/lib/workout-history";
 import type { WorkoutHistoryEntry } from "@/lib/workout-history";
@@ -69,10 +69,32 @@ interface PickerState {
   index: number | "add";
 }
 
+function TrashIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M3 6h18" />
+      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+      <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+      <path d="M10 11v6" />
+      <path d="M14 11v6" />
+    </svg>
+  );
+}
+
 export function WorkoutGenerator() {
   const router = useRouter();
 
-  const [goal, setGoal] = useState<WorkoutGoal>("hypertrophy");
+  const [goal, setGoal] = useState<WorkoutGoal>("full_body");
   const [duration, setDuration] = useState<number>(30);
   const [level, setLevel] = useState<ExperienceLevel>("intermediate");
   const [preset, setPreset] = useState<EquipmentPreset>("full");
@@ -82,6 +104,18 @@ export function WorkoutGenerator() {
     loadHistory(),
   );
   const [picker, setPicker] = useState<PickerState | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<WorkoutHistoryEntry | null>(
+    null,
+  );
+
+  useEffect(() => {
+    if (!deleteTarget) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setDeleteTarget(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [deleteTarget]);
 
   const handleGenerate = () => {
     const next = generateWorkout({ goal, durationMinutes: duration, level, preset });
@@ -140,12 +174,26 @@ export function WorkoutGenerator() {
   const handleStart = () => {
     if (!workout) return;
     setHistory(markStarted(workout.id));
-    router.push("/pages/progress");
+    router.push(`/pages/workout-session?id=${encodeURIComponent(workout.id)}`);
   };
 
   const handleLoad = (entry: WorkoutHistoryEntry) => {
     setWorkout(entry.workout);
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleDelete = (target: WorkoutHistoryEntry) => {
+    setDeleteTarget(target);
+  };
+
+  const confirmDelete = () => {
+    if (!deleteTarget) return;
+    const targetId = deleteTarget.workout.id;
+    setDeleteTarget(null);
+    removeFromHistory(targetId);
+    setHistory(loadHistory());
+    window.dispatchEvent(new Event("workouts-changed"));
+    if (workout?.id === targetId) setWorkout(null);
   };
 
   const chipClass = (active: boolean) =>
@@ -178,17 +226,20 @@ export function WorkoutGenerator() {
 
           <div>
             <p className="text-sm font-semibold text-foreground">Duration</p>
-            <div className="mt-2 flex flex-wrap gap-2">
-              {WORKOUT_DURATIONS.map((minutes) => (
-                <button
-                  key={minutes}
-                  type="button"
-                  onClick={() => setDuration(minutes)}
-                  className={chipClass(duration === minutes)}
-                >
-                  {minutes} min
-                </button>
-              ))}
+            <div className="mt-2 flex flex-wrap items-center gap-3">
+              <input
+                type="range"
+                min={10}
+                max={60}
+                step={5}
+                value={duration}
+                onChange={(e) => setDuration(Number(e.target.value))}
+                className="h-2 w-full max-w-xs cursor-pointer accent-primary"
+                aria-label="Workout duration in minutes"
+              />
+              <span className="min-w-[5.5rem] text-sm font-medium text-foreground">
+                {duration} min
+              </span>
             </div>
           </div>
 
@@ -266,6 +317,15 @@ export function WorkoutGenerator() {
                   <span className="text-xs text-muted-foreground">
                     {new Date(entry.workout.createdAt).toLocaleDateString()}
                   </span>
+                  <button
+                    type="button"
+                    onClick={() => handleDelete(entry)}
+                    aria-label="Delete workout"
+                    title="Delete workout"
+                    className="ml-auto grid h-7 w-7 cursor-pointer place-items-center rounded-full text-muted-foreground transition-colors hover:bg-danger/10 hover:text-danger"
+                  >
+                    <TrashIcon />
+                  </button>
                 </div>
                 <p className="mt-3 text-sm font-semibold">
                   {entry.workout.durationMinutes} min ·{" "}
@@ -298,6 +358,36 @@ export function WorkoutGenerator() {
         onClose={() => setPicker(null)}
         onSelect={handleSelect}
       />
+
+      {deleteTarget && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={() => setDeleteTarget(null)}
+            aria-hidden="true"
+          />
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Delete workout"
+            className="relative w-full max-w-sm rounded-2xl border border-border bg-card p-6 shadow-2xl"
+          >
+            <h3 className="font-display text-lg font-bold">Delete workout?</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              This permanently removes the workout from your recent list. This
+              action cannot be undone.
+            </p>
+            <div className="mt-5 flex justify-end gap-2">
+              <Button variant="outline" onClick={() => setDeleteTarget(null)}>
+                Cancel
+              </Button>
+              <Button variant="danger" onClick={confirmDelete}>
+                Delete
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

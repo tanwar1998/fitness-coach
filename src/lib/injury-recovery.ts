@@ -381,7 +381,7 @@ export const EXERCISE_MAP: Record<string, ExerciseWithContraindications> = {
   },
   cable_row: {
     id: "cable_row",
-    wgerId: 2489,
+    wgerId: 394,
     name: "Cable Row",
     primaryMuscles: ["back"],
     secondaryMuscles: ["biceps", "back"],
@@ -396,7 +396,7 @@ export const EXERCISE_MAP: Record<string, ExerciseWithContraindications> = {
   },
   chest_supported_row: {
     id: "chest_supported_row",
-    wgerId: 919,
+    wgerId: 1117,
     name: "Chest-Supported Row",
     primaryMuscles: ["back"],
     movementPattern: "horizontal_pull",

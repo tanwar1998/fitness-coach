@@ -96,6 +96,28 @@ CREATE TABLE IF NOT EXISTS goal_checkins (
 
 CREATE INDEX IF NOT EXISTS idx_goal_checkins_goal
   ON goal_checkins(goal_id, created_at);
+
+ALTER TABLE goal_checkins ADD COLUMN IF NOT EXISTS source TEXT NOT NULL DEFAULT 'manual';
+ALTER TABLE goal_checkins ADD COLUMN IF NOT EXISTS workout_log_id TEXT;
+
+CREATE INDEX IF NOT EXISTS idx_goal_checkins_workout_log
+  ON goal_checkins(workout_log_id);
+
+CREATE TABLE IF NOT EXISTS workout_logs (
+  id TEXT PRIMARY KEY,
+  device_id TEXT NOT NULL DEFAULT '',
+  workout_id TEXT NOT NULL,
+  goal TEXT NOT NULL,
+  level TEXT NOT NULL,
+  duration_minutes INTEGER NOT NULL,
+  preset TEXT NOT NULL,
+  exercise_count INTEGER NOT NULL,
+  completed_on DATE NOT NULL,
+  completed_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_workout_logs_device
+  ON workout_logs(device_id, completed_at DESC);
 `;
 
 let schemaReady: Promise<void> | null = null;
