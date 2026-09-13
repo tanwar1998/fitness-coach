@@ -118,6 +118,73 @@ CREATE TABLE IF NOT EXISTS workout_logs (
 
 CREATE INDEX IF NOT EXISTS idx_workout_logs_device
   ON workout_logs(device_id, completed_at DESC);
+
+CREATE TABLE IF NOT EXISTS weekly_checkins (
+  id TEXT PRIMARY KEY,
+  device_id TEXT NOT NULL DEFAULT '',
+  week_start DATE NOT NULL,
+  summary TEXT NOT NULL,
+  adjustments JSONB NOT NULL DEFAULT '[]',
+  stats JSONB NOT NULL DEFAULT '{}',
+  provider TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  UNIQUE (device_id, week_start)
+);
+
+CREATE INDEX IF NOT EXISTS idx_weekly_checkins_device
+  ON weekly_checkins(device_id, week_start DESC);
+
+CREATE TABLE IF NOT EXISTS wearable_metrics (
+  id TEXT PRIMARY KEY,
+  device_id TEXT NOT NULL DEFAULT '',
+  date DATE NOT NULL,
+  provider TEXT NOT NULL CHECK (provider IN ('apple_health', 'google_fit')),
+  steps INTEGER,
+  resting_heart_rate REAL,
+  hrv_ms REAL,
+  sleep_duration_minutes INTEGER,
+  sleep_score REAL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  UNIQUE (device_id, date, provider)
+);
+
+CREATE INDEX IF NOT EXISTS idx_wearable_device_date
+  ON wearable_metrics(device_id, date DESC);
+
+CREATE TABLE IF NOT EXISTS meal_log_entry (
+  id TEXT PRIMARY KEY,
+  device_id TEXT NOT NULL DEFAULT '',
+  ingredient_id INTEGER,
+  ingredient_name TEXT NOT NULL,
+  quantity NUMERIC NOT NULL,
+  unit TEXT NOT NULL DEFAULT 'g',
+  meal_type TEXT NOT NULL CHECK (meal_type IN ('breakfast', 'lunch', 'dinner', 'snack')),
+  date DATE NOT NULL,
+  kcal NUMERIC NOT NULL DEFAULT 0,
+  protein NUMERIC NOT NULL DEFAULT 0,
+  carbs NUMERIC NOT NULL DEFAULT 0,
+  fat NUMERIC NOT NULL DEFAULT 0,
+  is_custom BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+ALTER TABLE meal_log_entry ADD COLUMN IF NOT EXISTS is_custom BOOLEAN NOT NULL DEFAULT FALSE;
+ALTER TABLE meal_log_entry ALTER COLUMN ingredient_id DROP NOT NULL;
+
+CREATE INDEX IF NOT EXISTS idx_meal_log_device_date
+  ON meal_log_entry(device_id, date DESC);
+
+CREATE TABLE IF NOT EXISTS nutrition_targets (
+  device_id TEXT PRIMARY KEY,
+  kcal INTEGER NOT NULL DEFAULT 2000,
+  protein_g INTEGER NOT NULL DEFAULT 120,
+  carbs_g INTEGER NOT NULL DEFAULT 250,
+  fat_g INTEGER NOT NULL DEFAULT 70,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
 `;
 
 let schemaReady: Promise<void> | null = null;

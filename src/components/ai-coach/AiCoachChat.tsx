@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, type ReactNode } from "react";
 import { AiCoachInput } from "@/components/ai-coach/AiCoachInput";
+import { WeeklyCheckInCard } from "@/components/ai-coach/WeeklyCheckInCard";
 import type { AiProviderInfo, ChatMessage, ChatSession } from "@/lib/ai-coach";
 
 interface AiCoachChatProps {
@@ -19,6 +20,7 @@ interface AiCoachChatProps {
 export interface ChatProfile {
   goalLabel: string;
   injuryLabel: string | null;
+  readiness?: number | null;
 }
 
 const SUGGESTION_CARDS: {
@@ -173,6 +175,31 @@ function ShieldIcon({ className }: { className?: string }) {
   );
 }
 
+function HeartPulseIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+      <path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27" />
+    </svg>
+  );
+}
+
+function readinessTone(score: number) {
+  if (score < 35) return "text-danger";
+  if (score < 55) return "text-warning";
+  if (score < 70) return "text-lime";
+  return "text-success";
+}
+
 function SparkleIcon({ size = 18 }: { size?: number }) {
   return (
     <svg
@@ -323,52 +350,69 @@ export function AiCoachChat({
               {profile.injuryLabel ?? "None — all clear"}
             </span>
           </span>
+          {profile.readiness != null && (
+            <span className="flex items-center gap-2 font-medium text-foreground">
+              <HeartPulseIcon
+                className={`h-3.5 w-3.5 ${readinessTone(profile.readiness)}`}
+              />
+              Today&apos;s readiness:
+              <span
+                className={`font-semibold ${readinessTone(profile.readiness)}`}
+              >
+                {profile.readiness}/100
+              </span>
+              {profile.readiness < 55 && (
+                <span className="rounded-full bg-warning/10 px-2 py-0.5 text-[11px] font-medium text-warning">
+                  lighter session advised
+                </span>
+              )}
+            </span>
+          )}
         </div>
       )}
 
-      {!session || session.messages.length === 0 ? (
-        <div className="flex flex-1 items-center justify-center overflow-y-auto px-4">
-          <div className="mx-auto max-w-lg py-10 text-center">
-            <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-primary/10 text-primary">
-              <SparkleIcon size={30} />
+      <div className="flex-1 overflow-y-auto">
+        <div className="mx-auto w-full max-w-3xl px-4 py-6 sm:px-6">
+          <WeeklyCheckInCard onFollowUp={onSend} providerId={providerId} />
+          {!session || session.messages.length === 0 ? (
+            <div className="mx-auto max-w-lg py-10 text-center">
+              <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-primary/10 text-primary">
+                <SparkleIcon size={30} />
+              </div>
+              <h1 className="mt-6 font-display text-2xl font-bold tracking-tight sm:text-4xl">
+                How can I help you train today?
+              </h1>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Ask about workouts, nutrition, or recovery. Each conversation is
+                saved as its own session on the left.
+              </p>
+              <div className="mt-8 grid gap-3 text-left sm:grid-cols-2">
+                {SUGGESTION_CARDS.map((card) => (
+                  <button
+                    key={card.title}
+                    type="button"
+                    onClick={() => onSend(card.title)}
+                    className="group cursor-pointer rounded-2xl border border-border bg-gray-900/60 p-4 text-left shadow-sm transition-all hover:border-purple-500/50 hover:bg-gray-800/80"
+                  >
+                    <div className="mb-1.5 flex items-center gap-2">
+                      <span
+                        className={`p-1.5 rounded-lg text-xs font-semibold ${card.tagClass}`}
+                      >
+                        {card.tag}
+                      </span>
+                      <span className="text-muted-foreground group-hover:text-foreground">
+                        {card.icon}
+                      </span>
+                    </div>
+                    <p className="text-sm font-medium text-gray-200 transition-colors group-hover:text-white">
+                      {card.title}
+                    </p>
+                  </button>
+                ))}
+              </div>
             </div>
-            <h1 className="mt-6 font-display text-2xl font-bold tracking-tight sm:text-4xl">
-              How can I help you train today?
-            </h1>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Ask about workouts, nutrition, or recovery. Each conversation is
-              saved as its own session on the left.
-            </p>
-            <div className="mt-8 grid gap-3 text-left sm:grid-cols-2">
-              {SUGGESTION_CARDS.map((card) => (
-                <button
-                  key={card.title}
-                  type="button"
-                  onClick={() => onSend(card.title)}
-                  className="group cursor-pointer rounded-2xl border border-border bg-gray-900/60 p-4 text-left shadow-sm transition-all hover:border-purple-500/50 hover:bg-gray-800/80"
-                >
-                  <div className="mb-1.5 flex items-center gap-2">
-                    <span
-                      className={`p-1.5 rounded-lg text-xs font-semibold ${card.tagClass}`}
-                    >
-                      {card.tag}
-                    </span>
-                    <span className="text-muted-foreground group-hover:text-foreground">
-                      {card.icon}
-                    </span>
-                  </div>
-                  <p className="text-sm font-medium text-gray-200 transition-colors group-hover:text-white">
-                    {card.title}
-                  </p>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className="flex-1 overflow-y-auto">
-          <div className="mx-auto max-w-3xl px-4 py-6 sm:px-6">
-            <div className="flex flex-col gap-5">
+          ) : (
+            <div className="mt-5 flex flex-col gap-5">
               {session.messages.map((message) => (
                 <MessageBubble key={message.id} message={message} />
               ))}
@@ -382,9 +426,9 @@ export function AiCoachChat({
               )}
               <div ref={messagesEndRef} />
             </div>
-          </div>
+          )}
         </div>
-      )}
+      </div>
 
       {error && (
         <div className="shrink-0 border-b border-danger/20 bg-danger/10 px-4 py-2.5 text-center text-sm text-danger sm:px-6">

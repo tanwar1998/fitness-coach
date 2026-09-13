@@ -1,1 +1,47 @@
-Add a new page for "disclaimer", and add same information(if possible in a better way) as in "https://fitness.sebhulse.com/disclaimer.html"
+# Feature spec: Nutrition logging + daily summary
+
+## Context
+The Nutrition page currently supports searching/filtering an ingredient database (1,998 ingredients) with macro-target filters (All, High Protein, Low Carb, Keto), sort options, and an "AI Meal Parser" entry point. It does not yet have a way to log ingredients to a day's intake or show daily totals.
+
+---
+
+## 1. Daily summary (top of Nutrition page)
+
+Show four stat blocks: **Calories**, **Protein**, **Carbs**, **Fat** — each displaying `consumed / target` plus a thin progress bar underneath (percentage of target reached, capped visually at 100%).
+
+- Targets come from user profile/goal settings (not hardcoded).
+- Consumed values are the sum of all ingredients logged today across all meals.
+- This block should update immediately when a new item is logged — no page refresh required.
+
+---
+
+## 2. Logging an ingredient
+
+Each ingredient card gets an **Add** action. Clicking it expands an inline panel (no navigation away from the ingredient list) with:
+
+- **Quantity** input (number)
+- **Unit** select (g / oz / serving — match whatever units the ingredient's base data uses)
+- **Meal** select (Breakfast / Lunch / Dinner / Snack) — default to whichever meal period matches the current time of day (e.g. before 11am → Breakfast)
+- A **live preview** of kcal/protein/carbs/fat recalculated as quantity changes, scaled from the ingredient's per-100g (or per-serving) base values
+- A **"Log to [meal]"** confirm button — label should reflect the currently selected meal
+
+### On log
+- Append the entry to that meal's list for today.
+- Update the daily summary totals immediately.
+- Give lightweight confirmation (e.g. toast or inline check) without leaving the ingredient list, so the user can keep logging multiple items in one pass.
+
+---
+
+## 3. AI Meal Parser (existing button — behavior not yet defined)
+Confirm intended behavior before building: most likely, free-text input (e.g. "2 eggs and a slice of toast") gets parsed into matched ingredients with estimated quantities, which then populate the same Add/log flow above for the user to confirm or adjust before logging. Treat each parsed item as pre-filled quantity + unit in the same log panel — don't create a separate logging path.
+
+---
+
+## 4. Data model additions needed
+- `meal_log_entry`: user_id, ingredient_id, quantity, unit, meal_type (breakfast/lunch/dinner/snack), date, computed kcal/protein/carbs/fat at log time (store computed values, not just a reference, so historical logs stay accurate if ingredient data is later corrected)
+- Daily summary is a read model: sum of `meal_log_entry` rows for the current user + date, compared against the user's active nutrition targets
+
+## 5. Open questions
+1. What exactly should AI Meal Parser output when a described meal has ambiguous quantities (e.g. "a bowl of rice")? Needs a default assumption or a clarifying step.
+2. Should logged entries be editable/deletable after the fact (similar to the undo path already spec'd for workout logs)? Recommend yes, for consistency with the rest of the app.
+3. Do nutrition targets come from the same onboarding assessment as workout targets, or are they set independently on this page?

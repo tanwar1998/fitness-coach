@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { Badge } from "@/components/Badge";
 import { Button } from "@/components/Button";
@@ -322,6 +322,30 @@ function WorkoutExerciseDetail({
   );
 }
 
+function PhaseDivider({
+  phase,
+}: {
+  phase: "main" | "warmup" | "cooldown";
+}) {
+  const label =
+    phase === "warmup" ? "Warm-up" : phase === "cooldown" ? "Cool-down" : "Workout";
+  const hint =
+    phase === "warmup"
+      ? "Get your joints moving before the real work"
+      : phase === "cooldown"
+        ? "Warm down before you log the session"
+        : "The main event";
+
+  return (
+    <div className="col-span-2 mt-3 mb-1 flex items-center gap-2 sm:col-span-3 lg:col-span-4 first:mt-0">
+      <span className="rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-primary">
+        {label}
+      </span>
+      <span className="text-[11px] text-muted-foreground">{hint}</span>
+    </div>
+  );
+}
+
 export function GeneratedWorkoutView({
   workout,
   onRegenerate,
@@ -532,23 +556,30 @@ export function GeneratedWorkoutView({
         </div>
 
         <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {visible.map((item) => (
-            <GeneratedExerciseCard
-              key={item.exercise.key}
-              exercise={item.exercise}
-              info={item.info}
-              localImages={localImages}
-              onSelect={() => setSelectedIndex(item.index)}
-              onSwap={() => {
-                setSelectedIndex(null);
-                onSwap(item.index);
-              }}
-              onRemove={() => {
-                setSelectedIndex(null);
-                onRemove(item.index);
-              }}
-            />
-          ))}
+          {visible.map((item, index) => {
+            const phase = item.exercise.phase ?? "main";
+            const previousPhase =
+              index > 0 ? (visible[index - 1].exercise.phase ?? "main") : null;
+            return (
+              <Fragment key={item.exercise.key}>
+                {phase !== previousPhase && <PhaseDivider phase={phase} />}
+                <GeneratedExerciseCard
+                  exercise={item.exercise}
+                  info={item.info}
+                  localImages={localImages}
+                  onSelect={() => setSelectedIndex(item.index)}
+                  onSwap={() => {
+                    setSelectedIndex(null);
+                    onSwap(item.index);
+                  }}
+                  onRemove={() => {
+                    setSelectedIndex(null);
+                    onRemove(item.index);
+                  }}
+                />
+              </Fragment>
+            );
+          })}
           <button
             type="button"
             onClick={onAdd}

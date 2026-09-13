@@ -3,6 +3,7 @@ import {
   MOVEMENT_PATTERN_LABELS,
   type ExerciseWithContraindications,
 } from "@/lib/injury-recovery";
+import { buildPhaseExercises } from "@/lib/workout-phases";
 import type { MovementPattern, MuscleGroup } from "../../data";
 
 // ============================================================
@@ -42,6 +43,8 @@ export interface GeneratedExercise {
   restSeconds: number;
   targetLoadPercent?: number;
   showLoad: boolean;
+  /** Phase within the session; main (default) when absent. */
+  phase?: "main" | "warmup" | "cooldown";
 }
 
 export interface GeneratedWorkout {
@@ -59,6 +62,8 @@ export interface BuildOptions {
   durationMinutes: number;
   level: ExperienceLevel;
   preset: EquipmentPreset;
+  /** Produce an easier version (fewer sets, lighter loads) for a low-readiness day. */
+  lighter?: boolean;
 }
 
 // ============================================================
@@ -385,11 +390,18 @@ function pickCandidate(
 }
 
 export function generateWorkout(opts: BuildOptions): GeneratedWorkout {
+  const workoutId = makeId();
   const schemeBase = GOAL_SCHEME[opts.goal];
   const scheme: Scheme = {
     ...schemeBase,
     sets: LEVEL_SETS[opts.level],
   };
+
+  const lighter = opts.lighter === true;
+  const sets = lighter ? Math.max(2, scheme.sets - 1) : scheme.sets;
+  const targetLoadPercent = lighter
+    ? Math.max(30, schemeBase.targetLoadPercent - 15)
+    : schemeBase.targetLoadPercent;
 
   const pool = Object.values(EXERCISE_MAP).filter((e) =>
     matchesPreset(e.id, opts.preset),
@@ -421,21 +433,35 @@ export function generateWorkout(opts: BuildOptions): GeneratedWorkout {
       source: "curated",
       muscleLabels: muscleLabels(pick.primaryMuscles).slice(0, 3),
       movementPatternLabel: MOVEMENT_PATTERN_LABELS[pick.movementPattern],
-      sets: scheme.sets,
+      sets,
       reps: scheme.reps,
       restSeconds: scheme.restSeconds,
-      targetLoadPercent: scheme.targetLoadPercent,
-      showLoad: equipmentFor(pick.id) !== "bodyweight" && scheme.targetLoadPercent > 0,
+      targetLoadPercent,
+      showLoad: equipmentFor(pick.id) !== "bodyweight" && targetLoadPercent > 0,
+      phase: "main",
     });
   }
 
+  const mainExercises = withRestSecondsToFit(
+    exercises,
+    opts.durationMinutes,
+    opts.goal,
+    schemeBase.restSeconds,
+  );
+  const mainNames = mainExercises.map((exercise) => exercise.name);
+  const phaseCount = opts.durationMinutes >= 20 ? 2 : 1;
+
   return {
-    id: makeId(),
+    id: workoutId,
     goal: opts.goal,
     level: opts.level,
     durationMinutes: opts.durationMinutes,
     preset: opts.preset,
-    exercises: withRestSecondsToFit(exercises, opts.durationMinutes, opts.goal, schemeBase.restSeconds),
+    exercises: [
+      ...buildPhaseExercises("warmup", mainNames, workoutId, phaseCount),
+      ...mainExercises,
+      ...buildPhaseExercises("cooldown", mainNames, workoutId, phaseCount),
+    ],
     createdAt: new Date().toISOString(),
   };
 }
@@ -525,12 +551,14 @@ export interface WorkoutEstimate {
 
 /** Rough time + calorie estimate for a generated workout, for display only.
  *  Generation scales rest to the chosen timebox, so the estimate should land on
- *  or under the requested duration. */
+ *  or under the requested duration. Warm-up and cool-down drills are treated as
+ *  light holds (1 sec per rep unit). */
 export function estimateWorkout(workout: GeneratedWorkout): WorkoutEstimate {
   let seconds = 0;
   for (const exercise of workout.exercises) {
+    const isPhase = exercise.phase === "warmup" || exercise.phase === "cooldown";
     const workSeconds =
-      exercise.sets * averageReps(exercise.reps) * SECONDS_PER_REP[workout.goal];
+      exercise.sets * averageReps(exercise.reps) * (isPhase ? 1 : SECONDS_PER_REP[workout.goal]);
     const restSeconds = Math.max(0, exercise.sets - 1) * exercise.restSeconds;
     seconds += workSeconds + restSeconds;
   }

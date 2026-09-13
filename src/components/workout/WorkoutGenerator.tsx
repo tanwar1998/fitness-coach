@@ -20,6 +20,7 @@ import type {
   GeneratedWorkout,
   WorkoutGoal,
 } from "@/lib/workout-generator";
+import { computeReadinessScore, fetchCheckIns } from "@/lib/injury-recovery";
 import {
   loadHistory,
   markStarted,
@@ -107,6 +108,25 @@ export function WorkoutGenerator() {
   const [deleteTarget, setDeleteTarget] = useState<WorkoutHistoryEntry | null>(
     null,
   );
+  const [readinessScore, setReadinessScore] = useState<number | null>(null);
+  const [lighterVersion, setLighterVersion] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchCheckIns()
+      .then((checkIns) => {
+        if (cancelled) return;
+        const score = computeReadinessScore(checkIns).score;
+        setReadinessScore(score);
+        if (score < 55) setLighterVersion(true);
+      })
+      .catch(() => {
+        if (cancelled) return;
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     if (!deleteTarget) return;
@@ -117,8 +137,14 @@ export function WorkoutGenerator() {
     return () => window.removeEventListener("keydown", onKey);
   }, [deleteTarget]);
 
-  const handleGenerate = () => {
-    const next = generateWorkout({ goal, durationMinutes: duration, level, preset });
+  const handleGenerate = (opts: { lighter?: boolean } = {}) => {
+    const next = generateWorkout({
+      goal,
+      durationMinutes: duration,
+      level,
+      preset,
+      lighter: opts.lighter ?? lighterVersion,
+    });
     setWorkout(next);
     setHistory(upsertWorkout(next));
   };
@@ -277,11 +303,41 @@ export function WorkoutGenerator() {
           </div>
         </div>
 
+        {readinessScore !== null && readinessScore < 55 && (
+          <div className="mt-6 rounded-2xl border border-warning/30 bg-warning/10 p-4">
+            <p className="text-sm font-medium text-foreground">
+              Your readiness is {readinessScore}/100 — consider a rest day or a
+              lighter session today.
+            </p>
+            <div className="mt-3 flex flex-wrap items-center gap-3">
+              <Button
+                size="sm"
+                onClick={() => {
+                  setLighterVersion(true);
+                  handleGenerate({ lighter: true });
+                }}
+              >
+                Generate a lighter version
+              </Button>
+              <label className="flex cursor-pointer items-center gap-2 text-sm text-muted-foreground">
+                <input
+                  type="checkbox"
+                  checked={lighterVersion}
+                  onChange={(e) => setLighterVersion(e.target.checked)}
+                  className="h-4 w-4 accent-primary"
+                />
+                Keep lighter mode on
+              </label>
+            </div>
+          </div>
+        )}
+
         <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
           <p className="text-sm text-muted-foreground">
             {duration} min · {goal.replace("_", " ")} · {preset} · {level}
+            {lighterVersion && " · lighter"}
           </p>
-          <Button size="lg" onClick={handleGenerate}>
+          <Button size="lg" onClick={() => handleGenerate()}>
             <SparklesIcon />
             Generate workout
           </Button>

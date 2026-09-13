@@ -13,6 +13,7 @@ import {
   type ChatSession,
 } from "@/lib/ai-coach";
 import { fetchInjuries, BODY_REGION_LABELS } from "@/lib/injury-recovery";
+import { computeReadinessScore, fetchCheckIns } from "@/lib/injury-recovery";
 import { WORKOUT_GOALS, type WorkoutGoal } from "@/lib/workout-generator";
 import { loadHistory } from "@/lib/workout-history";
 
@@ -30,6 +31,7 @@ export default function AiCoachPage() {
   const [providers, setProviders] = useState<AiProviderInfo[]>([]);
   const [providerId, setProviderId] = useState<string>("");
   const [injuryLabel, setInjuryLabel] = useState<string | null>(null);
+  const [readinessScore, setReadinessScore] = useState<number | null>(null);
   const [goalLabel] = useState<string>(() => {
     const latest = loadHistory()[0]?.workout;
     return latest?.goal ? GOAL_LABELS[latest.goal] : "General fitness";
@@ -85,6 +87,21 @@ export default function AiCoachPage() {
   }, []);
 
   useEffect(() => {
+    let cancelled = false;
+    fetchCheckIns()
+      .then((checkIns) => {
+        if (cancelled) return;
+        setReadinessScore(computeReadinessScore(checkIns).score);
+      })
+      .catch(() => {
+        if (cancelled) setReadinessScore(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
     const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
@@ -98,8 +115,8 @@ export default function AiCoachPage() {
   );
 
   const profile: ChatProfile = useMemo(
-    () => ({ goalLabel, injuryLabel, providerId }),
-    [goalLabel, injuryLabel, providerId],
+    () => ({ goalLabel, injuryLabel, providerId, readiness: readinessScore }),
+    [goalLabel, injuryLabel, providerId, readinessScore],
   );
 
   const handleNew = useCallback(async () => {

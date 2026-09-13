@@ -2,9 +2,36 @@
 
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { Button } from "@/components/Button";
+import { Badge } from "@/components/Badge";
 import { Input } from "@/components/Input";
+import { DailySummary } from "@/components/nutrition/DailySummary";
+import type { ConsumedTotals } from "@/components/nutrition/DailySummary";
+import { LogEntryForm } from "@/components/nutrition/LogEntryForm";
+import type { LogResult } from "@/components/nutrition/LogEntryForm";
+import { CustomMealForm } from "@/components/nutrition/CustomMealForm";
+import type { CustomMealFormPayload } from "@/components/nutrition/CustomMealForm";
+import { MealLogList } from "@/components/nutrition/MealLogList";
 import { loadIngredientInfo } from "@/lib/wger-data";
 import type { Ingredient } from "@/lib/wger-data";
+import {
+  DEFAULT_TARGETS,
+  addCustomMeal,
+  addLogEntry,
+  computeMacros,
+  fetchDailyLog,
+  fetchNutritionTargets,
+  gramsFor,
+  mealForDate,
+  mealLabel,
+  removeLogEntry,
+  saveNutritionTargets,
+  todayLocalISO,
+  unitOptionsFor,
+  updateLogEntry,
+  type MealLogEntry,
+  type MealType,
+  type NutritionTargets,
+} from "@/lib/nutrition";
 
 const PAGE_SIZE = 20;
 
@@ -12,26 +39,140 @@ type MacroTab = "all" | "protein" | "carbs" | "fat";
 type MacroFilter = "all" | "high-protein" | "low-carb" | "keto";
 type ViewMode = "grid" | "list";
 
-function MacroBar({ protein, carbs, fat }: { protein: number; carbs: number; fat: number }) {
+interface ParsedPlanItem {
+  uid: string;
+  name: string;
+  ingredient: Ingredient | null;
+  quantity: number | null;
+  unit: string | null;
+}
+
+let planUid = 0;
+function nextPlanUid(): string {
+  planUid += 1;
+  return `plan_${Date.now()}_${planUid}`;
+}
+
+/** Best-effort match of an AI-parsed food name against the local ingredient DB. */
+function matchIngredient(name: string, list: Ingredient[]): Ingredient | null {
+  const normalized = name.toLowerCase().trim();
+  const terms = normalized.split(/\s+/).filter((term) => term.length > 1);
+  if (normalized === "") return null;
+
+  let best: Ingredient | null = null;
+  let bestScore = 0;
+
+  for (const ingredient of list) {
+    const candidate = ingredient.name.toLowerCase();
+    let score = 0;
+    if (candidate === normalized) {
+      score = 1000;
+    } else if (candidate.includes(normalized)) {
+      score = 500;
+    } else {
+      let hits = 0;
+      for (const term of terms) {
+        if (candidate.includes(term)) hits += 1;
+      }
+      if (hits === 0) continue;
+      score = hits * 100;
+      if (candidate.startsWith(terms[hits - 1] ?? "")) score += 20;
+    }
+    if (score > bestScore) {
+      bestScore = score;
+      best = ingredient;
+    }
+  }
+
+  return best;
+}
+
+function resolveParsedUnit(
+  raw: string | null | undefined,
+  ingredient: Ingredient,
+): string {
+  const options = unitOptionsFor(ingredient);
+  if (!raw) return options[0]?.value ?? "g";
+  const unit = raw.toLowerCase().replace(/s$/, "");
+
+  if (unit === "g" || unit === "gram") return "g";
+  if (unit === "oz" || unit === "ounce") return "oz";
+
+  const weight = ingredient.weight_units.find((wu) =>
+    wu.name
+      .toLowerCase()
+      .replace(/^1\s*/, "")
+      .replace(/s$/, "")
+      .startsWith(unit),
+  );
+  if (weight) return `wu_${weight.id}`;
+
+  const option = options.find((o) =>
+    o.label
+      .toLowerCase()
+      .replace(/^1\s*/, "")
+      .replace(/s$/, "")
+      .startsWith(unit),
+  );
+  return option?.value ?? options[0]?.value ?? "g";
+}
+
+function MacroBar({
+  protein,
+  carbs,
+  fat,
+  fiber,
+}: {
+  protein: number;
+  carbs: number;
+  fat: number;
+  fiber?: number;
+}) {
   const total = protein * 4 + carbs * 4 + fat * 9;
-  if (total === 0) return <div className="h-2 w-full rounded-full bg-muted" />;
+  const fiberValid = fiber != null && Number.isFinite(fiber);
+
+  if (total === 0) {
+    return (
+      <div
+        className="group/bar relative flex h-2 w-full overflow-hidden rounded-full bg-muted"
+        title={fiberValid ? `Fiber ${fiber.toFixed(1)}g` : undefined}
+      >
+        {fiberValid && fiber > 0 && (
+          <div className="bg-[#c72a21]" style={{ width: "100%" }} />
+        )}
+      </div>
+    );
+  }
 
   const proteinPct = (protein * 4 / total) * 100;
   const carbsPct = (carbs * 4 / total) * 100;
   const fatPct = (fat * 9 / total) * 100;
+  const fiberPct =
+    fiberValid && fiber > 0 ? Math.min(fiber / 30, 1) * 22 : 0;
+  const scale = (100 - fiberPct) / 100;
+  const fiberLabel = fiberValid ? ` · Fiber ${fiber.toFixed(1)}g` : "";
 
   return (
     <div
       className="group/bar relative flex h-2 w-full overflow-hidden rounded-full bg-muted"
-      title={`Protein ${proteinPct.toFixed(0)}% · Carbs ${carbsPct.toFixed(0)}% · Fat ${fatPct.toFixed(0)}%`}
+      title={`Protein ${proteinPct.toFixed(0)}% · Carbs ${carbsPct.toFixed(0)}% · Fat ${fatPct.toFixed(0)}%${fiberLabel}`}
     >
-      <div className="bg-[#6366f1] transition-all duration-500" style={{ width: `${proteinPct}%` }} />
-      <div className="bg-[#10b981] transition-all duration-500" style={{ width: `${carbsPct}%` }} />
-      <div className="bg-[#f59e0b] transition-all duration-500" style={{ width: `${fatPct}%` }} />
+      <div className="bg-[#6366f1] transition-all duration-500" style={{ width: `${proteinPct * scale}%` }} />
+      <div className="bg-[#10b981] transition-all duration-500" style={{ width: `${carbsPct * scale}%` }} />
+      <div className="bg-[#f59e0b] transition-all duration-500" style={{ width: `${fatPct * scale}%` }} />
+      {fiberValid && fiber > 0 && (
+        <div
+          className="bg-[#c72a21] transition-all duration-500"
+          style={{ width: `${fiberPct}%` }}
+        />
+      )}
       <span className="pointer-events-none absolute inset-0 hidden items-center justify-between px-1 text-[9px] font-semibold text-white group-hover/bar:flex">
         <span>P {proteinPct.toFixed(0)}%</span>
         <span>C {carbsPct.toFixed(0)}%</span>
         <span>F {fatPct.toFixed(0)}%</span>
+        {fiberValid && fiber > 0 && (
+          <span>Fi {fiber.toFixed(1)}g</span>
+        )}
       </span>
     </div>
   );
@@ -50,105 +191,252 @@ function MacroPill({ label, value, color }: { label: string; value: string; colo
 function IngredientCard({
   ingredient,
   onSelect,
+  onLog,
 }: {
   ingredient: Ingredient;
   onSelect: () => void;
+  onLog: (ingredient: Ingredient, result: LogResult) => Promise<MealLogEntry | null>;
 }) {
   const protein = parseFloat(ingredient.protein);
   const carbs = parseFloat(ingredient.carbohydrates);
   const fat = parseFloat(ingredient.fat);
   const fiber = parseFloat(ingredient.fiber);
+  const [expanded, setExpanded] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [justLogged, setJustLogged] = useState(false);
+
+  const handleLog = async (result: LogResult) => {
+    setBusy(true);
+    try {
+      const entry = await onLog(ingredient, result);
+      if (!entry) return;
+      setJustLogged(true);
+      setExpanded(false);
+      setTimeout(() => setJustLogged(false), 2000);
+    } finally {
+      setBusy(false);
+    }
+  };
 
   return (
-    <button
-      type="button"
-      onClick={onSelect}
-      className="group w-full overflow-hidden rounded-2xl border border-border bg-card text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
-    >
-      <div className="p-3">
-        <div className="flex items-start justify-between gap-2">
-          <div className="min-w-0 flex-1">
-            <h3 className="truncate text-sm font-semibold leading-snug">{ingredient.name}</h3>
-            {ingredient.brand && (
-              <p className="mt-0.5 truncate text-[11px] text-muted-foreground">{ingredient.brand}</p>
+    <div className="group flex w-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md">
+      <button
+        type="button"
+        onClick={onSelect}
+        className="flex-1 cursor-pointer text-left"
+      >
+        <div className="p-3">
+          <div className="flex items-start justify-between gap-2">
+            <div className="min-w-0 flex-1">
+              <h3 className="truncate text-sm font-semibold leading-snug">{ingredient.name}</h3>
+              {ingredient.brand && (
+                <p className="mt-0.5 truncate text-[11px] text-muted-foreground">{ingredient.brand}</p>
+              )}
+            </div>
+            <span className="shrink-0 rounded-full bg-secondary px-2 py-0.5 text-[11px] font-bold text-secondary-foreground">
+              {ingredient.energy} kcal
+            </span>
+          </div>
+
+          <div className="mt-2.5 grid grid-cols-4 gap-1.5 text-center">
+            <div className="rounded-lg bg-[#6366f1]/12 px-1 py-1.5">
+              <p className="text-[10px] text-muted-foreground">Protein</p>
+              <p className="mt-0.5 text-xs font-bold text-[#6366f1]">{protein.toFixed(1)}g</p>
+            </div>
+            <div className="rounded-lg bg-[#10b981]/12 px-1 py-1.5">
+              <p className="text-[10px] text-muted-foreground">Carbs</p>
+              <p className="mt-0.5 text-xs font-bold text-[#10b981]">{carbs.toFixed(1)}g</p>
+            </div>
+            <div className="rounded-lg bg-[#f59e0b]/12 px-1 py-1.5">
+              <p className="text-[10px] text-muted-foreground">Fat</p>
+              <p className="mt-0.5 text-xs font-bold text-[#f59e0b]">{fat.toFixed(1)}g</p>
+            </div>
+            <div className="rounded-lg bg-[#c72a21]/12 px-1 py-1.5">
+              <p className="text-[10px] text-muted-foreground">Fiber</p>
+              <p className="mt-0.5 text-xs font-bold text-[#c72a21]">{fiber.toFixed(1)}g</p>
+            </div>
+          </div>
+
+          <div className="mt-2">
+            <MacroBar protein={protein} carbs={carbs} fat={fat} fiber={fiber} />
+          </div>
+        </div>
+      </button>
+
+      <div className="border-t border-border/60 p-3">
+        {expanded ? (
+          <LogEntryForm
+            ingredient={ingredient}
+            defaultMealType={mealForDate(new Date())}
+            busy={busy}
+            onLog={handleLog}
+            onCancel={() => setExpanded(false)}
+          />
+        ) : (
+          <button
+            type="button"
+            onClick={() => setExpanded(true)}
+            className={`inline-flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors ${
+              justLogged
+                ? "border-success/40 bg-success/10 text-success"
+                : "border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
+            }`}
+          >
+            {justLogged ? (
+              <>✓ Logged · add more</>
+            ) : (
+              <>＋ Add to log</>
             )}
-          </div>
-          <span className="shrink-0 rounded-full bg-secondary px-2 py-0.5 text-[11px] font-bold text-secondary-foreground">
-            {ingredient.energy} kcal
-          </span>
-        </div>
-
-        <div className="mt-2.5 grid grid-cols-4 gap-1.5 text-center">
-          <div className="rounded-lg bg-muted/60 px-1 py-1.5">
-            <p className="text-[10px] text-muted-foreground">Protein</p>
-            <p className="mt-0.5 text-xs font-bold">{protein.toFixed(1)}g</p>
-          </div>
-          <div className="rounded-lg bg-muted/60 px-1 py-1.5">
-            <p className="text-[10px] text-muted-foreground">Carbs</p>
-            <p className="mt-0.5 text-xs font-bold">{carbs.toFixed(1)}g</p>
-          </div>
-          <div className="rounded-lg bg-muted/60 px-1 py-1.5">
-            <p className="text-[10px] text-muted-foreground">Fat</p>
-            <p className="mt-0.5 text-xs font-bold">{fat.toFixed(1)}g</p>
-          </div>
-          <div className="rounded-lg bg-muted/60 px-1 py-1.5">
-            <p className="text-[10px] text-muted-foreground">Fiber</p>
-            <p className="mt-0.5 text-xs font-bold">{fiber.toFixed(1)}g</p>
-          </div>
-        </div>
-
-        <div className="mt-2">
-          <MacroBar protein={protein} carbs={carbs} fat={fat} />
-        </div>
+          </button>
+        )}
       </div>
-    </button>
+    </div>
   );
 }
 
 function CompactIngredientRow({
   ingredient,
   onSelect,
+  onLog,
 }: {
   ingredient: Ingredient;
   onSelect: () => void;
+  onLog: (ingredient: Ingredient, result: LogResult) => Promise<MealLogEntry | null>;
 }) {
   const protein = parseFloat(ingredient.protein);
   const carbs = parseFloat(ingredient.carbohydrates);
   const fat = parseFloat(ingredient.fat);
+  const fiber = parseFloat(ingredient.fiber);
+  const [expanded, setExpanded] = useState(false);
+  const [busy, setBusy] = useState(false);
+
+  const handleLog = async (result: LogResult) => {
+    setBusy(true);
+    try {
+      const entry = await onLog(ingredient, result);
+      if (!entry) return;
+      setExpanded(false);
+    } finally {
+      setBusy(false);
+    }
+  };
 
   return (
-    <button
-      type="button"
-      onClick={onSelect}
-      className="group w-full border-b border-border bg-card text-left transition-colors last:border-b-0 hover:bg-muted/50"
-    >
-      <div className="flex items-center gap-4 px-4 py-3">
-        <div className="min-w-0 flex-1">
-          <h3 className="truncate text-sm font-semibold">{ingredient.name}</h3>
-          {ingredient.brand && (
-            <p className="mt-0.5 truncate text-[11px] text-muted-foreground">{ingredient.brand}</p>
+    <div className="group w-full border-b border-border bg-card transition-colors last:border-b-0">
+      <div className="flex items-center gap-4 px-4 py-2.5">
+        <button
+          type="button"
+          onClick={onSelect}
+          className="flex min-w-0 flex-1 cursor-pointer items-center gap-4 text-left hover:bg-muted/40"
+        >
+          <div className="min-w-0 flex-1">
+            <h3 className="truncate text-sm font-semibold">{ingredient.name}</h3>
+            {ingredient.brand && (
+              <p className="mt-0.5 truncate text-[11px] text-muted-foreground">{ingredient.brand}</p>
+            )}
+          </div>
+          <div className="hidden w-20 shrink-0 items-center gap-1.5 sm:flex">
+            <span className="h-2 w-2 shrink-0 rounded-full bg-[#6366f1]" />
+            <span className="text-xs tabular-nums text-muted-foreground">{protein.toFixed(1)}g</span>
+          </div>
+          <div className="hidden w-20 shrink-0 items-center gap-1.5 sm:flex">
+            <span className="h-2 w-2 shrink-0 rounded-full bg-[#10b981]" />
+            <span className="text-xs tabular-nums text-muted-foreground">{carbs.toFixed(1)}g</span>
+          </div>
+          <div className="hidden w-20 shrink-0 items-center gap-1.5 sm:flex">
+            <span className="h-2 w-2 shrink-0 rounded-full bg-[#f59e0b]" />
+            <span className="text-xs tabular-nums text-muted-foreground">{fat.toFixed(1)}g</span>
+          </div>
+          <div
+            className="hidden w-20 shrink-0 items-center gap-1.5 sm:flex"
+            title={`Fiber ${fiber.toFixed(1)}g`}
+          >
+            <span className="h-2 w-2 shrink-0 rounded-full bg-[#c72a21]" />
+            <span className="text-xs tabular-nums text-[#c72a21]">{fiber.toFixed(1)}g</span>
+          </div>
+          <div className="hidden w-24 shrink-0 md:block">
+            <MacroBar protein={protein} carbs={carbs} fat={fat} fiber={fiber} />
+          </div>
+          <span className="shrink-0 rounded-full bg-secondary px-2 py-0.5 text-[11px] font-bold text-secondary-foreground">
+            {ingredient.energy} kcal
+          </span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setExpanded((v) => !v)}
+          aria-expanded={expanded}
+          aria-label={`Add ${ingredient.name} to today's log`}
+          className="grid h-8 w-8 shrink-0 cursor-pointer place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
+        >
+          {expanded ? (
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
+              <path d="M18 6 6 18" />
+              <path d="m6 6 12 12" />
+            </svg>
+          ) : (
+            <span className="text-sm font-bold leading-none">＋</span>
           )}
-        </div>
-        <div className="hidden w-20 shrink-0 items-center gap-1.5 sm:flex">
-          <span className="h-2 w-2 shrink-0 rounded-full bg-[#6366f1]" />
-          <span className="text-xs tabular-nums text-muted-foreground">{protein.toFixed(1)}g</span>
-        </div>
-        <div className="hidden w-20 shrink-0 items-center gap-1.5 sm:flex">
-          <span className="h-2 w-2 shrink-0 rounded-full bg-[#10b981]" />
-          <span className="text-xs tabular-nums text-muted-foreground">{carbs.toFixed(1)}g</span>
-        </div>
-        <div className="hidden w-20 shrink-0 items-center gap-1.5 sm:flex">
-          <span className="h-2 w-2 shrink-0 rounded-full bg-[#f59e0b]" />
-          <span className="text-xs tabular-nums text-muted-foreground">{fat.toFixed(1)}g</span>
-        </div>
-        <div className="hidden w-24 shrink-0 md:block">
-          <MacroBar protein={protein} carbs={carbs} fat={fat} />
-        </div>
-        <span className="shrink-0 rounded-full bg-secondary px-2 py-0.5 text-[11px] font-bold text-secondary-foreground">
-          {ingredient.energy} kcal
-        </span>
+        </button>
       </div>
-    </button>
+      {expanded && (
+        <div className="border-t border-border bg-muted/20 px-4 py-3">
+          <LogEntryForm
+            ingredient={ingredient}
+            defaultMealType={mealForDate(new Date())}
+            busy={busy}
+            onLog={handleLog}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function IngredientLookup({
+  ingredients,
+  onPick,
+}: {
+  ingredients: Ingredient[];
+  onPick: (ingredient: Ingredient) => void;
+}) {
+  const [text, setText] = useState("");
+
+  const matches = useMemo(() => {
+    const query = text.trim().toLowerCase();
+    if (!query) return [];
+    return ingredients
+      .filter((ingredient) => ingredient.name.toLowerCase().includes(query))
+      .slice(0, 6);
+  }, [text, ingredients]);
+
+  return (
+    <div className="w-full">
+      <Input
+        label="Pick the right ingredient"
+        placeholder="Search the database…"
+        value={text}
+        autoFocus
+        onChange={(e) => setText(e.target.value)}
+        className="h-9"
+      />
+      {matches.length > 0 && (
+        <div className="mt-2 flex max-h-40 flex-col gap-1 overflow-y-auto">
+          {matches.map((ingredient) => (
+            <button
+              key={ingredient.id}
+              type="button"
+              onClick={() => onPick(ingredient)}
+              className="cursor-pointer rounded-lg border border-border bg-card px-3 py-1.5 text-left text-sm text-foreground transition-colors hover:border-primary/40 hover:bg-muted"
+            >
+              <span className="font-medium">{ingredient.name}</span>
+              <span className="ml-2 text-xs text-muted-foreground">
+                {ingredient.energy} kcal
+              </span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -177,7 +465,7 @@ function IngredientDetail({ ingredient }: { ingredient: Ingredient }) {
       </div>
 
       <div className="mx-5 mb-6 sm:mx-6">
-        <MacroBar protein={protein} carbs={carbs} fat={fat} />
+        <MacroBar protein={protein} carbs={carbs} fat={fat} fiber={fiber} />
         <div className="mt-3 flex flex-wrap gap-4">
           <MacroPill label="Protein" value={protein.toFixed(1)} color="bg-[#6366f1]" />
           <MacroPill label="Carbs" value={carbs.toFixed(1)} color="bg-[#10b981]" />
@@ -196,7 +484,7 @@ function IngredientDetail({ ingredient }: { ingredient: Ingredient }) {
                 { label: "Protein", value: protein, max: 50, color: "bg-[#6366f1]" },
                 { label: "Carbohydrates", value: carbs, max: 100, color: "bg-[#10b981]" },
                 { label: "Fat", value: fat, max: 100, color: "bg-[#f59e0b]" },
-                { label: "Fiber", value: fiber, max: 30, color: "bg-[#22c55e]" },
+                { label: "Fiber", value: fiber, max: 30, color: "bg-[#c72a21]" },
               ].map((item) => (
                 <div key={item.label}>
                   <div className="flex items-center justify-between text-sm">
@@ -206,7 +494,7 @@ function IngredientDetail({ ingredient }: { ingredient: Ingredient }) {
                   <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-muted">
                     <div
                       className={`h-full rounded-full transition-all duration-500 ${item.color}`}
-                      style={{ width: `${Math.min((item.value / item.max) * 100, 100)}%` }}
+                      style={{ width: `${item.value > 0 ? Math.min(Math.max((item.value / item.max) * 100, 4), 100) : 0}%` }}
                     />
                   </div>
                 </div>
@@ -344,11 +632,18 @@ export default function NutritionPage() {
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
   const [macroFilter, setMacroFilter] = useState<MacroFilter>("all");
   const [aiMode, setAiMode] = useState(false);
+  const [customMode, setCustomMode] = useState(false);
   const [aiInput, setAiInput] = useState("");
   const [aiParsing, setAiParsing] = useState(false);
   const [aiError, setAiError] = useState<string | null>(null);
   const [aiToast, setAiToast] = useState<string | null>(null);
   const aiToastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [dailyEntries, setDailyEntries] = useState<MealLogEntry[]>([]);
+  const [targets, setTargets] = useState<NutritionTargets | null>(null);
+  const [logLoadError, setLogLoadError] = useState<string | null>(null);
+  const [parsedPlan, setParsedPlan] = useState<ParsedPlanItem[] | null>(null);
+  const [planBusy, setPlanBusy] = useState(false);
 
   const triggerResultFlash = useCallback(() => {
     setResultFlash(true);
@@ -374,6 +669,223 @@ export default function NutritionPage() {
     aiToastTimerRef.current = setTimeout(() => setAiToast(null), 3000);
   }, []);
 
+  const consumed: ConsumedTotals = useMemo(
+    () =>
+      dailyEntries.reduce<ConsumedTotals>(
+        (acc, entry) => ({
+          kcal: acc.kcal + Number(entry.kcal) || 0,
+          protein: acc.protein + Number(entry.protein) || 0,
+          carbs: acc.carbs + Number(entry.carbs) || 0,
+          fat: acc.fat + Number(entry.fat) || 0,
+        }),
+        { kcal: 0, protein: 0, carbs: 0, fat: 0 },
+      ),
+    [dailyEntries],
+  );
+
+  useEffect(() => {
+    let cancelled = false;
+    const date = todayLocalISO();
+
+    fetchDailyLog(date)
+      .then((log) => {
+        if (cancelled) return;
+        setDailyEntries(log.entries);
+      })
+      .catch((err) => {
+        if (cancelled) return;
+        setLogLoadError(
+          err instanceof Error ? err.message : "Could not load today's food log.",
+        );
+      });
+
+    fetchNutritionTargets()
+      .then((next) => {
+        if (!cancelled) setTargets(next);
+      })
+      .catch(() => {
+        if (!cancelled) setTargets(DEFAULT_TARGETS);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const handleLogEntry = useCallback(
+    async (
+      ingredient: Ingredient,
+      result: LogResult,
+): Promise<MealLogEntry | null> => {
+      try {
+        const date = todayLocalISO();
+        const entry = await addLogEntry({
+          date,
+          ingredientId: ingredient.id,
+          ingredientName: ingredient.name,
+          quantity: result.quantity,
+          unit: result.unit,
+          mealType: result.mealType,
+          kcal: result.macros.kcal,
+          protein: result.macros.protein,
+          carbs: result.macros.carbs,
+          fat: result.macros.fat,
+        });
+        setDailyEntries((prev) => [...prev, entry]);
+        showToast(`Logged ${ingredient.name} to ${mealLabel(result.mealType)}`);
+        return entry;
+      } catch (err) {
+        showToast(err instanceof Error ? err.message : "Could not log that item.");
+        return null;
+      }
+    },
+    [showToast],
+  );
+
+  const handleUpdateEntry = useCallback(
+    async (
+      id: string,
+      patch: {
+        quantity?: number;
+        unit?: string;
+        mealType?: MealType;
+        kcal?: number;
+        protein?: number;
+        carbs?: number;
+        fat?: number;
+      },
+    ) => {
+      try {
+        const updated = await updateLogEntry(id, patch);
+        setDailyEntries((prev) =>
+          prev.map((entry) => (entry.id === id ? updated : entry)),
+        );
+      } catch (err) {
+        showToast(err instanceof Error ? err.message : "Could not update that entry.");
+      }
+    },
+    [showToast],
+  );
+
+  const handleDeleteEntry = useCallback(
+    async (id: string) => {
+      try {
+        await removeLogEntry(id);
+        setDailyEntries((prev) => prev.filter((entry) => entry.id !== id));
+        showToast("Entry removed from today's log.");
+      } catch (err) {
+        showToast(err instanceof Error ? err.message : "Could not delete that entry.");
+      }
+    },
+    [showToast],
+  );
+
+  const handleSaveTargets = useCallback(
+    async (next: NutritionTargets) => {
+      try {
+        const saved = await saveNutritionTargets(next);
+        setTargets(saved);
+        showToast("Daily nutrition targets updated.");
+      } catch (err) {
+        showToast(err instanceof Error ? err.message : "Could not save targets.");
+      }
+    },
+    [showToast],
+  );
+
+  const handleCustomMeal = useCallback(
+    async (payload: CustomMealFormPayload) => {
+      try {
+        const entry = await addCustomMeal({
+          date: todayLocalISO(),
+          name: payload.name,
+          mealType: payload.mealType,
+          kcal: payload.kcal,
+          protein: payload.protein,
+          carbs: payload.carbs,
+          fat: payload.fat,
+        });
+        setDailyEntries((prev) => [...prev, entry]);
+        setCustomMode(false);
+        showToast(`Logged ${payload.name} as a custom meal.`);
+      } catch (err) {
+        showToast(
+          err instanceof Error ? err.message : "Could not log that custom meal.",
+        );
+      }
+    },
+    [showToast],
+  );
+
+  const assignPlanIngredient = useCallback(
+    (uid: string, ingredient: Ingredient) => {
+      setParsedPlan((prev) =>
+        prev
+          ? prev.map((item) =>
+              item.uid === uid
+                ? {
+                    ...item,
+                    ingredient,
+                    unit: unitOptionsFor(ingredient)[0]?.value ?? "g",
+                  }
+                : item,
+            )
+          : prev,
+      );
+    },
+    [],
+  );
+
+  const logParsedPlanItem = useCallback(
+    async (item: ParsedPlanItem, result: LogResult) => {
+      if (!item.ingredient) return;
+      setPlanBusy(true);
+      try {
+        const entry = await handleLogEntry(item.ingredient, result);
+        if (entry) {
+          setParsedPlan((prev) =>
+            prev ? prev.filter((planItem) => planItem.uid !== item.uid) : prev,
+          );
+        }
+      } finally {
+        setPlanBusy(false);
+      }
+    },
+    [handleLogEntry],
+  );
+
+  const logAllParsed = useCallback(async () => {
+    if (!parsedPlan) return;
+    const ready = parsedPlan.filter(
+      (item) =>
+        item.ingredient != null && item.quantity != null && item.quantity > 0,
+    );
+    if (ready.length === 0) return;
+    setPlanBusy(true);
+    try {
+      for (const item of ready) {
+        const ingredient = item.ingredient as Ingredient;
+        const unit = item.unit ?? unitOptionsFor(ingredient)[0]?.value ?? "g";
+        const unitOption = unitOptionsFor(ingredient).find((o) => o.value === unit);
+        const grams = gramsFor(item.quantity as number, unitOption ?? unitOptionsFor(ingredient)[0]);
+        const macros = computeMacros(ingredient, grams);
+        const entry = await handleLogEntry(ingredient, {
+          quantity: item.quantity as number,
+          unit,
+          mealType: mealForDate(new Date()),
+          macros,
+        });
+        if (entry) {
+          setParsedPlan((prev) =>
+            prev ? prev.filter((planItem) => planItem.uid !== item.uid) : prev,
+          );
+        }
+      }
+    } finally {
+      setPlanBusy(false);
+    }
+  }, [parsedPlan, handleLogEntry]);
+
   const parseMealWithAI = async () => {
     const text = aiInput.trim();
     if (!text) return;
@@ -389,19 +901,44 @@ export default function NutritionPage() {
         const err = await res.json().catch(() => ({}));
         throw new Error(err.error || `API error: ${res.status}`);
       }
-      const data: { items: { name: string }[] } = await res.json();
-      const names = (data.items || []).map((item) => item.name);
-      if (names.length === 0) {
+      const data: {
+        items: { name?: string; quantity?: number | null; unit?: string | null }[];
+      } = await res.json();
+      const rawItems = (data.items || []).filter(
+        (item) =>
+          typeof item?.name === "string" && item.name.trim() !== "",
+      );
+      if (rawItems.length === 0) {
         setAiError("No ingredients could be parsed from that text.");
         return;
       }
-      setQuery(names.join(","));
-      setDebouncedQuery(names.join(","));
-      setVisibleCount(PAGE_SIZE);
-      setAiMode(false);
+
+      const plan: ParsedPlanItem[] = rawItems.map((item) => {
+        const name = item.name as string;
+        const ingredient = matchIngredient(name, allIngredients);
+        const quantity =
+          typeof item.quantity === "number" && item.quantity > 0
+            ? item.quantity
+            : null;
+        const unit = ingredient ? resolveParsedUnit(item.unit, ingredient) : null;
+        return { uid: nextPlanUid(), name, ingredient, quantity, unit };
+      });
+
+      const matched = plan.filter((item) => item.ingredient).length;
+      const ambiguous = plan.filter(
+        (item) => item.ingredient && item.quantity == null,
+      ).length;
+
+      setParsedPlan(plan);
       setAiInput("");
       showToast(
-        `Found ${names.length} ingredient${names.length > 1 ? "s" : ""}: ${names.slice(0, 3).join(", ")}${names.length > 3 ? "…" : ""}`,
+        `Parsed ${plan.length} item${plan.length > 1 ? "s" : ""}${
+          matched === plan.length ? "" : ` — ${plan.length - matched} need a match`
+        }${
+          ambiguous > 0
+            ? ` · ${ambiguous} need${ambiguous > 1 ? "" : "s"} a quantity`
+            : ""
+        }`,
       );
     } catch (err) {
       setAiError(err instanceof Error ? err.message : "Failed to parse meal");
@@ -475,6 +1012,21 @@ export default function NutritionPage() {
         );
   }, [debouncedQuery, allIngredients]);
 
+  const ingredientsById = useMemo(() => {
+    const map: Record<number, Ingredient> = {};
+    for (const ingredient of allIngredients) map[ingredient.id] = ingredient;
+    return map;
+  }, [allIngredients]);
+
+  const readyCount = useMemo(
+    () =>
+      parsedPlan?.filter(
+        (item) =>
+          item.ingredient != null && item.quantity != null && item.quantity > 0,
+      ).length ?? 0,
+    [parsedPlan],
+  );
+
   useEffect(() => {
     if (debouncedQuery === "") return;
     const timer = setTimeout(() => {
@@ -532,53 +1084,119 @@ export default function NutritionPage() {
   }, [hasMore, showMore]);
 
   return (
-    <div className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
+    <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
       <div className="text-center">
-        <h1 className="font-display text-4xl font-bold tracking-tight sm:text-6xl">
-          Nutrition Lookup
+        <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl">
+          Nutrition
         </h1>
-        <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
-          Search thousands of ingredients to view detailed nutritional information.
-          All values are per 100g serving.
+        <p className="mx-auto mt-3 max-w-xl text-base text-muted-foreground sm:text-lg">
+          Log meals, track your daily totals against your targets, and search
+          thousands of ingredients for detailed nutritional info.
         </p>
       </div>
 
+      {/* Daily summary */}
+      {!loading && (
+        <div className="mx-auto mt-8 max-w-6xl">
+          <DailySummary
+            consumed={consumed}
+            targets={targets}
+            onSaveTargets={handleSaveTargets}
+          />
+        </div>
+      )}
+
+      {/* Today's log */}
+      <div className="mx-auto mt-6 max-w-6xl">
+        <MealLogList
+          entries={dailyEntries}
+          ingredientsById={ingredientsById}
+          onUpdate={handleUpdateEntry}
+          onDelete={handleDeleteEntry}
+        />
+        {logLoadError && (
+          <div className="mt-4 rounded-xl border border-warning/30 bg-warning/10 px-5 py-3 text-center text-sm text-warning">
+            {logLoadError}
+          </div>
+        )}
+      </div>
+
       {/* Search + sort */}
-      <div className="mx-auto mt-10 max-w-6xl rounded-2xl border border-border bg-card shadow-sm">
+      <div className="mx-auto mt-8 max-w-6xl rounded-2xl border border-border bg-card shadow-sm">
         <div className="p-5 sm:p-6">
           <div className="flex flex-col gap-2">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <p className="text-sm font-medium text-foreground">Search Ingredients</p>
-              <button
-                type="button"
-                onClick={() => {
-                  setAiMode((v) => !v);
-                  setAiError(null);
-                }}
-                className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
-                  aiMode
-                    ? "bg-primary text-primary-foreground"
-                    : "border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
-                }`}
-              >
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCustomMode(false);
+                    setAiMode((v) => !v);
+                    setAiError(null);
+                  }}
+                  className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
+                    aiMode
+                      ? "bg-primary text-primary-foreground"
+                      : "border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                  }`}
                 >
-                  <path d="M12 2 15.09 8.26 22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z" />
-                </svg>
-                AI Meal Parser
-              </button>
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 2 15.09 8.26 22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z" />
+                  </svg>
+                  AI Meal Parser
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setAiMode(false);
+                    setAiError(null);
+                    setCustomMode((v) => !v);
+                  }}
+                  className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
+                    customMode
+                      ? "bg-primary text-primary-foreground"
+                      : "border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                  }`}
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 5v14" />
+                    <path d="M5 12h14" />
+                  </svg>
+                  Custom meal
+                </button>
+              </div>
             </div>
 
-            {aiMode ? (
+            {customMode ? (
+              <div className="rounded-xl border border-border bg-muted/30 p-3 sm:p-4">
+                <CustomMealForm
+                  defaultMealType={mealForDate(new Date())}
+                  onSubmit={handleCustomMeal}
+                  onCancel={() => setCustomMode(false)}
+                />
+              </div>
+            ) : aiMode ? (
               <div className="flex flex-col gap-2">
                 <div className="flex items-end gap-2">
                   <Input
@@ -643,7 +1261,7 @@ export default function NutritionPage() {
           </div>
         )}
 
-        {filtersOpen && !aiMode && (
+        {filtersOpen && !aiMode && !customMode && (
           <div className="border-t border-border p-5 pt-5 sm:px-6 sm:pb-6">
             <div className="space-y-6">
               {/* Macro target filter */}
@@ -723,6 +1341,92 @@ export default function NutritionPage() {
           </div>
         )}
       </div>
+
+      {/* AI parsed meal plan */}
+      {parsedPlan && parsedPlan.length > 0 && (
+        <div className="mx-auto mt-6 max-w-6xl rounded-2xl border border-border bg-card shadow-sm">
+          <div className="p-5 sm:p-6">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h2 className="font-display text-lg font-bold">
+                  Parsed meal <span className="text-muted-foreground">— confirm before logging</span>
+                </h2>
+                <p className="mt-0.5 text-sm text-muted-foreground">
+                  Items flagged as needing a quantity or an ingredient match must be fixed before they can be logged.
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setParsedPlan(null)}
+                  disabled={planBusy}
+                >
+                  Clear
+                </Button>
+                <Button
+                  size="sm"
+                  disabled={planBusy || readyCount === 0}
+                  onClick={() => void logAllParsed()}
+                >
+                  {planBusy ? "Logging…" : `Log all (${readyCount})`}
+                </Button>
+              </div>
+            </div>
+
+            <div className="mt-4 space-y-3">
+              {parsedPlan.map((item) => (
+                <div
+                  key={item.uid}
+                  className="rounded-xl border border-border bg-muted/30 p-3"
+                >
+                  {item.ingredient ? (
+                    <>
+                      <div className="mb-2 flex flex-wrap items-center gap-2">
+                        <Badge variant="success">✓ Matched</Badge>
+                        <p className="truncate text-sm font-semibold text-foreground">
+                          {item.ingredient.name}
+                        </p>
+                        {item.quantity == null && (
+                          <span className="inline-flex items-center rounded-full border border-warning/40 bg-warning/10 px-2.5 py-0.5 text-xs font-medium text-warning">
+                            ⚠ Quantity needed
+                          </span>
+                        )}
+                        {item.quantity != null && (
+                          <span className="inline-flex items-center rounded-full border border-border bg-card px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
+                            {item.quantity} {item.unit}
+                          </span>
+                        )}
+                      </div>
+                      <LogEntryForm
+                        ingredient={item.ingredient}
+                        defaultQuantity={item.quantity}
+                        defaultUnit={item.unit ?? undefined}
+                        autoFocusQuantity={item.quantity == null}
+                        requireQuantity
+                        busy={planBusy}
+                        onLog={(result) => logParsedPlanItem(item, result)}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <p className="mb-2 text-sm font-semibold text-foreground">
+                        No match found for “{item.name}”
+                      </p>
+                      <IngredientLookup
+                        ingredients={allIngredients}
+                        onPick={(ingredient) =>
+                          assignPlanIngredient(item.uid, ingredient)
+                        }
+                      />
+                    </>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {error && (
         <div className="mx-auto mt-6 max-w-6xl rounded-xl border border-danger/30 bg-danger/10 px-5 py-4 text-center text-sm text-danger">
@@ -827,6 +1531,7 @@ export default function NutritionPage() {
                   key={ingredient.id}
                   ingredient={ingredient}
                   onSelect={() => setSelectedIngredient(ingredient)}
+                  onLog={handleLogEntry}
                 />
               ))}
             </div>
@@ -837,6 +1542,7 @@ export default function NutritionPage() {
                 <div className="hidden w-20 shrink-0 sm:block">Protein</div>
                 <div className="hidden w-20 shrink-0 sm:block">Carbs</div>
                 <div className="hidden w-20 shrink-0 sm:block">Fat</div>
+                <div className="hidden w-20 shrink-0 sm:block">Fiber</div>
                 <div className="hidden w-24 shrink-0 md:block">Calorie Split</div>
                 <div className="w-16 shrink-0 text-right">Energy</div>
               </div>
@@ -845,6 +1551,7 @@ export default function NutritionPage() {
                   key={ingredient.id}
                   ingredient={ingredient}
                   onSelect={() => setSelectedIngredient(ingredient)}
+                  onLog={handleLogEntry}
                 />
               ))}
             </div>

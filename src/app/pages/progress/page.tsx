@@ -4,6 +4,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Badge } from "@/components/Badge";
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
+import { RecoveryCard } from "@/components/progress/RecoveryCard";
+import { WearableCard } from "@/components/progress/WearableCard";
 import {
   fetchGoals,
   createGoal,
@@ -191,25 +193,25 @@ function CalendarHeatmap({ workoutDays }: { workoutDays: string[] }) {
         </div>
       </div>
 
-      <div className="flex gap-1">
+      <div className="flex gap-0.5">
         {dayLabels.map((label, i) => (
           <div
             key={i}
-            className="flex h-6 w-6 items-center justify-center text-[10px] text-muted-foreground"
+            className="flex h-5 w-5 items-center justify-center text-[10px] text-muted-foreground"
           >
             {label}
           </div>
         ))}
       </div>
       {weeks.map((row, wi) => (
-        <div key={wi} className="flex gap-1">
+        <div key={wi} className="flex gap-0.5">
           {row.map((key, i) => {
-            if (key === null) return <div key={i} className="h-6 w-6" />;
+            if (key === null) return <div key={i} className="h-5 w-5" />;
             const dayNumber = Number(key.slice(8));
             const hasWorkout = workoutDays.includes(key);
             const isToday = key === todayKey;
             const isFuture = key > todayKey;
-            const className = `flex h-6 w-6 items-center justify-center rounded-sm text-[10px] transition-colors ${
+            const className = `flex h-5 w-5 items-center justify-center rounded-sm text-[10px] transition-colors ${
               isFuture
                 ? "bg-transparent text-muted-foreground/30"
                 : hasWorkout
@@ -250,7 +252,7 @@ function InsightRow({
   value: string;
 }) {
   return (
-    <li className="flex items-center justify-between gap-3 rounded-xl bg-muted/70 px-3 py-2.5">
+    <li className="flex items-center justify-between gap-3 rounded-xl bg-muted/70 px-3 py-2">
       <span className="flex items-center gap-2 text-sm text-muted-foreground">
         <span className="text-base" aria-hidden="true">
           {icon}
@@ -856,8 +858,8 @@ export default function ProgressPage() {
               </KPICard>
             </div>
 
-            <div className="mt-6 grid items-start gap-4 lg:grid-cols-5">
-              <div className="lg:col-span-3 rounded-2xl border border-border bg-card p-5 shadow-sm">
+            <div className="mt-6 grid items-stretch gap-4 lg:grid-cols-2">
+              <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
                 <div className="mb-3 flex items-center justify-between gap-3">
                   <h2 className="text-lg font-bold text-foreground">Activity Heatmap</h2>
                   <p className="text-xs text-muted-foreground">
@@ -875,9 +877,12 @@ export default function ProgressPage() {
                 </div>
               </div>
 
-              <div className="lg:col-span-2">
-                <InsightsPanel workoutDays={stats.heatmapDays} />
-              </div>
+              <RecoveryCard />
+            </div>
+
+            <div className="mt-4 grid items-stretch gap-4 lg:grid-cols-2">
+              <InsightsPanel workoutDays={stats.heatmapDays} />
+              <WearableCard />
             </div>
 
             <div className="mt-8">

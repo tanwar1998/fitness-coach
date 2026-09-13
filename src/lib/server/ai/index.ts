@@ -69,3 +69,24 @@ export function resolveProvider(requested?: string): AiProvider {
 
   return provider;
 }
+
+/**
+ * Resolve an ordered list of usable providers, preferring the requested (or
+ * default) provider first and falling back to any other configured provider.
+ * Lets callers fail over automatically when one provider is rate-limited,
+ * overloaded, or otherwise unhealthy.
+ */
+export function resolveProviderFallback(requested?: string): AiProvider[] {
+  const requestedId = requested?.trim().toLowerCase();
+  const firstId = requestedId && requestedId in providers ? requestedId : getDefaultProviderId();
+  const usable: AiProvider[] = [];
+
+  for (const id of [firstId, ...(Object.keys(providers) as AiProviderId[])] as AiProviderId[]) {
+    if (usable.some((p) => p.id === id)) continue;
+    if (providers[id].isConfigured()) {
+      usable.push(providers[id]);
+    }
+  }
+
+  return usable;
+}
