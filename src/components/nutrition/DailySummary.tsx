@@ -77,7 +77,7 @@ function TargetField({
           }
         }}
         disabled={busy}
-        className="w-20 rounded-md border border-primary bg-card px-2 py-0.5 text-sm font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+        className="w-20 rounded-sm border border-primary bg-card px-2 py-0.5 text-sm font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
       />
     );
   }
@@ -88,7 +88,7 @@ function TargetField({
       onClick={startEditing}
       disabled={busy}
       title="Edit target"
-      className={`cursor-pointer rounded-md px-1.5 py-0.5 text-sm font-semibold text-foreground transition-colors hover:bg-muted ${
+      className={`cursor-pointer rounded-sm px-1.5 py-0.5 text-sm font-semibold text-foreground transition-colors hover:bg-muted ${
         busy ? "opacity-50" : ""
       }`}
     >
@@ -114,7 +114,7 @@ export function DailySummary({
   };
 
   return (
-    <section className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+    <section className="rounded-sm border border-foreground/25 bg-card p-5 shadow-sm">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <div>
           <h2 className="text-lg font-bold text-foreground">Today&apos;s nutrition</h2>
@@ -134,7 +134,7 @@ export function DailySummary({
           return (
             <div
               key={field.key}
-              className="rounded-xl border border-border bg-muted/30 p-3"
+              className="rounded-sm border border-foreground/15 bg-muted/30 p-3"
             >
               <div className="flex items-center justify-between gap-2">
                 <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
@@ -147,7 +147,7 @@ export function DailySummary({
               </div>
               <div className="mt-1.5 flex items-baseline gap-1">
                 <span
-                  className={`text-2xl font-bold tabular-nums ${
+                  className={`text-2xl font-bold tabular-nums serial ${
                     over ? "text-warning" : "text-foreground"
                   }`}
                 >

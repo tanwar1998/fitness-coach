@@ -14,13 +14,6 @@ import {
   type MealType,
 } from "@/lib/nutrition";
 
-const MEAL_EMOJIS: Record<MealType, string> = {
-  breakfast: "🍳",
-  lunch: "🥗",
-  dinner: "🍽️",
-  snack: "🍎",
-};
-
 export interface LogUpdatePatch {
   quantity?: number;
   unit?: string;
@@ -97,7 +90,7 @@ function EntryRow({
   };
 
   return (
-    <li className="rounded-xl border border-border bg-card p-3">
+    <li className="rounded-sm border border-foreground/25 bg-card p-3">
       {editing && isCustom ? (
         <CustomMealForm
           defaultName={entry.ingredientName}
@@ -140,14 +133,14 @@ function EntryRow({
             </p>
             <p className="text-xs text-muted-foreground">
               {isCustom ? (
-                <span className="tabular-nums">
+                <span className="tabular-nums serial">
                   {Math.round(entry.kcal)} kcal · P {entry.protein.toFixed(1)}g · C{" "}
                   {entry.carbs.toFixed(1)}g · F {entry.fat.toFixed(1)}g
                 </span>
               ) : (
                 <>
                   {entry.quantity} × {unitLabel(entry, ingredient)} ·{" "}
-                  <span className="tabular-nums">
+                  <span className="tabular-nums serial">
                     {Math.round(entry.kcal)} kcal · P {entry.protein.toFixed(1)}g · C{" "}
                     {entry.carbs.toFixed(1)}g · F {entry.fat.toFixed(1)}g
                   </span>
@@ -228,10 +221,10 @@ export function MealLogList({
   if (entries.length === 0) return null;
 
   return (
-    <section className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+    <section className="rounded-sm border border-foreground/25 bg-card p-5 shadow-sm">
       <div className="mb-3 flex items-center justify-between gap-2">
         <h2 className="text-lg font-bold text-foreground">Today&apos;s meals</h2>
-        <span className="rounded-full bg-secondary px-2.5 py-0.5 text-xs font-semibold text-secondary-foreground">
+        <span className="rounded-sm border border-foreground/25 bg-card px-2.5 py-0.5 text-xs font-semibold text-muted-foreground stamp">
           {entries.length} item{entries.length === 1 ? "" : "s"}
         </span>
       </div>
@@ -243,8 +236,8 @@ export function MealLogList({
 
           return (
             <div key={mealType}>
-              <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                {MEAL_EMOJIS[mealType]} {MEAL_LABELS[mealType]}
+              <h3 className="mb-2 stamp text-muted-foreground">
+                {MEAL_LABELS[mealType]}
               </h3>
               <ul className="space-y-2">
                 {mealEntries.map((entry) => (

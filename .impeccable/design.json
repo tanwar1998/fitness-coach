@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-15T14:20:00Z",
+  "title": "Design System: FitPulse",
+  "extensions": {
+    "colorMeta": {
+      "primary": { "role": "primary", "displayName": "Incense Violet", "canonical": "#5728c8", "tonalRamp": ["#2a1260", "#34176e", "#3e1c82", "#4a229b", "#5728c8", "#6b3fd0", "#855edb", "#a68bf0"] },
+      "primary-dark": { "role": "primary", "displayName": "Incense Violet (dark)", "canonical": "#7f55e0", "tonalRamp": ["#3a2360", "#4a2f84", "#5a3ba8", "#6a47cc", "#7f55e0", "#9a74e8", "#b593f0", "#d0b8f7"] },
+      "lime": { "role": "secondary", "displayName": "Live Lime", "canonical": "#b7d93a", "tonalRamp": ["#5a6b1c", "#72872a", "#8aa338", "#a2c03e", "#b7d93a", "#c3e15c", "#d2e983", "#e2f0ab"] },
+      "lime-dark": { "role": "secondary", "displayName": "Live Lime (dark)", "canonical": "#b8e53a", "tonalRamp": ["#5c701e", "#72892a", "#88a236", "#9fbe3c", "#b8e53a", "#c8eb60", "#d9f089", "#e7f4ad"] },
+      "tag-board": { "role": "neutral", "displayName": "Tag Board", "canonical": "#f2efe6", "tonalRamp": ["#2a2720", "#4a463c", "#6b6657", "#8c8674", "#ada693", "#cec8b5", "#e4dfd0", "#f2efe6"] },
+      "nylon": { "role": "neutral", "displayName": "Nylon", "canonical": "#0c0b10", "tonalRamp": ["#05050a", "#0c0b10", "#141318", "#1b1a20", "#232127", "#2b2930", "#33303d", "#3b3846"] },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#191712", "tonalRamp": ["#050504", "#0c0b08", "#14120d", "#191712", "#2c2a21", "#3f3c31", "#524e40", "#655f4f"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Archivo Black", "purpose": "Oversized tagged headers, one per surface." },
+      "sans": { "displayName": "Geist", "purpose": "Body and interface copy." },
+      "mono": { "displayName": "Geist Mono", "purpose": "Stamps, serials, spec values — tabular numerals." }
+    },
+    "shadows": [
+      { "name": "plate-rest", "value": "0 1px 0 color-mix(in oklab, var(--foreground) 14%, transparent)", "purpose": "The single resting underline that gives a stock plate its mass." },
+      { "name": "seam-shadow", "value": "0 2px 0 0 color-mix(in oklab, var(--foreground) 18%, transparent)", "purpose": "Under-shadow of the folded top seam." }
+    ],
+    "motion": [
+      { "name": "ease-out-power", "value": "cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "Default entrance easing (rise, tag-drop, slide-in-right)." },
+      { "name": "ease-back-stamp", "value": "cubic-bezier(0.34, 1.56, 0.64, 1)", "purpose": "Stamp-in overshoot for re-issue and status stamps." },
+      { "name": "pulse-live", "value": "pulse-live 2.4s ease-in-out infinite", "purpose": "Lime live-state pulse (typing, pending question, active rep)." },
+      { "name": "rise", "value": "rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both", "purpose": "Section entrance." },
+      { "name": "tag-drop", "value": "tag-drop 0.5s cubic-bezier(0.22, 1, 0.36, 1) both", "purpose": "Plan tag drops from the top seam." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Violet fabric plate with a cut corner; the active action on a surface.",
+      "html": "<button class=\"ds-btn-primary\">START SESSION</button>",
+      "css": ".ds-btn-primary { background: #5728c8; color: #ffffff; font-family: Archivo, Arial, sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.75rem; padding: 0.625rem 1rem; border: none; border-radius: 0.25rem; clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%); cursor: pointer; transition: background 0.15s; } .ds-btn-primary:hover { background: #4a229b; } .ds-btn-primary:focus-visible { outline: 2px solid #7f55e0; outline-offset: 2px; } .ds-btn-primary:active { transform: translateY(1px); }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Tag-paper plate with an ink stroke; secondary actions.",
+      "html": "<button class=\"ds-btn-outline\">RE-CUT PLAN</button>",
+      "css": ".ds-btn-outline { background: #f8f6ee; color: #191712; font-family: Archivo, Arial, sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.75rem; padding: 0.625rem 1rem; border: 1px solid #191712; border-radius: 0.25rem; cursor: pointer; transition: background 0.15s, color 0.15s; } .ds-btn-outline:hover { background: #191712; color: #f8f6ee; } .ds-btn-outline:focus-visible { outline: 2px solid #7f55e0; outline-offset: 2px; }"
+    },
+    {
+      "name": "Stock Plate (Card)",
+      "kind": "card",
+      "refersTo": "plate-stock",
+      "description": "The resting surface: tag paper, full-ink hairline, one low underline for mass.",
+      "html": "<div class=\"ds-plate-stock\"><span class=\"ds-stamp\">SETS × REPS</span><div class=\"ds-row\"><span>3 × 10</span><span>SEATED ROW</span></div></div>",
+      "css": ".ds-plate-stock { background: #f8f6ee; border: 1px solid #191712; border-radius: 0; box-shadow: 0 1px 0 rgba(25, 23, 18, 0.14); padding: 1rem; } .ds-stamp { font-family: 'Geist Mono', monospace; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #5c574b; } .ds-row { display: flex; justify-content: space-between; font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums; margin-top: 0.5rem; border-bottom: 1px solid #191712; padding-bottom: 0.2em; }"
+    },
+    {
+      "name": "Violet Plate",
+      "kind": "custom",
+      "refersTo": "plate-violet",
+      "description": "The fabric label: solid violet field, cut corner, white label. Carries the active/primary thing.",
+      "html": "<div class=\"ds-plate-violet\"><span class=\"ds-q\">How did today's session feel?</span><span class=\"ds-serial\">Q · 04</span></div>",
+      "css": ".ds-plate-violet { background: #5728c8; color: #ffffff; clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%); border-radius: 0; padding: 1rem; } .ds-q { font-family: Archivo, Arial, sans-serif; font-weight: 700; display: block; } .ds-serial { font-family: 'Geist Mono', monospace; font-size: 0.6875rem; letter-spacing: 0.08em; color: #e6ddfb; margin-top: 0.375rem; display: block; }"
+    },
+    {
+      "name": "Stamp Badge",
+      "kind": "chip",
+      "refersTo": "badge",
+      "description": "Stamped small-caps label on tag paper with an ink hairline. Serialized metadata.",
+      "html": "<span class=\"ds-badge\">RE-CUT FOR LOW ENERGY</span>",
+      "css": ".ds-badge { display: inline-block; background: #f8f6ee; border: 1px solid #191712; border-radius: 0; font-family: 'Geist Mono', monospace; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.25rem 0.5rem; color: #191712; }"
+    },
+    {
+      "name": "Tag Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Tag-paper field with a full-ink stroke; violet caret and focus ring.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Tell the coach…\" />",
+      "css": ".ds-input { background: #f8f6ee; border: 1px solid rgba(25, 23, 18, 0.6); border-radius: 0.25rem; color: #191712; font-family: Geist, Arial, sans-serif; font-size: 0.875rem; padding: 0.5rem 0.75rem; caret-color: #5728c8; } .ds-input::placeholder { color: #5c574b; } .ds-input:focus-visible { outline: 2px solid #5728c8; outline-offset: 2px; }"
+    },
+    {
+      "name": "Plan Tag (Signature)",
+      "kind": "custom",
+      "refersTo": "plate-stock",
+      "description": "The flagship: the current plan hangs as a garment tag with a serial, a seam, and a ruled spec block. Re-issues with struck old numbers and a stamp when the coach adjusts it.",
+      "html": "<div class=\"ds-plan\"><div class=\"ds-ring\"></div><div class=\"ds-seam\"></div><span class=\"ds-stamp\">STYLE / PLAN N° 20260914</span><div class=\"ds-spec\"><span>SEATS PRESS</span><span class=\"ds-num\">3 × 8</span></div><div class=\"ds-spec line\"><span>SEATED ROW</span><span class=\"ds-num\">3 × 10</span></div><span class=\"ds-stamp lime\">● RE-CUT FOR LOW ENERGY</span></div>",
+      "css": ".ds-plan { position: relative; background: #f8f6ee; border: 1px solid #191712; padding: 1rem 1rem 0.875rem; } .ds-ring { position: absolute; top: -10px; right: 14px; width: 14px; height: 14px; border: 2px solid #191712; border-radius: 50%; background: #f2efe6; } .ds-seam { border-top: 3px solid #191712; box-shadow: 0 2px 0 0 rgba(25, 23, 18, 0.18); margin-bottom: 0.75rem; } .ds-spec { display: flex; justify-content: space-between; font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums; padding: 0.4rem 0; } .ds-spec.line { border-bottom: 1px solid #191712; } .ds-num { font-weight: 600; } .ds-stamp { font-family: 'Geist Mono', monospace; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #5c574b; } .ds-stamp.lime { color: #1d2203; background: #b7d93a; padding: 0.15rem 0.35rem; animation: ds-pulse 2.4s ease-in-out infinite; } @keyframes ds-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }"
+    },
+    {
+      "name": "Sidebar Nav Item",
+      "kind": "nav",
+      "refersTo": "button-outline",
+      "description": "The app-label column. Resting items are ink stamps on stock; the active item is the violet plate with a cut corner.",
+      "html": "<div class=\"ds-nav\"><a class=\"ds-nav-item\">STATS</a><a class=\"ds-nav-item active\">SESSION</a></div>",
+      "css": ".ds-nav { display: flex; flex-direction: column; gap: 2px; } .ds-nav-item { display: block; padding: 0.5rem 0.75rem; font-family: Archivo, Arial, sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.75rem; color: #191712; background: transparent; border-radius: 0; text-decoration: none; } .ds-nav-item:hover { background: #e4dfd0; } .ds-nav-item.active { background: #5728c8; color: #ffffff; clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Garment Tag",
+    "overview": "FitPulse treats the entire app as the hang tag on an athletic garment. A beginner opens the app and reads their training the way they read the tag on a favorite shirt: what it is, what it's made of, how to care for it. The ground is raw tag stock — off-white tag-board in light mode, near-black nylon in dark mode. Structure is heavy ink, not soft borders. Violet is the fabric label: a single saturated violet plate (always a solid field, never a translucent wash) reserved for the active or primary thing. Lime is reserved by law for live states only. The AI coach is the fit-consultant who re-cuts the garment when life happens and re-issues the tag, so adjusted plans are measured, visible, honest. Nothing is gamified and nothing whispers; the energy is the confidence of a numbered spec.",
+    "keyCharacteristics": [
+      "Every surface is a tag: stock ground, a top seam, cut-edge corners on plates, a ruled spec strip.",
+      "One oversized cropped display statement per surface, in Archivo Black uppercase.",
+      "Violet plates carry the active/primary thing; ink carries structure; lime marks live states only.",
+      "All metrics render as tabular numerals in mono, stamped like serials.",
+      "Plan changes are a re-issue line: struck old numbers, measured new numbers, a stamp."
+    ],
+    "rules": [
+      { "name": "The Lime Law", "body": "Lime is a single reserved accent, live states only. Any static lime is a violation.", "section": "colors" },
+      { "name": "The Violet-Plate Rule", "body": "Violet always renders as a solid field (the plate-violet fill), never at low opacity over other content. Transparency is not a material in this world.", "section": "colors" },
+      { "name": "The One-Statement Rule", "body": "Each surface gets one oversized cropped display statement. If a second candidate appears, demote it to a stamp or drop it.", "section": "typography" },
+      { "name": "The Serial Rule", "body": "Every numeric metric renders in mono with tabular numerals — a spec value, not a number in a sentence.", "section": "typography" },
+      { "name": "The Flat-by-Default Rule", "body": "Surfaces are flat at rest. No soft shadows, no glows, no translucency. A plate's presence is its full-ink border and its solid fill.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep every metric in mono tabular numerals, stamped like a serial.",
+      "Do use violet as a solid plate with a cut corner for the active/primary thing, and nothing else.",
+      "Do use lime for live states only — typing, pending question, active rep, sync pulse.",
+      "Do build cards as stock plates: square corners, 1px foreground ink hairline, no shadow.",
+      "Do give each surface exactly one oversized cropped Archivo display statement.",
+      "Do mark plan changes as a re-issue line with struck old and measured new numbers."
+    ],
+    "donts": [
+      "Don't use gradient text, glass or backdrop-blur decoration, or glow shadows anywhere.",
+      "Don't use translucent violet washes (bg-primary/10 chips) — violet is a solid material or it's absent.",
+      "Don't use rounded-full pills except for live-status dots; controls are near-square.",
+      "Don't nest cards inside cards; use spec rows and hairlines inside a single plate.",
+      "Don't decorate with emoji icons or moody hero copy. Labels are stamped, plain, and factual.",
+      "Don't rest a page on neutral gray — ink is warm charcoal in light mode, warm paper in dark."
+    ]
+  }
+}

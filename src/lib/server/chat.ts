@@ -1,7 +1,15 @@
 import { randomUUID } from "node:crypto";
 import { query } from "./db";
 import { resolveProvider } from "./ai";
-import { runCoachGraph } from "./ai/graph";
+import {
+  invokeCoachMessage,
+  resumeCoachAnswer,
+} from "./ai/coach-session";
+import type {
+  CoachConstraints,
+  CoachTurnResult,
+} from "@/lib/coach-types";
+import type { CoachProfile } from "./ai/exercise-retrieval";
 
 export type ChatRole = "user" | "assistant";
 
@@ -11,6 +19,8 @@ export interface ChatMessage {
   content: string;
   createdAt: number;
   provider?: string;
+  /** Exercise-library ids the assistant reply referenced (rendered as cards). */
+  referencedExerciseIds?: number[];
 }
 
 export interface ChatSession {
@@ -36,6 +46,7 @@ interface MessageRow {
   role: ChatRole;
   content: string;
   provider: string | null;
+  referenced_exercise_ids: unknown;
   created_at: Date;
 }
 
@@ -68,12 +79,21 @@ function toChatMessage(row: MessageRow): ChatMessage {
     content: row.content,
     createdAt: new Date(row.created_at).getTime(),
     provider: row.provider ?? undefined,
+    referencedExerciseIds: parseReferencedIds(row.referenced_exercise_ids),
   };
+}
+
+function parseReferencedIds(raw: unknown): number[] | undefined {
+  if (!Array.isArray(raw)) return undefined;
+  const ids = raw.filter(
+    (value): value is number => typeof value === "number" && Number.isInteger(value),
+  );
+  return ids.length > 0 ? ids : undefined;
 }
 
 async function getMessages(sessionId: string): Promise<ChatMessage[]> {
   const rows = await query<MessageRow>(
-    `SELECT id, session_id, role, content, provider, created_at
+    `SELECT id, session_id, role, content, provider, referenced_exercise_ids, created_at
        FROM chat_messages
       WHERE session_id = $1
       ORDER BY created_at ASC, id ASC`,
@@ -82,7 +102,7 @@ async function getMessages(sessionId: string): Promise<ChatMessage[]> {
   return rows.map(toChatMessage);
 }
 
-async function getSession(sessionId: string): Promise<ChatSession | null> {
+export async function getSession(sessionId: string): Promise<ChatSession | null> {
   const sessionRows = await query<SessionRow>(
     `SELECT id, title, device_id, created_at, updated_at
        FROM chat_sessions
@@ -132,17 +152,14 @@ export async function deleteSession(
   return rows.length > 0;
 }
 
-export async function sendMessage(
-  sessionId: string,
-  content: string,
-  providerId: string | undefined,
-  deviceId: string,
-): Promise<ChatSession> {
-  const session = await getSession(sessionId);
+function assertOwnedSession(session: ChatSession | null, deviceId: string): ChatSession {
   if (!session || session.deviceId !== deviceId) {
-    throw new Error(`Chat session "${sessionId}" not found.`);
+    throw new Error(`Chat session not found.`);
   }
+  return session;
+}
 
+async function insertUserMessage(sessionId: string, content: string, isFirst: boolean) {
   const userMessageId = createId();
   await query(
     `INSERT INTO chat_messages (id, session_id, role, content)
@@ -150,7 +167,7 @@ export async function sendMessage(
     [userMessageId, sessionId, content],
   );
 
-  if (session.messages.length === 0) {
+  if (isFirst) {
     const title = sessionTitleFromMessage(content);
     await query(
       `UPDATE chat_sessions SET title = $2, updated_at = now() WHERE id = $1`,
@@ -162,34 +179,27 @@ export async function sendMessage(
       [sessionId],
     );
   }
+}
 
-  const history = [
-    ...session.messages,
-    { id: userMessageId, role: "user" as const, content, createdAt: Date.now() },
-  ].map((message) => ({ role: message.role, content: message.content }));
-
-  // Run the conversation through the shared LangGraph coaching graph. The
-  // graph resolves the requested provider internally, so every AI tool flows
-  // through the same orchestration (tools, fallback, human hand-off).
-  const provider = resolveProvider(providerId);
-  const result = await runCoachGraph({
-    messages: history,
-    providerId: provider.id,
-  });
-
-  const reply = result.reply;
-
+async function insertAssistantTurn(
+  sessionId: string,
+  turn: CoachTurnResult,
+  providerId: string | undefined,
+) {
   const assistantMessageId = createId();
   await query(
-    `INSERT INTO chat_messages (id, session_id, role, content, provider)
-     VALUES ($1, $2, 'assistant', $3, $4)`,
+    `INSERT INTO chat_messages (id, session_id, role, content, provider, referenced_exercise_ids)
+     VALUES ($1, $2, 'assistant', $3, $4, $5::jsonb)`,
     [
       assistantMessageId,
       sessionId,
-      reply,
+      turn.reply,
       // When the graph handed the conversation to a human coach, the reply is
       // not an AI answer, so record that instead of the provider id.
-      result.yieldedToHuman ? "human" : provider.id,
+      turn.yieldedToHuman
+        ? "human"
+        : (providerId?.trim() || "coach"),
+      JSON.stringify(turn.referencedExerciseIds),
     ],
   );
 
@@ -197,10 +207,95 @@ export async function sendMessage(
     `UPDATE chat_sessions SET updated_at = now() WHERE id = $1`,
     [sessionId],
   );
+}
 
+async function refreshSession(sessionId: string): Promise<ChatSession> {
   const refreshed = await getSession(sessionId);
   if (!refreshed) {
     throw new Error(`Chat session "${sessionId}" could not be loaded after update.`);
   }
   return refreshed;
+}
+
+/**
+ * Run a new user message through the coaching graph (check-in + ask-answer +
+ * replan loop) and persist the resulting transcript. Mirrors the old
+ * `sendMessage` contract but returns the plan-aware turn payload too.
+ */
+export async function sendCoachMessage(args: {
+  threadId: string;
+  content: string;
+  providerId?: string;
+  deviceId: string;
+  profile?: CoachProfile;
+  currentPlan?: unknown;
+  constraints?: CoachConstraints;
+}): Promise<{ session: ChatSession; turn: CoachTurnResult }> {
+  const session = assertOwnedSession(await getSession(args.threadId), args.deviceId);
+  const isFirst = session.messages.length === 0;
+
+  const provider = resolveProvider(args.providerId);
+
+  const { turn } = await invokeCoachMessage({
+    threadId: args.threadId,
+    content: args.content,
+    providerId: provider.id,
+    profile: args.profile ?? null,
+    currentPlan: args.currentPlan,
+    constraints: args.constraints,
+  });
+
+  await insertUserMessage(args.threadId, args.content, isFirst);
+  if (turn.reply) {
+    await insertAssistantTurn(args.threadId, turn, provider.id);
+  }
+
+  return { session: await refreshSession(args.threadId), turn };
+}
+
+/**
+ * Answer the graph's pending question (check-in or ask_question/ask_options)
+ * via Command({ resume }) and persist the resulting Q&A turn.
+ */
+export async function sendCoachAnswer(args: {
+  threadId: string;
+  answer: string;
+  providerId?: string;
+  deviceId: string;
+}): Promise<{ session: ChatSession; turn: CoachTurnResult }> {
+  assertOwnedSession(await getSession(args.threadId), args.deviceId);
+
+  const provider = resolveProvider(args.providerId);
+
+  const { turn } = await resumeCoachAnswer({
+    threadId: args.threadId,
+    answer: args.answer,
+    providerId: provider.id,
+  });
+
+  await insertUserMessage(args.threadId, args.answer, false);
+  if (turn.reply) {
+    await insertAssistantTurn(args.threadId, turn, provider.id);
+  }
+
+  return { session: await refreshSession(args.threadId), turn };
+}
+
+/**
+ * Legacy single-shot message flow retained for existing consumers. Runs the
+ * exact same plan-aware graph as sendCoachMessage but returns only the session.
+ */
+export async function sendMessage(
+  sessionId: string,
+  content: string,
+  providerId: string | undefined,
+  deviceId: string,
+): Promise<ChatSession> {
+  const { session } = await sendCoachMessage({
+    threadId: sessionId,
+    content,
+    providerId,
+    deviceId,
+  });
+  return session;
 }

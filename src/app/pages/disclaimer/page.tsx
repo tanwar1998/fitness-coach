@@ -1,5 +1,3 @@
-import { Badge } from "@/components/Badge";
-
 function ShieldIcon() {
   return (
     <svg
@@ -135,18 +133,17 @@ export default function DisclaimerPage() {
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
       <div className="text-center">
-        <Badge variant="outline" className="mb-4">
-          Legal
-        </Badge>
-        <h1 className="font-display text-4xl font-bold tracking-tight sm:text-6xl">Disclaimer</h1>
+        <p className="stamp text-primary">FitPulse · Legal · Care label</p>
+        <h1 className="mt-3 font-display text-5xl font-black uppercase tracking-tight sm:text-6xl">Disclaimer</h1>
         <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
           Please read this carefully before using FitPulse. The points below
           describe how our content should be used.
         </p>
       </div>
 
-      <div className="mt-10 rounded-2xl border border-primary/30 bg-primary/5 p-6 sm:p-8">
-        <p className="text-sm leading-relaxed sm:text-base">
+      <div className="plate-stock mt-10 p-6 animate-tag-drop sm:p-8">
+        <div className="seam" />
+        <p className="pt-4 text-sm leading-relaxed sm:text-base">
           <strong>
             By entering this website, using the workout generator API or
             exercises data, you are agreeing to accept all parts of this
@@ -160,18 +157,23 @@ export default function DisclaimerPage() {
       </div>
 
       <div className="mt-6 flex flex-col gap-4">
-        {CLAUSES.map((clause) => {
+        {CLAUSES.map((clause, index) => {
           const Icon = clause.icon;
           return (
             <div
               key={clause.title}
-              className="flex gap-4 rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6"
+              className="flex gap-4 border border-foreground/25 bg-card p-5 sm:p-6"
             >
-              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-secondary text-secondary-foreground">
+              <span className="grid h-10 w-10 shrink-0 place-items-center border border-primary/40 bg-primary/10 text-primary">
                 <Icon />
               </span>
-              <div>
-                <h2 className="font-display font-semibold">{clause.title}</h2>
+              <div className="min-w-0">
+                <p className="serial text-[11px] uppercase tracking-wider text-muted-foreground">
+                  {String(index + 1).padStart(2, "0")}
+                </p>
+                <h2 className="font-display text-lg font-black uppercase tracking-wide">
+                  {clause.title}
+                </h2>
                 <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
                   {clause.body}
                 </p>

@@ -1,4 +1,5 @@
 import { AiProviderError } from "@/lib/server/ai";
+import { CoachThreadInterruptedError } from "@/lib/server/ai/coach-session";
 import { sendMessage } from "@/lib/server/chat";
 import { resolveDeviceId } from "@/lib/server/device";
 
@@ -44,6 +45,15 @@ export async function POST(
     const session = await sendMessage(id, content, provider, device.deviceId);
     return Response.json({ session });
   } catch (error) {
+    if (error instanceof CoachThreadInterruptedError) {
+      return Response.json(
+        {
+          error:
+            "The coach is waiting for an answer to a question. Resume the conversation with POST /api/coach/answer instead.",
+        },
+        { status: 409 },
+      );
+    }
     if (error instanceof AiProviderError) {
       return Response.json({ error: error.message }, { status: 502 });
     }

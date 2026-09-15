@@ -135,19 +135,19 @@ export function WeeklyCheckInCard({
 
   if (loading && !status) {
     return (
-      <div className="rounded-3xl border border-border bg-card p-5 shadow-sm">
+      <div className="plate-stock p-5">
         <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground">
           <SparkleIcon />
           Weekly check-in
         </div>
-        <p className="mt-3 h-16 animate-pulse rounded-xl bg-muted/60" />
+        <p className="mt-3 h-16 animate-pulse bg-muted/60" />
       </div>
     );
   }
 
   if (!status) {
     return (
-      <div className="rounded-3xl border border-border bg-card p-5 shadow-sm">
+      <div className="plate-stock p-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground">
             <SparkleIcon />
@@ -180,9 +180,9 @@ export function WeeklyCheckInCard({
 
   if (generating) {
     return (
-      <div className="rounded-3xl border border-border bg-card p-5 shadow-sm">
+      <div className="plate-stock p-5">
         <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
-          <span className="grid h-7 w-7 place-items-center rounded-lg bg-primary/10 text-primary">
+          <span className="grid h-7 w-7 place-items-center bg-primary/10 text-primary">
             <SparkleIcon />
           </span>
           Weekly check-in
@@ -197,7 +197,7 @@ export function WeeklyCheckInCard({
 
   if (!display) {
     return (
-      <div className="rounded-3xl border border-border bg-card p-5 shadow-sm">
+      <div className="plate-stock p-5">
         <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground">
           <SparkleIcon />
           Weekly check-in
@@ -217,16 +217,16 @@ export function WeeklyCheckInCard({
   }
 
   return (
-    <div className="rounded-3xl border border-border bg-card p-5 shadow-sm">
+    <div className="plate-stock p-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <span className="grid h-7 w-7 place-items-center rounded-lg bg-primary/10 text-primary">
+          <span className="grid h-7 w-7 place-items-center bg-primary/10 text-primary">
             <SparkleIcon />
           </span>
           <p className="text-sm font-semibold text-foreground">
             Weekly check-in
           </p>
-          <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs text-muted-foreground">
+          <span className="border border-foreground/20 bg-muted px-2 py-0.5 text-xs text-muted-foreground">
             {formatWeekLabel(display.weekStart)}
           </span>
         </div>
@@ -318,7 +318,7 @@ export function WeeklyCheckInCard({
 
 function StatChip({ label, value }: { label: string; value: string }) {
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted/40 px-3 py-1 text-xs text-muted-foreground">
+    <span className="inline-flex items-center gap-1.5 border border-foreground/25 bg-muted/40 px-3 py-1 text-xs text-muted-foreground">
       <span className="font-semibold text-foreground">{value}</span>
       {label}
     </span>

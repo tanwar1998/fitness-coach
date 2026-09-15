@@ -41,13 +41,13 @@ export function BodyRegionPicker({
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <span className="text-sm font-medium">Body region</span>
-        <div className="flex gap-1 rounded-full border border-border bg-muted p-0.5">
+        <div className="flex gap-1 rounded-sm border border-foreground/25 bg-muted p-0.5">
           {(["front", "back"] as const).map((v) => (
             <button
               key={v}
               type="button"
               onClick={() => setView(v)}
-              className={`rounded-full px-3 py-1 text-xs font-medium capitalize transition-colors cursor-pointer ${
+              className={`rounded-sm px-3 py-1 text-xs font-medium capitalize transition-colors cursor-pointer ${
                 view === v
                   ? "bg-primary text-primary-foreground"
                   : "text-muted-foreground hover:text-foreground"
@@ -97,14 +97,14 @@ export function BodyRegionPicker({
                         type="button"
                         disabled={disabled}
                         onClick={() => onChange(selected ? null : region)}
-                        className={`rounded-full border px-2.5 py-1 text-xs font-medium transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-40 ${
+                        className={`rounded-sm border px-2.5 py-1 text-xs font-medium transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-40 ${
                           selected
                             ? "border-transparent bg-primary text-primary-foreground"
                             : existing
                               ? "border-danger/40 bg-danger/10 text-danger"
                               : visible
-                                ? "border-border bg-card text-foreground hover:bg-muted"
-                                : "border-border bg-muted/40 text-muted-foreground"
+                                ? "border-foreground/25 bg-card text-foreground hover:bg-muted"
+                                : "border-foreground/25 bg-muted/40 text-muted-foreground"
                         }`}
                       >
                         {BODY_REGION_LABELS[region]}
@@ -130,12 +130,12 @@ export function BodyRegionPicker({
                 type="button"
                 disabled={disabled}
                 onClick={() => onChange(selected ? null : region)}
-                className={`rounded-full border px-2.5 py-1 text-xs font-medium transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-40 ${
+                className={`rounded-sm border px-2.5 py-1 text-xs font-medium transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-40 ${
                   selected
                     ? "border-transparent bg-primary text-primary-foreground"
                     : existing
                       ? "border-danger/40 bg-danger/10 text-danger"
-                      : "border-border bg-card text-muted-foreground hover:bg-muted hover:text-foreground"
+                      : "border-foreground/25 bg-card text-muted-foreground hover:bg-muted hover:text-foreground"
                 }`}
               >
                 {BODY_REGION_LABELS[region]}

@@ -69,7 +69,7 @@ function HoverActions({
           e.stopPropagation();
           onSwap();
         }}
-        className="grid h-8 w-8 cursor-pointer place-items-center rounded-full bg-black/50 text-white backdrop-blur transition-colors hover:bg-primary/90 hover:text-primary-foreground"
+        className="grid h-8 w-8 cursor-pointer place-items-center rounded-sm bg-black/70 text-white transition-colors hover:bg-primary/90 hover:text-primary-foreground"
         aria-label="Swap exercise"
         title="Swap exercise"
       >
@@ -81,7 +81,7 @@ function HoverActions({
           e.stopPropagation();
           onRemove();
         }}
-        className="grid h-8 w-8 cursor-pointer place-items-center rounded-full bg-black/50 text-white backdrop-blur transition-colors hover:bg-danger/90 hover:text-white"
+        className="grid h-8 w-8 cursor-pointer place-items-center rounded-sm bg-black/70 text-white transition-colors hover:bg-danger/90 hover:text-white"
         aria-label="Remove from workout"
         title="Remove from workout"
       >
@@ -106,12 +106,12 @@ function CardHeader({
     <>
       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
       <div className="absolute bottom-2.5 left-2.5 right-2.5">
-        <h3 className="truncate text-sm font-bold text-white drop-shadow-md">
+        <h3 className="truncate text-sm font-bold text-white">
           {name}
         </h3>
       </div>
       {category && (
-        <div className="absolute left-2.5 top-2.5 rounded-full bg-background/85 px-2 py-0.5 text-[11px] font-semibold backdrop-blur">
+        <div className="absolute left-2.5 top-2.5 rounded-sm bg-background/90 px-2 py-0.5 text-[11px] font-semibold">
           {category}
         </div>
       )}
@@ -148,7 +148,7 @@ export function GeneratedExerciseCard({
     <button
       type="button"
       onClick={onSelect}
-      className="group relative w-full overflow-hidden rounded-2xl border border-border bg-card text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
+      className="group relative w-full overflow-hidden rounded-sm border border-foreground/25 bg-card text-left transition-all hover:-translate-y-0.5 hover:border-primary/50"
     >
       {imageUrl ? (
         <div className="relative aspect-[4/3] w-full overflow-hidden bg-secondary">
@@ -196,10 +196,10 @@ export function GeneratedExerciseCard({
 
       <div className="p-2.5">
         <div className="flex items-center justify-between gap-2">
-          <span className="text-xs font-bold text-foreground">
+          <span className="serial text-xs font-bold text-foreground">
             {exercise.sets}×{exercise.reps}
           </span>
-          <span className="text-[11px] font-medium text-muted-foreground">
+          <span className="serial text-[11px] font-medium text-muted-foreground">
             {Math.round(exercise.restSeconds / 60)}m rest
           </span>
         </div>

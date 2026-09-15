@@ -223,15 +223,15 @@ export function WorkoutGenerator() {
   };
 
   const chipClass = (active: boolean) =>
-    `h-9 cursor-pointer rounded-full border px-4 text-sm font-medium transition-colors ${
+    `h-9 cursor-pointer rounded-sm border px-4 text-sm font-medium transition-colors ${
       active
         ? "border-primary bg-primary text-primary-foreground"
-        : "border-border bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground"
+        : "border-foreground/25 bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground"
     }`;
 
   return (
     <div>
-      <div className="rounded-3xl border border-border bg-card p-6 shadow-sm sm:p-8">
+      <div className="rounded-sm border border-foreground/25 bg-card p-6 sm:p-8">
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
             <p className="text-sm font-semibold text-foreground">Goal</p>
@@ -304,7 +304,7 @@ export function WorkoutGenerator() {
         </div>
 
         {readinessScore !== null && readinessScore < 55 && (
-          <div className="mt-6 rounded-2xl border border-warning/30 bg-warning/10 p-4">
+          <div className="mt-6 rounded-sm border border-warning/30 bg-warning/10 p-4">
             <p className="text-sm font-medium text-foreground">
               Your readiness is {readinessScore}/100 — consider a rest day or a
               lighter session today.
@@ -357,12 +357,14 @@ export function WorkoutGenerator() {
 
       {history.length > 0 && (
         <section className="mt-10">
-          <h2 className="font-display text-2xl font-bold">Recent workouts</h2>
+          <h2 className="font-display text-2xl font-black uppercase tracking-tight">
+          Recent workouts
+        </h2>
           <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
             {history.slice(0, 8).map((entry) => (
               <div
                 key={entry.workout.id}
-                className="flex flex-col rounded-2xl border border-border bg-card p-4 shadow-sm"
+                className="flex flex-col rounded-sm border border-foreground/25 bg-card p-4"
               >
                 <div className="flex items-center gap-2">
                   <Badge
@@ -378,12 +380,12 @@ export function WorkoutGenerator() {
                     onClick={() => handleDelete(entry)}
                     aria-label="Delete workout"
                     title="Delete workout"
-                    className="ml-auto grid h-7 w-7 cursor-pointer place-items-center rounded-full text-muted-foreground transition-colors hover:bg-danger/10 hover:text-danger"
+                    className="ml-auto grid h-7 w-7 cursor-pointer place-items-center rounded-sm text-muted-foreground transition-colors hover:bg-danger/10 hover:text-danger"
                   >
                     <TrashIcon />
                   </button>
                 </div>
-                <p className="mt-3 text-sm font-semibold">
+                <p className="serial mt-3 text-sm font-semibold">
                   {entry.workout.durationMinutes} min ·{" "}
                   {entry.workout.exercises.length} exercises
                 </p>
@@ -426,9 +428,9 @@ export function WorkoutGenerator() {
             role="dialog"
             aria-modal="true"
             aria-label="Delete workout"
-            className="relative w-full max-w-sm rounded-2xl border border-border bg-card p-6 shadow-2xl"
+            className="relative w-full max-w-sm rounded-sm border border-foreground/25 bg-card p-6"
           >
-            <h3 className="font-display text-lg font-bold">Delete workout?</h3>
+            <h3 className="font-display text-lg font-black uppercase tracking-tight">Delete workout?</h3>
             <p className="mt-2 text-sm text-muted-foreground">
               This permanently removes the workout from your recent list. This
               action cannot be undone.

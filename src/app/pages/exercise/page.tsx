@@ -208,7 +208,7 @@ function ExerciseCard({
     <button
       type="button"
       onClick={onSelect}
-      className="group relative w-full overflow-hidden rounded-2xl border border-border bg-card text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
+      className="group relative w-full overflow-hidden rounded-sm border border-foreground/25 bg-card text-left transition-all hover:border-primary/50"
     >
       {imageUrl ? (
         <div className="relative aspect-[4/3] w-full overflow-hidden bg-secondary">
@@ -222,16 +222,16 @@ function ExerciseCard({
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
           <div className="absolute bottom-2.5 left-2.5 right-2.5">
-            <h3 className="truncate text-sm font-bold text-white drop-shadow-md">{name}</h3>
+            <h3 className="truncate text-sm font-bold text-white">{name}</h3>
           </div>
-          <div className="absolute left-2.5 top-2.5 rounded-full bg-background/85 px-2 py-0.5 text-[11px] font-semibold backdrop-blur">
+          <div className="absolute left-2.5 top-2.5 rounded-sm bg-background/85 px-2 py-0.5 text-[11px] font-semibold">
             {exercise.category.name}
           </div>
           <div className="absolute right-2 top-2 flex gap-1.5 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
             <button
               type="button"
               onClick={handleBookmark}
-              className={`grid h-8 w-8 place-items-center rounded-full backdrop-blur transition-colors ${
+              className={`grid h-8 w-8 place-items-center rounded-sm transition-colors ${
                 bookmarked
                   ? "bg-primary/90 text-primary-foreground"
                   : "bg-black/50 text-white hover:bg-black/70"
@@ -243,7 +243,7 @@ function ExerciseCard({
             <button
               type="button"
               onClick={handleAddToRoutine}
-              className={`grid h-8 w-8 place-items-center rounded-full backdrop-blur transition-colors ${
+              className={`grid h-8 w-8 place-items-center rounded-sm transition-colors ${
                 inRoutine
                   ? "bg-success/90 text-white"
                   : "bg-black/50 text-white hover:bg-primary/90 hover:text-primary-foreground"
@@ -265,7 +265,7 @@ function ExerciseCard({
             <button
               type="button"
               onClick={handleBookmark}
-              className={`grid h-8 w-8 place-items-center rounded-full backdrop-blur transition-colors ${
+              className={`grid h-8 w-8 place-items-center rounded-sm transition-colors ${
                 bookmarked
                   ? "bg-primary/90 text-primary-foreground"
                   : "bg-black/50 text-white hover:bg-black/70"
@@ -277,7 +277,7 @@ function ExerciseCard({
             <button
               type="button"
               onClick={handleAddToRoutine}
-              className={`grid h-8 w-8 place-items-center rounded-full backdrop-blur transition-colors ${
+              className={`grid h-8 w-8 place-items-center rounded-sm transition-colors ${
                 inRoutine
                   ? "bg-success/90 text-white"
                   : "bg-black/50 text-white hover:bg-primary/90 hover:text-primary-foreground"
@@ -301,16 +301,16 @@ function ExerciseCard({
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
           <div className="absolute bottom-2.5 left-2.5 right-2.5">
-            <h3 className="truncate text-sm font-bold text-white drop-shadow-md">{name}</h3>
+            <h3 className="truncate text-sm font-bold text-white">{name}</h3>
           </div>
-          <div className="absolute left-2.5 top-2.5 rounded-full bg-background/85 px-2 py-0.5 text-[11px] font-semibold backdrop-blur">
+          <div className="absolute left-2.5 top-2.5 rounded-sm bg-background/85 px-2 py-0.5 text-[11px] font-semibold">
             {exercise.category.name}
           </div>
           <div className="absolute right-2 top-2 flex gap-1.5 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
             <button
               type="button"
               onClick={handleBookmark}
-              className={`grid h-8 w-8 place-items-center rounded-full backdrop-blur transition-colors ${
+              className={`grid h-8 w-8 place-items-center rounded-sm transition-colors ${
                 bookmarked
                   ? "bg-primary/90 text-primary-foreground"
                   : "bg-black/50 text-white hover:bg-black/70"
@@ -322,7 +322,7 @@ function ExerciseCard({
             <button
               type="button"
               onClick={handleAddToRoutine}
-              className={`grid h-8 w-8 place-items-center rounded-full backdrop-blur transition-colors ${
+              className={`grid h-8 w-8 place-items-center rounded-sm transition-colors ${
                 inRoutine
                   ? "bg-success/90 text-white"
                   : "bg-black/50 text-white hover:bg-primary/90 hover:text-primary-foreground"
@@ -477,7 +477,7 @@ function ExerciseDetail({
               {mainMuscles.map((m) => (
                 <div
                   key={m.id}
-                  className="flex items-center gap-2 rounded-xl border border-primary/20 bg-primary/5 px-3 py-1.5"
+                  className="flex items-center gap-2 rounded-sm border border-primary/20 bg-primary/5 px-3 py-1.5"
                 >
                   <span className="h-2 w-2 rounded-full bg-primary" />
                   <span className="text-sm font-medium">{m.name_en || m.name}</span>
@@ -496,7 +496,7 @@ function ExerciseDetail({
               {secondaryMuscles.map((m) => (
                 <div
                   key={m.id}
-                  className="flex items-center gap-2 rounded-xl border border-border bg-muted/50 px-3 py-1.5"
+                  className="flex items-center gap-2 rounded-sm border border-foreground/15 bg-muted/50 px-3 py-1.5"
                 >
                   <span className="h-2 w-2 rounded-full bg-muted-foreground" />
                   <span className="text-sm font-medium">{m.name_en || m.name}</span>
@@ -508,11 +508,11 @@ function ExerciseDetail({
 
         {(mainMuscles.length > 0 || secondaryMuscles.length > 0) && (
           <div className="mt-5 grid grid-cols-2 gap-3">
-            <div className="rounded-xl bg-muted/50 p-4 text-center">
+            <div className="rounded-sm border border-foreground/15 bg-muted/50 p-4 text-center">
               <p className="text-2xl font-bold">{mainMuscles.length + secondaryMuscles.length}</p>
               <p className="text-xs text-muted-foreground">Muscles Targeted</p>
             </div>
-            <div className="rounded-xl bg-muted/50 p-4 text-center">
+            <div className="rounded-sm border border-foreground/15 bg-muted/50 p-4 text-center">
               <p className="text-2xl font-bold">{exercise.equipment.length || "—"}</p>
               <p className="text-xs text-muted-foreground">Equipment Needed</p>
             </div>
@@ -536,13 +536,13 @@ function ExerciseDetail({
 
 function SkeletonCard() {
   return (
-    <div className="animate-pulse overflow-hidden rounded-2xl border border-border bg-card">
+    <div className="animate-pulse overflow-hidden rounded-sm border border-foreground/25 bg-card">
       <div className="aspect-[4/3] bg-secondary" />
       <div className="p-2.5">
         <div className="h-4 w-2/3 rounded bg-muted" />
         <div className="mt-2 flex gap-1">
-          <div className="h-5 w-14 rounded-full bg-muted" />
-          <div className="h-5 w-16 rounded-full bg-muted" />
+          <div className="h-5 w-14 rounded-sm bg-muted" />
+          <div className="h-5 w-16 rounded-sm bg-muted" />
         </div>
       </div>
     </div>
@@ -871,7 +871,7 @@ export default function ExercisePage() {
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
       <div className="text-center">
-        <h1 className="font-display text-4xl font-bold tracking-tight sm:text-6xl">
+        <h1 className="font-display text-4xl font-black uppercase tracking-tight sm:text-6xl">
           Browse Exercises
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
@@ -880,7 +880,7 @@ export default function ExercisePage() {
       </div>
 
       {/* Filters */}
-      <div className="mx-auto mt-10 max-w-6xl rounded-2xl border border-border bg-card shadow-sm">
+      <div className="mx-auto mt-10 max-w-6xl rounded-sm border border-foreground/25 bg-card shadow-sm">
         <div className="flex items-center gap-3 p-5 sm:p-6">
           <div className="min-w-0 flex-1">
             <Input
@@ -910,7 +910,7 @@ export default function ExercisePage() {
                 {filtersOpen ? "Hide" : "Filters"}
               </span>
               {activeFilterCount > 0 && (
-                <span className="grid h-5 min-w-5 place-items-center rounded-full bg-primary px-1 text-[11px] font-bold text-primary-foreground">
+                <span className="stamp grid h-5 min-w-5 place-items-center rounded-sm bg-primary px-1 text-[11px] font-bold text-primary-foreground">
                   {activeFilterCount}
                 </span>
               )}
@@ -920,7 +920,7 @@ export default function ExercisePage() {
         </div>
 
         {filtersOpen && (
-          <div className="border-t border-border p-5 pt-6 sm:p-6">
+          <div className="border-t border-foreground/15 p-5 pt-6 sm:p-6">
             <div className="grid gap-6 lg:grid-cols-[minmax(0,280px)_1fr]">
               {/* Body map */}
               <div className="flex justify-center lg:justify-start">
@@ -935,7 +935,7 @@ export default function ExercisePage() {
               {/* Groups + filters */}
               <div className="space-y-6">
                 <div>
-                  <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-foreground">
+                  <p className="mb-3 font-display text-sm font-black uppercase tracking-tight text-foreground">
                     Body part
                   </p>
                   <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
@@ -968,8 +968,8 @@ export default function ExercisePage() {
                   </div>
                 </div>
 
-                <div className="border-t border-border pt-5">
-                  <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-foreground">
+                <div className="border-t border-foreground/15 pt-5">
+                  <p className="mb-3 font-display text-sm font-black uppercase tracking-tight text-foreground">
                     Equipment
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -995,15 +995,15 @@ export default function ExercisePage() {
       <div className="mx-auto mt-10 max-w-6xl">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-3">
-            <h2 className="font-display text-lg font-bold">Exercises</h2>
-            <div className="flex items-center gap-1 rounded-full border border-border bg-card p-1">
+            <h2 className="font-display text-lg font-black uppercase tracking-tight">Exercises</h2>
+            <div className="flex items-center gap-1 rounded-sm border border-foreground/25 bg-card p-1">
               <button
                 type="button"
                 onClick={() => {
                   setShowBookmarked(false);
                   setVisibleCount(PAGE_SIZE);
                 }}
-                className={`cursor-pointer rounded-full px-3 py-1 text-sm font-medium transition-colors ${
+                className={`cursor-pointer rounded-sm px-3 py-1 text-sm font-medium transition-colors ${
                   !showBookmarked
                     ? "bg-primary text-primary-foreground"
                     : "text-muted-foreground hover:text-foreground"
@@ -1017,7 +1017,7 @@ export default function ExercisePage() {
                   setShowBookmarked(true);
                   setVisibleCount(PAGE_SIZE);
                 }}
-                className={`cursor-pointer rounded-full px-3 py-1 text-sm font-medium transition-colors ${
+                className={`cursor-pointer rounded-sm px-3 py-1 text-sm font-medium transition-colors ${
                   showBookmarked
                     ? "bg-primary text-primary-foreground"
                     : "text-muted-foreground hover:text-foreground"
@@ -1026,7 +1026,7 @@ export default function ExercisePage() {
                 Bookmarked
                 {bookmarkIds.length > 0 && (
                   <span
-                    className={`ml-1.5 rounded-full px-1.5 py-0.5 text-[11px] font-bold ${
+                    className={`ml-1.5 rounded-sm px-1.5 py-0.5 text-[11px] font-bold ${
                       showBookmarked
                         ? "bg-primary-foreground/20 text-primary-foreground"
                         : "bg-secondary text-secondary-foreground"
@@ -1048,7 +1048,7 @@ export default function ExercisePage() {
                     type="button"
                     onClick={tag.onRemove}
                     title={`Remove filter: ${tag.label}`}
-                    className="inline-flex items-center gap-1 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary transition-colors hover:bg-primary/20"
+                    className="inline-flex items-center gap-1 rounded-sm border border-primary/40 bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary transition-colors hover:bg-primary/20"
                   >
                     {tag.label}
                     <svg
@@ -1070,10 +1070,10 @@ export default function ExercisePage() {
               </div>
             )}
             <span
-              className={`rounded-full border px-3 py-1 text-sm font-semibold transition-all duration-500 ${
+              className={`stamp rounded-sm border px-3 py-1 text-sm font-semibold transition-all duration-500 ${
                 resultFlash
                   ? "border-primary bg-primary/10 text-primary"
-                  : "border-border bg-card text-muted-foreground"
+                  : "border-foreground/25 bg-card text-muted-foreground"
               }`}
               aria-live="polite"
             >
@@ -1090,7 +1090,7 @@ export default function ExercisePage() {
               ))}
             </div>
           ) : exercises.length === 0 ? (
-            <div className="flex min-h-[240px] items-center justify-center rounded-2xl border border-dashed border-border">
+            <div className="flex min-h-[240px] items-center justify-center rounded-sm border border-dashed border-foreground/25">
               {showBookmarked && bookmarkIds.length === 0 ? (
                 <p className="text-center text-muted-foreground">
                   No bookmarked exercises yet.
@@ -1152,8 +1152,8 @@ export default function ExercisePage() {
           selectedExercise ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between gap-3 border-b border-border px-5 py-4 sm:px-6">
-          <h2 className="font-display text-lg font-bold">Exercise Details</h2>
+        <div className="flex items-center justify-between gap-3 border-b border-foreground/25 px-5 py-4 sm:px-6">
+          <h2 className="font-display text-lg font-black uppercase tracking-tight">Exercise Details</h2>
           <div className="flex items-center gap-2">
             {selectedExercise && (
               <>
@@ -1183,7 +1183,7 @@ export default function ExercisePage() {
               type="button"
               onClick={() => setSelectedExercise(null)}
               aria-label="Close details"
-              className="grid h-9 w-9 cursor-pointer place-items-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              className="grid h-9 w-9 cursor-pointer place-items-center rounded-sm border border-foreground/25 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
               <CloseIcon />
             </button>
@@ -1212,13 +1212,13 @@ export default function ExercisePage() {
           routineTarget ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between border-b border-border px-5 py-4 sm:px-6">
-          <h2 className="font-display text-lg font-bold">Add to workout</h2>
+        <div className="flex items-center justify-between border-b border-foreground/25 px-5 py-4 sm:px-6">
+          <h2 className="font-display text-lg font-black uppercase tracking-tight">Add to workout</h2>
           <button
             type="button"
             onClick={() => setRoutineTarget(null)}
             aria-label="Close"
-            className="grid h-9 w-9 cursor-pointer place-items-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            className="grid h-9 w-9 cursor-pointer place-items-center rounded-sm border border-foreground/25 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
             <CloseIcon />
           </button>
@@ -1226,19 +1226,19 @@ export default function ExercisePage() {
 
         <div className="flex-1 overflow-y-auto p-5 sm:p-6">
           {routineTarget && (
-            <div className="mb-5 rounded-xl bg-secondary/40 p-4">
+            <div className="mb-5 rounded-sm bg-secondary/40 p-4">
               <p className="text-sm font-semibold text-foreground">
                 {getExerciseName(routineTarget)}
               </p>
               <p className="mt-1 text-xs text-muted-foreground">
                 Pick a generated workout to add this exercise to. It will keep
-                that workout’s sets, reps, and rest style.
+                that workout&apos;s sets, reps, and rest style.
               </p>
             </div>
           )}
 
           {workouts.filter((w) => w.status === "draft").length === 0 ? (
-            <div className="flex min-h-[200px] items-center justify-center rounded-2xl border border-dashed border-border px-6 text-center">
+            <div className="flex min-h-[200px] items-center justify-center rounded-sm border border-dashed border-foreground/25 px-6 text-center">
               <div>
                 <p className="text-sm text-muted-foreground">
                   No draft workouts yet.
@@ -1267,7 +1267,7 @@ export default function ExercisePage() {
                   return (
                     <li
                       key={entry.workout.id}
-                      className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card p-3"
+                      className="flex items-center justify-between gap-3 rounded-sm border border-foreground/15 bg-card p-3"
                     >
                       <div className="min-w-0">
                         <p className="truncate text-sm font-medium text-foreground">

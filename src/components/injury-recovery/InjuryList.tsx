@@ -29,7 +29,7 @@ function statusVariant(status: InjuryStatus) {
     case "active":
       return "danger" as const;
     case "healing":
-      return "primary" as const;
+      return "secondary" as const;
     case "cleared":
       return "success" as const;
   }
@@ -58,7 +58,7 @@ export function InjuryList({ injuries, onSelect }: InjuryListProps) {
 
   if (injuries.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-border bg-card/50 p-6 text-center">
+      <div className="rounded-sm border border-dashed border-foreground/25 bg-card/50 p-6 text-center">
         <p className="text-sm text-muted-foreground">
           No injuries reported yet. Use the form to log one and we&apos;ll
           adjust your plan accordingly.
@@ -80,15 +80,15 @@ export function InjuryList({ injuries, onSelect }: InjuryListProps) {
             type="button"
             onClick={() => setFilter(f.key)}
             aria-pressed={filter === f.key}
-            className={`inline-flex h-8 cursor-pointer items-center gap-1.5 rounded-full border px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+            className={`inline-flex h-8 cursor-pointer items-center gap-1.5 rounded-sm border px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
               filter === f.key
                 ? "border-primary bg-primary text-primary-foreground"
-                : "border-border bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                : "border-foreground/25 bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground"
             }`}
           >
             {f.label}
             <span
-              className={`rounded-full px-1.5 text-xs ${
+              className={`rounded-sm px-1.5 text-xs ${
                 filter === f.key ? "bg-primary-foreground/20" : "bg-muted"
               }`}
             >
@@ -99,7 +99,7 @@ export function InjuryList({ injuries, onSelect }: InjuryListProps) {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="mt-4 flex min-h-[160px] items-center justify-center rounded-2xl border border-dashed border-border bg-card/50">
+        <div className="mt-4 flex min-h-[160px] items-center justify-center rounded-sm border border-dashed border-foreground/25 bg-card/50">
           <p className="text-sm text-muted-foreground">
             No{" "}
             {filter === "all"
@@ -123,7 +123,7 @@ export function InjuryList({ injuries, onSelect }: InjuryListProps) {
                 key={injury.id}
                 type="button"
                 onClick={() => onSelect(injury)}
-                className={`group flex w-full cursor-pointer flex-col rounded-2xl border border-border bg-card p-4 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md ${
+                className={`group flex w-full cursor-pointer flex-col rounded-sm border border-foreground/25 bg-card p-4 text-left transition-colors hover:border-primary/50 ${
                   injury.status === "cleared" ? "opacity-70" : ""
                 }`}
               >

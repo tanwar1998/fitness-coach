@@ -1,0 +1,72 @@
+---
+version: 1
+slug: "core"
+primary_target: "core"
+related_targets: []
+---
+
+# FitPulse core surface brief
+
+Scope: whole-app replacement world (all 17 pages, all 46 components), token-first.
+Visitor mode: Operate — self-guided fitness beginners at home or small gym, 30-60 min sessions, phone-first, dark or light ambient light.
+
+## Audience, job, action, proof, constraints
+
+- Audience: self-guided beginners who train alone and track anyway.
+- Job: plan a session, learn an exercise, log progress, get coached/adjusted when life happens.
+- Action: open page, see what to do now, respond to the coach's question, keep going.
+- Proof/content: real wger.de exercise data + videos; real user plan/data; no fabricated exercise facts.
+- Constraints: PRODUCT.md — violet identity, dark + light mode, all routes/pages work, restyle only (no functionality/copy changes), no gamification, no hype.
+
+## Chosen direction (KIT-TAG, seed 6d0a08fa, ASSIGNED index 7)
+
+The world of the athletic-apparel garment tag. Every screen is a tag: raw stock ground
+(off-white tag-paper light / near-black nylon dark), heavy ink structure, violet fabric-label
+plates carrying the active thing, lime reserved BY LAW for live states only (typing, pending
+question, current rep). Plan changes are a re-issue line stamped onto the tag with the old
+numbers struck and the new ones measured in. Peaceful, factual, honest labeling of hard work.
+Raises from declined challengers: SIGNAL-BENCH (measured stat plates: ruled boxes + tabular
+numerals for every metric), ARCADE (lime palette law: one reserved accent, live states only),
+CYCLORAMA (dawn wash: barely-there active gradient on the primary moment only), METRO
+(cropped-type energy: one oversized display statement per surface, cropped at the edge).
+
+Memorable moment: your workout plan arrives as a hung tag with a serial; when the AI coach
+adjusts it, the tag re-issues with "re-cut for LOW ENERGY" and measured new numbers.
+
+Unresolved: none material. Code-led build (no image generation in harness).
+
+## Direction contract
+
+THESIS: FitPulse runs the beginner's training as a garment being cut to spec — every surface a
+garment tag, the plan a live re-issue line, effort labeled factually like a care label. It
+refuses the generic AI wellness app (rounded gradient cards, soft purple washes, glass, mood
+copy) and the hero-metric template.
+
+OWN-WORLD: raw stock ground in both themes (light: off-white tag-board `#f4f1ea` family; dark:
+near-black nylon `#0c0b0f` family). Structure is heavy ink, not borders. Violet is the fabric
+plate — one saturated violet field used as a real plate (solid field, not a translucid wash) on
+the active/primary thing. Lime is a single reserved accent, live states only (typing, pending
+question, active rep). Ink includes warm charcoal (not neutral gray) for secondary text. Type:
+a display face with real character for the tag headers (a condensed industrial grotesque, e.g.
+an Archivo/Archivo Black or similar family with the sharpness of a garment-stamp system) plus
+tabular numerals for all metrics. Language: straight labeled plates and serial stamps, a top
+seam, cut-edge corners on plates, ruled `SETS × REPS` spec blocks, care-symbol-like control
+marks. One oversized cropped display statement per surface.
+
+STORY: A beginner opens FitPulse and reads their training the way they read the tag on their
+favorite shirt: what it is, what it's made of, how to care for it. The AI coach is the
+fit-consultant who re-cuts the garment when life happens — energy, pain, time — and re-issues
+the tag so the new plan is measured, visible, honest. Nothing is gamified, nothing whispers;
+the energy is the confidence of a numbered spec.
+
+FIRST VIEWPORT (AI coach page): a hung garment tag at the top of the thread drops from the top
+seam and carries the session serial, a `STYLE / PLAN N°` line, and a tabular spec block
+(`SETS × REPS`, measured rules). The coach's question renders as its own violet plate; the
+typing state is the lime live-state. Plan changes stamp a re-issue line onto the plan tag with
+struck old numbers and measured new numbers. Primary action: the answer control, rendered as a
+care-symbol option plate, sitting directly under the coach's message.
+
+FORM: garment-tag world, candidate 7 of 7, seed key 6d0a08fa (KIT-TAG, THE ROLL).
+
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the
+verdict, DESIGN.md, and every shipping raster carrying its provenance.

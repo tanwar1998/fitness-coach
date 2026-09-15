@@ -83,11 +83,11 @@ function summarize(metrics: WearableMetric[]): StatsSummary {
 
 function MetricChip({ label, value }: { label: string; value: string | number | null }) {
   return (
-    <div className="rounded-xl border border-border bg-muted/30 px-3 py-2">
+    <div className="border border-foreground/25 bg-muted px-3 py-2">
       <p className="text-[11px] uppercase tracking-wide text-muted-foreground">
         {label}
       </p>
-      <p className="text-sm font-semibold text-foreground">
+      <p className="text-sm font-semibold text-foreground tabular-nums">
         {value ?? "—"}
       </p>
     </div>
@@ -174,9 +174,9 @@ export function WearableCard() {
   };
 
   return (
-    <section className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+    <section className="border border-foreground/25 bg-card p-5 shadow-sm">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-        <h2 className="text-lg font-bold text-foreground">Wearable &amp; Health Data</h2>
+        <h2 className="font-display font-black uppercase tracking-tight text-lg">Wearable &amp; Health Data</h2>
         {summary.lastDate && (
           <span className="text-xs text-muted-foreground">
             Latest sync: <span className="font-medium text-foreground">{summary.lastDate}</span>
@@ -190,10 +190,10 @@ export function WearableCard() {
             key={p}
             type="button"
             onClick={() => setProvider(p)}
-            className={`cursor-pointer rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
+            className={`cursor-pointer rounded-sm border px-3 py-1 text-xs font-medium transition-colors ${
               provider === p
-                ? "border-primary bg-primary/10 text-primary"
-                : "border-border text-muted-foreground hover:bg-muted"
+                ? "border border-primary/40 bg-primary/10 text-primary"
+                : "border-foreground/25 text-muted-foreground hover:bg-muted"
             }`}
           >
             {providerLabel(p)}
@@ -221,7 +221,7 @@ export function WearableCard() {
           />
           <label
             htmlFor="wearable-file-input"
-            className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-border bg-muted/30 px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+            className="inline-flex cursor-pointer items-center gap-2 rounded-sm border border-foreground/25 bg-muted px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-muted/80"
           >
             Choose JSON export
           </label>
@@ -246,7 +246,7 @@ export function WearableCard() {
           onChange={(e) => setRawText(e.target.value)}
           rows={2}
           placeholder={JSON_HINT}
-          className="w-full resize-y rounded-xl border border-border bg-muted/30 px-3 py-2 font-mono text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+          className="w-full resize-y rounded-sm border border-foreground/25 bg-muted px-3 py-2 font-mono text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
         />
 
         {error && <p className="text-xs text-danger">{error}</p>}
@@ -323,7 +323,7 @@ export function WearableCard() {
                     contentStyle={{
                       background: "var(--color-card)",
                       borderColor: "var(--color-border)",
-                      borderRadius: 12,
+                      borderRadius: 2,
                       fontSize: 12,
                     }}
                     labelStyle={{ color: "var(--color-muted-foreground)" }}

@@ -63,13 +63,13 @@ export function MuscleBodySelector({
     <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-5">
       {/* Front / back toggle + figure */}
       <div className="flex flex-col items-center gap-3">
-        <div className="flex gap-1 rounded-full border border-border bg-muted p-0.5">
+        <div className="flex gap-1 rounded-sm border border-foreground/25 bg-muted p-0.5">
           {(["front", "back"] as const).map((v) => (
             <button
               key={v}
               type="button"
               onClick={() => setView(v)}
-              className={`rounded-full px-3 py-1 text-xs font-medium capitalize transition-colors cursor-pointer ${
+              className={`rounded-sm px-3 py-1 text-xs font-medium capitalize transition-colors cursor-pointer ${
                 view === v
                   ? "bg-primary text-primary-foreground"
                   : "text-muted-foreground hover:text-foreground"

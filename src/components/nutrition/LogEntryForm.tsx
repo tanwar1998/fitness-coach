@@ -25,7 +25,7 @@ export interface LogResult {
 const MEAL_SELECT_OPTIONS: MealType[] = ["breakfast", "lunch", "dinner", "snack"];
 
 const fieldClass =
-  "h-10 w-full rounded-lg border border-input bg-card px-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring";
+  "h-10 w-full rounded-sm border border-input bg-card px-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring";
 
 const labelClass = "mb-1 block text-xs font-medium text-muted-foreground";
 
@@ -125,10 +125,10 @@ export function LogEntryForm({
                 type="button"
                 onClick={() => setMealType(meal)}
                 aria-pressed={selected}
-                className={`h-9 rounded-full border px-2 text-xs font-semibold transition-colors ${
+                className={`h-9 rounded-sm border px-2 text-xs font-semibold transition-colors ${
                   selected
                     ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                    : "border-foreground/25 bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground"
                 }`}
               >
                 {mealLabel(meal)}
@@ -165,7 +165,7 @@ export function LogEntryForm({
       </div>
 
       <p
-        className={`text-xs tabular-nums ${
+        className={`text-xs tabular-nums serial ${
           preview == null
             ? requireQuantity
               ? "text-warning"

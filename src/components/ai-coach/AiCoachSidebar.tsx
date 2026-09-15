@@ -197,7 +197,7 @@ export function AiCoachSidebar({
       />
 
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-72 max-w-[85vw] flex-col overflow-hidden border-r border-border bg-card transition-[width,transform] duration-300 md:static md:z-auto ${
+        className={`fixed inset-y-0 left-0 z-50 flex w-72 max-w-[85vw] flex-col overflow-hidden border-r border-foreground/15 bg-background transition-[width,transform] duration-300 md:static md:z-auto ${
           open ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         } ${collapsed ? "md:w-14" : "md:w-72"}`}
       >
@@ -211,7 +211,7 @@ export function AiCoachSidebar({
             type="button"
             onClick={onToggleCollapse}
             aria-label="Expand chat history"
-            className="grid h-11 w-11 cursor-pointer place-items-center rounded-xl border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            className="grid h-11 w-11 cursor-pointer place-items-center border border-foreground/20 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
             <ChevronsRightIcon />
           </button>
@@ -223,19 +223,19 @@ export function AiCoachSidebar({
             collapsed ? "hidden md:hidden" : "flex"
           }`}
         >
-        <div className="flex items-center gap-2 border-b border-border p-4">
+        <div className="flex items-center gap-2 border-b border-foreground/15 p-4">
           <button
             type="button"
             onClick={onToggleCollapse}
             aria-label="Collapse chat history"
-            className="hidden h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-xl border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:grid"
+            className="hidden h-11 w-11 shrink-0 cursor-pointer place-items-center border border-foreground/20 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:grid"
           >
             <ChevronsLeftIcon />
           </button>
           <button
             type="button"
             onClick={onNew}
-            className="flex h-11 flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-4 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
+            className="flex h-11 flex-1 cursor-pointer items-center justify-center gap-2 bg-primary px-4 font-display text-sm font-black uppercase tracking-wide text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
           >
             <PlusIcon />
             New chat
@@ -244,7 +244,7 @@ export function AiCoachSidebar({
             type="button"
             onClick={onClose}
             aria-label="Close sidebar"
-            className="grid h-11 w-11 cursor-pointer place-items-center rounded-xl border border-border text-muted-foreground transition-colors hover:bg-muted md:hidden"
+            className="grid h-11 w-11 cursor-pointer place-items-center border border-foreground/20 text-muted-foreground transition-colors hover:bg-muted md:hidden"
           >
             <CloseIcon />
           </button>
@@ -253,7 +253,7 @@ export function AiCoachSidebar({
         <nav className="flex-1 overflow-y-auto p-3">
           {groups.length === 0 ? (
             <div className="flex flex-col items-center justify-center px-4 py-12 text-center">
-              <span className="grid h-16 w-16 place-items-center rounded-2xl bg-primary/10 text-primary">
+              <span className="border border-foreground/20 bg-muted p-3 text-muted-foreground">
                 <HistoryIcon />
               </span>
               <p className="mt-4 text-sm font-medium text-muted-foreground">
@@ -267,7 +267,7 @@ export function AiCoachSidebar({
             <div className="flex flex-col gap-5">
               {groups.map(([label, items]) => (
                 <div key={label}>
-                  <p className="px-2 pb-1.5 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                  <p className="stamp px-2 pb-1.5 text-muted-foreground">
                     {label}
                   </p>
                   <ul className="flex flex-col gap-0.5">
@@ -276,8 +276,8 @@ export function AiCoachSidebar({
                       return (
                         <li key={session.id}>
                           <div
-                            className={`group flex w-full items-center gap-1 rounded-xl transition-colors ${
-                              active ? "bg-primary/10" : "hover:bg-muted"
+                            className={`group flex w-full items-center gap-1 transition-colors ${
+                              active ? "bg-primary text-primary-foreground" : "hover:bg-muted"
                             }`}
                           >
                             <button
@@ -285,13 +285,13 @@ export function AiCoachSidebar({
                               onClick={() => onSelect(session.id)}
                               className="flex min-w-0 flex-1 cursor-pointer items-center gap-2.5 px-3 py-2.5 text-left"
                             >
-                              <span className={active ? "text-primary" : "text-muted-foreground"}>
+                              <span className={active ? "text-primary-foreground" : "text-muted-foreground"}>
                                 <ChatIcon />
                               </span>
                               <span
                                 className={`truncate text-sm ${
                                   active
-                                    ? "font-medium text-foreground"
+                                    ? "font-semibold text-primary-foreground"
                                     : "text-muted-foreground"
                                 }`}
                               >
@@ -302,7 +302,7 @@ export function AiCoachSidebar({
                               type="button"
                               onClick={() => onDelete(session.id)}
                               aria-label={`Delete ${session.title}`}
-                              className={`mr-1 grid h-8 w-8 shrink-0 cursor-pointer place-items-center rounded-lg text-muted-foreground transition-colors hover:bg-danger/10 hover:text-danger focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                              className={`mr-1 grid h-8 w-8 shrink-0 cursor-pointer place-items-center text-muted-foreground transition-colors hover:bg-danger/10 hover:text-danger focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
                                 active
                                   ? "opacity-100"
                                   : "opacity-0 group-hover:opacity-100 focus-visible:opacity-100"
@@ -321,7 +321,7 @@ export function AiCoachSidebar({
           )}
         </nav>
 
-        <div className="border-t border-border p-4">
+        <div className="border-t border-foreground/15 p-4">
           <p className="text-xs text-muted-foreground">
             Conversations are saved on the server.
           </p>

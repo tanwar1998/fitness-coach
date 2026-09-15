@@ -15,7 +15,8 @@ const FOOTER_LINKS = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-background">
+    <footer className="border-t-2 border-foreground/15 bg-background">
+      <div className="perforation mx-auto" />
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 py-10 sm:px-6 md:flex-row md:justify-between">
         <Logo />
 
@@ -24,15 +25,15 @@ export function Footer() {
             <Link
               key={link.href}
               href={link.href}
-              className="font-medium transition-colors hover:text-primary"
+              className="font-semibold transition-colors hover:text-foreground"
             >
               {link.label}
             </Link>
           ))}
         </nav>
 
-        <p className="text-sm text-muted-foreground">
-          © {CURRENT_YEAR} FitPulse. All rights reserved.
+        <p className="serial text-sm text-muted-foreground">
+          © {CURRENT_YEAR} FitPulse · S/N 01
         </p>
       </div>
     </footer>

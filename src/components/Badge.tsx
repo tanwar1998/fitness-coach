@@ -1,11 +1,11 @@
 type BadgeVariant = "primary" | "secondary" | "outline" | "success" | "danger";
 
 const variantMap: Record<BadgeVariant, string> = {
-  primary: "bg-primary/10 text-primary",
-  secondary: "bg-secondary text-secondary-foreground",
-  outline: "border border-border text-muted-foreground",
-  success: "bg-success/10 text-success",
-  danger: "bg-danger/10 text-danger",
+  primary: "bg-primary text-primary-foreground",
+  secondary: "bg-secondary text-secondary-foreground border border-foreground/20",
+  outline: "border border-foreground/30 text-foreground",
+  success: "bg-success/15 text-success border border-success/40",
+  danger: "bg-danger/15 text-danger border border-danger/40",
 };
 
 interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
@@ -19,7 +19,7 @@ export function Badge({
 }: BadgeProps) {
   return (
     <span
-      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${variantMap[variant]} ${className}`}
+      className={`stamp inline-flex items-center px-2 py-0.5 ${variantMap[variant]} ${className}`}
       {...props}
     />
   );

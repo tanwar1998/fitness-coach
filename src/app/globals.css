@@ -3,49 +3,51 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #f5f3fb;
-  --foreground: #171231;
-  --card: #ffffff;
-  --card-foreground: #171231;
-  --primary: #5b35c9;
+  /* KIT-TAG world — light: tag-board stock */
+  --background: #f2efe6;
+  --foreground: #191712;
+  --card: #f8f6ee;
+  --card-foreground: #191712;
+  --primary: #5728c8;
   --primary-foreground: #ffffff;
-  --secondary: #ece7fb;
-  --secondary-foreground: #4a3596;
-  --muted: #efeaf8;
-  --muted-foreground: #5f5678;
-  --accent: #e3d8fb;
+  --secondary: #e4dfd0;
+  --secondary-foreground: #2c2a21;
+  --muted: #e9e4d6;
+  --muted-foreground: #5c574b;
+  --accent: #e6ddfb;
   --accent-foreground: #34176e;
-  --lime: #a7e22c;
-  --lime-foreground: #1d2406;
-  --border: #ddd6ef;
-  --input: #cfc6ec;
-  --ring: #5b35c9;
-  --success: #16a34a;
-  --danger: #dc2626;
-  --warning: #d97706;
+  --lime: #b7d93a;
+  --lime-foreground: #1d2203;
+  --border: #d8d2bf;
+  --input: #c6bfa7;
+  --ring: #5728c8;
+  --success: #1f7a31;
+  --danger: #b42318;
+  --warning: #9a5b00;
 }
 
 .dark {
-  --background: #0b0816;
-  --foreground: #efeaff;
-  --card: #16102b;
-  --card-foreground: #efeaff;
-  --primary: #9a83ea;
-  --primary-foreground: #171231;
-  --secondary: #2a1f4d;
-  --secondary-foreground: #d6c9f7;
-  --muted: #1c1633;
-  --muted-foreground: #a197b8;
-  --accent: #241a42;
-  --accent-foreground: #d9cdf8;
-  --lime: #b6e63c;
-  --lime-foreground: #141b05;
-  --border: #2b2148;
-  --input: #3a2d63;
-  --ring: #9a83ea;
-  --success: #4ade80;
-  --danger: #f87171;
-  --warning: #fbbf24;
+  /* KIT-TAG world — dark: nylon */
+  --background: #0c0b10;
+  --foreground: #f0ecdf;
+  --card: #131218;
+  --card-foreground: #f0ecdf;
+  --primary: #7f55e0;
+  --primary-foreground: #ffffff;
+  --secondary: #232127;
+  --secondary-foreground: #d6d1c2;
+  --muted: #1a1920;
+  --muted-foreground: #a39d8c;
+  --accent: #201c2e;
+  --accent-foreground: #cfc3f4;
+  --lime: #b8e53a;
+  --lime-foreground: #151a02;
+  --border: #262430;
+  --input: #33303d;
+  --ring: #9d80ef;
+  --success: #5dd077;
+  --danger: #ff6b5e;
+  --warning: #e0a83e;
 }
 
 @theme inline {
@@ -71,9 +73,12 @@
   --color-warning: var(--warning);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-display);
+  --font-display: var(--font-archivo);
   --animate-rise: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-pulse-live: pulse-live 2.4s ease-in-out infinite;
+  --animate-tag-drop: tag-drop 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-stamp-in: stamp-in 0.32s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  --animate-slide-in-right: slide-in-right 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 body {
@@ -83,7 +88,7 @@ body {
 }
 
 ::selection {
-  background: color-mix(in oklab, var(--primary) 25%, transparent);
+  background: color-mix(in oklab, var(--primary) 28%, transparent);
 }
 
 *:focus-visible {
@@ -93,7 +98,7 @@ body {
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: color-mix(in oklab, var(--primary) 45%, transparent) transparent;
+  scrollbar-color: color-mix(in oklab, var(--foreground) 38%, transparent) transparent;
 }
 
 *::-webkit-scrollbar {
@@ -102,12 +107,98 @@ body {
 }
 
 *::-webkit-scrollbar-thumb {
-  background: color-mix(in oklab, var(--primary) 45%, transparent);
-  border-radius: 999px;
+  background: color-mix(in oklab, var(--foreground) 38%, transparent);
+  border-radius: 0;
 }
 
 *::-webkit-scrollbar-track {
   background: transparent;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--primary) 28%, transparent);
+}
+
+input::selection,
+textarea::selection {
+  background: color-mix(in oklab, var(--primary) 35%, transparent);
+}
+
+input,
+textarea {
+  caret-color: var(--ring);
+}
+
+/* KIT-TAG component language */
+
+/* Seam: the folded edge of a garment tag — solid rule over a hairline */
+.seam {
+  border-top: 3px solid var(--foreground);
+  box-shadow: 0 2px 0 0 color-mix(in oklab, var(--foreground) 18%, transparent);
+}
+
+/* Perforation: the tear-off line */
+.perforation {
+  height: 1px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--foreground) 0 4px,
+    transparent 4px 8px
+  );
+  opacity: 0.7;
+}
+
+/* Fabric plate: solid violet field with a cut corner. The active/primary thing. */
+.plate-violet {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  clip-path: polygon(
+    0 0,
+    calc(100% - 14px) 0,
+    100% 14px,
+    100% 100%,
+    0 100%
+  );
+}
+
+/* Stock plate: tag paper with an ink rule, for resting surfaces */
+.plate-stock {
+  background: var(--card);
+  border: 1px solid var(--foreground);
+  box-shadow: 0 1px 0 color-mix(in oklab, var(--foreground) 14%, transparent);
+}
+
+/* Ink plate: solid ink field (structure, not accent) */
+.plate-ink {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+/* Dimension-rule plate: stock plate with a ruled bottom spec line */
+.plate-spec {
+  background: var(--card);
+  border: 1px solid var(--foreground);
+}
+
+/* Stamp: small caps label, the kind printed on a tag */
+.stamp {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.serial {
+  font-family: var(--font-mono), monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+}
+
+/* Spec row: measured line with a bottom rule */
+.rule-spec {
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.2em;
 }
 
 @keyframes rise {
@@ -128,6 +219,28 @@ body {
   }
   50% {
     opacity: 0.35;
+  }
+}
+
+@keyframes tag-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) rotate(-1.2deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0);
+  }
+}
+
+@keyframes stamp-in {
+  from {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 

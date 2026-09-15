@@ -61,43 +61,6 @@ const EMPTY_STATS: ProgressStats = {
   heatmapDays: [],
 };
 
-function RingChart({ progress, size = 120 }: { progress: number; size?: number }) {
-  const radius = (size - 12) / 2;
-  const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset = circumference - (progress / 100) * circumference;
-
-  return (
-    <div className="relative" style={{ width: size, height: size }}>
-      <svg width={size} height={size} className="transform -rotate-90">
-        <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={8}
-          className="text-muted"
-        />
-        <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={8}
-          strokeDasharray={circumference}
-          strokeDashoffset={strokeDashoffset}
-          strokeLinecap="round"
-          className="text-primary transition-all duration-500"
-        />
-      </svg>
-      <div className="absolute inset-0 flex items-center justify-center">
-        <span className="text-2xl font-bold text-foreground">{Math.round(progress)}%</span>
-      </div>
-    </div>
-  );
-}
-
 function CalendarHeatmap({ workoutDays }: { workoutDays: string[] }) {
   const [monthOffset, setMonthOffset] = useState(0);
 
@@ -144,7 +107,7 @@ function CalendarHeatmap({ workoutDays }: { workoutDays: string[] }) {
         <p className="text-sm font-semibold text-foreground">{monthLabel}</p>
         <div className="flex items-center gap-1">
           {monthWorkoutCount > 0 && (
-            <span className="mr-2 rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primary">
+            <span className="mr-2 rounded-sm border border-primary/40 bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primary">
               {monthWorkoutCount} workout{monthWorkoutCount === 1 ? "" : "s"}
             </span>
           )}
@@ -153,7 +116,7 @@ function CalendarHeatmap({ workoutDays }: { workoutDays: string[] }) {
             onClick={() => setMonthOffset((o) => o - 1)}
             disabled={!canPrev}
             aria-label="Previous month"
-            className="grid h-6 w-6 cursor-pointer place-items-center rounded border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
+            className="grid h-6 w-6 cursor-pointer place-items-center rounded border border-foreground/25 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
           >
             <svg
               width="12"
@@ -174,7 +137,7 @@ function CalendarHeatmap({ workoutDays }: { workoutDays: string[] }) {
             onClick={() => setMonthOffset((o) => o + 1)}
             disabled={!canNext}
             aria-label="Next month"
-            className="grid h-6 w-6 cursor-pointer place-items-center rounded border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
+            className="grid h-6 w-6 cursor-pointer place-items-center rounded border border-foreground/25 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
           >
             <svg
               width="12"
@@ -252,7 +215,7 @@ function InsightRow({
   value: string;
 }) {
   return (
-    <li className="flex items-center justify-between gap-3 rounded-xl bg-muted/70 px-3 py-2">
+    <li className="flex items-center justify-between gap-3 rounded-sm bg-muted px-3 py-2">
       <span className="flex items-center gap-2 text-sm text-muted-foreground">
         <span className="text-base" aria-hidden="true">
           {icon}
@@ -310,8 +273,8 @@ function InsightsPanel({ workoutDays }: { workoutDays: string[] }) {
 
   if (!hasData) {
     return (
-      <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
-        <h2 className="text-lg font-bold text-foreground">At a glance</h2>
+      <div className="border border-foreground/25 bg-card p-5 shadow-sm">
+        <h2 className="font-display font-black uppercase tracking-tight text-lg">At a glance</h2>
         <p className="mt-1 text-sm text-muted-foreground">
           Finish your first workout and your activity insights will show up here.
         </p>
@@ -320,8 +283,8 @@ function InsightsPanel({ workoutDays }: { workoutDays: string[] }) {
   }
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
-      <h2 className="text-lg font-bold text-foreground">At a glance</h2>
+    <div className="border border-foreground/25 bg-card p-5 shadow-sm">
+      <h2 className="font-display font-black uppercase tracking-tight text-lg">At a glance</h2>
       <p className="text-sm text-muted-foreground">Your consistency at a glance</p>
       <ul className="mt-4 space-y-2">
         <InsightRow
@@ -370,12 +333,12 @@ function KPICard({
   children?: React.ReactNode;
 }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+    <div className="border border-foreground/25 bg-card p-5 shadow-sm">
       <p className="text-sm font-medium text-muted-foreground">{title}</p>
       <div className="mt-2 flex items-center gap-3">
         {children}
         <div>
-          <p className="text-3xl font-bold text-foreground">{value}</p>
+          <p className="text-3xl font-bold text-foreground tabular-nums">{value}</p>
           <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
         </div>
       </div>
@@ -394,7 +357,7 @@ function GoalChart({ goal }: { goal: Goal }) {
 
   if (data.length < 2) {
     return (
-      <div className="flex h-40 items-center justify-center rounded-xl border border-dashed border-border">
+      <div className="flex h-40 items-center justify-center rounded-sm border border-dashed border-foreground/25">
         <p className="px-6 text-center text-xs text-muted-foreground">
           Check in or complete matching workouts to see your trend.
         </p>
@@ -424,7 +387,7 @@ function GoalChart({ goal }: { goal: Goal }) {
             contentStyle={{
               backgroundColor: "var(--card)",
               border: "1px solid var(--border)",
-              borderRadius: "8px",
+              borderRadius: "2px",
               fontSize: "12px",
             }}
           />
@@ -460,7 +423,7 @@ function GoalCard({
   const toGo = latestValue - goal.target;
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+    <div className="border border-foreground/25 bg-card p-5 shadow-sm">
       <div className="flex items-start justify-between">
         <div>
           <div className="mb-2 flex flex-wrap items-center gap-2">
@@ -478,31 +441,30 @@ function GoalCard({
         <div className="flex-1">
           <div className="flex justify-between text-sm">
             <span className="text-muted-foreground">Progress</span>
-            <span className="font-medium text-foreground">{goal.progress}%</span>
+            <span className="font-medium text-foreground tabular-nums">{goal.progress}%</span>
           </div>
-          <div className="mt-2 h-3 rounded-full bg-muted overflow-hidden">
+          <div className="mt-2 h-3 bg-muted overflow-hidden">
             <div
-              className={`h-full rounded-full transition-all duration-500 ${
+              className={`h-full rounded-sm transition-all duration-500 ${
                 reached ? "bg-success" : "bg-primary"
               }`}
               style={{ width: `${Math.min(100, goal.progress)}%` }}
             />
           </div>
         </div>
-        <RingChart progress={goal.progress} size={80} />
       </div>
 
       <div className="mt-4 grid grid-cols-3 gap-3 text-center">
-        <div className="rounded-xl bg-muted p-3">
-          <p className="text-lg font-bold text-foreground">{latestValue} {goal.unit}</p>
+        <div className="border border-foreground/15 bg-muted p-3">
+          <p className="text-lg font-bold text-foreground tabular-nums">{latestValue} {goal.unit}</p>
           <p className="text-xs text-muted-foreground">Current</p>
         </div>
-        <div className="rounded-xl bg-muted p-3">
-          <p className="text-lg font-bold text-primary">{goal.target} {goal.unit}</p>
+        <div className="border border-foreground/15 bg-muted p-3">
+          <p className="text-lg font-bold text-primary tabular-nums">{goal.target} {goal.unit}</p>
           <p className="text-xs text-muted-foreground">Target</p>
         </div>
-        <div className="rounded-xl bg-muted p-3">
-          <p className="text-lg font-bold text-foreground">
+        <div className="border border-foreground/15 bg-muted p-3">
+          <p className="text-lg font-bold text-foreground tabular-nums">
             {reached ? 0 : Math.abs(toGo)} {goal.unit}
           </p>
           <p className="text-xs text-muted-foreground">To go</p>
@@ -510,7 +472,7 @@ function GoalCard({
       </div>
 
       <div className="mt-4">
-        <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+        <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground serial">
           {goal.name} over time
         </h4>
         <GoalChart goal={goal} />
@@ -562,11 +524,11 @@ function GoalCard({
 
 function EmptyState({ onAddGoal }: { onAddGoal: () => void }) {
   return (
-    <div className="rounded-3xl border border-dashed border-border bg-card px-6 py-16 text-center shadow-sm">
-      <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-primary/10 text-2xl">
+    <div className="border border-dashed border-foreground/25 bg-card px-6 py-16 text-center shadow-sm">
+      <div className="mx-auto grid h-14 w-14 place-items-center border border-primary/40 bg-primary/10 text-2xl">
         🎯
       </div>
-      <h2 className="mt-4 font-display text-2xl font-bold">Set your first goal</h2>
+      <h2 className="mt-4 font-display font-black uppercase tracking-tight text-2xl">Set your first goal</h2>
       <p className="mx-auto mt-2 max-w-md text-muted-foreground">
         Add a goal and complete workouts — they’ll be logged here automatically,
         and you’ll see your streak, heatmap, and per-goal trends.
@@ -594,7 +556,7 @@ function RecentWorkouts({
 
   return (
     <section className="mt-8">
-      <h2 className="mb-4 text-lg font-bold text-foreground">Completed workouts</h2>
+      <h2 className="mb-4 font-display font-black uppercase tracking-tight text-lg">Completed workouts</h2>
       <ul className="space-y-3">
         {logs
           .slice()
@@ -602,7 +564,7 @@ function RecentWorkouts({
           .map((log) => (
             <li
               key={log.id}
-              className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between"
+              className="flex flex-col gap-3 border border-foreground/25 bg-card p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between"
             >
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
@@ -811,7 +773,7 @@ export default function ProgressPage() {
       <div className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
+            <h1 className="font-display font-black uppercase tracking-tight text-3xl sm:text-4xl">
               Progress Dashboard
             </h1>
             <p className="mt-1 text-muted-foreground">
@@ -824,19 +786,19 @@ export default function ProgressPage() {
         </div>
 
         {error && (
-          <div className="mb-4 rounded-xl border border-danger/30 bg-danger/10 p-4 text-sm text-danger">
+          <div className="mb-4 border border-danger/30 bg-danger/10 p-4 text-sm text-danger">
             {error}
           </div>
         )}
 
         {loadFailed && (
-          <div className="mb-4 rounded-xl border border-warning/30 bg-warning/10 p-4 text-sm text-foreground">
+          <div className="mb-4 border border-warning/30 bg-warning/10 p-4 text-sm text-foreground">
             Couldn’t reach the server, so goal data is unavailable right now.
           </div>
         )}
 
         {loading ? (
-          <div className="rounded-2xl border border-border bg-card p-12 text-center">
+          <div className="border border-foreground/25 bg-card p-12 text-center">
             <p className="text-muted-foreground">Loading your progress…</p>
           </div>
         ) : showEmptyState ? (
@@ -850,18 +812,13 @@ export default function ProgressPage() {
               <KPICard title="Workouts Completed" value={`${stats.workoutsCompleted}`} subtitle="Logged sessions">
                 <span className="text-3xl">🏋️</span>
               </KPICard>
-              <KPICard title="Weekly Consistency" value={`${stats.weeklyDaysThisWeek} / ${weeklyTarget}`} subtitle="Days this week vs. target">
-                <RingChart
-                  progress={weeklyTarget > 0 ? Math.min(100, (stats.weeklyDaysThisWeek / weeklyTarget) * 100) : 0}
-                  size={80}
-                />
-              </KPICard>
+              <KPICard title="Weekly Consistency" value={`${stats.weeklyDaysThisWeek} / ${weeklyTarget}`} subtitle="Days this week vs. target" />
             </div>
 
             <div className="mt-6 grid items-stretch gap-4 lg:grid-cols-2">
-              <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+              <div className="border border-foreground/25 bg-card p-5 shadow-sm">
                 <div className="mb-3 flex items-center justify-between gap-3">
-                  <h2 className="text-lg font-bold text-foreground">Activity Heatmap</h2>
+                  <h2 className="font-display font-black uppercase tracking-tight text-lg">Activity Heatmap</h2>
                   <p className="text-xs text-muted-foreground">
                     Browse months to see your workout history
                   </p>
@@ -888,7 +845,7 @@ export default function ProgressPage() {
             <div className="mt-8">
               <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
                 <div>
-                  <h2 className="text-lg font-bold text-foreground">Your Goals</h2>
+                  <h2 className="font-display font-black uppercase tracking-tight text-lg">Your Goals</h2>
                   <p className="text-sm text-muted-foreground">
                     {activeGoals.length === 0
                       ? "Set a goal to start tracking your progress"
@@ -904,7 +861,7 @@ export default function ProgressPage() {
                 </Button>
               </div>
               {activeGoals.length === 0 ? (
-                <div className="rounded-2xl border border-dashed border-border bg-muted/30 p-8 text-center">
+                <div className="border border-dashed border-foreground/25 bg-muted/30 p-8 text-center">
                   <p className="text-muted-foreground">
                     No active goals yet. Add one to see your trend chart here.
                   </p>
@@ -937,11 +894,11 @@ export default function ProgressPage() {
           />
           <div className="relative h-full w-full max-w-md bg-card shadow-xl animate-slide-in-right">
             <div className="flex h-full flex-col overflow-hidden">
-              <div className="flex items-center justify-between border-b border-border p-4">
+              <div className="flex items-center justify-between border-b border-foreground/15 p-4">
                 <h2 className="text-lg font-bold text-foreground">Add New Goal</h2>
                 <button
                   onClick={() => setDrawerOpen(false)}
-                  className="rounded-lg p-2 text-muted-foreground hover:bg-muted cursor-pointer"
+                  className="rounded-sm p-2 text-muted-foreground hover:bg-muted cursor-pointer"
                 >
                   ✕
                 </button>
@@ -956,10 +913,10 @@ export default function ProgressPage() {
                         key={preset.name}
                         type="button"
                         onClick={() => handleCategorySelect(preset)}
-                        className={`rounded-xl border p-3 text-left transition-colors cursor-pointer ${
+                        className={`rounded-sm border p-3 text-left transition-colors cursor-pointer ${
                           selectedCategory === preset.name
-                            ? "border-primary bg-primary/10"
-                            : "border-border bg-muted hover:bg-muted/80"
+                            ? "border border-primary/40 bg-primary/10"
+                            : "border-foreground/25 bg-muted hover:bg-muted/80"
                         }`}
                       >
                         <span className="text-xl">{preset.icon}</span>
@@ -1011,10 +968,10 @@ export default function ProgressPage() {
                           key={option.value}
                           type="button"
                           onClick={() => setUnit(option.value)}
-                          className={`h-9 rounded-full px-4 text-sm font-medium transition-colors cursor-pointer ${
+                          className={`h-9 rounded-sm px-4 text-sm font-medium transition-colors cursor-pointer ${
                             unit === option.value
                               ? "bg-primary text-primary-foreground"
-                              : "border border-border bg-card text-muted-foreground hover:bg-muted"
+                              : "border border-foreground/25 bg-card text-muted-foreground hover:bg-muted"
                           }`}
                         >
                           {option.label}
@@ -1031,10 +988,10 @@ export default function ProgressPage() {
                           key={option.value}
                           type="button"
                           onClick={() => setWeekly(option.value)}
-                          className={`h-9 rounded-full px-4 text-sm font-medium transition-colors cursor-pointer ${
+                          className={`h-9 rounded-sm px-4 text-sm font-medium transition-colors cursor-pointer ${
                             weekly === option.value
                               ? "bg-primary text-primary-foreground"
-                              : "border border-border bg-card text-muted-foreground hover:bg-muted"
+                              : "border border-foreground/25 bg-card text-muted-foreground hover:bg-muted"
                           }`}
                         >
                           {option.label}

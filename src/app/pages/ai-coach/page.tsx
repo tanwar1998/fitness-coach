@@ -4,14 +4,18 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { AiCoachChat, type ChatProfile } from "@/components/ai-coach/AiCoachChat";
 import { AiCoachSidebar } from "@/components/ai-coach/AiCoachSidebar";
 import {
+  ApiCallError,
   createSession,
   deleteSession,
   fetchProviders,
   fetchSessions,
-  sendMessage,
+  sendCoachAnswer,
+  sendCoachMessage,
+  workoutToPlanInput,
   type AiProviderInfo,
   type ChatSession,
 } from "@/lib/ai-coach";
+import type { CoachQuestion, WorkoutPlan } from "@/lib/coach-types";
 import { fetchInjuries, BODY_REGION_LABELS } from "@/lib/injury-recovery";
 import { computeReadinessScore, fetchCheckIns } from "@/lib/injury-recovery";
 import { WORKOUT_GOALS, type WorkoutGoal } from "@/lib/workout-generator";
@@ -20,6 +24,17 @@ import { loadHistory } from "@/lib/workout-history";
 const GOAL_LABELS: Record<WorkoutGoal, string> = Object.fromEntries(
   WORKOUT_GOALS.map((option) => [option.value, option.label]),
 ) as Record<WorkoutGoal, string>;
+
+interface ThreadUiState {
+  /** The last plan the server reported for this thread. */
+  plan: WorkoutPlan | null;
+  /** Rendered under the latest bubble while the graph is paused. */
+  question: CoachQuestion | null;
+  /** True right after the coach changed the plan (drives the highlight). */
+  planChanged: boolean;
+  /** User dismissed the plan-update banner for this thread. */
+  bannerDismissed: boolean;
+}
 
 export default function AiCoachPage() {
   const [sessions, setSessions] = useState<ChatSession[]>([]);
@@ -32,9 +47,14 @@ export default function AiCoachPage() {
   const [providerId, setProviderId] = useState<string>("");
   const [injuryLabel, setInjuryLabel] = useState<string | null>(null);
   const [readinessScore, setReadinessScore] = useState<number | null>(null);
+  const [threadUi, setThreadUi] = useState<Record<string, ThreadUiState>>({});
   const [goalLabel] = useState<string>(() => {
     const latest = loadHistory()[0]?.workout;
     return latest?.goal ? GOAL_LABELS[latest.goal] : "General fitness";
+  });
+  const [seedPlan] = useState<WorkoutPlan | null>(() => {
+    const latest = loadHistory()[0]?.workout;
+    return latest ? workoutToPlanInput(latest) : null;
   });
 
   useEffect(() => {
@@ -67,14 +87,19 @@ export default function AiCoachPage() {
         if (cancelled) return;
         const active = injuries
           .filter((injury) => injury.status !== "cleared")
-          .sort((a, b) => (a.status === "active" ? -1 : 1) - (b.status === "active" ? -1 : 1));
+          .sort(
+            (a, b) =>
+              (a.status === "active" ? -1 : 1) - (b.status === "active" ? -1 : 1),
+          );
         if (active.length === 0) {
           setInjuryLabel(null);
           return;
         }
         const labels = active.map((injury) => {
           const region = BODY_REGION_LABELS[injury.region] ?? injury.region;
-          return injury.status === "active" ? `${region} (Active)` : `${region} (Healing)`;
+          return injury.status === "active"
+            ? `${region} (Active)`
+            : `${region} (Healing)`;
         });
         setInjuryLabel([...new Set(labels)].join(", "));
       })
@@ -114,9 +139,43 @@ export default function AiCoachPage() {
     [sessions, activeId],
   );
 
+  const activeUi = activeId ? threadUi[activeId] : undefined;
+
   const profile: ChatProfile = useMemo(
     () => ({ goalLabel, injuryLabel, providerId, readiness: readinessScore }),
     [goalLabel, injuryLabel, providerId, readinessScore],
+  );
+
+  const applyTurn = useCallback(
+    (result: { session: ChatSession; turn: import("@/lib/coach-types").CoachTurnResult }) => {
+      const { turn } = result;
+      setSessions((prev) =>
+        prev.map((current) =>
+          current.id === result.session.id ? result.session : current,
+        ),
+      );
+      setThreadUi((prev) => ({
+        ...prev,
+        [result.session.id]: {
+          plan: turn.currentPlan,
+          planChanged: turn.planChanged,
+          question:
+            turn.interrupted && turn.question
+              ? {
+                  action:
+                    turn.action === "ask_question" ||
+                    turn.action === "ask_options"
+                      ? turn.action
+                      : "ask_question",
+                  question: turn.question,
+                  options: turn.options,
+                }
+              : null,
+          bannerDismissed: false,
+        },
+      }));
+    },
+    [],
   );
 
   const handleNew = useCallback(async () => {
@@ -153,6 +212,12 @@ export default function AiCoachPage() {
     [activeId, sessions],
   );
 
+  /**
+   * Sends content either as an answer to the coach's pending question
+   * (check-in / ask_question / ask_options) or as a fresh message that kicks
+   * off the check-in + replan loop. Retries once as a new message if the
+   * pending question turned out to be stale (already answered).
+   */
   const handleSend = useCallback(
     async (content: string) => {
       if (isThinking) return;
@@ -165,10 +230,27 @@ export default function AiCoachPage() {
           setSessions((prev) => [session as ChatSession, ...prev]);
           setActiveId(session.id);
         }
-        const updated = await sendMessage(session.id, content, providerId);
-        setSessions((prev) =>
-          prev.map((current) => (current.id === updated.id ? updated : current)),
-        );
+        const pending = threadUi[session.id]?.question;
+        try {
+          const result = pending
+            ? await sendCoachAnswer(session.id, content, { provider: providerId })
+            : await sendCoachMessage(session.id, content, {
+                provider: providerId,
+                currentPlan: seedPlan ?? undefined,
+              });
+          applyTurn(result);
+          return;
+        } catch (caught) {
+          if (pending && caught instanceof ApiCallError && caught.status === 409) {
+            const fallback = await sendCoachMessage(session.id, content, {
+              provider: providerId,
+              currentPlan: seedPlan ?? undefined,
+            });
+            applyTurn(fallback);
+            return;
+          }
+          throw caught;
+        }
       } catch (caught) {
         setError(
           caught instanceof Error
@@ -179,12 +261,22 @@ export default function AiCoachPage() {
         setIsThinking(false);
       }
     },
-    [activeSession, isThinking, providerId],
+    [activeSession, applyTurn, isThinking, providerId, seedPlan, threadUi],
   );
 
   const handleToggleSidebar = useCallback(() => {
     setSidebarOpen((open) => !open);
   }, []);
+
+  const handleDismissPlanChange = useCallback(() => {
+    if (!activeId) return;
+    setThreadUi((prev) => {
+      const current = prev[activeId];
+      return current
+        ? { ...prev, [activeId]: { ...current, bannerDismissed: true } }
+        : prev;
+    });
+  }, [activeId]);
 
   return (
     <div className="flex h-[calc(100dvh-4rem)] overflow-hidden bg-background md:h-dvh">
@@ -207,8 +299,18 @@ export default function AiCoachPage() {
           providers={providers}
           providerId={providerId}
           profile={profile}
+          plan={activeUi?.plan ?? null}
+          planChanged={activeUi?.planChanged ?? false}
+          bannerReason={
+            activeUi?.plan?.adjustedReason && !activeUi.bannerDismissed
+              ? activeUi.plan.adjustedReason
+              : null
+          }
+          question={activeUi?.question ?? null}
           onProviderChange={setProviderId}
           onSend={handleSend}
+          onAnswer={handleSend}
+          onDismissPlanChange={handleDismissPlanChange}
           onToggleSidebar={handleToggleSidebar}
         />
       </div>

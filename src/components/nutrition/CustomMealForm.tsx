@@ -15,10 +15,10 @@ export interface CustomMealFormPayload {
 }
 
 const MACRO_FIELDS = [
-  { key: "kcal", label: "Calories", suffix: "kcal", tint: "bg-[#6366f1]/12", text: "text-[#6366f1]" },
-  { key: "protein", label: "Protein", suffix: "g", tint: "bg-[#10b981]/12", text: "text-[#10b981]" },
-  { key: "carbs", label: "Carbs", suffix: "g", tint: "bg-[#f59e0b]/12", text: "text-[#f59e0b]" },
-  { key: "fat", label: "Fat", suffix: "g", tint: "bg-[#f97316]/12", text: "text-[#f97316]" },
+  { key: "kcal", label: "Calories", suffix: "kcal", tint: "border-foreground/15 bg-[#6366f1]/10", text: "text-[#6366f1]" },
+  { key: "protein", label: "Protein", suffix: "g", tint: "border-foreground/15 bg-[#10b981]/10", text: "text-[#10b981]" },
+  { key: "carbs", label: "Carbs", suffix: "g", tint: "border-foreground/15 bg-[#f59e0b]/10", text: "text-[#f59e0b]" },
+  { key: "fat", label: "Fat", suffix: "g", tint: "border-foreground/15 bg-[#f97316]/10", text: "text-[#f97316]" },
 ] as const;
 
 type MacroKey = (typeof MACRO_FIELDS)[number]["key"];
@@ -103,10 +103,10 @@ export function CustomMealForm({
                 type="button"
                 onClick={() => setMealType(meal)}
                 aria-pressed={selected}
-                className={`h-9 rounded-full border px-1 text-xs font-semibold transition-colors ${
+                className={`h-9 rounded-sm border px-1 text-xs font-semibold transition-colors ${
                   selected
                     ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                    : "border-foreground/25 bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground"
                 }`}
               >
                 {MEAL_LABELS[meal]}
@@ -124,7 +124,7 @@ export function CustomMealForm({
           {MACRO_FIELDS.map((field) => (
             <div
               key={field.key}
-              className={`rounded-lg border border-transparent px-2 py-1.5 ${field.tint}`}
+              className={`rounded-sm border px-2 py-1.5 ${field.tint}`}
             >
               <span className={`text-[10px] font-semibold ${field.text}`}>
                 {field.label} ({field.suffix})
@@ -170,7 +170,7 @@ export function CustomMealForm({
         )}
       </div>
 
-      <p className="text-xs tabular-nums text-muted-foreground">
+      <p className="text-xs tabular-nums serial text-muted-foreground">
         {nameValid
           ? `${macros.kcal} kcal · P ${macros.protein}g · C ${macros.carbs}g · F ${macros.fat}g`
           : "Enter a name to enable logging."}

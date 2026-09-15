@@ -68,7 +68,7 @@ export function AdjustedPlanView({
   return (
     <div className="flex flex-col gap-5">
       {hasSevereActive && (
-        <div className="rounded-xl border border-danger/30 bg-danger/5 p-4">
+        <div className="rounded-sm border border-danger/30 bg-danger/5 p-4">
           <p className="text-sm text-danger">
             <strong>Heads up:</strong> you have a severe active injury. Plan
             adjustments here are not a substitute for professional medical
@@ -78,7 +78,7 @@ export function AdjustedPlanView({
       )}
 
       {readinessScore != null && readinessScore < 55 && (
-        <div className="rounded-xl border border-primary/30 bg-primary/5 p-4">
+        <div className="rounded-sm border border-primary/30 bg-primary/5 p-4">
           <p className="text-sm text-primary">
             <strong>Readiness {readinessScore}/100.</strong> We&apos;ve scaled
             down intensity/volume to protect recovery.
@@ -86,11 +86,11 @@ export function AdjustedPlanView({
         </div>
       )}
 
-      <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+      <div className="rounded-sm border border-foreground/25 bg-card p-5">
         <div className="flex items-center justify-between">
-          <h3 className="font-display text-lg font-bold">Why your plan changed</h3>
+          <h3 className="font-display text-lg font-black uppercase tracking-tight">Why your plan changed</h3>
           {adjusted.actions.length > 0 ? (
-            <Badge variant="primary">{adjusted.actions.length} adjustments</Badge>
+            <Badge variant="outline">{adjusted.actions.length} adjustments</Badge>
           ) : (
             <Badge variant="success">No changes needed</Badge>
           )}
@@ -112,10 +112,10 @@ export function AdjustedPlanView({
               return (
                 <li
                   key={`${idx}-${action.reasonType}`}
-                  className={`flex h-full flex-col rounded-xl border p-3 transition-opacity ${
+                  className={`flex h-full flex-col rounded-sm border p-3 transition-opacity ${
                     dismissed[key]
-                      ? "border-border opacity-50"
-                      : "border-border bg-muted/30"
+                      ? "border-foreground/25 opacity-50"
+                      : "border-foreground/25 bg-muted/30"
                   }`}
                 >
                   <div className="flex flex-wrap items-center gap-2">
@@ -169,8 +169,8 @@ export function AdjustedPlanView({
         )}
       </div>
 
-      <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
-        <h3 className="font-display text-lg font-bold">Your adjusted plan</h3>
+      <div className="rounded-sm border border-foreground/25 bg-card p-5">
+        <h3 className="font-display text-lg font-black uppercase tracking-tight">Your adjusted plan</h3>
         <div className="mt-4 flex flex-col gap-4">
           {adjusted.resultingPlan.sessions.map((session) => (
             <div key={session.id}>
@@ -186,7 +186,7 @@ export function AdjustedPlanView({
                   return (
                     <li
                       key={`${session.id}-${i}`}
-                      className="flex items-center justify-between rounded-lg border border-border bg-muted/20 px-3 py-2 text-sm"
+                      className="flex items-center justify-between rounded-sm border border-foreground/25 bg-muted/20 px-3 py-2 text-sm"
                     >
                       <span>{exercise?.name ?? set.exerciseId}</span>
                       <span className="text-xs text-muted-foreground">

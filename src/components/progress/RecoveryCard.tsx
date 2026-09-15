@@ -75,10 +75,10 @@ export function RecoveryCard() {
   const recent = useMemo(() => checkIns.slice(0, 5), [checkIns]);
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+    <div className="border border-foreground/25 bg-card p-5 shadow-sm">
       <div className="flex items-center justify-between gap-3">
-        <h2 className="flex items-center gap-2 text-lg font-bold text-foreground">
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary/10 text-primary">
+        <h2 className="flex items-center gap-2 font-display font-black uppercase tracking-tight text-lg">
+          <span className="grid h-8 w-8 place-items-center rounded-sm border border-primary/40 bg-primary/10 text-primary">
             <HeartPulseIcon />
           </span>
           Recovery &amp; rest
@@ -112,12 +112,12 @@ export function RecoveryCard() {
       ) : (
         <>
           <div className="mt-4 flex items-center gap-4">
-            <p className={`text-4xl font-bold ${readinessTone(readiness.score)}`}>
+            <p className={`text-4xl font-bold tabular-nums ${readinessTone(readiness.score)}`}>
               {readiness.score}
             </p>
             <div>
               <p className="text-sm font-semibold text-foreground">
-                {readinessLabel(readiness.score)} · {readiness.score}/100
+                {readinessLabel(readiness.score)} · <span className="tabular-nums">{readiness.score}/100</span>
               </p>
 <p className="text-xs text-muted-foreground">
                   Based on your latest check-ins
@@ -126,7 +126,7 @@ export function RecoveryCard() {
           </div>
 
           {readiness.score < 55 && (
-            <div className="mt-4 rounded-xl border border-warning/30 bg-warning/10 p-3 text-sm text-foreground">
+            <div className="mt-4 rounded-sm border border-warning/30 bg-warning/10 p-3 text-sm text-foreground">
               <p className="font-medium">
                 Your readiness is {readiness.score}/100 — consider a rest day or
                 a lighter session.

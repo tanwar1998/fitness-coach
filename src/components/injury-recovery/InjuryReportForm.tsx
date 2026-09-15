@@ -122,7 +122,7 @@ export function InjuryReportForm({
             max={10}
             value={painScore ?? 0}
             onChange={(e) => setPainScore(Number(e.target.value))}
-            className="h-2 flex-1 cursor-pointer appearance-none rounded-full bg-muted accent-[var(--primary)]"
+            className="h-2 flex-1 cursor-pointer appearance-none rounded-sm bg-muted accent-[var(--primary)]"
             aria-label="Pain score"
           />
           <span className="min-w-8 text-center text-sm font-semibold text-primary">
@@ -145,10 +145,10 @@ export function InjuryReportForm({
                 type="button"
                 aria-pressed={active}
                 onClick={() => toggleTrigger(option.value as MovementPattern)}
-                className={`h-8 rounded-full px-3 text-xs font-medium transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                className={`h-8 rounded-sm px-3 text-xs font-medium transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
                   active
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "border border-border bg-card text-muted-foreground hover:bg-muted hover:text-foreground"
+                    ? "bg-primary text-primary-foreground"
+                    : "border border-foreground/25 bg-card text-muted-foreground hover:bg-muted hover:text-foreground"
                 }`}
               >
                 {option.label}
@@ -166,7 +166,7 @@ export function InjuryReportForm({
       />
 
       {region && severity === "severe" && (
-        <div className="rounded-xl border border-danger/30 bg-danger/5 p-4">
+        <div className="rounded-sm border border-danger/30 bg-danger/5 p-4">
           <p className="text-sm text-danger">
             <strong>Severe injury detected.</strong> This is plan adjustment, not
             medical advice — please consult a physiotherapist or doctor for a

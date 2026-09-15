@@ -23,14 +23,14 @@ function isActive(pathname: string, href: string) {
 
 function LogoMark() {
   return (
-    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground">
+    <span className="plate-violet grid h-10 w-10 shrink-0 place-items-center">
       <svg
         width="20"
         height="20"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        strokeWidth="2"
+        strokeWidth="2.2"
         strokeLinecap="round"
         strokeLinejoin="round"
         aria-hidden="true"
@@ -340,16 +340,16 @@ function SidebarNav({
             onClick={onNavigate}
             title={collapsed ? link.label : undefined}
             aria-label={collapsed ? link.label : undefined}
-            className={`group flex items-center gap-3 rounded-xl transition-colors ${
+            className={`group flex items-center gap-3 transition-colors ${
               collapsed ? "h-11 w-11 justify-center" : "px-3 py-2.5"
             } ${
               active
-                ? "bg-primary text-primary-foreground shadow-sm shadow-primary/25"
+                ? "plate-violet shadow-sm"
                 : "text-muted-foreground hover:bg-muted hover:text-foreground"
             }`}
           >
             <Icon className="h-5 w-5 shrink-0" />
-            <span className={collapsed ? "hidden" : "truncate text-sm font-medium"}>
+            <span className={collapsed ? "hidden" : "truncate text-sm font-semibold tracking-wide"}>
               {link.label}
             </span>
           </Link>
@@ -387,11 +387,7 @@ function setCollapsedValue(value: boolean) {
 
 export function Sidebar() {
   const { theme, toggleTheme } = useTheme();
-  const collapsed = useSyncExternalStore(
-    subscribeCollapsed,
-    readCollapsed,
-    () => false,
-  );
+  const collapsed = useSyncExternalStore(subscribeCollapsed, readCollapsed, () => false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
@@ -410,7 +406,7 @@ export function Sidebar() {
       type="button"
       onClick={toggleTheme}
       aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-      className={`grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-xl border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+      className={`grid h-11 w-11 shrink-0 cursor-pointer place-items-center border border-foreground/20 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
         collapsed ? "" : "flex-1"
       }`}
     >
@@ -423,7 +419,7 @@ export function Sidebar() {
       type="button"
       onClick={toggleCollapsed}
       aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-      className="grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-xl border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      className="grid h-11 w-11 shrink-0 cursor-pointer place-items-center border border-foreground/20 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
     >
       {collapsed ? <ChevronsRightIcon className="h-5 w-5" /> : <ChevronsLeftIcon className="h-5 w-5" />}
     </button>
@@ -433,14 +429,14 @@ export function Sidebar() {
     <>
       {/* Desktop: persistent collapsible sidebar */}
       <aside
-        className={`sticky top-0 z-40 hidden h-screen shrink-0 flex-col border-r border-border bg-background transition-[width] duration-300 ease-out md:flex ${
+        className={`sticky top-0 z-40 hidden h-screen shrink-0 flex-col border-r border-foreground/15 bg-background transition-[width] duration-300 ease-out md:flex ${
           collapsed ? "w-[72px]" : "w-64"
         }`}
       >
         <Link
           href="/"
           aria-label="FitPulse home"
-          className={`flex h-16 shrink-0 items-center border-b border-border ${
+          className={`flex h-16 shrink-0 items-center border-b border-foreground/15 ${
             collapsed ? "justify-center" : "px-5"
           }`}
         >
@@ -452,7 +448,7 @@ export function Sidebar() {
         </div>
 
         <div
-          className={`flex shrink-0 items-center gap-1.5 border-t border-border p-3 ${
+          className={`flex shrink-0 items-center gap-1.5 border-t border-foreground/15 p-3 ${
             collapsed ? "flex-col" : ""
           }`}
         >
@@ -462,7 +458,7 @@ export function Sidebar() {
       </aside>
 
       {/* Mobile: top bar + slide-in drawer */}
-      <div className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-border bg-background/80 px-4 backdrop-blur md:hidden">
+      <div className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-foreground/15 px-4 md:hidden">
         <Link href="/" aria-label="FitPulse home" onClick={() => setMobileOpen(false)}>
           <Logo />
         </Link>
@@ -471,7 +467,7 @@ export function Sidebar() {
           onClick={() => setMobileOpen((value) => !value)}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
-          className="grid h-10 w-10 cursor-pointer place-items-center rounded-full border border-border text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="grid h-10 w-10 cursor-pointer place-items-center rounded-sm border border-foreground/20 text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           {mobileOpen ? <CloseIcon /> : <MenuIcon />}
         </button>
@@ -483,10 +479,10 @@ export function Sidebar() {
             type="button"
             aria-label="Close menu"
             onClick={() => setMobileOpen(false)}
-            className="absolute inset-0 cursor-pointer bg-black/50"
+            className="absolute inset-0 cursor-pointer bg-black/60"
           />
-          <aside className="absolute inset-y-0 left-0 flex w-64 flex-col border-r border-border bg-background shadow-xl">
-            <div className="flex h-16 shrink-0 items-center justify-between border-b border-border px-4">
+          <aside className="absolute inset-y-0 left-0 flex w-64 flex-col border-r border-foreground/15 bg-background shadow-xl">
+            <div className="flex h-16 shrink-0 items-center justify-between border-b border-foreground/15 px-4">
               <Link href="/" aria-label="FitPulse home" onClick={() => setMobileOpen(false)}>
                 <Logo />
               </Link>
@@ -494,7 +490,7 @@ export function Sidebar() {
                 type="button"
                 onClick={() => setMobileOpen(false)}
                 aria-label="Close menu"
-                className="grid h-10 w-10 cursor-pointer place-items-center rounded-full text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="grid h-10 w-10 cursor-pointer place-items-center rounded-sm text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <CloseIcon />
               </button>
@@ -502,12 +498,12 @@ export function Sidebar() {
             <div className="flex-1 overflow-y-auto p-3">
               <SidebarNav collapsed={false} onNavigate={() => setMobileOpen(false)} />
             </div>
-            <div className="flex shrink-0 items-center justify-center border-t border-border p-3">
+            <div className="flex shrink-0 items-center justify-center border-t border-foreground/15 p-3">
               <button
                 type="button"
                 onClick={toggleTheme}
                 aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-                className="grid h-11 w-11 cursor-pointer place-items-center rounded-xl border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="grid h-11 w-11 cursor-pointer place-items-center rounded-sm border border-foreground/20 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 {theme === "dark" ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
               </button>

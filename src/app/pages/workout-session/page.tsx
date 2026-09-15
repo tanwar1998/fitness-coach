@@ -91,7 +91,9 @@ function SessionView() {
   if (entry === null) {
     return (
       <div className="mx-auto w-full max-w-3xl px-4 py-12 text-center sm:px-6">
-        <h1 className="font-display text-2xl font-bold">Session not found</h1>
+        <h1 className="font-display text-2xl font-black uppercase tracking-tight">
+            Session not found
+          </h1>
         <p className="mx-auto mt-3 max-w-md text-muted-foreground">
           We couldn’t find this workout in your recent sessions. It may have
           been cleared from this browser.
@@ -111,7 +113,7 @@ function SessionView() {
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:px-6 sm:py-12">
       <div className="text-center">
-        <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
+        <h1 className="font-display text-3xl font-black uppercase tracking-tight sm:text-4xl">
           Workout Session
         </h1>
         <p className="mx-auto mt-2 max-w-xl text-muted-foreground">
@@ -126,7 +128,7 @@ function SessionView() {
           <h2 className="text-lg font-bold text-foreground">
             {workout.exercises.length} exercises
           </h2>
-          <span className="text-sm text-muted-foreground">
+          <span className="serial text-sm text-muted-foreground">
             {doneCount}/{workout.exercises.length} done
           </span>
         </div>
@@ -139,10 +141,10 @@ function SessionView() {
                 <button
                   type="button"
                   onClick={() => toggleExercise(exercise.key)}
-                  className={`flex w-full cursor-pointer items-center gap-4 rounded-2xl border bg-card p-4 text-left shadow-sm transition-colors ${
+                  className={`flex w-full cursor-pointer items-center gap-4 rounded-sm border border-foreground/25 bg-card p-4 text-left transition-colors ${
                     done
                       ? "border-primary/40 bg-primary/5"
-                      : "border-border hover:border-primary/40"
+                      : "hover:border-primary/40"
                   }`}
                 >
                   <span
@@ -150,7 +152,7 @@ function SessionView() {
                     className={`grid h-6 w-6 shrink-0 place-items-center rounded-full border text-sm ${
                       done
                         ? "border-primary bg-primary text-primary-foreground"
-                        : "border-border text-transparent"
+                        : "border-foreground/25 text-transparent"
                     }`}
                   >
                     ✓
@@ -166,18 +168,18 @@ function SessionView() {
                   </div>
                   <div className="flex shrink-0 gap-3 text-xs text-muted-foreground">
                     <span>
-                      <span className="font-semibold text-foreground">
+                      <span className="serial font-semibold text-foreground">
                         {exercise.sets}
                       </span>{" "}
                       sets
                     </span>
                     <span>
-                      <span className="font-semibold text-foreground">
+                      <span className="serial font-semibold text-foreground">
                         {exercise.reps}
                       </span>{" "}
                       reps
                     </span>
-                    <span>
+                    <span className="serial">
                       {Math.round(exercise.restSeconds / 60)}m rest
                     </span>
                   </div>
@@ -189,14 +191,14 @@ function SessionView() {
       </div>
 
       {error && (
-        <div className="mt-6 rounded-xl border border-danger/30 bg-danger/10 p-4 text-sm text-danger">
+        <div className="mt-6 rounded-sm border border-danger/30 bg-danger/10 p-4 text-sm text-danger">
           {error}
         </div>
       )}
 
       <div className="mt-8">
         {!result ? (
-          <div className="flex flex-col items-center gap-2 rounded-3xl border border-border bg-card p-6 text-center shadow-sm">
+          <div className="flex flex-col items-center gap-2 rounded-sm border border-foreground/25 bg-card p-6 text-center">
             <p className="text-sm text-muted-foreground">
               Finish is up to you — tap complete when the session is done, even
               if you skipped an exercise.
@@ -214,7 +216,7 @@ function SessionView() {
         )}
 
         {undoConfirm && (
-          <div className="mt-4 rounded-2xl border border-border bg-card p-5 shadow-sm">
+          <div className="mt-4 rounded-sm border border-foreground/25 bg-card p-5">
             <h3 className="font-semibold text-foreground">
               Undo this workout log?
             </h3>
@@ -267,9 +269,9 @@ function CompletionSummary({
   const unchanged = result.goalUpdates.filter((g) => g.status === "no_change");
 
   return (
-    <div className="rounded-3xl border border-border bg-card p-6 shadow-sm sm:p-8">
+    <div className="rounded-sm border border-foreground/25 bg-card p-6 sm:p-8">
       <div className="flex items-center gap-3">
-        <span className="grid h-10 w-10 place-items-center rounded-full bg-success/15 text-xl text-success">
+        <span className="grid h-10 w-10 place-items-center rounded-sm border border-success/40 bg-success/15 text-xl text-success">
           ✓
         </span>
         <div>
@@ -299,7 +301,7 @@ function CompletionSummary({
             {updated.map((goal) => (
               <li
                 key={goal.goalId}
-                className="rounded-xl border border-success/30 bg-success/5 p-3 text-sm"
+                className="rounded-sm border border-success/30 bg-success/5 p-3 text-sm"
               >
                 <div className="flex items-center justify-between gap-2">
                   <span className="font-medium text-foreground">
@@ -327,7 +329,7 @@ function CompletionSummary({
             {unchanged.map((goal) => (
               <li
                 key={goal.goalId}
-                className="rounded-xl border border-border bg-muted/40 p-3 text-sm"
+                className="rounded-sm border border-foreground/25 bg-muted p-3 text-sm"
               >
                 <span className="font-medium text-foreground">
                   {goal.goalName}

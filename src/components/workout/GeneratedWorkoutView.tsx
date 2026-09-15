@@ -198,16 +198,16 @@ function WorkoutExerciseDetail({
 
         {/* Workout prescription */}
         <div className="mt-5 grid grid-cols-3 gap-3">
-          <div className="rounded-xl bg-muted/50 p-3 text-center">
-            <p className="text-xl font-bold">{exercise.sets}</p>
+          <div className="rounded-sm bg-muted p-3 text-center">
+            <p className="serial text-xl font-bold">{exercise.sets}</p>
             <p className="text-xs text-muted-foreground">Sets</p>
           </div>
-          <div className="rounded-xl bg-muted/50 p-3 text-center">
-            <p className="text-xl font-bold">{exercise.reps}</p>
+          <div className="rounded-sm bg-muted p-3 text-center">
+            <p className="serial text-xl font-bold">{exercise.reps}</p>
             <p className="text-xs text-muted-foreground">Reps</p>
           </div>
-          <div className="rounded-xl bg-muted/50 p-3 text-center">
-            <p className="text-xl font-bold">
+          <div className="rounded-sm bg-muted p-3 text-center">
+            <p className="serial text-xl font-bold">
               {Math.round(exercise.restSeconds / 60)}m
             </p>
             <p className="text-xs text-muted-foreground">Rest</p>
@@ -237,7 +237,7 @@ function WorkoutExerciseDetail({
               {mainMuscles.map((m) => (
                 <div
                   key={m.id}
-                  className="flex items-center gap-2 rounded-xl border border-primary/20 bg-primary/5 px-3 py-1.5"
+                  className="flex items-center gap-2 rounded-sm border border-primary/40 bg-primary/10 px-3 py-1.5"
                 >
                   <span className="h-2 w-2 rounded-full bg-primary" />
                   <span className="text-sm font-medium">{m.name_en || m.name}</span>
@@ -256,7 +256,7 @@ function WorkoutExerciseDetail({
               {secondaryMuscles.map((m) => (
                 <div
                   key={m.id}
-                  className="flex items-center gap-2 rounded-xl border border-border bg-muted/50 px-3 py-1.5"
+                  className="flex items-center gap-2 rounded-sm border border-foreground/25 bg-muted px-3 py-1.5"
                 >
                   <span className="h-2 w-2 rounded-full bg-muted-foreground" />
                   <span className="text-sm font-medium">{m.name_en || m.name}</span>
@@ -268,12 +268,12 @@ function WorkoutExerciseDetail({
 
         {(mainMuscles.length > 0 || secondaryMuscles.length > 0) && (
           <div className="mt-5 grid grid-cols-2 gap-3">
-            <div className="rounded-xl bg-muted/50 p-4 text-center">
-              <p className="text-2xl font-bold">{mainMuscles.length + secondaryMuscles.length}</p>
+            <div className="rounded-sm bg-muted p-4 text-center">
+              <p className="serial text-2xl font-bold">{mainMuscles.length + secondaryMuscles.length}</p>
               <p className="text-xs text-muted-foreground">Muscles Targeted</p>
             </div>
-            <div className="rounded-xl bg-muted/50 p-4 text-center">
-              <p className="text-2xl font-bold">{equipment.length || "—"}</p>
+            <div className="rounded-sm bg-muted p-4 text-center">
+              <p className="serial text-2xl font-bold">{equipment.length || "—"}</p>
               <p className="text-xs text-muted-foreground">Equipment Needed</p>
             </div>
           </div>
@@ -288,7 +288,7 @@ function WorkoutExerciseDetail({
               {muscles.map((m) => (
                 <span
                   key={m}
-                  className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary"
+                  className="inline-flex items-center gap-1 rounded-sm border border-primary/40 bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary"
                 >
                   {m}
                 </span>
@@ -308,7 +308,7 @@ function WorkoutExerciseDetail({
           </div>
         )}
 
-        <div className="mt-6 flex flex-wrap gap-2 border-t border-border pt-5">
+        <div className="mt-6 flex flex-wrap gap-2 border-t border-foreground/15 pt-5">
           <Button onClick={onSwap}>
             <SwapIcon />
             Swap exercise
@@ -338,7 +338,7 @@ function PhaseDivider({
 
   return (
     <div className="col-span-2 mt-3 mb-1 flex items-center gap-2 sm:col-span-3 lg:col-span-4 first:mt-0">
-      <span className="rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-primary">
+      <span className="rounded-sm border border-primary/40 bg-primary/10 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-primary">
         {label}
       </span>
       <span className="text-[11px] text-muted-foreground">{hint}</span>
@@ -449,7 +449,7 @@ export function GeneratedWorkoutView({
     <section>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="font-display text-2xl font-bold">Your generated workout</h2>
+          <h2 className="font-display text-2xl font-black uppercase tracking-tight">Your generated workout</h2>
           <p className="mt-1 text-sm text-muted-foreground">
             ~{estimate.minutes} min · ~{estimate.kcal} kcal ·{" "}
             {workout.exercises.length} exercises ·{" "}
@@ -466,7 +466,7 @@ export function GeneratedWorkoutView({
       </div>
 
       {/* Filters — same body-region structure as the exercise page */}
-      <div className="mx-auto mt-8 max-w-6xl rounded-2xl border border-border bg-card shadow-sm">
+      <div className="mx-auto mt-8 max-w-6xl rounded-sm border border-foreground/25 bg-card">
         <div className="flex items-center gap-3 p-5 sm:p-6">
           <div className="flex-1">
             <p className="text-sm font-medium text-muted-foreground">
@@ -495,7 +495,7 @@ export function GeneratedWorkoutView({
         </div>
 
         {filtersOpen && (
-          <div className="border-t border-border p-5 pt-6 sm:p-6">
+          <div className="border-t border-foreground/15 p-5 pt-6 sm:p-6">
             <div className="grid gap-6 lg:grid-cols-[minmax(0,280px)_1fr]">
               <div className="flex justify-center lg:justify-start">
                 <MuscleBodySelector
@@ -583,9 +583,9 @@ export function GeneratedWorkoutView({
           <button
             type="button"
             onClick={onAdd}
-            className="flex min-h-[200px] w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-border text-muted-foreground transition-colors hover:border-primary/50 hover:text-foreground"
+            className="flex min-h-[200px] w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-sm border border-dashed border-foreground/25 text-muted-foreground transition-colors hover:border-primary/50 hover:text-foreground"
           >
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-secondary text-lg font-bold text-secondary-foreground">
+            <span className="grid h-9 w-9 place-items-center rounded-sm bg-secondary text-lg font-bold text-secondary-foreground">
               +
             </span>
             <span className="text-sm font-medium">Add exercise</span>
@@ -593,7 +593,7 @@ export function GeneratedWorkoutView({
         </div>
 
         {visible.length === 0 && (
-          <div className="mt-4 flex min-h-[160px] items-center justify-center rounded-2xl border border-dashed border-border">
+          <div className="mt-4 flex min-h-[160px] items-center justify-center rounded-sm border border-dashed border-foreground/25">
             <p className="text-center text-sm text-muted-foreground">
               No exercises in this workout match the selected muscles.
               <br />
@@ -615,17 +615,17 @@ export function GeneratedWorkoutView({
         role="dialog"
         aria-modal="true"
         aria-label="Exercise details"
-        className={`fixed inset-y-0 right-0 z-50 flex w-full max-w-xl flex-col bg-card shadow-2xl transition-transform duration-300 ease-out ${
+        className={`fixed inset-y-0 right-0 z-50 flex w-full max-w-xl flex-col border-l border-foreground/15 bg-card transition-transform duration-300 ease-out ${
           selectedItem ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between border-b border-border px-5 py-4 sm:px-6">
-          <h2 className="font-display text-lg font-bold">Exercise Details</h2>
+        <div className="flex items-center justify-between border-b border-foreground/15 px-5 py-4 sm:px-6">
+          <h2 className="font-display text-lg font-black uppercase tracking-tight">Exercise Details</h2>
           <button
             type="button"
             onClick={() => setSelectedIndex(null)}
             aria-label="Close details"
-            className="grid h-9 w-9 cursor-pointer place-items-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            className="grid h-9 w-9 cursor-pointer place-items-center rounded-sm border border-foreground/25 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
             <CloseIcon />
           </button>

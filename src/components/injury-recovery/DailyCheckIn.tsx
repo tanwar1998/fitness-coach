@@ -78,10 +78,10 @@ export function DailyCheckIn({
                 type="button"
                 aria-pressed={active}
                 onClick={() => setSoreness(level.value)}
-                className={`flex flex-col items-center gap-0.5 rounded-xl border p-2 py-3 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                className={`flex flex-col items-center gap-0.5 rounded-sm border p-2 py-3 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
                   active
-                    ? "border-primary bg-primary/10 shadow-sm"
-                    : "border-border bg-card hover:bg-muted"
+                    ? "border-primary/40 bg-primary/10"
+                    : "border-foreground/25 bg-card hover:bg-muted"
                 }`}
               >
                 <span className="text-xl">{level.emoji}</span>
@@ -108,10 +108,10 @@ export function DailyCheckIn({
                 type="button"
                 aria-pressed={sleep === hours}
                 onClick={() => setSleep(hours)}
-                className={`h-8 rounded-full px-3 text-xs font-medium transition-colors cursor-pointer ${
+                className={`h-8 rounded-sm px-3 text-xs font-medium transition-colors cursor-pointer ${
                   sleep === hours
                     ? "bg-primary text-primary-foreground"
-                    : "border border-border bg-card text-muted-foreground hover:bg-muted hover:text-foreground"
+                    : "border border-foreground/25 bg-card text-muted-foreground hover:bg-muted hover:text-foreground"
                 }`}
               >
                 {hours}h
@@ -131,10 +131,10 @@ export function DailyCheckIn({
                 type="button"
                 aria-pressed={stress === level}
                 onClick={() => setStress(level)}
-                className={`h-8 rounded-full px-3 text-xs font-medium transition-colors cursor-pointer ${
+                className={`h-8 rounded-sm px-3 text-xs font-medium transition-colors cursor-pointer ${
                   stress === level
                     ? "bg-primary text-primary-foreground"
-                    : "border border-border bg-card text-muted-foreground hover:bg-muted hover:text-foreground"
+                    : "border border-foreground/25 bg-card text-muted-foreground hover:bg-muted hover:text-foreground"
                 }`}
               >
                 {level}

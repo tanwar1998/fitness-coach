@@ -60,10 +60,14 @@ defined in `src/lib/server/ai/graph.ts`. The app's lightweight
 boundary in `src/lib/server/chat.ts`, so the graph is provider-agnostic and works
 for all AI tools.
 
-Graph shape: `START → agent → (conditional) → END | fallback → END`
+Graph shape: `START → retrieve_exercises → agent → (conditional) → END | fallback → END`
 
+- **retrieve_exercises** runs retrieval-augmented search over the wger exercise
+  library (see "Exercise retrieval" below) and writes the top matches to state.
 - **agent** resolves the requested provider and streams its reply through the
-  model adapter in `src/lib/server/ai/multiplexed-model.ts`.
+  model adapter in `src/lib/server/ai/multiplexed-model.ts`. The reply is a
+  JSON envelope (`{"reply", "referenced_exercise_ids"}`) parsed by the graph so
+  the frontend can render exercise cards for the ids the coach actually used.
 - A deterministic **safety gate** (in `agent`) detects out-of-scope topics
   (suspected injury, medical symptoms, unsafe load, etc.) and routes to the
   **fallback** node, which hands the conversation to a qualified human coach
@@ -74,6 +78,23 @@ the deterministic gate rather than LLM tool-calling. The graph itself still
 renders/compiles through LangGraph's standard `StateGraph` API, so adding
 tool-calling providers later is a drop-in change. The packages are listed in
 `serverExternalPackages` in `next.config.ts` so they're not bundled by Next.js.
+
+### Exercise retrieval (RAG)
+
+The coach is grounded in the wger exercise database instead of guessing exercise
+names, muscles, or form cues:
+
+- `npm run build:index` — one-time indexing step (re-run only when
+  `public/data/wger-exerciseinfo.json` changes). Loads every exercise, builds a
+  text document (name + category + muscles + equipment + description), embeds it,
+  and writes `data/exercise-index.json`.
+- At runtime the index is loaded from disk once and searched in memory; the only
+  per-request network call is embedding the search query. The embedding provider
+  is swappable via a single constant in
+  `src/lib/server/ai/exercise-embeddings.ts` (`EMBEDDING_MODEL`,
+  `EMBEDDING_DIMENSIONS`).
+- `npm run test:retrieval` — runs a few sample queries and prints the top hits
+  so retrieval quality can be sanity-checked.
 
 ### Database
 
@@ -113,6 +134,8 @@ npm run dev     # development server on http://localhost:3000
 | `AI_PROVIDER` | No | `gemini` (default), `grok`, or `deepseek` |
 | `GOOGLE_GEMINI_KEY` | For Gemini | Google AI Studio API key |
 | `GEMINI_MODEL` | No | Defaults to `gemini-3.5-flash` |
+| `EMBEDDING_MODEL` | No | Embedding model; defaults to `gemini-embedding-001` |
+| `EMBEDDING_DIMENSIONS` | No | Embedding vector length; defaults to `768` |
 | `GROK_API_KEY` | For Grok | xAI API key |
 | `DEEPSEEK_API_KEY` | For DeepSeek | DeepSeek API key |
 
@@ -123,6 +146,8 @@ npm run dev     # start dev server
 npm run build   # production build (Turbopack)
 npm run start   # serve production build
 npm run lint    # eslint
+npm run build:index    # (re)build data/exercise-index.json from wger data
+npm run test:retrieval # sanity-check exercise retrieval quality
 ```
 
 ## Project Structure

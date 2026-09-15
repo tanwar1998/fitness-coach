@@ -6,7 +6,7 @@ const pool = new Pool({
   connectionString,
   max: 10,
   idleTimeoutMillis: 30_000,
-  connectionTimeoutMillis: 5_000,
+  connectionTimeoutMillis: 10_000,
   ssl: process.env.DATABASE_SSL === "true" ? { rejectUnauthorized: false } : false,
 });
 
@@ -29,6 +29,8 @@ CREATE TABLE IF NOT EXISTS chat_messages (
 
 CREATE INDEX IF NOT EXISTS idx_chat_messages_session
   ON chat_messages(session_id, created_at);
+
+ALTER TABLE chat_messages ADD COLUMN IF NOT EXISTS referenced_exercise_ids JSONB NOT NULL DEFAULT '[]';
 
 ALTER TABLE chat_sessions ADD COLUMN IF NOT EXISTS device_id TEXT NOT NULL DEFAULT '';
 

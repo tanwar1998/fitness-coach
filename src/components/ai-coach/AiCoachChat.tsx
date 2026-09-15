@@ -3,6 +3,10 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import { AiCoachInput } from "@/components/ai-coach/AiCoachInput";
 import { WeeklyCheckInCard } from "@/components/ai-coach/WeeklyCheckInCard";
+import { PlanChangeBanner } from "@/components/ai-coach/PlanChangeBanner";
+import { CurrentPlanCard } from "@/components/ai-coach/CurrentPlanCard";
+import { CoachQuestionControl } from "@/components/ai-coach/CoachQuestionControl";
+import type { CoachQuestion, WorkoutPlan } from "@/lib/coach-types";
 import type { AiProviderInfo, ChatMessage, ChatSession } from "@/lib/ai-coach";
 
 interface AiCoachChatProps {
@@ -12,8 +16,14 @@ interface AiCoachChatProps {
   providers?: AiProviderInfo[];
   providerId?: string;
   profile?: ChatProfile;
+  plan?: WorkoutPlan | null;
+  planChanged?: boolean;
+  bannerReason?: string | null;
+  question?: CoachQuestion | null;
   onProviderChange?: (id: string) => void;
   onSend: (content: string) => void;
+  onAnswer: (answer: string) => void;
+  onDismissPlanChange: () => void;
   onToggleSidebar: () => void;
 }
 
@@ -25,31 +35,26 @@ export interface ChatProfile {
 
 const SUGGESTION_CARDS: {
   tag: string;
-  tagClass: string;
   title: string;
   icon: ReactNode;
 }[] = [
   {
     tag: "Workout",
-    tagClass: "bg-purple-950/60 text-purple-400",
     title: "Build a 30-minute beginner workout",
     icon: <WorkoutIcon />,
   },
   {
     tag: "Nutrition",
-    tagClass: "bg-blue-950/60 text-blue-400",
     title: "What should I eat after a workout?",
     icon: <NutritionIcon />,
   },
   {
     tag: "Cardio",
-    tagClass: "bg-lime-950/60 text-lime-400",
     title: "Quick fat-burning routine for home",
     icon: <CardioIcon />,
   },
   {
     tag: "Recovery",
-    tagClass: "bg-emerald-950/60 text-emerald-400",
     title: "Best core routine with no equipment",
     icon: <RecoveryIcon />,
   },
@@ -249,22 +254,22 @@ function MenuIcon() {
 function CoachAvatar({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
   return (
     <span
-      className={`grid shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-primary to-accent-foreground text-primary-foreground shadow-sm ${
-        size === "lg" ? "h-16 w-16" : size === "sm" ? "h-8 w-8" : "h-10 w-10"
+      className={`plate-violet grid shrink-0 place-items-center ${
+        size === "lg" ? "h-14 w-14" : size === "sm" ? "h-8 w-8" : "h-10 w-10"
       }`}
     >
-      <SparkleIcon size={size === "lg" ? 28 : size === "sm" ? 15 : 18} />
+      <SparkleIcon size={size === "lg" ? 26 : size === "sm" ? 15 : 18} />
     </span>
   );
 }
 
 function TypingIndicator() {
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center gap-1.5">
       {[0, 1, 2].map((index) => (
         <span
           key={index}
-          className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground"
+          className="h-2 w-2 bg-lime animate-pulse-live"
           style={{ animationDelay: `${index * 150}ms` }}
         />
       ))}
@@ -276,7 +281,7 @@ function MessageBubble({ message }: { message: ChatMessage }) {
   if (message.role === "user") {
     return (
       <div className="flex justify-end">
-        <div className="max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-br-sm bg-primary px-4 py-2.5 text-sm leading-relaxed text-primary-foreground sm:max-w-[75%]">
+        <div className="max-w-[85%] whitespace-pre-wrap bg-primary px-4 py-2.5 text-sm leading-relaxed text-primary-foreground sm:max-w-[75%]">
           {message.content}
         </div>
       </div>
@@ -285,7 +290,7 @@ function MessageBubble({ message }: { message: ChatMessage }) {
   return (
     <div className="flex items-start gap-2.5">
       <CoachAvatar />
-      <div className="max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-bl-sm border border-border bg-card px-4 py-3 text-sm leading-relaxed sm:max-w-[75%]">
+      <div className="max-w-[85%] whitespace-pre-wrap border border-foreground/20 bg-card px-4 py-3 text-sm leading-relaxed sm:max-w-[75%]">
         {message.content}
       </div>
     </div>
@@ -299,8 +304,14 @@ export function AiCoachChat({
   providers = [],
   providerId = "",
   profile,
+  plan = null,
+  planChanged = false,
+  bannerReason = null,
+  question = null,
   onProviderChange,
   onSend,
+  onAnswer,
+  onDismissPlanChange,
   onToggleSidebar,
 }: AiCoachChatProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -311,24 +322,24 @@ export function AiCoachChat({
 
   return (
     <div className="flex h-full min-w-0 flex-1 flex-col bg-background">
-      <header className="flex h-16 shrink-0 items-center justify-between gap-3 border-b border-border px-4 sm:px-6">
+      <header className="seam flex h-16 shrink-0 items-center justify-between gap-3 px-4 sm:px-6">
         <div className="flex min-w-0 items-center gap-3">
           <button
             type="button"
             onClick={onToggleSidebar}
             aria-label="Open sidebar"
-            className="grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-xl border border-border text-muted-foreground transition-colors hover:bg-muted md:hidden"
+            className="grid h-10 w-10 shrink-0 cursor-pointer place-items-center border border-foreground/20 text-muted-foreground transition-colors hover:bg-muted md:hidden"
           >
             <MenuIcon />
           </button>
           <div className="flex min-w-0 items-center gap-3">
             <CoachAvatar />
             <div className="min-w-0">
-              <p className="truncate text-sm font-semibold">
-                {session ? session.title : "AI Coach"}
+              <p className="truncate font-display text-sm font-black uppercase tracking-wide">
+                {session ? session.title : "Fit coach"}
               </p>
-              <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <span className="h-1.5 w-1.5 rounded-full bg-success" />
+              <p className="stamp flex items-center gap-1.5 text-muted-foreground">
+                <span className="h-1.5 w-1.5 bg-lime animate-pulse-live" />
                 Online
               </p>
             </div>
@@ -337,32 +348,26 @@ export function AiCoachChat({
       </header>
 
       {profile && (
-        <div className="flex shrink-0 flex-wrap items-center gap-x-5 gap-y-1.5 border-b border-border bg-muted/40 px-4 py-2 text-xs text-muted-foreground sm:px-6">
-          <span className="flex items-center gap-2 font-medium text-foreground">
+        <div className="flex shrink-0 flex-wrap items-center gap-x-5 gap-y-1.5 border-b border-foreground/15 px-4 py-2 text-xs text-muted-foreground sm:px-6">
+          <span className="serial flex items-center gap-2 font-medium text-foreground">
             <TargetIcon className="h-3.5 w-3.5 text-primary" />
-            Active Goal:
-            <span className="font-semibold text-primary">{profile.goalLabel}</span>
+            Goal:
+            <span className="font-bold text-primary">{profile.goalLabel}</span>
           </span>
-          <span className="flex items-center gap-2 font-medium text-foreground">
+          <span className="serial flex items-center gap-2 font-medium text-foreground">
             <ShieldIcon className="h-3.5 w-3.5 text-lime" />
-            Active Injury Protocol:
-            <span className="font-semibold">
-              {profile.injuryLabel ?? "None — all clear"}
-            </span>
+            Injury protocol:
+            <span className="font-bold">{profile.injuryLabel ?? "None — all clear"}</span>
           </span>
           {profile.readiness != null && (
-            <span className="flex items-center gap-2 font-medium text-foreground">
-              <HeartPulseIcon
-                className={`h-3.5 w-3.5 ${readinessTone(profile.readiness)}`}
-              />
-              Today&apos;s readiness:
-              <span
-                className={`font-semibold ${readinessTone(profile.readiness)}`}
-              >
+            <span className="serial flex items-center gap-2 font-medium text-foreground">
+              <HeartPulseIcon className={`h-3.5 w-3.5 ${readinessTone(profile.readiness)}`} />
+              Readiness:
+              <span className={`font-bold ${readinessTone(profile.readiness)}`}>
                 {profile.readiness}/100
               </span>
               {profile.readiness < 55 && (
-                <span className="rounded-full bg-warning/10 px-2 py-0.5 text-[11px] font-medium text-warning">
+                <span className="border border-warning/50 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-warning">
                   lighter session advised
                 </span>
               )}
@@ -373,13 +378,15 @@ export function AiCoachChat({
 
       <div className="flex-1 overflow-y-auto">
         <div className="mx-auto w-full max-w-3xl px-4 py-6 sm:px-6">
+          <div className="mb-4 flex flex-col gap-3">
+            <PlanChangeBanner reason={bannerReason} onDismiss={onDismissPlanChange} />
+            <CurrentPlanCard plan={plan} highlighted={planChanged} />
+          </div>
           <WeeklyCheckInCard onFollowUp={onSend} providerId={providerId} />
           {!session || session.messages.length === 0 ? (
             <div className="mx-auto max-w-lg py-10 text-center">
-              <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-primary/10 text-primary">
-                <SparkleIcon size={30} />
-              </div>
-              <h1 className="mt-6 font-display text-2xl font-bold tracking-tight sm:text-4xl">
+              <CoachAvatar size="lg" />
+              <h1 className="mt-6 font-display text-2xl font-black uppercase tracking-tight sm:text-4xl">
                 How can I help you train today?
               </h1>
               <p className="mt-2 text-sm text-muted-foreground">
@@ -392,19 +399,17 @@ export function AiCoachChat({
                     key={card.title}
                     type="button"
                     onClick={() => onSend(card.title)}
-                    className="group cursor-pointer rounded-2xl border border-border bg-gray-900/60 p-4 text-left shadow-sm transition-all hover:border-purple-500/50 hover:bg-gray-800/80"
+                    className="group cursor-pointer border border-foreground/25 bg-card p-4 text-left transition-colors hover:border-primary"
                   >
                     <div className="mb-1.5 flex items-center gap-2">
-                      <span
-                        className={`p-1.5 rounded-lg text-xs font-semibold ${card.tagClass}`}
-                      >
+                      <span className="bg-primary px-1.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-primary-foreground">
                         {card.tag}
                       </span>
                       <span className="text-muted-foreground group-hover:text-foreground">
                         {card.icon}
                       </span>
                     </div>
-                    <p className="text-sm font-medium text-gray-200 transition-colors group-hover:text-white">
+                    <p className="text-sm font-bold uppercase tracking-wide text-foreground group-hover:text-primary">
                       {card.title}
                     </p>
                   </button>
@@ -419,10 +424,13 @@ export function AiCoachChat({
               {isThinking && (
                 <div className="flex items-end gap-2.5">
                   <CoachAvatar />
-                  <div className="rounded-2xl rounded-bl-sm border border-border bg-card px-4 py-3.5">
+                  <div className="border border-foreground/20 bg-card px-4 py-3.5">
                     <TypingIndicator />
                   </div>
                 </div>
+              )}
+              {!isThinking && question && (
+                <CoachQuestionControl question={question} onAnswer={onAnswer} />
               )}
               <div ref={messagesEndRef} />
             </div>
@@ -431,12 +439,12 @@ export function AiCoachChat({
       </div>
 
       {error && (
-        <div className="shrink-0 border-b border-danger/20 bg-danger/10 px-4 py-2.5 text-center text-sm text-danger sm:px-6">
+        <div className="shrink-0 border-b border-danger/40 bg-danger/10 px-4 py-2.5 text-center text-sm text-danger sm:px-6">
           {error}
         </div>
       )}
 
-      <div className="shrink-0 border-t border-border px-4 py-4 sm:px-6">
+      <div className="shrink-0 border-t border-foreground/15 px-4 py-4 sm:px-6">
         <AiCoachInput
           onSend={onSend}
           disabled={isThinking}

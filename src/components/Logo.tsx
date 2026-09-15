@@ -1,14 +1,14 @@
 export function Logo() {
   return (
-    <span className="flex items-center gap-2">
-      <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary text-primary-foreground">
+    <span className="flex items-center gap-2.5">
+      <span className="plate-violet grid h-9 w-9 shrink-0 place-items-center">
         <svg
           width="20"
           height="20"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          strokeWidth="2"
+          strokeWidth="2.2"
           strokeLinecap="round"
           strokeLinejoin="round"
           aria-hidden="true"
@@ -22,7 +22,9 @@ export function Logo() {
           <path d="M14 21l7-7" />
         </svg>
       </span>
-      <span className="text-lg font-bold tracking-tight">FitPulse</span>
+      <span className="font-display text-lg font-black uppercase tracking-tight">
+        FitPulse
+      </span>
     </span>
   );
 }

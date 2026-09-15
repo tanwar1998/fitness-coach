@@ -142,18 +142,16 @@ export function AiCoachInput({
 
   return (
     <div className="mx-auto max-w-3xl">
-      <div className="rounded-2xl border border-input bg-card p-2 shadow-sm transition-shadow focus-within:ring-2 focus-within:ring-ring">
+      <div className="border border-foreground/25 bg-card p-2 transition-shadow focus-within:ring-2 focus-within:ring-ring">
         {profile && (
           <div className="mb-2 flex flex-wrap items-center gap-1.5 px-1">
-            <span className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
-              Context:
-            </span>
-            <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-2.5 py-0.5 text-[11px] font-medium text-secondary-foreground">
-              <GoalIcon className="h-3 w-3" />
+            <span className="stamp text-muted-foreground">Context:</span>
+            <span className="border border-foreground/20 bg-secondary px-2 py-0.5 text-[11px] font-semibold text-secondary-foreground">
+              <GoalIcon className="mr-1 inline h-3 w-3" />
               {profile.goalLabel}
             </span>
-            <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-2.5 py-0.5 text-[11px] font-medium text-secondary-foreground">
-              <ShieldPillIcon className="h-3 w-3" />
+            <span className="border border-foreground/20 bg-secondary px-2 py-0.5 text-[11px] font-semibold text-secondary-foreground">
+              <ShieldPillIcon className="mr-1 inline h-3 w-3" />
               {profile.injuryLabel ?? "No active injuries"}
             </span>
           </div>
@@ -165,7 +163,7 @@ export function AiCoachInput({
               disabled
               aria-label="Attach an image (coming soon)"
               title="Image upload (coming soon)"
-              className="grid h-9 w-9 cursor-default place-items-center rounded-xl text-muted-foreground/60 transition-colors hover:bg-muted disabled:pointer-events-none"
+              className="grid h-9 w-9 cursor-default place-items-center text-muted-foreground/60 transition-colors hover:bg-muted disabled:pointer-events-none"
             >
               <ImageIcon className="h-4 w-4" />
             </button>
@@ -174,7 +172,7 @@ export function AiCoachInput({
               disabled
               aria-label="Use voice input (coming soon)"
               title="Voice input (coming soon)"
-              className="grid h-9 w-9 cursor-default place-items-center rounded-xl text-muted-foreground/60 transition-colors hover:bg-muted disabled:pointer-events-none"
+              className="grid h-9 w-9 cursor-default place-items-center text-muted-foreground/60 transition-colors hover:bg-muted disabled:pointer-events-none"
             >
               <MicIcon className="h-4 w-4" />
             </button>
@@ -200,20 +198,20 @@ export function AiCoachInput({
             onClick={handleSubmit}
             disabled={!canSend}
             aria-label="Send message"
-            className="grid h-9 w-9 shrink-0 cursor-pointer place-items-center rounded-xl bg-primary text-primary-foreground transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-40"
+            className="grid h-9 w-9 shrink-0 cursor-pointer place-items-center bg-primary text-primary-foreground transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-40"
           >
             <SendIcon />
           </button>
         </div>
         <div className="mt-1.5 flex items-center justify-between gap-2 px-1">
           {providers.length > 0 ? (
-            <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
+            <label className="serial flex items-center gap-1.5 text-xs text-muted-foreground">
               <span>AI model</span>
               <select
                 value={providerId}
                 onChange={(event) => onProviderChange?.(event.target.value)}
                 disabled={disabled || !onProviderChange}
-                className="cursor-pointer rounded-md border border-border bg-card px-2 py-1 text-xs text-foreground focus:outline-none disabled:opacity-60"
+                className="cursor-pointer border border-foreground/25 bg-card px-2 py-1 text-xs text-foreground focus:outline-none disabled:opacity-60"
                 aria-label="Choose AI provider"
               >
                 {providers.map((provider) => (

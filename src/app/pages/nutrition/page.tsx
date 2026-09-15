@@ -183,7 +183,7 @@ function MacroPill({ label, value, color }: { label: string; value: string; colo
     <div className="flex items-center gap-2">
       <span className={`h-2.5 w-2.5 rounded-full ${color}`} />
       <span className="text-xs text-muted-foreground">{label}</span>
-      <span className="text-sm font-semibold">{value}g</span>
+      <span className="text-sm font-semibold serial tabular-nums">{value}g</span>
     </div>
   );
 }
@@ -219,7 +219,7 @@ function IngredientCard({
   };
 
   return (
-    <div className="group flex w-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md">
+    <div className="group flex w-full flex-col overflow-hidden rounded-sm border border-foreground/25 bg-card shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/50">
       <button
         type="button"
         onClick={onSelect}
@@ -233,27 +233,27 @@ function IngredientCard({
                 <p className="mt-0.5 truncate text-[11px] text-muted-foreground">{ingredient.brand}</p>
               )}
             </div>
-            <span className="shrink-0 rounded-full bg-secondary px-2 py-0.5 text-[11px] font-bold text-secondary-foreground">
+            <span className="shrink-0 border border-foreground/25 bg-card px-2 py-0.5 text-[11px] font-bold text-muted-foreground stamp">
               {ingredient.energy} kcal
             </span>
           </div>
 
           <div className="mt-2.5 grid grid-cols-4 gap-1.5 text-center">
-            <div className="rounded-lg bg-[#6366f1]/12 px-1 py-1.5">
+            <div className="border border-foreground/15 bg-[#6366f1]/10 px-1 py-1.5">
               <p className="text-[10px] text-muted-foreground">Protein</p>
-              <p className="mt-0.5 text-xs font-bold text-[#6366f1]">{protein.toFixed(1)}g</p>
+              <p className="mt-0.5 text-xs font-bold tabular-nums serial text-[#6366f1]">{protein.toFixed(1)}g</p>
             </div>
-            <div className="rounded-lg bg-[#10b981]/12 px-1 py-1.5">
+            <div className="border border-foreground/15 bg-[#10b981]/10 px-1 py-1.5">
               <p className="text-[10px] text-muted-foreground">Carbs</p>
-              <p className="mt-0.5 text-xs font-bold text-[#10b981]">{carbs.toFixed(1)}g</p>
+              <p className="mt-0.5 text-xs font-bold tabular-nums serial text-[#10b981]">{carbs.toFixed(1)}g</p>
             </div>
-            <div className="rounded-lg bg-[#f59e0b]/12 px-1 py-1.5">
+            <div className="border border-foreground/15 bg-[#f59e0b]/10 px-1 py-1.5">
               <p className="text-[10px] text-muted-foreground">Fat</p>
-              <p className="mt-0.5 text-xs font-bold text-[#f59e0b]">{fat.toFixed(1)}g</p>
+              <p className="mt-0.5 text-xs font-bold tabular-nums serial text-[#f59e0b]">{fat.toFixed(1)}g</p>
             </div>
-            <div className="rounded-lg bg-[#c72a21]/12 px-1 py-1.5">
+            <div className="border border-foreground/15 bg-[#c72a21]/10 px-1 py-1.5">
               <p className="text-[10px] text-muted-foreground">Fiber</p>
-              <p className="mt-0.5 text-xs font-bold text-[#c72a21]">{fiber.toFixed(1)}g</p>
+              <p className="mt-0.5 text-xs font-bold tabular-nums serial text-[#c72a21]">{fiber.toFixed(1)}g</p>
             </div>
           </div>
 
@@ -263,7 +263,7 @@ function IngredientCard({
         </div>
       </button>
 
-      <div className="border-t border-border/60 p-3">
+      <div className="border-t border-foreground/15 p-3">
         {expanded ? (
           <LogEntryForm
             ingredient={ingredient}
@@ -276,10 +276,10 @@ function IngredientCard({
           <button
             type="button"
             onClick={() => setExpanded(true)}
-            className={`inline-flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors ${
+            className={`inline-flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-sm border px-3 py-1.5 text-xs font-semibold transition-colors ${
               justLogged
                 ? "border-success/40 bg-success/10 text-success"
-                : "border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                : "border-foreground/25 text-muted-foreground hover:border-primary/40 hover:text-foreground"
             }`}
           >
             {justLogged ? (
@@ -322,7 +322,7 @@ function CompactIngredientRow({
   };
 
   return (
-    <div className="group w-full border-b border-border bg-card transition-colors last:border-b-0">
+    <div className="group w-full border-b border-foreground/15 bg-card transition-colors last:border-b-0">
       <div className="flex items-center gap-4 px-4 py-2.5">
         <button
           type="button"
@@ -337,27 +337,27 @@ function CompactIngredientRow({
           </div>
           <div className="hidden w-20 shrink-0 items-center gap-1.5 sm:flex">
             <span className="h-2 w-2 shrink-0 rounded-full bg-[#6366f1]" />
-            <span className="text-xs tabular-nums text-muted-foreground">{protein.toFixed(1)}g</span>
+            <span className="text-xs tabular-nums serial text-muted-foreground">{protein.toFixed(1)}g</span>
           </div>
           <div className="hidden w-20 shrink-0 items-center gap-1.5 sm:flex">
             <span className="h-2 w-2 shrink-0 rounded-full bg-[#10b981]" />
-            <span className="text-xs tabular-nums text-muted-foreground">{carbs.toFixed(1)}g</span>
+            <span className="text-xs tabular-nums serial text-muted-foreground">{carbs.toFixed(1)}g</span>
           </div>
           <div className="hidden w-20 shrink-0 items-center gap-1.5 sm:flex">
             <span className="h-2 w-2 shrink-0 rounded-full bg-[#f59e0b]" />
-            <span className="text-xs tabular-nums text-muted-foreground">{fat.toFixed(1)}g</span>
+            <span className="text-xs tabular-nums serial text-muted-foreground">{fat.toFixed(1)}g</span>
           </div>
           <div
             className="hidden w-20 shrink-0 items-center gap-1.5 sm:flex"
             title={`Fiber ${fiber.toFixed(1)}g`}
           >
             <span className="h-2 w-2 shrink-0 rounded-full bg-[#c72a21]" />
-            <span className="text-xs tabular-nums text-[#c72a21]">{fiber.toFixed(1)}g</span>
+            <span className="text-xs tabular-nums serial text-[#c72a21]">{fiber.toFixed(1)}g</span>
           </div>
           <div className="hidden w-24 shrink-0 md:block">
             <MacroBar protein={protein} carbs={carbs} fat={fat} fiber={fiber} />
           </div>
-          <span className="shrink-0 rounded-full bg-secondary px-2 py-0.5 text-[11px] font-bold text-secondary-foreground">
+          <span className="shrink-0 border border-foreground/25 bg-card px-2 py-0.5 text-[11px] font-bold text-muted-foreground stamp">
             {ingredient.energy} kcal
           </span>
         </button>
@@ -366,7 +366,7 @@ function CompactIngredientRow({
           onClick={() => setExpanded((v) => !v)}
           aria-expanded={expanded}
           aria-label={`Add ${ingredient.name} to today's log`}
-          className="grid h-8 w-8 shrink-0 cursor-pointer place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
+          className="grid h-8 w-8 shrink-0 cursor-pointer place-items-center rounded-sm border border-foreground/25 text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
         >
           {expanded ? (
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
@@ -379,7 +379,7 @@ function CompactIngredientRow({
         </button>
       </div>
       {expanded && (
-        <div className="border-t border-border bg-muted/20 px-4 py-3">
+        <div className="border-t border-foreground/15 bg-muted/20 px-4 py-3">
           <LogEntryForm
             ingredient={ingredient}
             defaultMealType={mealForDate(new Date())}
@@ -426,7 +426,7 @@ function IngredientLookup({
               key={ingredient.id}
               type="button"
               onClick={() => onPick(ingredient)}
-              className="cursor-pointer rounded-lg border border-border bg-card px-3 py-1.5 text-left text-sm text-foreground transition-colors hover:border-primary/40 hover:bg-muted"
+              className="cursor-pointer rounded-sm border border-foreground/25 bg-card px-3 py-1.5 text-left text-sm text-foreground transition-colors hover:border-primary/40 hover:bg-muted"
             >
               <span className="font-medium">{ingredient.name}</span>
               <span className="ml-2 text-xs text-muted-foreground">
@@ -458,7 +458,7 @@ function IngredientDetail({ ingredient }: { ingredient: Ingredient }) {
             <p className="mt-1 text-sm text-muted-foreground">by {ingredient.brand}</p>
           )}
         </div>
-        <div className="rounded-xl bg-primary px-3 py-1.5 text-center">
+        <div className="rounded-sm bg-primary px-3 py-1.5 text-center">
           <p className="text-xl font-bold text-primary-foreground">{ingredient.energy}</p>
           <p className="text-[11px] font-medium text-primary-foreground/80">kcal / 100g</p>
         </div>
@@ -476,7 +476,7 @@ function IngredientDetail({ ingredient }: { ingredient: Ingredient }) {
       <div className="px-5 pb-6 sm:px-6">
         <div className="grid gap-6 sm:grid-cols-2">
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            <h3 className="stamp text-muted-foreground">
               Macronutrients
             </h3>
             <div className="space-y-3">
@@ -503,10 +503,10 @@ function IngredientDetail({ ingredient }: { ingredient: Ingredient }) {
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            <h3 className="stamp text-muted-foreground">
               Breakdown
             </h3>
-            <div className="space-y-3 rounded-xl bg-muted/50 p-4">
+            <div className="space-y-3 rounded-sm border border-foreground/15 bg-muted/30 p-4">
               {[
                 { label: "Sugar", value: sugar, parent: carbs },
                 { label: "Saturated Fat", value: satFat, parent: fat },
@@ -515,7 +515,7 @@ function IngredientDetail({ ingredient }: { ingredient: Ingredient }) {
               ].map((item) => (
                 <div key={item.label} className="flex items-center justify-between text-sm">
                   <span className="text-muted-foreground">{item.label}</span>
-                  <span className="font-medium">
+                  <span className="font-medium serial tabular-nums">
                     {item.unit === "mg"
                       ? `${(item.value * 1000).toFixed(0)}mg`
                       : `${item.value.toFixed(1)}g`}
@@ -531,14 +531,14 @@ function IngredientDetail({ ingredient }: { ingredient: Ingredient }) {
 
             {ingredient.weight_units.length > 0 && (
               <>
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                <h3 className="stamp text-muted-foreground">
                   Common Servings
                 </h3>
                 <div className="space-y-2">
                   {ingredient.weight_units.map((unit) => (
                     <div
                       key={unit.id}
-                      className="flex items-center justify-between rounded-lg border border-border bg-card px-3 py-2 text-sm"
+                      className="flex items-center justify-between rounded-sm border border-foreground/25 bg-card px-3 py-2 text-sm"
                     >
                       <span className="text-muted-foreground">{unit.name}</span>
                       <span className="font-medium">{unit.gram}g</span>
@@ -556,21 +556,21 @@ function IngredientDetail({ ingredient }: { ingredient: Ingredient }) {
 
 function SkeletonCard() {
   return (
-    <div className="animate-pulse overflow-hidden rounded-2xl border border-border bg-card">
+    <div className="animate-pulse overflow-hidden rounded-sm border border-foreground/25 bg-card">
       <div className="p-3">
         <div className="flex items-start justify-between">
           <div className="h-5 w-32 rounded bg-muted" />
-          <div className="h-6 w-16 rounded-full bg-muted" />
+          <div className="h-6 w-16 rounded-sm bg-muted" />
         </div>
         <div className="mt-2.5 grid grid-cols-4 gap-1.5">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="rounded-lg bg-muted/60 px-1 py-1.5">
+            <div key={i} className="rounded-sm bg-muted/60 px-1 py-1.5">
               <div className="mx-auto h-3 w-10 rounded bg-muted" />
               <div className="mx-auto mt-1 h-4 w-8 rounded bg-muted" />
             </div>
           ))}
         </div>
-        <div className="mt-2 h-2 w-full rounded-full bg-muted" />
+        <div className="mt-2 h-2 w-full rounded-sm bg-muted" />
       </div>
     </div>
   );
@@ -1086,7 +1086,7 @@ export default function NutritionPage() {
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
       <div className="text-center">
-        <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl">
+        <h1 className="font-display font-black uppercase tracking-tight text-4xl sm:text-5xl">
           Nutrition
         </h1>
         <p className="mx-auto mt-3 max-w-xl text-base text-muted-foreground sm:text-lg">
@@ -1115,14 +1115,14 @@ export default function NutritionPage() {
           onDelete={handleDeleteEntry}
         />
         {logLoadError && (
-          <div className="mt-4 rounded-xl border border-warning/30 bg-warning/10 px-5 py-3 text-center text-sm text-warning">
+          <div className="mt-4 rounded-sm border border-warning/30 bg-warning/10 px-5 py-3 text-center text-sm text-warning">
             {logLoadError}
           </div>
         )}
       </div>
 
       {/* Search + sort */}
-      <div className="mx-auto mt-8 max-w-6xl rounded-2xl border border-border bg-card shadow-sm">
+      <div className="mx-auto mt-8 max-w-6xl rounded-sm border border-foreground/25 bg-card shadow-sm">
         <div className="p-5 sm:p-6">
           <div className="flex flex-col gap-2">
             <div className="flex flex-wrap items-center justify-between gap-2">
@@ -1135,10 +1135,10 @@ export default function NutritionPage() {
                     setAiMode((v) => !v);
                     setAiError(null);
                   }}
-                  className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
+                  className={`inline-flex items-center gap-2 rounded-sm px-3 py-1.5 text-xs font-semibold transition-colors ${
                     aiMode
                       ? "bg-primary text-primary-foreground"
-                      : "border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                      : "border border-foreground/25 text-muted-foreground hover:border-primary/40 hover:text-foreground"
                   }`}
                 >
                   <svg
@@ -1163,10 +1163,10 @@ export default function NutritionPage() {
                     setAiError(null);
                     setCustomMode((v) => !v);
                   }}
-                  className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
+                  className={`inline-flex items-center gap-2 rounded-sm px-3 py-1.5 text-xs font-semibold transition-colors ${
                     customMode
                       ? "bg-primary text-primary-foreground"
-                      : "border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                      : "border border-foreground/25 text-muted-foreground hover:border-primary/40 hover:text-foreground"
                   }`}
                 >
                   <svg
@@ -1189,7 +1189,7 @@ export default function NutritionPage() {
             </div>
 
             {customMode ? (
-              <div className="rounded-xl border border-border bg-muted/30 p-3 sm:p-4">
+              <div className="rounded-sm border border-foreground/15 bg-muted/30 p-3 sm:p-4">
                 <CustomMealForm
                   defaultMealType={mealForDate(new Date())}
                   onSubmit={handleCustomMeal}
@@ -1254,7 +1254,7 @@ export default function NutritionPage() {
         </div>
 
         {aiMode && (
-          <div className="border-t border-border px-5 py-3 sm:px-6">
+          <div className="border-t border-foreground/15 px-5 py-3 sm:px-6">
             <p className="text-xs text-muted-foreground">
               {`Tip: Try "2 eggs and a banana", "grilled chicken salad", or "oatmeal with berries".`}
             </p>
@@ -1262,7 +1262,7 @@ export default function NutritionPage() {
         )}
 
         {filtersOpen && !aiMode && !customMode && (
-          <div className="border-t border-border p-5 pt-5 sm:px-6 sm:pb-6">
+          <div className="border-t border-foreground/15 p-5 pt-5 sm:px-6 sm:pb-6">
             <div className="space-y-6">
               {/* Macro target filter */}
               <div>
@@ -1344,11 +1344,11 @@ export default function NutritionPage() {
 
       {/* AI parsed meal plan */}
       {parsedPlan && parsedPlan.length > 0 && (
-        <div className="mx-auto mt-6 max-w-6xl rounded-2xl border border-border bg-card shadow-sm">
+        <div className="mx-auto mt-6 max-w-6xl rounded-sm border border-foreground/25 bg-card shadow-sm">
           <div className="p-5 sm:p-6">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
-                <h2 className="font-display text-lg font-bold">
+                <h2 className="font-display font-black uppercase tracking-tight text-lg">
                   Parsed meal <span className="text-muted-foreground">— confirm before logging</span>
                 </h2>
                 <p className="mt-0.5 text-sm text-muted-foreground">
@@ -1378,7 +1378,7 @@ export default function NutritionPage() {
               {parsedPlan.map((item) => (
                 <div
                   key={item.uid}
-                  className="rounded-xl border border-border bg-muted/30 p-3"
+                  className="rounded-sm border border-foreground/15 bg-muted/30 p-3"
                 >
                   {item.ingredient ? (
                     <>
@@ -1388,12 +1388,12 @@ export default function NutritionPage() {
                           {item.ingredient.name}
                         </p>
                         {item.quantity == null && (
-                          <span className="inline-flex items-center rounded-full border border-warning/40 bg-warning/10 px-2.5 py-0.5 text-xs font-medium text-warning">
+                          <span className="inline-flex items-center rounded-sm border border-warning/40 bg-warning/10 px-2.5 py-0.5 text-xs font-medium text-warning stamp">
                             ⚠ Quantity needed
                           </span>
                         )}
                         {item.quantity != null && (
-                          <span className="inline-flex items-center rounded-full border border-border bg-card px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
+                          <span className="inline-flex items-center rounded-sm border border-foreground/25 bg-card px-2.5 py-0.5 text-xs font-medium text-muted-foreground stamp">
                             {item.quantity} {item.unit}
                           </span>
                         )}
@@ -1429,7 +1429,7 @@ export default function NutritionPage() {
       )}
 
       {error && (
-        <div className="mx-auto mt-6 max-w-6xl rounded-xl border border-danger/30 bg-danger/10 px-5 py-4 text-center text-sm text-danger">
+        <div className="mx-auto mt-6 max-w-6xl rounded-sm border border-danger/30 bg-danger/10 px-5 py-4 text-center text-sm text-danger">
           {error}
         </div>
       )}
@@ -1437,15 +1437,15 @@ export default function NutritionPage() {
       {/* Results */}
       <div className="mx-auto mt-10 max-w-6xl">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 className="font-display text-lg font-bold">Ingredients</h2>
+          <h2 className="font-display font-black uppercase tracking-tight text-lg">Ingredients</h2>
           <div className="flex items-center gap-2">
             {/* View switcher */}
-            <div className="flex items-center overflow-hidden rounded-full border border-border bg-card p-0.5">
+            <div className="flex items-center overflow-hidden rounded-sm border border-foreground/25 bg-card p-0.5">
               <button
                 type="button"
                 onClick={() => setViewMode("grid")}
                 title="Grid view"
-                className={`grid h-7 w-7 place-items-center rounded-full transition-colors ${
+                className={`grid h-7 w-7 place-items-center rounded-sm transition-colors ${
                   viewMode === "grid" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
                 }`}
                 aria-label="Grid view"
@@ -1471,7 +1471,7 @@ export default function NutritionPage() {
                 type="button"
                 onClick={() => setViewMode("list")}
                 title="Compact list view"
-                className={`grid h-7 w-7 place-items-center rounded-full transition-colors ${
+                className={`grid h-7 w-7 place-items-center rounded-sm transition-colors ${
                   viewMode === "list" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
                 }`}
                 aria-label="Compact list view"
@@ -1497,10 +1497,10 @@ export default function NutritionPage() {
               </button>
             </div>
             <span
-              className={`rounded-full border px-3 py-1 text-sm font-semibold transition-all duration-500 ${
+              className={`rounded-sm border px-3 py-1 text-sm font-semibold transition-all duration-500 stamp ${
                 resultFlash
                   ? "border-primary bg-primary/10 text-primary"
-                  : "border-border bg-card text-muted-foreground"
+                  : "border-foreground/25 bg-card text-muted-foreground"
               }`}
               aria-live="polite"
             >
@@ -1517,7 +1517,7 @@ export default function NutritionPage() {
               ))}
             </div>
           ) : sortedIngredients.length === 0 ? (
-            <div className="flex min-h-[240px] items-center justify-center rounded-2xl border border-dashed border-border">
+            <div className="flex min-h-[240px] items-center justify-center rounded-sm border border-dashed border-foreground/25">
               <p className="text-center text-muted-foreground">
                 No ingredients found.
                 <br />
@@ -1536,8 +1536,8 @@ export default function NutritionPage() {
               ))}
             </div>
           ) : (
-            <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-              <div className="flex items-center gap-4 border-b border-border bg-muted/40 px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+            <div className="overflow-hidden rounded-sm border border-foreground/25 bg-card shadow-sm">
+              <div className="flex items-center gap-4 border-b border-foreground/15 bg-muted/40 px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
                 <div className="min-w-0 flex-1">Ingredient</div>
                 <div className="hidden w-20 shrink-0 sm:block">Protein</div>
                 <div className="hidden w-20 shrink-0 sm:block">Carbs</div>
@@ -1567,14 +1567,14 @@ export default function NutritionPage() {
 
       {/* AI toast */}
       {aiToast && (
-        <div className="fixed bottom-6 left-1/2 z-[60] -translate-x-1/2 rounded-full border border-primary/30 bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-lg">
+        <div className="fixed bottom-6 left-1/2 z-[60] -translate-x-1/2 rounded-sm border border-primary/30 bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm">
           {aiToast}
         </div>
       )}
 
       {/* Slide-in detail panel */}
       <div
-        className={`fixed inset-0 z-50 bg-black/50 backdrop-blur-sm transition-opacity duration-300 ${
+        className={`fixed inset-0 z-50 bg-black/50 transition-opacity duration-300 ${
           selectedIngredient ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
         onClick={() => setSelectedIngredient(null)}
@@ -1584,17 +1584,17 @@ export default function NutritionPage() {
         role="dialog"
         aria-modal="true"
         aria-label="Ingredient nutrition details"
-        className={`fixed inset-y-0 right-0 z-50 flex w-full max-w-xl flex-col bg-card shadow-2xl transition-transform duration-300 ease-out ${
+        className={`fixed inset-y-0 right-0 z-50 flex w-full max-w-xl flex-col bg-card shadow-sm transition-transform duration-300 ease-out ${
           selectedIngredient ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between border-b border-border px-5 py-4 sm:px-6">
+        <div className="flex items-center justify-between border-b border-foreground/15 px-5 py-4 sm:px-6">
           <h2 className="font-display text-lg font-bold">Nutrition Details</h2>
           <button
             type="button"
             onClick={() => setSelectedIngredient(null)}
             aria-label="Close details"
-            className="grid h-9 w-9 cursor-pointer place-items-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            className="grid h-9 w-9 cursor-pointer place-items-center rounded-sm border border-foreground/25 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
             <CloseIcon />
           </button>

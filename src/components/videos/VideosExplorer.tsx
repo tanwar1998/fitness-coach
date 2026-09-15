@@ -31,10 +31,10 @@ function VideoCard({
     <button
       type="button"
       onClick={onSelect}
-      className={`w-full overflow-hidden rounded-2xl border bg-card text-left shadow-sm transition-all hover:shadow-md ${
+      className={`w-full overflow-hidden rounded-sm border bg-card text-left transition-all ${
         isSelected
           ? "border-primary ring-2 ring-primary/20"
-          : "border-border hover:border-primary/40"
+          : "border-foreground/25 hover:border-primary/40"
       }`}
     >
       <div className="relative aspect-video w-full overflow-hidden bg-muted">
@@ -65,11 +65,11 @@ function VideoCard({
           </div>
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-        <div className="absolute bottom-2 right-2 rounded-full bg-black/70 px-2 py-0.5 text-xs font-medium text-white backdrop-blur">
+        <div className="absolute bottom-2 right-2 rounded-sm bg-black/70 px-2 py-0.5 text-xs font-medium text-white">
           {formatDuration(video.duration)}
         </div>
         <div className="absolute left-2 top-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-md">
+          <div className="grid h-8 w-8 place-items-center rounded-sm bg-primary text-primary-foreground">
             <svg
               width="14"
               height="14"
@@ -107,7 +107,7 @@ function VideoCard({
 
 function VideoDetail({ video }: { video: VideoItem }) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+    <div className="overflow-hidden rounded-sm border border-foreground/25 bg-card shadow-sm">
       <div className="relative w-full overflow-hidden bg-black">
         <video
           key={video.uuid}
@@ -137,13 +137,13 @@ function VideoDetail({ video }: { video: VideoItem }) {
         </div>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          <div className="rounded-xl bg-muted/50 p-4">
+          <div className="rounded-sm border border-foreground/15 bg-muted/50 p-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Duration
             </p>
             <p className="mt-1 text-lg font-bold">{formatDuration(video.duration)}</p>
           </div>
-          {/* <div className="rounded-xl bg-muted/50 p-4">
+          {/* <div className="rounded-sm border border-foreground/15 bg-muted/50 p-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Resolution
             </p>
@@ -151,13 +151,13 @@ function VideoDetail({ video }: { video: VideoItem }) {
               {video.width}×{video.height}
             </p>
           </div>
-          <div className="rounded-xl bg-muted/50 p-4">
+          <div className="rounded-sm border border-foreground/15 bg-muted/50 p-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Codec
             </p>
             <p className="mt-1 text-lg font-bold">{video.codecLong || video.codec}</p>
           </div>
-          <div className="rounded-xl bg-muted/50 p-4">
+          <div className="rounded-sm border border-foreground/15 bg-muted/50 p-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               File Size
             </p>
@@ -174,7 +174,7 @@ function VideoDetail({ video }: { video: VideoItem }) {
               {video.muscles.map((muscle) => (
                 <div
                   key={muscle}
-                  className="flex items-center gap-2 rounded-xl border border-primary/20 bg-primary/5 px-3 py-2"
+                  className="flex items-center gap-2 rounded-sm border border-primary/20 bg-primary/5 px-3 py-2"
                 >
                   <span className="h-2 w-2 rounded-full bg-primary" />
                   <span className="text-sm font-medium">{muscle}</span>
@@ -196,13 +196,13 @@ function VideoDetail({ video }: { video: VideoItem }) {
 
 function SkeletonCard() {
   return (
-    <div className="animate-pulse overflow-hidden rounded-2xl border border-border bg-card">
+    <div className="animate-pulse overflow-hidden rounded-sm border border-foreground/25 bg-card">
       <div className="aspect-video bg-secondary" />
       <div className="p-3">
         <div className="h-4 w-2/3 rounded bg-muted" />
         <div className="mt-2 flex gap-2">
-          <div className="h-5 w-14 rounded-full bg-muted" />
-          <div className="h-5 w-16 rounded-full bg-muted" />
+          <div className="h-5 w-14 rounded-sm bg-muted" />
+          <div className="h-5 w-16 rounded-sm bg-muted" />
         </div>
       </div>
     </div>
@@ -275,20 +275,20 @@ export default function VideosExplorer({
   return (
     <>
       {error && videos.length === 0 && (
-        <div className="mx-auto mt-10 max-w-3xl rounded-xl border border-danger/30 bg-danger/10 px-5 py-6 text-center">
+        <div className="mx-auto mt-10 max-w-3xl rounded-sm border border-danger/30 bg-danger/10 px-5 py-6 text-center">
           <p className="text-sm text-danger">{error}</p>
           <button
             type="button"
             onClick={retry}
             disabled={retrying}
-            className="mt-3 rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition hover:opacity-90 disabled:opacity-60"
+            className="mt-3 rounded-sm bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition hover:opacity-90 disabled:opacity-60"
           >
             {retrying ? "Retrying..." : "Try again"}
           </button>
         </div>
       )}
 
-      <div className="mx-auto mt-10 max-w-3xl rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
+      <div className="mx-auto mt-10 max-w-3xl rounded-sm border border-foreground/25 bg-card p-6 shadow-sm sm:p-8">
         <Input
           label="Search Videos"
           placeholder="Search by exercise name..."
@@ -296,7 +296,7 @@ export default function VideosExplorer({
           onChange={(e) => setQuery(e.target.value)}
         />
         <div className="mt-3 flex items-center justify-between">
-          <p className="text-sm text-muted-foreground">
+          <p className="stamp text-sm text-muted-foreground">
             {filteredVideos.length} video{filteredVideos.length !== 1 ? "s" : ""} found
           </p>
         </div>
@@ -305,8 +305,8 @@ export default function VideosExplorer({
       <div className="mt-10 grid gap-6 lg:grid-cols-5">
         <div className="lg:col-span-2">
           <div className="flex items-center justify-between">
-            <h2 className="font-display text-lg font-bold">Videos</h2>
-            <span className="text-sm text-muted-foreground">
+            <h2 className="font-display text-lg font-black uppercase tracking-tight">Videos</h2>
+            <span className="serial text-sm text-muted-foreground">
               {filteredVideos.length.toLocaleString()} total
             </span>
           </div>
@@ -322,7 +322,7 @@ export default function VideosExplorer({
                   />
                 ))}
             {!loading && filteredVideos.length === 0 && (
-              <div className="flex min-h-[200px] items-center justify-center rounded-2xl border border-dashed border-border">
+              <div className="flex min-h-[200px] items-center justify-center rounded-sm border border-dashed border-foreground/25">
                 <p className="text-center text-muted-foreground">No videos found</p>
               </div>
             )}
@@ -330,12 +330,12 @@ export default function VideosExplorer({
         </div>
 
         <div className="lg:col-span-3">
-          <h2 className="font-display text-lg font-bold">Player</h2>
+          <h2 className="font-display text-lg font-black uppercase tracking-tight">Player</h2>
           <div className="mt-4">
             {selectedVideo ? (
               <VideoDetail video={selectedVideo} />
             ) : (
-              <div className="flex min-h-[300px] items-center justify-center rounded-2xl border border-dashed border-border bg-card">
+              <div className="flex min-h-[300px] items-center justify-center rounded-sm border border-dashed border-foreground/25 bg-card">
                 <p className="text-center text-muted-foreground">
                   Select a video from the list
                   <br />

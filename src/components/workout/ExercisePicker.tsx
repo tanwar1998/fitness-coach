@@ -167,23 +167,23 @@ export function ExercisePicker({
         role="dialog"
         aria-modal="true"
         aria-label="Choose an exercise"
-        className={`fixed inset-y-0 right-0 z-50 flex w-full max-w-lg flex-col bg-card shadow-2xl transition-transform duration-300 ease-out ${
+        className={`fixed inset-y-0 right-0 z-50 flex w-full max-w-lg flex-col border-l border-foreground/15 bg-card transition-transform duration-300 ease-out ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between border-b border-border px-5 py-4 sm:px-6">
-          <h2 className="font-display text-lg font-bold">Swap exercise</h2>
+        <div className="flex items-center justify-between border-b border-foreground/15 px-5 py-4 sm:px-6">
+          <h2 className="font-display text-lg font-black uppercase tracking-tight">Swap exercise</h2>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close picker"
-            className="grid h-9 w-9 cursor-pointer place-items-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            className="grid h-9 w-9 cursor-pointer place-items-center rounded-sm border border-foreground/25 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
             <CloseIcon />
           </button>
         </div>
 
-        <div className="border-b border-border p-5 sm:p-6">
+        <div className="border-b border-foreground/15 p-5 sm:p-6">
           <Input
             label="Search exercises"
             placeholder="e.g. bench press, squat..."
@@ -194,10 +194,10 @@ export function ExercisePicker({
             <button
               type="button"
               onClick={() => setSelectedCategory(null)}
-              className={`inline-flex h-8 cursor-pointer items-center rounded-full border px-3 text-xs font-medium transition-colors ${
+              className={`inline-flex h-8 cursor-pointer items-center rounded-sm border px-3 text-xs font-medium transition-colors ${
                 selectedCategory === null
                   ? "border-primary bg-primary text-primary-foreground"
-                  : "border-border bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                  : "border-foreground/25 bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground"
               }`}
             >
               All
@@ -209,10 +209,10 @@ export function ExercisePicker({
                 onClick={() =>
                   setSelectedCategory((prev) => (prev === name ? null : name))
                 }
-                className={`inline-flex h-8 cursor-pointer items-center rounded-full border px-3 text-xs font-medium transition-colors ${
+                className={`inline-flex h-8 cursor-pointer items-center rounded-sm border px-3 text-xs font-medium transition-colors ${
                   selectedCategory === name
                     ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                    : "border-foreground/25 bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground"
                 }`}
               >
                 {name}
@@ -227,7 +227,7 @@ export function ExercisePicker({
               <p className="text-sm text-muted-foreground">Loading exercises...</p>
             </div>
           ) : results.length === 0 ? (
-            <div className="flex min-h-[200px] items-center justify-center rounded-2xl border border-dashed border-border">
+            <div className="flex min-h-[200px] items-center justify-center rounded-sm border border-dashed border-foreground/25">
               <p className="text-center text-sm text-muted-foreground">
                 No exercises match.
                 <br />
@@ -253,7 +253,7 @@ export function ExercisePicker({
                           muscles,
                         })
                       }
-                      className="flex w-full cursor-pointer items-center justify-between gap-3 rounded-xl border border-border bg-card px-3 py-2 text-left transition-colors hover:border-primary/50 hover:bg-muted/40"
+                      className="flex w-full cursor-pointer items-center justify-between gap-3 rounded-sm border border-foreground/25 bg-card px-3 py-2 text-left transition-colors hover:border-primary/50 hover:bg-muted"
                     >
                       <span className="min-w-0">
                         <span className="block truncate text-sm font-medium">
@@ -265,7 +265,7 @@ export function ExercisePicker({
                           </span>
                         )}
                       </span>
-                      <span className="shrink-0 rounded-full bg-secondary px-2 py-0.5 text-[11px] font-semibold text-secondary-foreground">
+                      <span className="shrink-0 rounded-sm bg-secondary px-2 py-0.5 text-[11px] font-semibold text-secondary-foreground">
                         {ex.category.name}
                       </span>
                     </button>
