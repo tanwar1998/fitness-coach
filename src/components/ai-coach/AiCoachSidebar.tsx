@@ -203,8 +203,8 @@ export function AiCoachSidebar({
       >
         {/* Desktop rail shown when the drawer is collapsed */}
         <div
-          className={`hidden h-full flex-col items-center justify-center gap-2 p-3 md:flex ${
-            collapsed ? "" : "hidden"
+          className={`h-full flex-col items-center justify-center gap-2 p-3 ${
+            collapsed ? "hidden md:flex" : "hidden"
           }`}
         >
           <button
