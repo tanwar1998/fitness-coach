@@ -1,0 +1,67 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "How Exercises, Workouts and Pages Work",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "happy-path",
+        "label": "Build, run, log",
+        "focus": ["library", "generator", "generated", "history", "session", "logapi", "workoutlogs", "goalstats", "progress"],
+        "note": "Follow a generated workout from the library to a logged session on the progress page."
+      },
+      {
+        "id": "data-flow",
+        "label": "Data & goals",
+        "focus": ["workoutlogs", "goalstats", "progress", "logapi"],
+        "note": "See how logging advances goals and recomputes stats."
+      }
+    ]
+  },
+  "lanes": [
+    { "id": "pages", "label": "Pages & UI" },
+    { "id": "client", "label": "Browser storage" },
+    { "id": "api", "label": "Next.js API" },
+    { "id": "db", "label": "Postgres + sources" }
+  ],
+  "phases": [
+    { "id": "plan", "label": "Browse & plan", "fromCol": 0, "toCol": 1 },
+    { "id": "build", "label": "Generate & save", "fromCol": 2, "toCol": 3, "variant": "emphasis" },
+    { "id": "log", "label": "Run, log, trend", "fromCol": 4, "toCol": 5 }
+  ],
+  "mainPath": ["library", "generator", "generated", "history", "session", "logapi", "workoutlogs", "goalstats", "progress"],
+  "semanticChecks": {
+    "allowedRoots": ["library", "wger"],
+    "allowedTerminals": ["progress"]
+  },
+  "nodes": [
+    { "id": "library", "lane": "pages", "col": 0, "type": "frontend", "label": "Exercise Library", "sublabel": "/pages/exercise", "width": 150 },
+    { "id": "generator", "lane": "pages", "col": 1, "type": "frontend", "label": "Workout Generator", "sublabel": "/pages/generate-workout", "tag": "goal × level × preset", "width": 150 },
+    { "id": "generated", "lane": "pages", "col": 2, "type": "frontend", "label": "Generated Workout", "sublabel": "sets · reps · rest", "width": 150 },
+    { "id": "history", "lane": "client", "col": 3, "type": "database", "label": "Workout History", "sublabel": "localStorage · max 20", "width": 150 },
+    { "id": "session", "lane": "pages", "col": 3, "type": "frontend", "label": "Workout Session", "sublabel": "/pages/workout-session", "width": 150 },
+    { "id": "logapi", "lane": "api", "col": 4, "type": "backend", "label": "Progress API", "sublabel": "POST /api/progress/workouts", "width": 168 },
+    { "id": "workoutlogs", "lane": "db", "col": 4, "type": "database", "label": "workout_logs", "sublabel": "device-scoped rows", "width": 150 },
+    { "id": "goalstats", "lane": "db", "col": 5, "type": "database", "label": "Goals + Stats", "sublabel": "goal_checkins · stats", "width": 158 },
+    { "id": "progress", "lane": "pages", "col": 5, "type": "frontend", "label": "Progress Dashboard", "sublabel": "/pages/progress", "width": 158 },
+    { "id": "wger", "lane": "db", "col": 0, "type": "external", "label": "Exercise Data", "sublabel": "curated pool · wger names", "width": 150 }
+  ],
+  "edges": [
+    { "id": "wger-library", "from": "wger", "to": "library", "label": "catalog", "variant": "dashed", "role": "branch" },
+    { "id": "library-generator", "from": "library", "to": "generator", "label": "pick exercises", "variant": "default", "role": "main" },
+    { "id": "generator-generated", "from": "generator", "to": "generated", "label": "generate", "variant": "emphasis", "role": "main" },
+    { "id": "generated-history", "from": "generated", "to": "history", "label": "upsertWorkout", "variant": "default", "role": "main" },
+    { "id": "history-session", "from": "history", "to": "session", "label": "?id= load", "variant": "default", "role": "main" },
+    { "id": "session-logapi", "from": "session", "to": "logapi", "label": "logWorkout · check off", "variant": "emphasis", "role": "main" },
+    { "id": "logapi-workoutlogs", "from": "logapi", "to": "workoutlogs", "label": "INSERT", "variant": "default", "role": "main", "route": "return-left" },
+    { "id": "workoutlogs-goalstats", "from": "workoutlogs", "to": "goalstats", "label": "auto-advance goals", "variant": "default", "role": "main" },
+    { "id": "goalstats-progress", "from": "goalstats", "to": "progress", "label": "KPIs + heatmap", "route": "straight", "variant": "emphasis", "role": "return" },
+    { "id": "undo", "from": "progress", "to": "logapi", "label": "undo deletes + reverses", "variant": "dashed", "role": "error" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Exercises", "items": ["Each exercise has key, source (curated | wger), sets, reps, rest and target load", "Warm-up and cool-down phases bracket the main movement"] },
+    { "dot": "emerald", "title": "Pages", "items": ["The generator picks from the curated pool by equipment preset and goal", "Sessions run from saved history in the shared shell"] },
+    { "dot": "amber", "title": "Logging & trends", "items": ["Completion writes workout_logs and advances matching goals", "The dashboard recomputes KPIs and a heatmap; undo reverses them"] }
+  ]
+}

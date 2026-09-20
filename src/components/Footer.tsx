@@ -10,6 +10,7 @@ const FOOTER_LINKS = [
   { href: "/pages/exercise", label: "Exercises" },
   { href: "/pages/progress", label: "Progress" },
   { href: "/pages/ai-coach", label: "AI Coach" },
+  { href: "/pages/sitemap", label: "Site Map" },
   { href: "/pages/disclaimer", label: "Disclaimer" },
 ];
 

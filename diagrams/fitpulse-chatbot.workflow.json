@@ -1,0 +1,427 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "How the FitPulse Chatbot Works",
+    "quality_profile": "standard",
+    "views": [
+      {
+        "id": "happy-path",
+        "label": "Message to reply",
+        "focus": [
+          "chat",
+          "message",
+          "graph",
+          "retrieve",
+          "checkin",
+          "route",
+          "coach",
+          "reply"
+        ],
+        "note": "Follow a message from the chat UI through the graph to a coach reply."
+      },
+      {
+        "id": "interrupt-resume",
+        "label": "Interrupt & resume",
+        "focus": [
+          "interrupt",
+          "chat",
+          "answer",
+          "graph",
+          "coach"
+        ],
+        "note": "See where the graph pauses for a question and resumes through the answer route."
+      }
+    ]
+  },
+  "lanes": [
+    {
+      "id": "ui",
+      "label": "Chat UI"
+    },
+    {
+      "id": "api",
+      "label": "Next.js API"
+    },
+    {
+      "id": "graph",
+      "label": "Coach Graph"
+    },
+    {
+      "id": "policy",
+      "label": "Safety & Redirect",
+      "variant": "exception"
+    },
+    {
+      "id": "ext",
+      "label": "External"
+    },
+    {
+      "id": "data",
+      "label": "Persistence"
+    }
+  ],
+  "phases": [
+    {
+      "id": "intake",
+      "label": "Intake",
+      "fromCol": 0,
+      "toCol": 1
+    },
+    {
+      "id": "orchestrate",
+      "label": "Anchored reasoning",
+      "fromCol": 2,
+      "toCol": 4,
+      "variant": "emphasis"
+    },
+    {
+      "id": "reply",
+      "label": "Reply",
+      "fromCol": 5,
+      "toCol": 5,
+      "variant": "dashed"
+    }
+  ],
+  "mainPath": [
+    "chat",
+    "message",
+    "graph",
+    "retrieve",
+    "checkin",
+    "route",
+    "coach",
+    "reply"
+  ],
+  "semanticChecks": {
+    "allowedRoots": [
+      "chat"
+    ],
+    "allowedTerminals": [
+      "reply",
+      "fallback",
+      "index",
+      "sessions",
+      "gemini"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "chat",
+      "lane": "ui",
+      "col": 0,
+      "type": "frontend",
+      "label": "AI Coach chat",
+      "sublabel": "AiCoachChat · provider picker",
+      "width": 150
+    },
+    {
+      "id": "message",
+      "lane": "api",
+      "col": 1,
+      "type": "backend",
+      "label": "POST /api/coach/message",
+      "sublabel": "device + session check",
+      "width": 168
+    },
+    {
+      "id": "answer",
+      "lane": "api",
+      "col": 4,
+      "type": "backend",
+      "label": "POST /api/coach/answer",
+      "sublabel": "resume interrupted thread",
+      "width": 168
+    },
+    {
+      "id": "graph",
+      "lane": "graph",
+      "col": 2,
+      "type": "backend",
+      "label": "Coach Graph",
+      "sublabel": "LangGraph StateGraph",
+      "tag": "compiled once",
+      "width": 150
+    },
+    {
+      "id": "retrieve",
+      "lane": "graph",
+      "col": 3,
+      "type": "backend",
+      "label": "Retrieve Exercises",
+      "sublabel": "embed query · RAG top 6",
+      "width": 158
+    },
+    {
+      "id": "checkin",
+      "lane": "graph",
+      "col": 3,
+      "type": "security",
+      "label": "Readiness Check-in",
+      "sublabel": "energy · pain · time",
+      "width": 158,
+      "yOffset": 64
+    },
+    {
+      "id": "route",
+      "lane": "graph",
+      "col": 4,
+      "type": "security",
+      "label": "Route",
+      "sublabel": "replan or coach",
+      "width": 140
+    },
+    {
+      "id": "replan",
+      "lane": "graph",
+      "col": 4,
+      "type": "backend",
+      "label": "Replan",
+      "sublabel": "validated plan edit",
+      "width": 140,
+      "yOffset": 64
+    },
+    {
+      "id": "coach",
+      "lane": "graph",
+      "col": 5,
+      "type": "backend",
+      "label": "Coach Response",
+      "sublabel": "safety gate · build reply",
+      "width": 150
+    },
+    {
+      "id": "interrupt",
+      "lane": "policy",
+      "col": 2,
+      "type": "security",
+      "label": "In-flight Interrupt",
+      "sublabel": "409 → client retries",
+      "width": 150
+    },
+    {
+      "id": "fallback",
+      "lane": "policy",
+      "col": 5,
+      "type": "security",
+      "label": "Safe Fallback",
+      "sublabel": "out-of-scope redirect",
+      "width": 150
+    },
+    {
+      "id": "reply",
+      "lane": "ui",
+      "col": 5,
+      "type": "frontend",
+      "label": "Coach Reply",
+      "sublabel": "answer · action · referenced exercises",
+      "width": 180
+    },
+    {
+      "id": "gemini",
+      "lane": "ext",
+      "col": 5,
+      "type": "cloud",
+      "label": "LLM Provider",
+      "sublabel": "Gemini · Grok · DeepSeek",
+      "width": 160
+    },
+    {
+      "id": "index",
+      "lane": "ext",
+      "col": 4,
+      "type": "database",
+      "label": "Exercise Index",
+      "sublabel": "~860 embedded entries",
+      "width": 160
+    },
+    {
+      "id": "sessions",
+      "lane": "data",
+      "col": 3,
+      "type": "database",
+      "label": "chat_sessions + messages",
+      "sublabel": "thread state · checkpoints",
+      "width": 180
+    }
+  ],
+  "edges": [
+    {
+      "id": "chat-message",
+      "from": "chat",
+      "to": "message",
+      "label": "sendCoachMessage()",
+      "variant": "emphasis",
+      "role": "main"
+    },
+    {
+      "id": "message-graph",
+      "from": "message",
+      "to": "graph",
+      "label": "invoke",
+      "variant": "emphasis",
+      "role": "main"
+    },
+    {
+      "id": "graph-retrieve",
+      "from": "graph",
+      "to": "retrieve",
+      "label": "RAG retrieve",
+      "variant": "emphasis",
+      "role": "main"
+    },
+    {
+      "id": "graph-checkin",
+      "from": "retrieve",
+      "to": "checkin",
+      "variant": "default",
+      "role": "main"
+    },
+    {
+      "id": "checkin-route",
+      "from": "checkin",
+      "to": "route",
+      "variant": "default",
+      "role": "main"
+    },
+    {
+      "id": "route-coach",
+      "from": "route",
+      "to": "coach",
+      "label": "no plan change",
+      "variant": "default",
+      "role": "main"
+    },
+    {
+      "id": "route-replan",
+      "from": "route",
+      "to": "replan",
+      "label": "plan change",
+      "variant": "default",
+      "role": "branch"
+    },
+    {
+      "id": "replan-coach",
+      "from": "replan",
+      "to": "coach",
+      "label": "validated edit",
+      "variant": "dashed",
+      "role": "return"
+    },
+    {
+      "id": "coach-reply",
+      "from": "coach",
+      "to": "reply",
+      "label": "answer + action",
+      "variant": "emphasis",
+      "role": "return"
+    },
+    {
+      "id": "coach-gemini",
+      "from": "coach",
+      "to": "gemini",
+      "label": "LLM call",
+      "variant": "default",
+      "role": "main"
+    },
+    {
+      "id": "graph-index",
+      "from": "graph",
+      "to": "index",
+      "label": "embed query",
+      "variant": "dashed",
+      "role": "branch"
+    },
+    {
+      "id": "checkin-interrupt",
+      "from": "checkin",
+      "to": "interrupt",
+      "label": "question needed",
+      "variant": "dashed",
+      "role": "error"
+    },
+    {
+      "id": "interrupt-chat",
+      "from": "interrupt",
+      "to": "chat",
+      "label": "show question",
+      "variant": "dashed",
+      "role": "return"
+    },
+    {
+      "id": "chat-answer",
+      "from": "chat",
+      "to": "answer",
+      "label": "user answers",
+      "variant": "emphasis",
+      "role": "branch"
+    },
+    {
+      "id": "answer-graph",
+      "from": "answer",
+      "to": "graph",
+      "label": "resume",
+      "variant": "dashed",
+      "role": "return"
+    },
+    {
+      "id": "coach-answer",
+      "from": "coach",
+      "to": "answer",
+      "label": "yield · await answer",
+      "variant": "dashed",
+      "role": "error"
+    },
+    {
+      "id": "coach-fallback",
+      "from": "coach",
+      "to": "fallback",
+      "label": "out of scope",
+      "variant": "dashed",
+      "role": "error"
+    },
+    {
+      "id": "fallback-reply",
+      "from": "fallback",
+      "to": "reply",
+      "label": "redirect",
+      "variant": "dashed",
+      "role": "return"
+    },
+    {
+      "id": "graph-sessions",
+      "from": "graph",
+      "to": "sessions",
+      "label": "checkpoint",
+      "variant": "dashed",
+      "role": "branch"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Anchored reasoning",
+      "items": [
+        "Query is embedded against an ~860-entry exercise index; top 6 ground the answer",
+        "Check-in questions tune energy, pain and time before replanning or coaching"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Interrupt & resume",
+      "items": [
+        "A check-in question pauses the graph and returns 409 to the client",
+        "The user's answer is posted to /api/coach/answer, which resumes the thread",
+        "Out-of-scope requests redirect through a safe fallback instead of an LLM reply"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Persistence",
+      "items": [
+        "Sessions and messages are stored per device in PostgreSQL",
+        "LangGraph thread state lives in PostgreSQL checkpoints"
+      ]
+    }
+  ]
+}

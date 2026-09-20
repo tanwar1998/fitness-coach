@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "FitPulse Complete Site Map",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "primary-path",
+        "label": "Primary path",
+        "focus": ["users", "shell", "home", "progress", "api", "db"],
+        "note": "Follow a visitor from the browser into a page and down to persistent data."
+      },
+      {
+        "id": "app-server",
+        "label": "App + server",
+        "focus": ["api", "db", "wger", "ai"],
+        "note": "The shared Next.js API layer and its data and model dependencies."
+      }
+    ]
+  },
+  "components": [
+    { "id": "users", "type": "external", "label": "Users", "sublabel": "browser · phone", "pos": [40, 340], "size": [130, 66] },
+    { "id": "shell", "type": "frontend", "label": "App Shell", "sublabel": "sidebar · theme · logo", "tag": "FitPulse", "pos": [200, 323], "size": [170, 100] },
+    { "id": "home", "type": "frontend", "label": "Home", "sublabel": "/ · landing + cards", "pos": [460, 100], "size": [140, 64] },
+    { "id": "library", "type": "frontend", "label": "Exercise Library", "sublabel": "/pages/exercise", "pos": [630, 100], "size": [140, 64] },
+    { "id": "generator", "type": "frontend", "label": "Generate Workout", "sublabel": "/pages/generate-workout", "pos": [800, 100], "size": [140, 64] },
+    { "id": "videos", "type": "frontend", "label": "Video Library", "sublabel": "/pages/videos", "pos": [970, 100], "size": [140, 64] },
+    { "id": "disclaimer", "type": "frontend", "label": "Disclaimer", "sublabel": "/pages/disclaimer", "pos": [1140, 100], "size": [140, 64] },
+    { "id": "nutrition", "type": "frontend", "label": "Nutrition", "sublabel": "/pages/nutrition", "pos": [460, 280], "size": [140, 64] },
+    { "id": "injury", "type": "frontend", "label": "Injury Recovery", "sublabel": "/pages/injury-recovery", "pos": [630, 280], "size": [140, 64] },
+    { "id": "coach", "type": "frontend", "label": "AI Coach", "sublabel": "/pages/ai-coach", "pos": [800, 280], "size": [140, 64] },
+    { "id": "progress", "type": "frontend", "label": "Progress", "sublabel": "/pages/progress", "pos": [970, 280], "size": [140, 64] },
+    { "id": "session", "type": "frontend", "label": "Workout Session", "sublabel": "/pages/workout-session", "pos": [1140, 280], "size": [140, 64] },
+    { "id": "api", "type": "backend", "label": "Next.js API routes", "sublabel": "App Router · server code", "pos": [820, 520], "size": [240, 70] },
+    { "id": "db", "type": "database", "label": "PostgreSQL", "sublabel": "logs · goals · meals · chat", "pos": [820, 640], "size": [240, 70] },
+    { "id": "wger", "type": "external", "label": "wger", "sublabel": "exercise · food · video catalog", "pos": [560, 640], "size": [200, 70] },
+    { "id": "ai", "type": "cloud", "label": "AI providers", "sublabel": "Gemini · Grok · DeepSeek", "pos": [1080, 640], "size": [200, 70] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "FitPulse client · anonymous device", "wraps": ["shell", "home", "library", "generator", "videos", "disclaimer", "nutrition", "injury", "coach", "progress", "session"] },
+    { "kind": "region", "label": "FitPulse server", "wraps": ["api", "db"] },
+    { "kind": "region", "label": "External services", "wraps": ["wger", "ai"] }
+  ],
+  "connections": [
+    { "id": "users-shell", "from": "users", "to": "shell", "label": "HTTPS", "variant": "emphasis", "fromSide": "right", "toSide": "left" },
+    { "id": "shell-home", "from": "shell", "to": "home", "label": "renders Home", "fromSide": "right", "toSide": "bottom" },
+    { "id": "home-library", "from": "home", "to": "library", "label": "exercise link", "labelAt": [615, 178], "fromSide": "right", "toSide": "left" },
+    { "id": "home-coach", "from": "home", "to": "coach", "label": "AI coach link", "fromSide": "bottom", "toSide": "top" },
+    { "id": "coach-api", "from": "coach", "to": "api", "label": "chat + plan sessions", "fromSide": "bottom", "toSide": "top" },
+    { "id": "progress-api", "from": "progress", "to": "api", "label": "goals + stats", "fromSide": "bottom", "toSide": "top" },
+    { "id": "api-db", "from": "api", "to": "db", "label": "SQL", "labelAt": [940, 604], "variant": "emphasis", "fromSide": "bottom", "toSide": "top" },
+    { "id": "api-wger", "from": "api", "to": "wger", "label": "catalog fetch", "fromSide": "left", "toSide": "top" },
+    { "id": "api-ai", "from": "api", "to": "ai", "label": "LLM calls", "fromSide": "right", "toSide": "top" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "App shell", "items": ["Every page opens inside a shared shell with sidebar, theme and logo", "Home anchors feature cards that link to the library, progress and AI coach"] },
+    { "dot": "emerald", "title": "Server", "items": ["Next.js API routes are anonymous and device-scoped via an HttpOnly cookie", "PostgreSQL persists workout logs, goals, check-ins, meal entries and chat history"] },
+    { "dot": "amber", "title": "External data", "items": ["wger feeds exercise, food and video catalog data", "Gemini (default), Grok and DeepSeek back the AI coaching and meal parsing"] }
+  ]
+}
