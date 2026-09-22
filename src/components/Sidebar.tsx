@@ -458,7 +458,7 @@ export function Sidebar() {
       </aside>
 
       {/* Mobile: top bar + slide-in drawer */}
-      <div className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-foreground/15 px-4 md:hidden">
+      <div className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-foreground/15 bg-background px-4 md:hidden">
         <Link href="/" aria-label="FitPulse home" onClick={() => setMobileOpen(false)}>
           <Logo />
         </Link>

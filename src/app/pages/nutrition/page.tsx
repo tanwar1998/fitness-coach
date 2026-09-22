@@ -11,6 +11,7 @@ import type { LogResult } from "@/components/nutrition/LogEntryForm";
 import { CustomMealForm } from "@/components/nutrition/CustomMealForm";
 import type { CustomMealFormPayload } from "@/components/nutrition/CustomMealForm";
 import { MealLogList } from "@/components/nutrition/MealLogList";
+import { PhotoScan } from "@/components/nutrition/PhotoScan";
 import { loadIngredientInfo } from "@/lib/wger-data";
 import type { Ingredient } from "@/lib/wger-data";
 import {
@@ -633,6 +634,7 @@ export default function NutritionPage() {
   const [macroFilter, setMacroFilter] = useState<MacroFilter>("all");
   const [aiMode, setAiMode] = useState(false);
   const [customMode, setCustomMode] = useState(false);
+  const [scanMode, setScanMode] = useState(false);
   const [aiInput, setAiInput] = useState("");
   const [aiParsing, setAiParsing] = useState(false);
   const [aiError, setAiError] = useState<string | null>(null);
@@ -811,6 +813,30 @@ export default function NutritionPage() {
       } catch (err) {
         showToast(
           err instanceof Error ? err.message : "Could not log that custom meal.",
+        );
+      }
+    },
+    [showToast],
+  );
+
+  const handleScanLog = useCallback(
+    async (payload: CustomMealFormPayload) => {
+      try {
+        const entry = await addCustomMeal({
+          date: todayLocalISO(),
+          name: payload.name,
+          mealType: payload.mealType,
+          kcal: payload.kcal,
+          protein: payload.protein,
+          carbs: payload.carbs,
+          fat: payload.fat,
+        });
+        setDailyEntries((prev) => [...prev, entry]);
+        setScanMode(false);
+        showToast(`Logged ${payload.name} from the photo scan.`);
+      } catch (err) {
+        showToast(
+          err instanceof Error ? err.message : "Could not log that meal.",
         );
       }
     },
@@ -1132,6 +1158,7 @@ export default function NutritionPage() {
                   type="button"
                   onClick={() => {
                     setCustomMode(false);
+                    setScanMode(false);
                     setAiMode((v) => !v);
                     setAiError(null);
                   }}
@@ -1160,6 +1187,7 @@ export default function NutritionPage() {
                   type="button"
                   onClick={() => {
                     setAiMode(false);
+                    setScanMode(false);
                     setAiError(null);
                     setCustomMode((v) => !v);
                   }}
@@ -1185,6 +1213,36 @@ export default function NutritionPage() {
                   </svg>
                   Custom meal
                 </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setAiMode(false);
+                    setCustomMode(false);
+                    setAiError(null);
+                    setScanMode((v) => !v);
+                  }}
+                  className={`inline-flex items-center gap-2 rounded-sm px-3 py-1.5 text-xs font-semibold transition-colors ${
+                    scanMode
+                      ? "bg-primary text-primary-foreground"
+                      : "border border-foreground/25 text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                  }`}
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+                    <circle cx="12" cy="13" r="3" />
+                  </svg>
+                  Photo scan
+                </button>
               </div>
             </div>
 
@@ -1194,6 +1252,13 @@ export default function NutritionPage() {
                   defaultMealType={mealForDate(new Date())}
                   onSubmit={handleCustomMeal}
                   onCancel={() => setCustomMode(false)}
+                />
+              </div>
+            ) : scanMode ? (
+              <div className="rounded-sm border border-foreground/15 bg-muted/30 p-3 sm:p-4">
+                <PhotoScan
+                  onLog={handleScanLog}
+                  onCancel={() => setScanMode(false)}
                 />
               </div>
             ) : aiMode ? (
@@ -1261,7 +1326,7 @@ export default function NutritionPage() {
           </div>
         )}
 
-        {filtersOpen && !aiMode && !customMode && (
+        {filtersOpen && !aiMode && !customMode && !scanMode && (
           <div className="border-t border-foreground/15 p-5 pt-5 sm:px-6 sm:pb-6">
             <div className="space-y-6">
               {/* Macro target filter */}
