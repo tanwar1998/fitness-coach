@@ -79,6 +79,85 @@ renders/compiles through LangGraph's standard `StateGraph` API, so adding
 tool-calling providers later is a drop-in change. The packages are listed in
 `serverExternalPackages` in `next.config.ts` so they're not bundled by Next.js.
 
+### Intent-routed coach graph (v2, feature-flagged)
+
+`src/lib/server/ai/graph-v2.ts` adds an intent router on top of the same
+LangGraph primitives. It is OFF by default (`COACH_GRAPH_MODE=legacy`); the
+legacy plan-aware graph above keeps serving traffic until the v2 tests pass in
+your environment.
+
+<!-- coach-graph-v2:start -->
+<!-- Generated from the compiled graph by `npm run graph:diagram`. Do not edit by hand. -->
+
+```mermaid
+graph TD;
+	__start__ --> load_context;
+	confirm_pending_action --> guardrail;
+	confirm_workout_action --> guardrail;
+	general_chat --> guardrail;
+	generate_workout --> guardrail;
+	guardrail --> respond;
+	load_context --> router;
+	nutrition_qa --> guardrail;
+	progress_goals --> guardrail;
+	respond --> __end__;
+	router -.-> generate_workout;
+	router -.-> log_or_edit_workout;
+	router -.-> progress_goals;
+	router -.-> nutrition_qa;
+	router -.-> general_chat;
+	router -.-> confirm_pending_action;
+	log_or_edit_workout -.-> confirm_workout_action;
+	log_or_edit_workout -.-> guardrail;
+```
+<!-- coach-graph-v2:end -->
+
+`log_or_edit_workout` passes through `confirm_workout_action` before the
+guardrail because the graph pauses on `interrupt()` until the user confirms the
+write. The earlier hand-written diagram omitted that gate; the generated one is
+authoritative. Conditional edges are dotted because LangGraph's `drawMermaid()`
+does not emit their labels.
+
+- **Models by role** live in `src/ai/models.ts`: `router` (cheap/fast),
+  `planner` (structured plan work), `chat` (conversation). Each role has a
+  primary provider plus an automatic `.withFallbacks()` chain, and every call
+  logs the provider/model that answered.
+- **Tools** in `src/lib/server/ai/tools.ts` are thin wrappers around existing
+  services. `log_or_edit_workout` calls the same `workout-logs.ts` module as
+  `POST/DELETE /api/progress/workouts`, so "complete workout → auto-log → update
+  all mapped goals → undo" has exactly one implementation.
+- **Persistence** uses the app's Postgres database via
+  `@langchain/langgraph-checkpoint-postgres`; `thread_id` is the chat session id.
+  Set `COACH_CHECKPOINTER=memory` to use `MemorySaver` (dev/tests).
+- **Streaming** (`POST /api/coach/stream`) is behind `COACH_SSE_ENABLED=true` and
+  maps LangGraph `streamMode: "messages"` chunks to SSE `token` events, followed
+  by a `message` event with the final turn payload.
+
+Enable it with:
+
+```bash
+COACH_GRAPH_MODE=langgraph
+COACH_SSE_ENABLED=true        # optional, only for the SSE endpoint
+```
+
+#### Adding a graph node
+
+1. Add the intent to `INTENTS` in `src/lib/server/ai/intents.ts`.
+2. Write the node function in `graph-v2.ts` (return `output` and `messages`).
+3. Register it with `.addNode(...)` and add it to the `routeFromRouter` switch
+   and the conditional-edge map, plus the `guardrail → respond` edge.
+4. Add a router-accuracy case in `graph-v2.test.ts`.
+
+#### Adding a model provider
+
+1. Add the name to `MODEL_PROVIDERS` in `src/ai/models.ts`.
+2. Return its key/model/base URL from `providerEnv()`.
+3. Construct the LangChain chat model in `buildChatModel()` (use the provider's
+   `@langchain/*` package; OpenAI-compatible providers can reuse `ChatOpenAI`
+   with a `baseURL`).
+4. Add it to `AI_MODEL_FALLBACKS` and, optionally, set
+   `AI_<ROLE>_PROVIDER` / `AI_<ROLE>_MODEL` to make it a role's primary.
+
 ### Exercise retrieval (RAG)
 
 The coach is grounded in the wger exercise database instead of guessing exercise
@@ -133,11 +212,20 @@ npm run dev     # development server on http://localhost:3000
 | `DATABASE_SSL` | No | Set to `"true"` to enable SSL with relaxed verification |
 | `AI_PROVIDER` | No | `gemini` (default), `grok`, or `deepseek` |
 | `GOOGLE_GEMINI_KEY` | For Gemini | Google AI Studio API key |
-| `GEMINI_MODEL` | No | Defaults to `gemini-3.5-flash` |
+| `GEMINI_MODEL` | No | Defaults to `gemini-3.5-flash-lite` |
 | `EMBEDDING_MODEL` | No | Embedding model; defaults to `gemini-embedding-001` |
 | `EMBEDDING_DIMENSIONS` | No | Embedding vector length; defaults to `768` |
 | `GROK_API_KEY` | For Grok | xAI API key |
 | `DEEPSEEK_API_KEY` | For DeepSeek | DeepSeek API key |
+| `AI_ROUTER_PROVIDER` / `AI_ROUTER_MODEL` | No | v2 intent router; defaults to Gemini |
+| `AI_PLANNER_PROVIDER` / `AI_PLANNER_MODEL` | No | v2 plan/workout-action nodes |
+| `AI_CHAT_PROVIDER` / `AI_CHAT_MODEL` | No | v2 conversational nodes |
+| `AI_MODEL_FALLBACKS` | No | Comma-separated provider order, e.g. `gemini,deepseek,xai` |
+| `AI_REQUEST_TIMEOUT_MS` | No | Per-model-call timeout; defaults to `60000` |
+| `COACH_GRAPH_MODE` | No | `legacy` (default) or `langgraph` (v2) |
+| `COACH_CHECKPOINTER` | No | `memory` forces `MemorySaver`; default uses Postgres when `DATABASE_URL` is set |
+| `COACH_SSE_ENABLED` | No | `true` enables `POST /api/coach/stream` |
+| `LANGSMITH_TRACING` / `LANGSMITH_API_KEY` | No | Optional LangSmith tracing |
 
 ### Scripts
 

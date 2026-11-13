@@ -1,5 +1,6 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import type { GeneratedWorkout } from "@/lib/workout-generator";
 
 const KEY = "fitpulse:workout-history";
@@ -11,6 +12,74 @@ export interface WorkoutHistoryEntry {
   workout: GeneratedWorkout;
   status: WorkoutStatus;
   startedAt?: string;
+}
+
+const EMPTY_HISTORY: WorkoutHistoryEntry[] = [];
+const historyListeners = new Set<() => void>();
+let cachedRaw: string | null | undefined;
+let cachedEntries: WorkoutHistoryEntry[] = EMPTY_HISTORY;
+
+function notifyHistoryChanged() {
+  historyListeners.forEach((listener) => listener());
+}
+
+function subscribeHistory(listener: () => void) {
+  historyListeners.add(listener);
+  // Keep other tabs in sync, and pick up writes made outside these helpers
+  // (e.g. the exercise page clearing history).
+  const onStorage = (event: StorageEvent) => {
+    if (event.key === KEY) listener();
+  };
+  const onLocalChange = () => listener();
+  window.addEventListener("storage", onStorage);
+  window.addEventListener("workouts-changed", onLocalChange);
+  return () => {
+    historyListeners.delete(listener);
+    window.removeEventListener("storage", onStorage);
+    window.removeEventListener("workouts-changed", onLocalChange);
+  };
+}
+
+/**
+ * Cached snapshot: `useSyncExternalStore` compares with Object.is, so the
+ * parsed array must keep the same identity until localStorage actually changes.
+ */
+function getHistorySnapshot(): WorkoutHistoryEntry[] {
+  if (typeof window === "undefined") return EMPTY_HISTORY;
+  let raw: string | null = null;
+  try {
+    raw = window.localStorage.getItem(KEY);
+  } catch {
+    return EMPTY_HISTORY;
+  }
+  if (raw !== cachedRaw) {
+    cachedRaw = raw;
+    cachedEntries = safeParse(raw);
+  }
+  return cachedEntries;
+}
+
+function getHistoryServerSnapshot(): WorkoutHistoryEntry[] | undefined {
+  // `undefined` means "not read yet". Components use it to distinguish
+  // "still hydrating" from "genuinely empty" without reading localStorage
+  // during render (which caused a server/client hydration mismatch).
+  return undefined;
+}
+
+/**
+ * Subscribe to the workout history stored in localStorage.
+ *
+ * The server and the hydration render see `undefined`; React then re-renders
+ * with the stored history. This replaces both patterns that caused problems:
+ * reading localStorage in a `useState` initializer (hydration mismatch) and
+ * calling setState from a mount effect (cascading render, lint error).
+ */
+export function useWorkoutHistory(): WorkoutHistoryEntry[] | undefined {
+  return useSyncExternalStore(
+    subscribeHistory,
+    getHistorySnapshot,
+    getHistoryServerSnapshot,
+  );
 }
 
 function safeParse(value: string | null): WorkoutHistoryEntry[] {
@@ -42,6 +111,7 @@ function persist(entries: WorkoutHistoryEntry[]) {
       KEY,
       JSON.stringify(entries.slice(0, MAX_ENTRIES)),
     );
+    notifyHistoryChanged();
   } catch {
     // storage full or unavailable — ignore
   }

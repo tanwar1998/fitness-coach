@@ -5,6 +5,11 @@ import {
   invokeCoachMessage,
   resumeCoachAnswer,
 } from "./ai/coach-session";
+import {
+  invokeCoachMessageV2,
+  resumeCoachAnswerV2,
+} from "./ai/coach-session-v2";
+import { isGraphV2Enabled } from "./ai/config";
 import type {
   CoachConstraints,
   CoachTurnResult,
@@ -236,14 +241,28 @@ export async function sendCoachMessage(args: {
 
   const provider = resolveProvider(args.providerId);
 
-  const { turn } = await invokeCoachMessage({
-    threadId: args.threadId,
-    content: args.content,
-    providerId: provider.id,
-    profile: args.profile ?? null,
-    currentPlan: args.currentPlan,
-    constraints: args.constraints,
-  });
+  // Feature flag: COACH_GRAPH_MODE=langgraph runs the intent-routed v2 graph.
+  // Both paths return the same CoachTurnResult shape (API contract unchanged).
+  const { turn } = isGraphV2Enabled()
+    ? {
+        turn: await invokeCoachMessageV2({
+          threadId: args.threadId,
+          content: args.content,
+          userId: args.deviceId,
+          providerId: provider.id,
+          profile: args.profile ?? null,
+          currentPlan: args.currentPlan,
+          constraints: args.constraints,
+        }),
+      }
+    : await invokeCoachMessage({
+        threadId: args.threadId,
+        content: args.content,
+        providerId: provider.id,
+        profile: args.profile ?? null,
+        currentPlan: args.currentPlan,
+        constraints: args.constraints,
+      });
 
   await insertUserMessage(args.threadId, args.content, isFirst);
   if (turn.reply) {
@@ -267,11 +286,20 @@ export async function sendCoachAnswer(args: {
 
   const provider = resolveProvider(args.providerId);
 
-  const { turn } = await resumeCoachAnswer({
-    threadId: args.threadId,
-    answer: args.answer,
-    providerId: provider.id,
-  });
+  const { turn } = isGraphV2Enabled()
+    ? {
+        turn: await resumeCoachAnswerV2({
+          threadId: args.threadId,
+          answer: args.answer,
+          userId: args.deviceId,
+          providerId: provider.id,
+        }),
+      }
+    : await resumeCoachAnswer({
+        threadId: args.threadId,
+        answer: args.answer,
+        providerId: provider.id,
+      });
 
   await insertUserMessage(args.threadId, args.answer, false);
   if (turn.reply) {

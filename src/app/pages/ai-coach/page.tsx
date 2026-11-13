@@ -19,7 +19,7 @@ import type { CoachQuestion, WorkoutPlan } from "@/lib/coach-types";
 import { fetchInjuries, BODY_REGION_LABELS } from "@/lib/injury-recovery";
 import { computeReadinessScore, fetchCheckIns } from "@/lib/injury-recovery";
 import { WORKOUT_GOALS, type WorkoutGoal } from "@/lib/workout-generator";
-import { loadHistory } from "@/lib/workout-history";
+import { useWorkoutHistory } from "@/lib/workout-history";
 
 const GOAL_LABELS: Record<WorkoutGoal, string> = Object.fromEntries(
   WORKOUT_GOALS.map((option) => [option.value, option.label]),
@@ -48,14 +48,18 @@ export default function AiCoachPage() {
   const [injuryLabel, setInjuryLabel] = useState<string | null>(null);
   const [readinessScore, setReadinessScore] = useState<number | null>(null);
   const [threadUi, setThreadUi] = useState<Record<string, ThreadUiState>>({});
-  const [goalLabel] = useState<string>(() => {
-    const latest = loadHistory()[0]?.workout;
-    return latest?.goal ? GOAL_LABELS[latest.goal] : "General fitness";
-  });
-  const [seedPlan] = useState<WorkoutPlan | null>(() => {
-    const latest = loadHistory()[0]?.workout;
-    return latest ? workoutToPlanInput(latest) : null;
-  });
+  // Derived from the history store rather than read during render: the server
+  // renders "General fitness" and the client swaps in the stored goal after
+  // hydration, so the two renders agree.
+  const history = useWorkoutHistory();
+  const latestWorkout = history?.[0]?.workout;
+  const goalLabel = latestWorkout?.goal
+    ? GOAL_LABELS[latestWorkout.goal]
+    : "General fitness";
+  const seedPlan = useMemo(
+    () => (latestWorkout ? workoutToPlanInput(latestWorkout) : null),
+    [latestWorkout],
+  );
 
   useEffect(() => {
     let cancelled = false;

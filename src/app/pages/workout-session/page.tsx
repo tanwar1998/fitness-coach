@@ -8,8 +8,8 @@ import { Button } from "@/components/Button";
 import type { GeneratedExercise } from "@/lib/workout-generator";
 import { estimateWorkout } from "@/lib/workout-generator";
 import {
-  loadHistory,
   markCompleted,
+  useWorkoutHistory,
 } from "@/lib/workout-history";
 import type { WorkoutHistoryEntry } from "@/lib/workout-history";
 import {
@@ -23,10 +23,15 @@ function SessionView() {
   const searchParams = useSearchParams();
   const workoutId = searchParams?.get("id") ?? null;
 
-  const [entry] = useState<WorkoutHistoryEntry | null | undefined>(() => {
+  // `undefined` = still hydrating. The history store returns `undefined` on the
+  // server/first render, so the server HTML and client agree (an entry resolved
+  // from localStorage during render used to cause a hydration mismatch).
+  const history = useWorkoutHistory();
+  const entry = useMemo<WorkoutHistoryEntry | null | undefined>(() => {
     if (workoutId == null) return null;
-    return loadHistory().find((e) => e.workout.id === workoutId) ?? null;
-  });
+    if (!history) return undefined;
+    return history.find((e) => e.workout.id === workoutId) ?? null;
+  }, [history, workoutId]);
 
   const estimate = useMemo(
     () => (entry ? estimateWorkout(entry.workout) : null),

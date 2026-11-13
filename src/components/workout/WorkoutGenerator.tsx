@@ -22,10 +22,10 @@ import type {
 } from "@/lib/workout-generator";
 import { computeReadinessScore, fetchCheckIns } from "@/lib/injury-recovery";
 import {
-  loadHistory,
   markStarted,
   removeFromHistory,
   upsertWorkout,
+  useWorkoutHistory,
 } from "@/lib/workout-history";
 import type { WorkoutHistoryEntry } from "@/lib/workout-history";
 
@@ -101,9 +101,8 @@ export function WorkoutGenerator() {
   const [preset, setPreset] = useState<EquipmentPreset>("full");
 
   const [workout, setWorkout] = useState<GeneratedWorkout | null>(null);
-  const [history, setHistory] = useState<WorkoutHistoryEntry[]>(() =>
-    loadHistory(),
-  );
+  // Hydration-safe: renders empty on the server, then the stored history.
+  const history = useWorkoutHistory() ?? [];
   const [picker, setPicker] = useState<PickerState | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<WorkoutHistoryEntry | null>(
     null,
@@ -146,7 +145,7 @@ export function WorkoutGenerator() {
       lighter: opts.lighter ?? lighterVersion,
     });
     setWorkout(next);
-    setHistory(upsertWorkout(next));
+    upsertWorkout(next);
   };
 
   const handleSelect = (exercise: PickerResult) => {
@@ -166,7 +165,7 @@ export function WorkoutGenerator() {
       );
       const next = { ...workout, exercises: [...workout.exercises, added] };
       setWorkout(next);
-      setHistory(upsertWorkout(next));
+      upsertWorkout(next);
     } else if (picker && typeof picker.index === "number") {
       const slot = workout.exercises[picker.index];
       const swapped = buildWgerExercise(
@@ -184,7 +183,7 @@ export function WorkoutGenerator() {
       exercises[picker.index] = swapped;
       const next = { ...workout, exercises };
       setWorkout(next);
-      setHistory(upsertWorkout(next));
+      upsertWorkout(next);
     }
     setPicker(null);
   };
@@ -194,12 +193,12 @@ export function WorkoutGenerator() {
     const exercises = workout.exercises.filter((_, i) => i !== index);
     const next = { ...workout, exercises };
     setWorkout(next);
-    setHistory(upsertWorkout(next));
+    upsertWorkout(next);
   };
 
   const handleStart = () => {
     if (!workout) return;
-    setHistory(markStarted(workout.id));
+    markStarted(workout.id);
     router.push(`/pages/workout-session?id=${encodeURIComponent(workout.id)}`);
   };
 
@@ -217,7 +216,6 @@ export function WorkoutGenerator() {
     const targetId = deleteTarget.workout.id;
     setDeleteTarget(null);
     removeFromHistory(targetId);
-    setHistory(loadHistory());
     window.dispatchEvent(new Event("workouts-changed"));
     if (workout?.id === targetId) setWorkout(null);
   };

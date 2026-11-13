@@ -13,12 +13,17 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "build:index": "tsx scripts/build-exercise-index.ts",
-    "test:retrieval": "tsx scripts/test-retrieval.ts"
+    "test:retrieval": "tsx scripts/test-retrieval.ts",
+    "graph:diagram": "tsx scripts/generate-graph-diagram.ts",
+    "graph:diagram:check": "tsx scripts/generate-graph-diagram.ts --check"
   },
   "dependencies": {
-    "@langchain/core": "^1.2.9",
+    "@langchain/core": "^1.4.0",
+    "@langchain/google-genai": "^2.3.6",
     "@langchain/langgraph": "^1.4.14",
     "@langchain/langgraph-checkpoint-postgres": "^1.0.5",
+    "@langchain/openai": "^1.8.4",
+    "@langchain/xai": "^1.5.6",
     "next": "16.3.0",
     "pg": "^8.23.0",
     "react": "19.2.8",

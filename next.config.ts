@@ -4,7 +4,16 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
   cacheComponents: true,
-  serverExternalPackages: ["pg", "@langchain/core", "@langchain/langgraph"],
+  serverExternalPackages: [
+    "pg",
+    "@langchain/core",
+    "@langchain/langgraph",
+    "@langchain/langgraph-checkpoint",
+    "@langchain/langgraph-checkpoint-postgres",
+    "@langchain/google-genai",
+    "@langchain/openai",
+    "@langchain/xai",
+  ],
   experimental: {
     turbopackChunking: {
       minChunkSize: 30000,

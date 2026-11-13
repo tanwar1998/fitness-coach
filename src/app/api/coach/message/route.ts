@@ -70,7 +70,21 @@ export async function POST(request: Request) {
       return Response.json({ error: error.message }, { status: 409 });
     }
     if (error instanceof AiProviderError) {
-      return Response.json({ error: error.message }, { status: 502 });
+      // Upstream provider messages can contain account ids, raw payloads and
+      // stack frames. Log the detail where operators can see it, but give the
+      // user a stable, non-leaking response.
+      console.error("Coach message failed: no AI provider could answer", {
+        requestedProvider: provider ?? "(default)",
+        providerError: error.message,
+        stack: error.stack,
+      });
+      return Response.json(
+        {
+          error:
+            "All AI providers are unavailable right now. Please try again in a moment.",
+        },
+        { status: 503 },
+      );
     }
     if (error instanceof Error && error.message.includes("not found")) {
       return Response.json({ error: error.message }, { status: 404 });
